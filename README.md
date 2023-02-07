@@ -1,1 +1,2 @@
-Initial
+-   Clone the repository https://github.com/alfianchii/aplikasi-pelaporan-pengaduan-masyarakat
+-   Install dependencies using the Composer of your choice. For example run composer install
