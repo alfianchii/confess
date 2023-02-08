@@ -11,7 +11,7 @@
 
 ---
 
-## Pengunaan
+## Pemasangan
 
 ### Instalasi
 
@@ -21,6 +21,6 @@
 -   Jalankan server (artisan) dengan `php artisan serve --port=8081`
 -   Buka `http://localhost:8081`
 
-## Pembuat
+## Author
 
 SiLapor dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.
