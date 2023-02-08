@@ -14,7 +14,7 @@
 
 ### Installation
 
--   Clone the repository `git clone https://github.com/alfianchii/silapor`
+-   Clone repositori ini `git clone https://github.com/alfianchii/silapor`
 -   Install dependencies using the Composer of your choice. For example run `composer install`
 -   Lakukan migrasi dengan `php artisan migrate --seed`
 -   Jalankan server (artisan) dengan `php artisan serve --port=8081`
