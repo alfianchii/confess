@@ -5,6 +5,7 @@
 <div align="center">
 
 [![All Contributors](https://img.shields.io/github/contributors/alfianchii/silapor)](https://github.com/alfianchii/silapor/graphs/contributors)
+![GitHub last commit](https://img.shields.io/github/last-commit/alfianchii/silapor)
 
 </div>
 
