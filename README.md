@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[![All Contributors](https://img.shields.io/github/contributors/alfianchii/aplikasi-pelaporan-pengaduan-masyarakat)](https://github.com/alfianchii/aplikasi-pelaporan-pengaduan-masyarakat/graphs/contributors)
+[![All Contributors](https://img.shields.io/github/contributors/alfianchii/silapor)](https://github.com/alfianchii/silapor/graphs/contributors)
 
 </div>
 
