@@ -10,17 +10,16 @@
 
 ---
 
-## Usage
+## Pengunaan
 
-### Installation
+### Instalasi
 
--   Clone the repository `git clone https://github.com/alfianchii/silapor`
--   Create a database scheme which named `silapor` in your database
--   Install dependencies using the composer of your choice. For example run `composer install`
--   Migrate the migrations with `php artisan migrate --seed`
--   Run server (artisan) with `php artisan serve --port=8081`
--   Open `http://localhost:8081`
+-   Clone repositori ini `git clone https://github.com/alfianchii/silapor`
+-   Instal dependensi-dependensi menggunakan composer. Sebagai contoh, jalankan `composer install`
+-   Lakukan migrasi dengan `php artisan migrate --seed`
+-   Jalankan server (artisan) dengan `php artisan serve --port=8081`
+-   Buka `http://localhost:8081`
 
-## Author
+## Pembuat
 
-SiLapor was created by <a href="https://instagram.com/alfianchii">Alfian</a> and <a href="https://instagram.com/nata_ardhana">Surya</a>.
+SiLapor dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.
