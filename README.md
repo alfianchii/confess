@@ -18,3 +18,5 @@
 -   Install dependencies using the Composer of your choice. For example run `composer install`
 
 ## Author
+
+SiLapor is created by <a href="https://instagram.com/alfianchii">Alfian</a> and <a href="https://instagram.com/nata_ardhana">Surya</a>.
