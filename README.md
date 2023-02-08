@@ -2,12 +2,6 @@
 
 <p align="center">SiLapor adalah aplikasi pelaporan pengaduan masyarakat yang memungkinkan warga untuk melaporkan masalah dan keluhan mereka secara online</p>
 
-<div align="center">
-
-[![All Contributors](https://img.shields.io/github/contributors/alfianchii/aplikasi-pelaporan-pengaduan-masyarakat)](https://github.com/alfianchii/aplikasi-pelaporan-pengaduan-masyarakat/graphs/contributors)
-
-</div>
-
 ---
 
 ## Usage
