@@ -2,13 +2,22 @@
 
 <p align="center">SiLapor adalah aplikasi pelaporan pengaduan masyarakat yang memungkinkan warga untuk melaporkan masalah dan keluhan mereka secara online</p>
 
+<<<<<<< HEAD
+=======
+<div align="center">
+
+[![All Contributors](https://img.shields.io/github/contributors/alfianchii/silapor)](https://github.com/alfianchii/silapor/graphs/contributors)
+
+</div>
+
+>>>>>>> readme
 ---
 
 ## Usage
 
 ### Installation
 
--   Clone the repository `git clone https://github.com/alfianchii/aplikasi-pelaporan-pengaduan-masyarakat`
+-   Clone the repository `git clone https://github.com/alfianchii/silapor`
 -   Install dependencies using the Composer of your choice. For example run `composer install`
 -   Run server (artisan) with `php artisan serve --port=8081`
 -   Open `http://localhost:8081`
