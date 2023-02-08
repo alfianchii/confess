@@ -10,9 +10,9 @@
 
 ---
 
-## Usage
+## Pengunaan
 
-### Installation
+### Instalasi
 
 -   Clone repositori ini `git clone https://github.com/alfianchii/silapor`
 -   Instal dependensi-dependensi menggunakan composer. Sebagai contoh, jalankan `composer install`
@@ -20,6 +20,6 @@
 -   Jalankan server (artisan) dengan `php artisan serve --port=8081`
 -   Buka `http://localhost:8081`
 
-## Author
+## Pembuat
 
 SiLapor dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.
