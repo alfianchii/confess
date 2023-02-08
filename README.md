@@ -22,4 +22,4 @@
 
 ## Author
 
-SiLapor was created by <a href="https://instagram.com/alfianchii">Alfian</a> and <a href="https://instagram.com/nata_ardhana">Surya</a>.
+SiLapor dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.
