@@ -26,6 +26,10 @@
 -   Clone repositori ini `git clone https://github.com/alfianchii/confess`
 -   Instal dependensi menggunakan composer dan npm. Jalankan `composer install` lalu `npm install`
 -   Instal [Vite](https://vitejs.dev/) dan [Laravel Vite Plugin](https://www.npmjs.com/package/laravel-vite-plugin) menggunakan npm `npm install --save-dev vite laravel-vite-plugin`
+-   Untuk melakukan konfigurasi pada Vite, buka `vite.config.js`
+-   Lakukan migrasi dengan `php artisan migrate --seed`
+-   Jalankan server (artisan) dengan `php artisan serve --port=8081`
+-   Buka `http://localhost:8081`
 
 ## Author
 
