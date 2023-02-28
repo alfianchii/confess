@@ -25,6 +25,7 @@
 
 -   Clone repositori ini `git clone https://github.com/alfianchii/confess`
 -   Instal dependensi menggunakan composer dan npm. Jalankan `composer install` lalu `npm install`
+-   Instal [Vite](https://vitejs.dev/) dan [Laravel Vite Plugin](https://www.npmjs.com/package/laravel-vite-plugin) menggunakan npm `npm install --save-dev vite laravel-vite-plugin`
 
 ## Author
 
