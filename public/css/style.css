@@ -1,0 +1,21 @@
+html,
+body {
+	height: 100%;
+}
+a {
+	text-decoration: none;
+}
+.bg {
+	background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(64.88deg, rgba(141, 255, 248, 0.79) 8.43%, rgba(79, 181, 255, 0.79) 92.27%);
+}
+
+.height {
+	height: 100%;
+}
+
+.btn-color {
+	background-color: #1e97af;
+}
+.btn-color:hover {
+	background-color: #25adc8;
+}
