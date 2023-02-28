@@ -24,6 +24,7 @@
 ### Pengembangan dengan Vite
 
 -   Clone repositori ini `git clone https://github.com/alfianchii/confess`
+-   Instal dependensi menggunakan composer dan npm. Jalankan `composer install` lalu `npm install`
 
 ## Author
 
