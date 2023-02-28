@@ -21,6 +21,10 @@
 -   Jalankan server (artisan) dengan `php artisan serve --port=8081`
 -   Buka `http://localhost:8081`
 
+### Pengembangan dengan Vite
+
+-   Clone repositori ini `git clone https://github.com/alfianchii/confess`
+
 ## Author
 
 Confess dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.
