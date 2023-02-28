@@ -1,6 +1,6 @@
 <h1 align="center">Aplikasi Pelaporan Pengaduan Masyarakat</h1>
 
-<p align="center">SiLapor adalah aplikasi pelaporan pengaduan masyarakat yang memungkinkan warga untuk melaporkan masalah dan keluhan mereka secara online</p>
+<p align="center">SiLapor adalah aplikasi pelaporan pengaduan masyarakat yang memungkinkan warga untuk melaporkan masalah dan keluhan mereka secara online</p>.
 
 <div align="center">
 
