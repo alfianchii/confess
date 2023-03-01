@@ -16,25 +16,8 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
 
-            $table->dateTime('date');
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->string('student_nik');
-            $table->unsignedBigInteger('category_id');
-            $table->text('body');
-            $table->string("image")->nullable();
-            $table->enum("place", ["out", "in"]);
-            $table->enum("status", ["0", "1", "2"]);
-
-            $table->foreign("student_nik")
-                ->references("user_nik")
-                ->on("students")
-                ->onDelete("cascade");
-
-            $table->foreign("category_id")
-                ->references("id")
-                ->on("categories")
-                ->onDelete("cascade");
+            $table->string("name");
+            $table->string("slug")->unique();
 
             $table->timestamps();
         });
