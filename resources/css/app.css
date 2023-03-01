@@ -24,3 +24,26 @@ a {
 .btn-color:hover {
     background-color: #25adc8;
 }
+
+.margin-form {
+    margin: 0 140px;
+}
+
+.logo-login img {
+    width: 20%;
+}
+.illus-login img {
+    width: 60%;
+}
+
+@media only screen and (max-width: 820px) {
+    .margin-form {
+        margin: 0 20px;
+    }
+    .logo-login img {
+        width: 30%;
+    }
+    .illus-login img {
+        width: 50%;
+    }
+}

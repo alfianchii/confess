@@ -16,18 +16,18 @@
 </head>
 
 <body>
-    <div class="row d-flex height">
-        <div class="col-5 bg">
-            <div class="w-100 ms-5 mt-3 mb-5">
+    <div class="row d-block d-sm-flex height">
+        <div class="col-12 col-sm-5 bg">
+            <div class="0 ms-5 pt-3 mb-2 mb-sm-5 logo-login">
                 <img src="../images/logoT.png" alt="illustrasi" width="20%" />
             </div>
-            <div class="text-center">
+            <div class="text-center illus-login">
                 <img src="../images/illust.png" alt="logo" width="60%" />
             </div>
         </div>
-        <div class="col-7">
-            <h1 class="w-100 fw-bold text-center mt-5 pt-5 fs-3">MASUK</h1>
-            <div class="card mt-5 p-4 border-start-0 border-end-0" style="margin: 0 140px">
+        <div class="col-12 col-sm-7">
+            <h1 class="w-100 fw-bold text-center mt-4 mt-sm-5 p-0 pt-sm-5 fs-3">MASUK</h1>
+            <div class="card mt-5 p-sm-4 p-2 border-start-0 border-end-0 margin-form">
                 <div class="card-body">
                     <form action="" method="post" class="my-4">
                         <div class="mb-4">
