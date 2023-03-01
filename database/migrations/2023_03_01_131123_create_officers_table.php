@@ -14,7 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('officers', function (Blueprint $table) {
-            $table->id();
+            $table->string('user_nik');
+            $table->string('nip', 18)->nullable();
+
+            $table->foreign("user_nik")
+                ->references("nik")
+                ->on("users")
+                ->onDelete("cascade");
+
             $table->timestamps();
         });
     }
