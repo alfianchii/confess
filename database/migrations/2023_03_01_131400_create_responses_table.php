@@ -15,6 +15,21 @@ return new class extends Migration
     {
         Schema::create('responses', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger("complaint_id");
+            $table->dateTime('date');
+            $table->text('body');
+            $table->string("officer_nik");
+
+            $table->foreign("complaint_id")
+                ->references("id")
+                ->on("complaints")
+                ->onDelete("cascade");
+            $table->foreign("officer_nik")
+                ->references("user_nik")
+                ->on("officers")
+                ->onDelete("cascade");
+
             $table->timestamps();
         });
     }
