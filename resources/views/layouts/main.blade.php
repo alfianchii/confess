@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>{{ config('app.name') }} | {{ $title }}</title>
+
+    @include('partials.link')
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
