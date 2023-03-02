@@ -22,4 +22,5 @@ Route::get('/about', function () {
     return view('about', ["title" => "About Us"]);
 });
 
-Route::get("/login", [AuthController::class, "index"]);
+Route::get("/login", [AuthController::class, "index"])->middleware("guest");
+Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
