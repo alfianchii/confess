@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
             "level" => "student",
         ]);
         User::create([
-            "nik" => "",
+            "nik" => "1234512345667890",
             "name" => "Fauzi Abdullah",
             "username" => "fauzy",
             "email" => "fauzyabdullah@gmail.com",
