@@ -9,7 +9,17 @@
             </div>
 
             <div class="col-12 mb-3">
+                <section class="section text-center">
+                    <div class="card">
+                        <div class="card-header">
 
+                        </div>
+
+                        <div class="card-body">
+
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
     </div>
