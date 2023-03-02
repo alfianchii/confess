@@ -17,7 +17,9 @@
 </head>
 
 <body>
+    <script src="assets/js/initTheme.js"></script>
 
+    @include('partials.script')
 </body>
 
 </html>
