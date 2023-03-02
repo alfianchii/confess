@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             "password" => Hash::make("password"),
             "level" => 'admin',
         ]);
-
         User::create([
             "nik" => "1234561234567890",
             "name" => "Surya Nata",
@@ -33,6 +32,13 @@ class DatabaseSeeder extends Seeder
             "email" => "surya.dev@gmail.com",
             "password" => Hash::make("password"),
             "level" => "student",
+        ]);
+        User::create([
+            "nik" => "",
+            "name" => "Fauzi Abdullah",
+            "username" => "fauzy",
+            "email" => "fauzyabdullah@gmail.com",
+            "password" => Hash::make("password"),
         ]);
     }
 }
