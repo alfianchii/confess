@@ -21,6 +21,12 @@
 
     <div id="app">
         @include('layouts.navbar')
+
+        <div id="main" class="m-0">
+            <div class="container">
+                @yield('content')
+            </div>
+        </div>
     </div>
 
     @include('partials.script')
