@@ -19,6 +19,10 @@
 <body>
     <script src="assets/js/initTheme.js"></script>
 
+    <div id="app">
+        @include('layouts.navbar')
+    </div>
+
     @include('partials.script')
 </body>
 
