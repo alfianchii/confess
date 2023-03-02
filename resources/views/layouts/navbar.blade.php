@@ -33,7 +33,7 @@
 
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link {{ Request::is('login') ? 'text-muted' : '' }}" href="/login">Login</a>
                     </li>
                 @endguest
 
