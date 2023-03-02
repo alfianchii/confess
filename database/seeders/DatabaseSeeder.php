@@ -39,6 +39,7 @@ class DatabaseSeeder extends Seeder
             "username" => "fauzy",
             "email" => "fauzyabdullah@gmail.com",
             "password" => Hash::make("password"),
+            "level" => "officer",
         ]);
     }
 }
