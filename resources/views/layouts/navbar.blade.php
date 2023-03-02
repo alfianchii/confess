@@ -7,7 +7,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="nav me-auto mb-2 mb-lg-0">
-
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('/') ? 'text-muted' : '' }}" href="/">Beranda</a>
+                </li>
             </ul>
 
             <ul class="nav">
