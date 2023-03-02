@@ -10,6 +10,9 @@
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('/') ? 'text-muted' : '' }}" href="/">Beranda</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('about') ? 'text-muted' : '' }}" href="/about">Tentang</a>
+                </li>
             </ul>
 
             <ul class="nav">
