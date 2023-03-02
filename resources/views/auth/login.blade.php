@@ -17,7 +17,7 @@
 
                         <div class="card-body">
                             <div class="row d-flex justify-content-center">
-                                <div class="col-6">
+                                <div class="col-8 col-md-6">
                                     <form action="/login" method="post">
                                         @csrf
 
