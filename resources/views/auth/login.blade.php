@@ -16,6 +16,29 @@
                         </div>
 
                         <div class="card-body">
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-6">
+                                    <form action="/login" method="post">
+                                        @csrf
+
+                                        <div class="form-group mb-3">
+                                            <label for="username">Username</label>
+                                            <small class="text-muted">eg.<i>alfianchii</i></small>
+                                            <input type="text" class="form-control mt-1" id="username"
+                                                name="username" />
+                                        </div>
+
+                                        <div class="form-group mb-3">
+                                            <label for="password">Password</label>
+                                            <small class="text-muted">eg.<i>p4k3n4ny4</i></small>
+                                            <input type="password" class="form-control mt-1" id="password"
+                                                name="password" />
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
