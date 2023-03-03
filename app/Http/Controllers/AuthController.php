@@ -22,10 +22,10 @@ class AuthController extends Controller
         if (Auth::attempt(["username" => $credentials["username"], "password" => $credentials['password']])) {
             $request->session()->regenerate();
 
-            return redirect()->intended('/')->with("success", "Login success");
+            return redirect()->intended('/')->with("success", "Login berhasil!");
         }
 
-        return back()->with("error", "Login failed");
+        return back()->with("error", "Login gagal");
     }
 
     public function logout(Request $request)
@@ -35,6 +35,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect("/")->with("success", "Logout success");
+        return redirect("/")->with("success", "Logout berhasil!");
     }
 }
