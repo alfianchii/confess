@@ -16,6 +16,10 @@ class IsOfficer
      */
     public function handle(Request $request, Closure $next)
     {
+        if (auth()->guest() or auth()->user()->level != "officer") {
+            abort(403);
+        }
+
         return $next($request);
     }
 }
