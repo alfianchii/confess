@@ -10,6 +10,11 @@
 <body>
     <div id="app">
         <div id="main" class="layout-navbar navbar-fixed">
+            <header class="mb-3">
+                {{-- Navbar --}}
+                @include('dashboard.layouts.navbar')
+            </header>
+
             <div id="main-content">
                 <div class="page-heading">
                     <div class="page-title">
