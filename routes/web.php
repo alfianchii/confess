@@ -24,3 +24,4 @@ Route::get('/about', function () {
 
 Route::get("/login", [AuthController::class, "index"])->middleware("guest");
 Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
+Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
