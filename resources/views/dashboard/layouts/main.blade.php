@@ -109,6 +109,8 @@
             </div>
         </div>
     </div>
+
+    @include('partials.script')
 </body>
 
 </html>
