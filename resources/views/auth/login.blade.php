@@ -14,11 +14,12 @@
             <img src="../images/illust.png" alt="logo" width="60%" />
         </div>
     </div>
+
     <div class="col-12 col-sm-7">
         <div class="text-end pt-4 me-3 me-sm-5 d-sm-block d-none">
             <a href="/" class="text-secondary">Kembali</a>
         </div>
-        <h1 class="w-100 fw-bold text-center text-dark mt-5 mt-sm-0 p-0 pt-sm-5 fs-3">MASUK</h1>
+        <h1 class="w-100 fw-bold text-center mt-5 mt-sm-0 p-0 pt-sm-5 fs-3">MASUK</h1>
         @if (session()->has('error'))
             <div class="alert alert-danger alert-dismissible show fade">
                 {{ session('error') }}
@@ -49,12 +50,12 @@
                             </div>
                         @enderror
                         <div class="text-end mt-3">
-                            <a href="# " class="form-text">lupa password?</a>
+                            <a href="# " class="form-text">Lupa password?</a>
                         </div>
 
                     </div>
                     <div class="text-start mt-5">
-                        <button type="submit" class="w-100 btn-color btn text-white btn-primary p-2">masuk</button>
+                        <button type="submit" class="w-100 btn-color btn text-white btn-primary p-2">Masuk</button>
                     </div>
                 </form>
             </div>
