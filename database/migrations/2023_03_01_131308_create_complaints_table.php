@@ -19,9 +19,10 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('title');
             $table->string('slug')->unique();
+            $table->text('body');
+            $table->string('excerpt', 50);
             $table->string('student_nik');
             $table->unsignedBigInteger('category_id');
-            $table->text('body');
             $table->string("image")->nullable();
             $table->enum("place", ["out", "in"]);
             $table->enum("status", ["0", "1", "2"]);
