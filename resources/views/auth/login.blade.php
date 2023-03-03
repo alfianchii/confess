@@ -6,6 +6,13 @@
             <div class="col-12 mb-3">
                 <h2>Login</h2>
                 <p class="text-subtitle">Masuk dengan akun yang sudah didaftarkan oleh Admin.</p>
+
+                @if (session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
 
             <div class="col-12 mb-3">
