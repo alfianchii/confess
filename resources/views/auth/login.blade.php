@@ -24,8 +24,15 @@
                                         <div class="form-group mb-3">
                                             <label for="username">Username</label>
                                             <small class="text-muted">eg.<i>alfianchii</i></small>
-                                            <input type="text" class="form-control mt-1" id="username"
-                                                name="username" />
+                                            <input type="text"
+                                                class="form-control mt-1 @error('username') is-invalid @enderror"
+                                                id="username" name="username" value="{{ old('username') }}" />
+
+                                            @error('username')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group mb-3">
