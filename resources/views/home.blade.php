@@ -14,7 +14,7 @@
                 @endif
             </div>
 
-            <div class="col-12 mb-3">
+            <div class="col-12">
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id sequi quidem cumque iusto
                     laborum alias ut modi minima expedita sed? Natus earum ipsum, iusto veritatis quidem
                     pariatur soluta cum dolore, quis mollitia dolorem neque debitis quisquam illo sint omnis
