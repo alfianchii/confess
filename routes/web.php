@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AuthController};
+use App\Http\Controllers\{AuthController, DashboardController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +25,5 @@ Route::get('/about', function () {
 Route::get("/login", [AuthController::class, "index"])->middleware("guest");
 Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
 Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
+
+Route::get("/dashboard", [DashboardController::class, 'index'])->middleware("auth");
