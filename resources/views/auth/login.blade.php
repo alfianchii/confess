@@ -38,8 +38,15 @@
                                         <div class="form-group mb-3">
                                             <label for="password">Password</label>
                                             <small class="text-muted">eg.<i>p4k3n4ny4</i></small>
-                                            <input type="password" class="form-control mt-1" id="password"
-                                                name="password" />
+                                            <input type="password"
+                                                class="form-control mt-1 @error('password') is-invalid @enderror"
+                                                id="password" name="password" />
+
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">Login</button>
