@@ -22,7 +22,7 @@ Route::get('/about', function () {
     return view('about', ["title" => "About Us"]);
 });
 
-Route::get("/login", [AuthController::class, "index"])->middleware("guest");
+Route::get("/login", [AuthController::class, "index"])->name("login")->middleware("guest");
 Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
 Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
