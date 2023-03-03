@@ -9,6 +9,9 @@
 
 <body>
     <div id="app">
+        {{-- Sidebar --}}
+        @include('dashboard.layouts.sidebar')
+
         <div id="main" class="layout-navbar navbar-fixed">
             <header class="mb-3">
                 {{-- Navbar --}}
