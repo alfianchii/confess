@@ -6,6 +6,13 @@
             <div class="col-12 mb-3">
                 <h2>Login</h2>
                 <p class="text-subtitle">Masuk dengan akun yang sudah didaftarkan oleh Admin.</p>
+
+                @if (session()->has('error'))
+                    <div class="alert alert-danger alert-dismissible show fade">
+                        {{ session('error') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
 
             <div class="col-12 mb-3">
@@ -24,15 +31,29 @@
                                         <div class="form-group mb-3">
                                             <label for="username">Username</label>
                                             <small class="text-muted">eg.<i>alfianchii</i></small>
-                                            <input type="text" class="form-control mt-1" id="username"
-                                                name="username" />
+                                            <input type="text"
+                                                class="form-control mt-1 @error('username') is-invalid @enderror"
+                                                id="username" name="username" value="{{ old('username') }}" />
+
+                                            @error('username')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <div class="form-group mb-3">
                                             <label for="password">Password</label>
                                             <small class="text-muted">eg.<i>p4k3n4ny4</i></small>
-                                            <input type="password" class="form-control mt-1" id="password"
-                                                name="password" />
+                                            <input type="password"
+                                                class="form-control mt-1 @error('password') is-invalid @enderror"
+                                                id="password" name="password" />
+
+                                            @error('password')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
                                         </div>
 
                                         <button type="submit" class="btn btn-primary">Login</button>

@@ -5,6 +5,13 @@
         <section class="row">
             <div class="col-12 mb-3">
                 <h2>Beranda</h2>
+
+                @if (session()->has('success'))
+                    <div class="alert alert-success alert-dismissible show fade mt-4">
+                        {{ session('success') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
             </div>
 
             <div class="col-12 mb-3">
