@@ -19,7 +19,7 @@
                 @auth
                     <li class="nav-item dropdown me-3">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false"> Welcome back, {{ auth()->user()->name }}!</a>
+                            aria-expanded="false"> Selamat datang, {{ auth()->user()->name }}!</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                             <li>
