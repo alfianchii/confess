@@ -16,6 +16,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (auth()->guest() or auth()->user()->level != "admin") {
+            abort(403);
+        }
+
         return $next($request);
     }
 }
