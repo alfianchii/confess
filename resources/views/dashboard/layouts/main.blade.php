@@ -20,7 +20,7 @@
                 @include('dashboard.layouts.navbar')
             </header>
 
-            <div id="main-content">
+            <div id="main-content" class="pb-0">
                 @yield('content')
 
                 @include('layouts.footer')
