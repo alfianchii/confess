@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('complaints', function (Blueprint $table) {
             $table->id();
 
-            $table->dateTime('date');
+            $table->date('date');
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('body');
-            $table->string('excerpt', 50);
+            $table->text('excerpt');
             $table->string('student_nik');
             $table->unsignedBigInteger('category_id');
             $table->string("image")->nullable();
