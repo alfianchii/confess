@@ -8,4 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Response extends Model
 {
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $guarded = [
+        'id',
+    ];
+
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class);
+    }
+
+    public function complaint()
+    {
+        return $this->belongsTo(Complaint::class);
+    }
 }
