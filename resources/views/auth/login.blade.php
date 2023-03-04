@@ -6,7 +6,7 @@
             <a href="/" class=" ms-3 ms-sm-5 pt-3 mb-2 mb-sm-5 logo-login">
                 <img src="../images/logoT.png" alt="illustrasi" width="20%" />
             </a>
-            <div class="text-end me-3 ms-sm-5 pt-3 mb-2 mb-sm-5 d-block d-sm-none">
+            <div class="text-end me-3 ms-sm-5 pt-4 pt-sm-3 mb-2 mb-sm-5 d-block d-sm-none">
                 <a href="/" class="text-white opacity-75">Kembali</a>
             </div>
         </div>
