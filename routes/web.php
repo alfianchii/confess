@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{AuthController, DashboardController};
+use App\Http\Controllers\{AuthController, ComplaintController, DashboardController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,3 +27,5 @@ Route::post("/login", [AuthController::class, "authenticate"])->middleware("gues
 Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
 Route::get("/dashboard", [DashboardController::class, 'index'])->middleware("auth");
+
+Route::get("/dashboard/complaints", [ComplaintController::class, "index"])->middleware("student");
