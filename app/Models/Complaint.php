@@ -18,6 +18,11 @@ class Complaint extends Model
         'id',
     ];
 
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
     public function student()
     {
         return $this->belongsTo(Student::class, "student_nik");
