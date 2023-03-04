@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="overflow-x: hidden">
 
 <head>
     <meta charset="utf-8">
@@ -23,13 +23,9 @@
         @include('layouts.navbar')
 
         {{-- <div id="main" class="m-0 py-0"> --}}
-        <div class="px-4">
-            <div class="container">
-                @yield('content')
+        @yield('content')
 
-                @include('layouts.footer')
-            </div>
-        </div>
+        @include('layouts.footer')
     </div>
 
     @include('partials.script')
