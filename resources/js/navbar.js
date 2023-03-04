@@ -1,5 +1,4 @@
 const navBar = document.getElementById("navbar");
-const navCont = document.getElementById("navCont");
 
 function scroll() {
     let calc = window.scrollY; // mendapatkan posisi scroll dari atas ke bawah
@@ -20,21 +19,21 @@ window.onscroll = () => {
     scroll();
 };
 
-const nav = document.querySelector(".navbar");
-let showTimeout = null;
+// const nav = document.querySelector(".navbar");
+// let showTimeout = null;
 
-window.addEventListener("scroll", function () {
-    hideNav();
+// window.addEventListener("scroll", function () {
+//     hideNav();
 
-    if (showTimeout !== null) {
-        this.clearTimeout(showTimeout);
-    }
-    showTimeout = this.setTimeout(showNav, 100);
-});
+//     if (showTimeout !== null) {
+//         this.clearTimeout(showTimeout);
+//     }
+//     showTimeout = this.setTimeout(showNav, 100);
+// });
 
-function hideNav() {
-    nav.style.top = "-100px";
-}
-function showNav() {
-    nav.style.top = "0";
-}
+// function hideNav() {
+//     nav.style.top = "-100px";
+// }
+// function showNav() {
+//     nav.style.top = "0";
+// }
