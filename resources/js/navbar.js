@@ -1,12 +1,13 @@
 const navBar = document.getElementById("navbar");
-
-function scroll() {
-    let calc = window.scrollY; // mendapatkan posisi scroll dari atas ke bawah
-    if (calc > 250) {
-        // jika posisi scroll lebih dari 0 pixel
+const hamburgerBtn = document.querySelector(".navbar-toggler");
+hamburgerBtn.addEventListener("click", function () {
+    navBar.classList.toggle("active");
+});
+function scroll(e) {
+    let calc = window.scrollY;
+    if (calc > 380) {
         navBar.classList.replace("bg-transparent", "bg-nav");
-    } else if (calc <= 250) {
-        // jika posisi scroll sama dengan 0 pixel
+    } else if (calc <= 380) {
         navBar.classList.replace("bg-nav", "bg-transparent");
     }
 }
