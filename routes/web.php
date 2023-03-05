@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/about', function () {
-    return view('about', ["title" => "About Us"]);
+    return view('about', ["title" => "Tentang"]);
 });
 
 Route::get("/login", [AuthController::class, "index"])->name("login")->middleware("guest");
@@ -28,4 +28,4 @@ Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
 Route::get("/dashboard", [DashboardController::class, 'index'])->middleware("auth");
 
-Route::get("/dashboard/complaints", [ComplaintController::class, "index"])->middleware("student");
+Route::resource("/dashboard/complaints", ComplaintController::class)->middleware("student");
