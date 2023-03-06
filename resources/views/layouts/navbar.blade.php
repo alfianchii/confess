@@ -1,34 +1,39 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
-    <div class="container">
-        <a class="navbar-brand text-muted" href="/">Confess</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent text-white fixed-top" id="navbar">
+    <div class="container" id="navCont">
+        <a class=" text-muted logo" href="/">
+            <img src="../images/logoT.png" alt="logo confess" width="20%">
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="nav me-auto mb-2 mb-lg-0">
+            <ul class="nav ms-auto mb-2 mb-lg-0 d-block d-sm-flex">
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('/') ? 'text-muted' : '' }}" href="/">Beranda</a>
+                    <a class="nav-link text-white {{ Request::is('/') ? 'border-bottom border-3 fw-bold' : '' }}"
+                        href="/">Beranda</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ Request::is('about') ? 'text-muted' : '' }}" href="/about">Tentang</a>
+                    <a class="nav-link text-white {{ Request::is('about') ? 'border-bottom border-3 fw-bold' : '' }}"
+                        href="/about">Tentang</a>
                 </li>
             </ul>
 
             <ul class="nav">
                 @auth
                     <li class="nav-item dropdown me-3">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false"> Selamat datang, {{ auth()->user()->name }}!</a>
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"> Selamat datang, {{ auth()->user()->name }}!</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item text-white" href="/dashboard">Dashboard</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
                                 <form action="/logout" method="post">
                                     @csrf
-                                    <button type="submit" class="dropdown-item">Logout</button>
+                                    <button type="submit" class="dropdown-item text-white">Logout</button>
                                 </form>
                             </li>
                         </ul>
@@ -37,13 +42,14 @@
 
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link {{ Request::is('login') ? 'text-muted' : '' }}" href="/login">Login</a>
+                        <a class="nav-link text-white {{ Request::is('login') ? 'border-bottom border-3 fw-bold' : '' }}"
+                            href="/login">Login</a>
                     </li>
                 @endguest
 
                 {{-- Light/Dark mode --}}
                 <li class="nav-item ms-3">
-                    <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
+                    <div class="theme-toggle d-flex gap-2 align-items-center mt-2 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
                             height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
