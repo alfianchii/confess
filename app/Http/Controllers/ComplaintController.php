@@ -192,6 +192,8 @@ class ComplaintController extends Controller
 
     public function checkSlug(Request $request)
     {
-        
+        $slug = SlugService::createSlug(Complaint::class, "slug", $request->title);
+
+        return response()->json(["slug" => $slug]);
     }
 }
