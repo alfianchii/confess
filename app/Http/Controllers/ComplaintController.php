@@ -31,7 +31,10 @@ class ComplaintController extends Controller
      */
     public function create()
     {
-        
+        return view("dashboard.complaints.create", [
+            "title" => "Buat Keluhan",
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
@@ -42,7 +45,32 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $credentials = $request->validate([
+            "title" => ["required", "max:255"],
+            "slug" => ["required", "unique:complaints"],
+            "date" => ["required", "date", "date_format:Y-m-d"],
+            "category_id" => ["required"],
+            "place" => ["required"],
+            "image" => ["image", "file", "max:1024"],
+            "body" => ["required"],
+        ]);
+
+        // Convert slug into id
+        $credentials["category_id"] = Category::where('slug', $credentials["category_id"])->first()->id;
+
+        if ($request->file("image")) {
+            $credentials["image"] = $request->file("image")->store('complaint-images');
+        }
+
+        $credentials["student_nik"] = auth()->user()->nik ?? null;
+        $credentials["excerpt"] = Str::limit(strip_tags($request->body), 200, ' ...');
+
+        try {
+            $complaint = Complaint::create($credentials);
+            return redirect('/dashboard/complaints/' . $complaint->slug)->with('success', 'Keluhan kamu berhasil dibuat!');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/complaints')->withErrors('Keluhan kamu gagal dibuat.');
+        }
     }
 
     /**
