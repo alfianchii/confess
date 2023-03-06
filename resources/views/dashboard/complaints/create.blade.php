@@ -9,6 +9,219 @@
 @endsection
 
 @section('content')
+    <div class="page-heading mb-0">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Buat Keluhan</h3>
+                    <p class="text-subtitle text-muted">
+                        Ceritakan keluhan yang kamu miliki.
+                    </p>
+                    <hr>
+                    <div class="mb-4">
+                        <a href="/dashboard/complaints" class="btn btn-secondary me-1"><span
+                                data-feather="arrow-left"></span>
+                            Kembali</a>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/dashboard/complaints">Complaints</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Create
+                            </li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <section id="multiple-column-form">
+            <div class="row match-height">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title mb-0">Kronologi</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form class="form" action="/dashboard/complaints" method="POST" data-parsley-validate
+                                    enctype="multipart/form-data">
+                                    @csrf
+
+                                    <div class="row">
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div
+                                                class="form-group has-icon-left mandatory @error('title') is-invalid @enderror">
+                                                <label for="title" class="form-label">Judul</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder="Judul keluhan" id="title" name="title"
+                                                        value="{{ old('title') }}" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-card-heading py-2"></i>
+                                                    </div>
+                                                    @error('title')
+                                                        <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div
+                                                class="form-group has-icon-left mandatory @error('slug') is-invalid @enderror">
+                                                <label for="slug" class="form-label">Slug</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control py-2" placeholder="Slugable"
+                                                        id="slug" name="slug" value="{{ old('slug') }}" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-pencil py-2"></i>
+                                                    </div>
+                                                    @error('slug')
+                                                        <div class="parsley-error filled" id="parsley-id-2" aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div
+                                                class="form-group has-icon-left mandatory @error('date') is-invalid @enderror">
+                                                <label for="date" class="form-label">Date</label>
+                                                <div class="position-relative">
+                                                    <input type="date" class="form-control py-2"
+                                                        placeholder="Judul keluhan" id="date" name="date"
+                                                        value="{{ old('date') }}" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-calendar-day py-2"></i>
+                                                    </div>
+                                                    @error('date')
+                                                        <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div class="form-group mandatory">
+                                                <label for="categories" class="form-label">Kategori</label>
+                                                <select class="choices form-select" id="categories" name="category_id">
+                                                    <optgroup label="Kategori">
+                                                        @forelse ($categories as $category)
+                                                            <option @if (old('category_id') == $category->slug) selected @endif
+                                                                value="{{ $category->slug }}">
+                                                                {{ $category->name }}</option>
+                                                        @empty
+                                                            <option>No category</option>
+                                                        @endforelse
+                                                    </optgroup>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <div
+                                                class="form-group mandatory @error('place') text-danger is-invalid @enderror">
+                                                <fieldset>
+                                                    <label class="form-label">
+                                                        Tempat Kejadian
+                                                    </label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="place"
+                                                            id="place-in" value="in"
+                                                            @if (old('place') == 'in') checked @endif />
+                                                        <label class="form-check-label form-label" for="place-in">
+                                                            Dalam sekolah
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="place"
+                                                            id="place-out" value="out"
+                                                            @if (old('place') == 'out') checked @endif />
+                                                        <label class="form-check-label form-label" for="place-out">
+                                                            Luar sekolah
+                                                        </label>
+                                                    </div>
+                                                </fieldset>
+                                                @error('place')
+                                                    <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
+                                                        <span class="parsley-required">{{ $message }}</span>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <div class="form-group ">
+                                                <div class="position-relative">
+                                                    <label for="image"
+                                                        class="form-label @error('image') is-invalid @enderror">Foto</label>
+
+                                                    <!-- Image preview -->
+                                                    <img class="img-preview img-fluid mb-3 col-sm-5 rounded">
+                                                    <!-- File uploader with image preview -->
+                                                    <input class="form-control @error('image') is-invalid @enderror"
+                                                        type="file" id="image" name="image">
+
+                                                    @error('image')
+                                                        <div class="parsley-error filled" id="parsley-id-3"
+                                                            aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <div class="form-group mandatory @error('body') is-invalid @enderror">
+                                                <div class="position-relative">
+                                                    <label for="body" class="form-label">Isi Keluhan</label>
+
+                                                    <input id="body" name="body" value="{{ old('body') }}"
+                                                        type="hidden">
+                                                    <div id="editor">
+                                                        {!! old('body') !!}
+                                                    </div>
+
+                                                    @error('body')
+                                                        <div class="parsley-error filled" id="parsley-id-3"
+                                                            aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mt-2 d-flex justify-content-start">
+                                            <button type="submit" class="btn btn-primary me-1 mb-1">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 @endsection
 
 @section('scripts')
