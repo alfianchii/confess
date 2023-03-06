@@ -26,6 +26,10 @@ Route::get("/login", [AuthController::class, "index"])->name("login")->middlewar
 Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
 Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
-Route::get("/dashboard", [DashboardController::class, 'index'])->middleware("auth");
+Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
+    Route::get("/", [DashboardController::class, 'index'])->middleware("auth");
 
-Route::resource("/dashboard/complaints", ComplaintController::class)->middleware("student");
+    Route::get("/complaints/checkSlug", [ComplaintController::class, "checkSlug"]);
+
+    Route::resource("/complaints", ComplaintController::class)->middleware("student");
+});

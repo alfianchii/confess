@@ -17,7 +17,17 @@ class ComplaintFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "date" => $this->faker->date("Y-m-d"),
+            "title" => $this->faker->sentence(mt_rand(2, 5)),
+            "slug" => $this->faker->slug(),
+            "body" => collect($this->faker->paragraphs(mt_rand(5, 10)))
+                ->map(fn ($p) => "<p>$p</p>")
+                ->implode(""),
+            "excerpt" => $this->faker->sentence(mt_rand(5, 7)),
+            "student_nik" => $this->faker->randomElement(["1234561234567890"]),
+            "category_id" => $this->faker->randomElement([1, 2, 3]),
+            "place" => $this->faker->randomElement(["out", "in"]),
+            "status" => $this->faker->randomElement(["0", "1", "2"]),
         ];
     }
 }
