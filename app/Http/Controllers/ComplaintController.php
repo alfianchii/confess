@@ -83,7 +83,58 @@ class ComplaintController extends Controller
      */
     public function update(Request $request, Complaint $complaint)
     {
-        
+        $rules = [
+            "title" => ["required", "max:255"],
+            "category_id" => ["required"],
+            "image" => ["image", "file", "max:1024"],
+            "date" => ["required", "date", "date_format:Y-m-d"],
+            "body" => ["required"],
+            "place" => ["required"],
+        ];
+
+        if ($request->slug != $complaint->slug) {
+            $rules["slug"] = ["required", "unique:complaints"];
+        }
+
+        $credentials = $request->validate($rules);
+
+        // Convert slug into id
+        $credentials["category_id"] = Category::where('slug', $credentials["category_id"])->first()->id;
+
+        if ($request->file("image")) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+
+            $credentials["image"] = $request->file("image")->store('complaint-images');
+        }
+
+        $credentials["student_nik"] = auth()->user()->nik ?? null;
+        $credentials["excerpt"] = Str::limit(strip_tags($request->body), 200, ' ...');
+
+        try {
+            // $complaint = Complaint::where("id", $complaint->id)->update($credentials);
+            // Get the new and old of $complaint
+            $complaintOld = $complaint->fresh();
+            $complaint->update($credentials);
+            $complaintNew = $complaint->fresh();
+
+            // Get the old and new versions of the model as arrays
+            $oldAttributes = $complaintOld->getAttributes();
+            $newAttributes = $complaintNew->getAttributes();
+
+            // Compare the arrays to see if any attributes have changed
+            if ($oldAttributes === $newAttributes) {
+                // The instance of the $complaint record has not been updated
+                return redirect('/dashboard/complaints/' . $complaint->slug)->with('info', 'Kamu tidak melakukan editing pada keluhan.');
+            }
+
+            // The instance of the $complaint record has been updated
+            return redirect('/dashboard/complaints/' . $complaint->slug)->with('success', 'Keluhan kamu berhasil di-edit!');
+        } catch (\Exception $e) {
+            // If something was wrong ...
+            return redirect('/dashboard/complaints')->withErrors('Keluhan kamu gagal di-edit.');
+        }
     }
 
     /**
