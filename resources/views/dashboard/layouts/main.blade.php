@@ -10,6 +10,8 @@
 </head>
 
 <body>
+    <script src="{{ asset('assets/js/initTheme.js') }}"></script>
+
     <div id="app">
         {{-- Sidebar --}}
         @include('dashboard.layouts.sidebar')
