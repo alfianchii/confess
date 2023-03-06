@@ -18,6 +18,10 @@ class ComplaintController extends Controller
      */
     public function index()
     {
+        return view("dashboard.complaints.index", [
+            "title" => "Complaints",
+            "complaints" => Complaint::all(),
+        ]);
     }
 
     /**
@@ -27,6 +31,7 @@ class ComplaintController extends Controller
      */
     public function create()
     {
+        
     }
 
     /**
@@ -37,6 +42,7 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
+        
     }
 
     /**
@@ -47,6 +53,7 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
+        
     }
 
     /**
@@ -57,6 +64,7 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
+        
     }
 
     /**
@@ -68,6 +76,7 @@ class ComplaintController extends Controller
      */
     public function update(Request $request, Complaint $complaint)
     {
+        
     }
 
     /**
@@ -97,5 +106,6 @@ class ComplaintController extends Controller
 
     public function checkSlug(Request $request)
     {
+        
     }
 }
