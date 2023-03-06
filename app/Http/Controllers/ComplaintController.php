@@ -53,7 +53,10 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
-        
+        return view("dashboard.complaints.show", [
+            "title" => ucwords($complaint->title),
+            "complaint" => $complaint,
+        ]);
     }
 
     /**
