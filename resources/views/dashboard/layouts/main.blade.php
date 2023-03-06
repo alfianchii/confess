@@ -7,7 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name') }} | {{ $title }}</title>
 
-    @include('partials.link')
+    {{-- Base links --}}
+    @include('dashboard.partials.link')
+    {{-- Necessary links --}}
+    @yield('links')
 </head>
 
 <body>
@@ -31,7 +34,12 @@
         </div>
     </div>
 
-    @include('partials.script')
+    {{-- Base scripts --}}
+    @include('dashboard.partials.script')
+    {{-- Necessary scripts --}}
+    @yield('scripts')
+    {{-- realrashid/sweetalert --}}
+    @include('sweetalert::alert')
 </body>
 
 </html>
