@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\User;
+use App\Models\{User, Complaint, Category};
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -41,5 +41,20 @@ class DatabaseSeeder extends Seeder
             "password" => Hash::make("password"),
             "level" => "officer",
         ]);
+
+        Category::create([
+            "name" => "Oppression",
+            "slug" => "oppression",
+        ]);
+        Category::create([
+            "name" => "Sexual Harassment",
+            "slug" => "sexual-harassment",
+        ]);
+        Category::create([
+            "name" => "Bully",
+            "slug" => "bully",
+        ]);
+
+        Complaint::factory(12)->create();
     }
 }
