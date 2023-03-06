@@ -67,7 +67,11 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
-        
+        return view("dashboard.complaints.edit", [
+            "title" => "Edit",
+            "complaint" => $complaint,
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
