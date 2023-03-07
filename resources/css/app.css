@@ -53,7 +53,7 @@ body.theme-dark .navbar {
 }
 
 .margin-form {
-    margin: 0 140px;
+    margin: 0 120px;
 }
 
 .logo {
@@ -76,7 +76,7 @@ body.theme-dark .navbar {
 
 @media only screen and (max-width: 767px) {
     .margin-form {
-        margin: 0 12px;
+        margin: 0 15px;
     }
     .logo {
         width: 74%;
@@ -103,5 +103,8 @@ body.theme-dark .navbar {
 @media only screen and (min-width: 768px) and (max-width: 990px) {
     .logo {
         width: 45%;
+    }
+    .margin-form {
+        margin: 0 20px;
     }
 }
