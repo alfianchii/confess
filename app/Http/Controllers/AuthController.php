@@ -25,7 +25,7 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard')->with("success", "Login berhasil!");
         }
 
-        return back()->with("error", "Login gagal");
+        return redirect('/login')->withErrors('Login gagal');
     }
 
     public function logout(Request $request)
