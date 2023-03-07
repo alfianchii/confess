@@ -16,6 +16,9 @@
     </div>
 
     @include('partials.script')
+    {{-- SweetAlert --}}
+    <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    @include('sweetalert::alert')
 </body>
 
 </html>
