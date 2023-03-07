@@ -29,7 +29,7 @@
 -   Untuk melakukan konfigurasi pada Vite, buka `vite.config.js`
 -   Lakukan migrasi dengan `php artisan migrate --seed`
 -   Jalankan server (artisan) dengan `php artisan serve --port=8081`
--   Jalankan Vite dengan `npm run dev`
+-   Jalankan Vite dengan `npm run watch`
 -   Buka `http://localhost:8081`
 
 ## Author
