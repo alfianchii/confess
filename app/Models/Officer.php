@@ -21,7 +21,7 @@ class Officer extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, "nik");
+        return $this->belongsTo(User::class, "officer_nik");
     }
 
     public function responses()
