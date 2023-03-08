@@ -5,6 +5,35 @@ body {
 a {
     text-decoration: none;
 }
+.bg.footer {
+    height: 100%;
+}
+.bg-home {
+    width: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(
+            243.3deg,
+            rgba(141, 255, 248, 0.79) 0%,
+            rgba(79, 181, 255, 0.79) 100%
+        );
+    height: 650px;
+    position: relative;
+}
+.illust-home {
+    z-index: 10;
+    position: relative;
+}
+.poligon {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 0px;
+    width: 0;
+    border-bottom: solid 500px #f2f7ff;
+    border-left: solid 800px transparent;
+    border-right: solid 0px transparent;
+    z-index: 2;
+}
 .bg-transparent.active {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         linear-gradient(
@@ -24,9 +53,9 @@ a {
 .bg {
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
         linear-gradient(
-            64.88deg,
-            rgba(141, 255, 248, 0.79) 8.43%,
-            rgba(79, 181, 255, 0.79) 92.27%
+            245.76deg,
+            rgba(141, 255, 248, 0.79) 3.25%,
+            rgba(79, 181, 255, 0.79) 100%
         );
 }
 .bg-about {
