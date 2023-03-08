@@ -26,7 +26,7 @@ return new class extends Migration
                 ->on("complaints")
                 ->onDelete("cascade");
             $table->foreign("officer_nik")
-                ->references("user_nik")
+                ->references("officer_nik")
                 ->on("officers")
                 ->onDelete("cascade");
 

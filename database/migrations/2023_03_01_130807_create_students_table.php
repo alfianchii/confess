@@ -14,10 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->string('user_nik');
+            $table->string('student_nik')->primary();
             $table->string('nisn', 10)->nullable();
 
-            $table->foreign("user_nik")
+            $table->foreign("student_nik")
                 ->references("nik")
                 ->on("users")
                 ->onDelete("cascade");

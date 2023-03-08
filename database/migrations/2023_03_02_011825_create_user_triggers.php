@@ -20,10 +20,10 @@ return new class extends Migration
             ON users FOR EACH ROW
             BEGIN
                 IF NEW.level = "student" THEN
-                    INSERT INTO students (user_nik)
+                    INSERT INTO students (student_nik)
                     VALUES (NEW.nik);
                 ELSEIF NEW.level = "officer" OR NEW.level = "admin" THEN
-                    INSERT INTO officers (user_nik)
+                    INSERT INTO officers (officer_nik)
                     VALUES (NEW.nik);
                 END IF;
             END;
