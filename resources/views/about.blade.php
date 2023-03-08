@@ -25,9 +25,8 @@
                         Masing-masing organisasi penyelenggara mengelola pengaduan secara parsial dan tidak terkoordinir
                         dengan baik. Akibatnya terjadi duplikasi penanganan pengaduan, atau bahkan bisa terjadi suatu
                         pengaduan tidak ditangani oleh satupun organisasi penyelenggara, dengan alasan pengaduan bukan
-                        kewenangannya. Oleh karena itu, untuk mencapai visi dalam good governance maka perlu untuk
-                        mengintegrasikan sistem pengelolaan pengaduan pelayanan publik dalam satu pintu. Tujuannya, Warga
-                        sekolah memiliki satu saluran pengaduan secara Nasional.
+                        kewenangannya. Oleh karena itu, perlu untuk mengintegrasikan sistem pengelolaan pengaduan pelayanan
+                        publik dalam satu pintu. Tujuannya, Warga sekolah memiliki satu saluran pengaduan secara Nasional.
                     </p>
 
                     <div class="text-center">
