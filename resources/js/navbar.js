@@ -3,7 +3,7 @@ const hamburgerBtn = document.querySelector(".navbar-toggler");
 hamburgerBtn.addEventListener("click", function () {
     navBar.classList.toggle("active");
 });
-function scroll(e) {
+function scroll() {
     let calc = window.scrollY;
     if (calc > 380) {
         navBar.classList.replace("bg-transparent", "bg-nav");
