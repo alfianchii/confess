@@ -27,7 +27,7 @@ Route::post("/login", [AuthController::class, "authenticate"])->middleware("gues
 Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
-    Route::get("/", [DashboardController::class, 'index'])->middleware("auth");
+    Route::get("/", [DashboardController::class, 'index']);
 
     Route::get("/complaints/checkSlug", [ComplaintController::class, "checkSlug"]);
 

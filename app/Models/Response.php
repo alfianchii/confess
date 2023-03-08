@@ -18,6 +18,11 @@ class Response extends Model
         'id',
     ];
 
+    // protected $with = [
+    //     'officer',
+    //     'complaint',
+    // ];
+
     public function officer()
     {
         return $this->belongsTo(Officer::class);

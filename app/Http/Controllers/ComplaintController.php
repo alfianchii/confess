@@ -18,9 +18,11 @@ class ComplaintController extends Controller
      */
     public function index()
     {
+        $complaints = Complaint::where('student_nik', auth()->user()->nik)->get();
+
         return view("dashboard.complaints.index", [
             "title" => "Complaints",
-            "complaints" => Complaint::all(),
+            "complaints" => $complaints,
         ]);
     }
 
@@ -84,6 +86,7 @@ class ComplaintController extends Controller
         return view("dashboard.complaints.show", [
             "title" => ucwords($complaint->title),
             "complaint" => $complaint,
+            "responses" => $complaint->responses,
         ]);
     }
 

@@ -21,7 +21,7 @@ class Student extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, "nik");
+        return $this->belongsTo(User::class, "student_nik");
     }
 
     public function complaints()

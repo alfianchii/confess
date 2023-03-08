@@ -24,7 +24,7 @@ class ComplaintFactory extends Factory
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
             "excerpt" => $this->faker->sentence(mt_rand(5, 7)),
-            "student_nik" => $this->faker->randomElement(["1234561234567890"]),
+            "student_nik" => $this->faker->randomElement(["1234561234567890", "1234556789061234", "5678901234561234"]),
             "category_id" => $this->faker->randomElement([1, 2, 3]),
             "place" => $this->faker->randomElement(["out", "in"]),
             "status" => $this->faker->randomElement(["0", "1", "2"]),

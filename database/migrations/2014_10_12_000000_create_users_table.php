@@ -21,8 +21,10 @@ return new class extends Migration
             $table->string('nik', 16);
             $table->string('name', 50);
             $table->string('username')->unique();
+            $table->enum('gender', ["L", "P"]);
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string("image")->nullable();
             $table->string('password');
             $table->enum('level', ["student", "officer", 'admin']);
 

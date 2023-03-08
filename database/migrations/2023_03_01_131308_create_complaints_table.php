@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum("status", ["0", "1", "2"]);
 
             $table->foreign("student_nik")
-                ->references("user_nik")
+                ->references("student_nik")
                 ->on("students")
                 ->onDelete("cascade");
 

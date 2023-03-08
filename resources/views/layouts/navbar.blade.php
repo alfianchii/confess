@@ -26,14 +26,14 @@
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"> Selamat datang, {{ auth()->user()->name }}!</a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item text-white" href="/dashboard">Dashboard</a></li>
+                            <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
                             <li>
                                 <hr class="dropdown-divider" />
                             </li>
                             <li>
                                 <form action="/logout" method="post">
                                     @csrf
-                                    <button type="submit" class="dropdown-item text-white">Logout</button>
+                                    <button type="submit" class="dropdown-item">Logout</button>
                                 </form>
                             </li>
                         </ul>
