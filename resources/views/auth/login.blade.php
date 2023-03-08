@@ -4,14 +4,14 @@
     <div class="col-12 col-sm-5 bg pt-3">
         <div class=" d-flex pt-3 pt-sm-0 align-items-center">
             <a href="/" class=" ms-3 ms-sm-5 me-auto  mb-2 mb-sm-5 logo-login">
-                <img src="../images/logoT.png" alt="illustrasi" width="20%" />
+                <img src="{{ asset('images/logoT.png') }}" alt="illustrasi" width="20%" />
             </a>
             <div class="text-end me-3 ms-sm-5 mb-2 mb-sm-5 d-block d-sm-none">
                 <a href="/" class="text-white opacity-75">Kembali</a>
             </div>
         </div>
         <div class="text-center illus-login">
-            <img src="../images/illust.png" alt="logo" width="60%" />
+            <img src="{{ asset('images/illust.png') }}" alt="logo" width="60%" />
         </div>
     </div>
 

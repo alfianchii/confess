@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-transparent text-white fixed-top" id="navbar">
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
-            <img src="../images/logoT.png" alt="logo confess" width="20%">
+            <img src="{{ asset('images/logoT.png') }}" alt="logo confess" width="20%">
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"

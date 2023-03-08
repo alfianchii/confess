@@ -13,7 +13,7 @@
                             </p>
                         </div>
                         <div class="col text-end">
-                            <img src="../images/cloud storage.png" alt="illustrasi laptop" class="illust-home"
+                            <img src="{{ asset('images/cloud storage.png') }}" alt="illustrasi laptop" class="illust-home"
                                 width="70%">
                         </div>
                     </div>

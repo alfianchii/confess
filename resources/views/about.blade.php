@@ -6,7 +6,7 @@
             <div class="col-12 mb-3 header-about bg-about">
                 <div class="container text-center mt-4 mt-sm-5">
                     <h1 class="text-white">Apa itu confess?</h1>
-                    <img src="../images/about.png" alt="about illustration" class="illust-about">
+                    <img src="{{ asset('images/about.png') }}" alt="about illustration" class="illust-about">
                 </div>
             </div>
 
