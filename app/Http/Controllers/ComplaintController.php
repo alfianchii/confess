@@ -18,9 +18,11 @@ class ComplaintController extends Controller
      */
     public function index()
     {
+        $complaints = Complaint::where('student_nik', auth()->user()->nik)->get();
+
         return view("dashboard.complaints.index", [
             "title" => "Complaints",
-            "complaints" => Complaint::all(),
+            "complaints" => $complaints,
         ]);
     }
 
