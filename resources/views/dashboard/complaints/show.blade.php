@@ -47,11 +47,15 @@
         </div>
 
         <section class="section">
-            <div class="card">
+            {{-- Complaint --}}
+            <div class="card mb-5">
                 <div class="card-header">
-                    <h4 class="card-title text-center">{{ $complaint->title }}</h4>
+                    <h3 class="card-title">Keluhan</h3>
                 </div>
                 <div class="card-body">
+                    <div class="text-center mb-3">
+                        <h4>{{ $complaint->title }}</h4>
+                    </div>
                     <div class="d-flex justify-content-center">
                         <div class="me-4">
                             <p>
@@ -157,6 +161,41 @@
                     <p>
                         {!! $complaint->body !!}
                     </p>
+                </div>
+            </div>
+            {{-- Response --}}
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Tanggapan</h3>
+                </div>
+                <div class="card-body">
+                    @forelse ($responses as $response)
+                        <div class="row g-0 px-4 mt-3 mb-4 pb-2">
+                            <div class="col-md-2 d-flex align-items-center">
+                                <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
+                                    class="img-fluid rounded-circle mx-auto">
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    @dd($complaint->responses[0])
+                                    <h5 class="card-title">{{ $response->officer }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">March 8, 2023</h6>
+                                    <p class="card-text">This is a comment. Lorem ipsum dolor sit amet, consectetur
+                                        adipiscing elit. Pellentesque id commodo purus. Nunc interdum eget ipsum eu
+                                        molestie.</p>
+                                    {{-- <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Reply</button>
+                                            <button type="button"
+                                                class="btn btn-sm btn-outline-secondary">Report</button>
+                                        </div>
+                                        <small class="text-muted">Likes: 15</small>
+                                    </div> --}}
+                                </div>
+                            </div>
+                        </div>
+                    @empty
+                    @endforelse
                 </div>
             </div>
         </section>
