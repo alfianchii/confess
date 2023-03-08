@@ -10,6 +10,7 @@ export default defineConfig({
                 "resources/js/sweetalert/swalMulti.js",
                 "resources/js/sweetalert.js",
                 "resources/js/quill.js",
+                "resources/js/image.js",
                 "resources/js/navbar.js",
             ],
             refresh: true,
