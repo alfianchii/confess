@@ -86,6 +86,7 @@ class ComplaintController extends Controller
         return view("dashboard.complaints.show", [
             "title" => ucwords($complaint->title),
             "complaint" => $complaint,
+            "responses" => $complaint->responses,
         ]);
     }
 
