@@ -23,10 +23,10 @@ class AuthController extends Controller
             $request->session()->regenerate();
 
             // return redirect()->intended('/dashboard')->with("success", "Login berhasil!");
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', "Login berhasil!");
         }
 
-        return redirect('/login')->withErrors('Login gagal');
+        return redirect('/login')->with("error", 'Login gagal');
     }
 
     public function logout(Request $request)

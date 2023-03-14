@@ -20,12 +20,14 @@
             <a href="/" class="text-secondary">Kembali</a>
         </div>
         <h1 class="w-100 fw-bold text-center mt-5 mt-sm-0 p-0 pt-sm-5 fs-3">MASUK</h1>
+
         @if (session()->has('error'))
             <div class="alert alert-danger alert-dismissible show fade">
                 {{ session('error') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
+
         <div class="card mt-5 p-sm-4 p-2 mb-0 border-start-0 border-end-0 margin-form">
             <div class="card-body">
                 <form action="/login" method="post" class="my-4">
