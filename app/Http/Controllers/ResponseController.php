@@ -14,9 +14,11 @@ class ResponseController extends Controller
      */
     public function index()
     {
+        $responses = Response::where("officer_nik", auth()->user()->nik)->get() ?? [];
+
         return view("dashboard.responses.index", [
             "title" => "Responses",
-            "responses" => Response::all(),
+            "responses" => $responses,
         ]);
     }
 

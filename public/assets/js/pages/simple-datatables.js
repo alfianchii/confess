@@ -1,17 +1,6 @@
 let dataTable = new simpleDatatables.DataTable(
-    document.getElementById("table1"),
-    {
-        perPage: 3,
-        perPageSelect: [3, 10, 25, 50],
-        labels: {
-            placeholder: "Cari ...",
-            noRows: "Tidak ada keluhan",
-            info: "Menampilkan {start} hingga {end} dari {rows} keluhan",
-            perPage: "{select} keluhan per halaman",
-        },
-    }
+    document.getElementById("table1")
 );
-console.log(dataTable);
 // Move "per page dropdown" selector element out of label
 // to make it work with bootstrap 5. Add bs5 classes.
 function adaptPageDropdown() {

@@ -13,9 +13,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Semua Keluhan Kamu</h3>
+                    <h3>Semua Tanggapan Kamu</h3>
                     <p class="text-subtitle text-muted">
-                        Keseluruhan data dari keluhan kamu.
+                        Keseluruhan data dari tanggapan yang kamu buat.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -45,12 +45,11 @@
                     <h4>Keluhan</h4>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" id="table1">
+                    <table class="table table-striped" id="table2">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Judul</th>
-                                <th>Kategori</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -62,10 +61,7 @@
                                         <p>{{ $loop->iteration }}</p>
                                     </td>
                                     <td>
-                                        <p class="m-0">{{ $response->title }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="m-0">{{ $response->category->name }}</p>
+                                        <p class="m-0">{{ $response->complaint->title }}</p>
                                     </td>
                                     <td>
                                         @if ($response->status == 0)
@@ -121,5 +117,63 @@
     @vite(['resources/js/sweetalert/swalMulti.js'])
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/simple-datatables.js') }}"></script>
+    <script>
+        /* RESPONSE TABLE */
+        let responseTable = new simpleDatatables.DataTable(
+            document.getElementById("table2"), {
+                perPage: 3,
+                perPageSelect: [3, 10, 25, 50],
+                labels: {
+                    placeholder: "Cari ...",
+                    noRows: "Tidak ada tanggapan",
+                    info: "Menampilkan {start} hingga {end} dari {rows} tanggapan",
+                    perPage: "{select} tanggapan per halaman",
+                },
+            }
+        );
+
+        // Move "per page dropdown" selector element out of label
+        // to make it work with bootstrap 5. Add bs5 classes.
+        function adaptPageDropdown() {
+            const selector = responseTable.wrapper.querySelector(".dataTable-selector");
+            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode);
+            selector.classList.add("form-select");
+        }
+
+        // Add bs5 classes to pagination elements
+        function adaptPagination() {
+            const paginations = responseTable.wrapper.querySelectorAll(
+                "ul.dataTable-pagination-list"
+            );
+
+            for (const pagination of paginations) {
+                pagination.classList.add(...["pagination", "pagination-primary"]);
+            }
+
+            const paginationLis = responseTable.wrapper.querySelectorAll(
+                "ul.dataTable-pagination-list li"
+            );
+
+            for (const paginationLi of paginationLis) {
+                paginationLi.classList.add("page-item");
+            }
+
+            const paginationLinks = responseTable.wrapper.querySelectorAll(
+                "ul.dataTable-pagination-list li a"
+            );
+
+            for (const paginationLink of paginationLinks) {
+                paginationLink.classList.add("page-link");
+            }
+        }
+
+        // Patch "per page dropdown" and pagination after table rendered
+        responseTable.on("datatable.init", function() {
+            adaptPageDropdown();
+            adaptPagination();
+        });
+
+        // Re-patch pagination after the page was changed
+        responseTable.on("datatable.page", adaptPagination);
+    </script>
 @endsection
