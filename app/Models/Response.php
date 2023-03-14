@@ -23,13 +23,13 @@ class Response extends Model
     //     'complaint',
     // ];
 
-    public function officer()
-    {
-        return $this->belongsTo(Officer::class);
-    }
-
     public function complaint()
     {
         return $this->belongsTo(Complaint::class);
+    }
+
+    public function officer()
+    {
+        return $this->belongsTo(Officer::class, 'officer_nik', 'officer_nik');
     }
 }

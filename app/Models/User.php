@@ -42,11 +42,11 @@ class User extends Authenticatable
 
     public function student()
     {
-        return $this->belongsTo(Student::class, "nik");
+        return $this->hasOne(Student::class, 'student_nik', 'nik');
     }
 
     public function officer()
     {
-        return $this->belongsTo(Officer::class, "nik");
+        return $this->hasOne(Officer::class, 'officer_nik', 'nik');
     }
 }

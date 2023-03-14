@@ -137,9 +137,6 @@
                                                     src="{{ asset("storage/$complaint->image") }}"
                                                     alt="{{ $complaint->category->name }}">
                                             @else
-                                                {{-- <img class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageDetail"
-                                src="https://source.unsplash.com/random/1000x2000?{{ $complaint->category->name }}"
-                                alt="{{ $complaint->category->name }}"> --}}
                                                 <img class="img-fluid rounded" data-bs-toggle="modal"
                                                     data-bs-target="#imageDetail"
                                                     src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
@@ -171,18 +168,27 @@
                 <div class="card-body">
                     @forelse ($responses as $response)
                         <div class="row g-0 px-4 mt-3 mb-4 pb-2">
-                            <div class="col-md-2 d-flex align-items-center">
-                                <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
-                                    class="img-fluid rounded-circle mx-auto">
+                            <div class="col-md-2 d-flex align-items-start">
+                                @if ($response->officer->user->image)
+                                    <img src="{{ asset("storage/$response->officer->user->image") }}" alt="User avatar"
+                                        class="img-fluid rounded-circle mx-auto">
+                                @else
+                                    @if ($response->officer->user->gender == 'L')
+                                        <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
+                                            class="img-fluid rounded-circle mx-auto">
+                                    @else
+                                        <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
+                                            class="img-fluid rounded-circle mx-auto">
+                                    @endif
+                                @endif
                             </div>
                             <div class="col-md-10">
                                 <div class="card-body">
-                                    @dd($complaint->responses[0])
-                                    <h5 class="card-title">{{ $response->officer }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">March 8, 2023</h6>
-                                    <p class="card-text">This is a comment. Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit. Pellentesque id commodo purus. Nunc interdum eget ipsum eu
-                                        molestie.</p>
+                                    <h5 class="card-title">{{ $response->officer->user->name }}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">
+                                        {{ $response->created_at->diffForHumans() }}
+                                    </h6>
+                                    <p class="card-text">{!! $response->body !!}</p>
                                     {{-- <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Reply</button>
@@ -193,8 +199,13 @@
                                     </div> --}}
                                 </div>
                             </div>
+                            <hr>
                         </div>
                     @empty
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                            <p>Belum ada tanggapan dari pihak terkait.</p>
+                        </div>
                     @endforelse
                 </div>
             </div>

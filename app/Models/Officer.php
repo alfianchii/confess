@@ -19,13 +19,20 @@ class Officer extends Model
         'nip',
     ];
 
+    protected $primaryKey = 'officer_nik';
+
+    protected $with = [
+        'user',
+        'responses',
+    ];
+
     public function user()
     {
-        return $this->belongsTo(User::class, "officer_nik");
+        return $this->belongsTo(User::class, 'officer_nik', 'nik');
     }
 
     public function responses()
     {
-        return $this->hasMany(Response::class, "officer_nik");
+        return $this->hasMany(Response::class, 'officer_nik', 'officer_nik');
     }
 }

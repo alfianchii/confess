@@ -19,13 +19,20 @@ class Student extends Model
         'nisn',
     ];
 
+    protected $primaryKey = 'student_nik';
+
+    protected $with = [
+        "user",
+        "complaints",
+    ];
+
     public function user()
     {
-        return $this->belongsTo(User::class, "student_nik");
+        return $this->belongsTo(User::class, 'student_nik', 'nik');
     }
 
     public function complaints()
     {
-        return $this->hasMany(Complaint::class, "student_nik");
+        return $this->hasMany(Complaint::class, 'student_nik', 'student_nik');
     }
 }

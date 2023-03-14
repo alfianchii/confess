@@ -46,7 +46,7 @@ class Complaint extends Model
 
     public function student()
     {
-        return $this->belongsTo(Student::class, "student_nik");
+        return $this->belongsTo(Student::class, 'student_nik', 'student_nik');
     }
 
     public function category()
