@@ -3,21 +3,23 @@
 @section('content')
     <div class="page-content">
         <section class="row  ">
-            <div class="col-6 mb-3 header-about bg-home w-100">
-                <div class="container pt-5">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-6 ">
-                            <h1 class="text-white fw-bold">Pengaduan Online <br>SMKN 4 Kota Tangerang</h1>
-                            <p class="text-white fs-4 pt-3">Sampaikan Laporan Anda Pada Website Kami,<br>
-                                Jangan Takut Melapor!
+            <div class="col-6 mb-3 header-about bg-home w-100 pb-5">
+                <div class="container pt-2 pt-sm-5">
+                    <div class="row d-flex align-items-center text-center">
+                        <div class="col-sm-6 col-12" style="z-index: 10">
+                            <h1 class="text-white fw-bold">Sistem Pengaduan Online SMKN 4 Kota Tangerang</h1>
+                            <p class="text-white fs-4 pt-3 pt-sm-4 w-100 ">Sampaikan Laporan/Kritik/Saran Anda
+                                Pada
+                                Website Kami,<br>
+                                <span class="fw-bold pt-3">#JanganTakutMelapor!</span>
                             </p>
                         </div>
-                        <div class="col text-end">
+                        <div class="col text-center text-sm-end mt-5 mt-sm-0">
                             <img src="{{ asset('images/cloud storage.png') }}" alt="illustrasi laptop" class="illust-home"
                                 width="70%">
                         </div>
                     </div>
-                    <div class="poligon"></div>
+                    <div class="poligon d-none d-sm-block"></div>
                 </div>
             </div>
             <div class="col-12">
