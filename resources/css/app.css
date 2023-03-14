@@ -16,21 +16,24 @@ a {
             rgba(141, 255, 248, 0.79) 0%,
             rgba(79, 181, 255, 0.79) 100%
         );
-    height: 650px;
+    height: 100%;
     position: relative;
 }
 .illust-home {
     z-index: 10;
     position: relative;
 }
+body.theme-dark .poligon {
+    border-bottom: solid 500px #151521;
+}
 .poligon {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: -1px;
     height: 0px;
     width: 0;
-    border-bottom: solid 500px #f2f7ff;
-    border-left: solid 800px transparent;
+    border-bottom: solid 440px #f2f7ff;
+    border-left: solid 500px transparent;
     border-right: solid 0px transparent;
     z-index: 2;
 }
@@ -135,5 +138,10 @@ body.theme-dark .navbar {
     }
     .margin-form {
         margin: 0 20px;
+    }
+    .poligon {
+        border-bottom: solid 400px #f2f7ff;
+        border-left: solid 400px transparent;
+        border-right: solid 0px transparent;
     }
 }
