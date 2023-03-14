@@ -23,6 +23,9 @@ a {
     z-index: 10;
     position: relative;
 }
+body.theme-dark .poligon {
+    border-bottom: solid 500px #151521;
+}
 .poligon {
     position: absolute;
     right: 0;

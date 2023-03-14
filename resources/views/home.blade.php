@@ -3,10 +3,10 @@
 @section('content')
     <div class="page-content">
         <section class="row  ">
-            <div class="col-6 mb-3 header-about bg-home">
+            <div class="col-6 mb-3 header-about bg-home w-100">
                 <div class="container pt-5">
-                    <div class="row  d-flex align-items-center">
-                        <div class="col-6">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-6 ">
                             <h1 class="text-white fw-bold">Pengaduan Online <br>SMKN 4 Kota Tangerang</h1>
                             <p class="text-white fs-4 pt-3">Sampaikan Laporan Anda Pada Website Kami,<br>
                                 Jangan Takut Melapor!
