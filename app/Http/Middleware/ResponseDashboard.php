@@ -16,6 +16,10 @@ class ResponseDashboard
      */
     public function handle(Request $request, Closure $next)
     {
+        if (!auth()->check() or auth()->user()->level == "student") {
+            abort(403);
+        }
+
         return $next($request);
     }
 }
