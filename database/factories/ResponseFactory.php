@@ -18,7 +18,6 @@ class ResponseFactory extends Factory
     {
         return [
             "complaint_id" => mt_rand(1, 15),
-            "date" => $this->faker->date("Y-m-d"),
             "body" => collect($this->faker->paragraphs(mt_rand(5, 10)))
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
