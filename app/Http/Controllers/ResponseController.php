@@ -50,6 +50,7 @@ class ResponseController extends Controller
         $credentials = $request->validate([
             "complaint_id" => ["required"],
             "body" => ["required"],
+            "status" => ["required", "numeric", "integer"],
         ]);
 
         // Convert slug into id
@@ -57,7 +58,11 @@ class ResponseController extends Controller
         $credentials["officer_nik"] = $credentials["student_nik"] = auth()->user()->nik ?? null;
 
         try {
+            // Create response
             $response = Response::create($credentials);
+            // Update status
+            Complaint::where('id', $response->complaint_id)->update(['status' => $credentials["status"]]);
+            // Redirect to response with id
             return redirect('/dashboard/responses/' . $response->id)->with('success', 'Tanggapan kamu berhasil dibuat!');
         } catch (\Exception $e) {
             return redirect('/dashboard/responses')->withErrors('Tanggapan kamu gagal dibuat.');
