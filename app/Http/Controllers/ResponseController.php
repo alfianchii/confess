@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Complaint;
 use App\Models\Response;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class ResponseController extends Controller
@@ -139,6 +143,23 @@ class ResponseController extends Controller
      */
     public function destroy(Response $response)
     {
-        //
+        try {
+            if (!Response::destroy($response->id)) {
+                throw new \Exception('Error deleting complaint.');
+            }
+        } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
+            return response()->json([
+                "message" => "Gagal menghapus tanggapan.",
+            ], 422);
+        } catch (\Throwable $e) {
+            // catch all exceptions here
+            return response()->json([
+                "message" => "An error occurred: " . $e->getMessage()
+            ], 500);
+        }
+
+        return response()->json([
+            "message" => "Tanggapan kamu telah dihapus!",
+        ], 200);
     }
 }
