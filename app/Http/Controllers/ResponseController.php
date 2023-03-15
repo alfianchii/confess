@@ -51,7 +51,10 @@ class ResponseController extends Controller
      */
     public function show(Response $response)
     {
-        //
+        return view("dashboard.responses.show", [
+            "title" => "Tanggapan",
+            "response" => $response,
+        ]);
     }
 
     /**
