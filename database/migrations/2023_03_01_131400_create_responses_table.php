@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
 
             $table->unsignedBigInteger("complaint_id");
-            $table->dateTime('date');
             $table->text('body');
             $table->string("officer_nik");
 
