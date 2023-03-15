@@ -31,12 +31,11 @@ class ResponseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Complaint $complaint)
     {
         return view("dashboard.responses.create", [
             "title" => "Buat Tanggapan",
-            "complaints" => Complaint::all(),
-            "categories" => Category::all(),
+            "complaint" => $complaint,
         ]);
     }
 
