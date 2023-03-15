@@ -29,7 +29,11 @@ class ResponseController extends Controller
      */
     public function create()
     {
-        //
+        return view("dashboard.responses.create", [
+            "title" => "Buat Tanggapan",
+            "complaints" => Complaint::all(),
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
