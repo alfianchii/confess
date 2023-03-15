@@ -83,10 +83,13 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
+        // Short the responses based on new response (date)
+        $sortedResponses = $complaint->responses->sortByDesc("created_at");
+
         return view("dashboard.complaints.show", [
             "title" => ucwords($complaint->title),
             "complaint" => $complaint,
-            "responses" => $complaint->responses,
+            "responses" => $sortedResponses,
         ]);
     }
 
