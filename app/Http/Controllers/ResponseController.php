@@ -94,7 +94,7 @@ class ResponseController extends Controller
         return view("dashboard.responses.edit", [
             "title" => "Edit Tanggapan",
             "response" => $response,
-            "complaints" => Complaint::all(),
+            "complaint" => $response->complaint,
             "categories" => Category::all(),
         ]);
     }
