@@ -13,16 +13,16 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Semua Tanggapan Kamu</h3>
+                    <h2>Semua Tanggapan Kamu</h2>
                     <p class="text-subtitle text-muted">
                         Keseluruhan data dari tanggapan yang kamu buat.
                     </p>
                     <hr>
-                    <div class="mb-4">
+                    {{-- <div class="mb-4">
                         <a href="/dashboard/responses/create" class="btn btn-success">
                             <i class="bi bi-envelope-paper-heart me-1"></i> Buat Tanggapan
                         </a>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -42,14 +42,14 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h4>Keluhan</h4>
+                    <h3>Keluhan</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table2">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Judul</th>
+                                <th>Judul Keluhan</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -80,26 +80,34 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="me-2">
-                                                <a href="/dashboard/responses/{{ $response->id }}"
-                                                    class="badge bg-info"><span data-feather="eye"></span></a>
-                                            </div>
-                                            <div class="me-2">
-                                                <a href="/dashboard/responses/{{ $response->id }}/edit"
-                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
-                                            </div>
-                                            <div class="me-2">
-                                                <a href="#" class="badge bg-danger border-0 delete-record"
-                                                    data-slug="{{ $response->id }}"><span data-feather="x-circle"
-                                                        class="delete-record" data-slug="{{ $response->id }}"></span></a>
-                                            </div>
+                                            @if ($response->complaint->status == 2)
+                                                <span class="badge bg-success">
+                                                    Kasus Selesai
+                                                </span>
+                                            @elseif($response->complaint->status < 2)
+                                                <div class="me-2">
+                                                    <a href="/dashboard/responses/{{ $response->id }}/edit"
+                                                        class="badge bg-warning"><span data-feather="edit"></span></a>
+                                                </div>
+
+                                                <div class="me-2">
+                                                    <a href="/dashboard/responses/{{ $response->id }}"
+                                                        class="badge bg-info"><span data-feather="eye"></span></a>
+                                                </div>
+                                                <div class="me-2">
+                                                    <a href="#" class="badge bg-danger border-0 delete-record"
+                                                        data-slug="{{ $response->id }}"><span data-feather="x-circle"
+                                                            class="delete-record"
+                                                            data-slug="{{ $response->id }}"></span></a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
                                     <td colspan="5">
-                                        <p class="text-center mt-3">Tidak ada keluhan</p>
+                                        <p class="text-center mt-3">Tidak ada tanggapan</p>
                                     </td>
                                 </tr>
                             @endforelse

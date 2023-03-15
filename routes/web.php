@@ -34,5 +34,6 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     // Complaint
     Route::resource("/complaints", ComplaintController::class)->middleware("student");
     // Response
-    Route::resource("/responses", ResponseController::class)->middleware("response");
+    Route::resource("/responses", ResponseController::class)->middleware("response")->except("create");
+    Route::get("/responses/create/{complaint:slug}", [ResponseController::class, "create"])->middleware("response");
 });

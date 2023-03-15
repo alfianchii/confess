@@ -18,7 +18,7 @@ class ResponseController extends Controller
      */
     public function index()
     {
-        $responses = Response::where("officer_nik", auth()->user()->nik)->get() ?? [];
+        $responses = Response::where("officer_nik", auth()->user()->nik)->get()->sortByDesc("created_at") ?? [];
 
         return view("dashboard.responses.index", [
             "title" => "Tanggapan",
@@ -31,12 +31,11 @@ class ResponseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Complaint $complaint)
     {
         return view("dashboard.responses.create", [
             "title" => "Buat Tanggapan",
-            "complaints" => Complaint::all(),
-            "categories" => Category::all(),
+            "complaint" => $complaint,
         ]);
     }
 
@@ -51,14 +50,17 @@ class ResponseController extends Controller
         $credentials = $request->validate([
             "complaint_id" => ["required"],
             "body" => ["required"],
+            "status" => ["required", "numeric", "integer"],
         ]);
 
-        // Convert slug into id
-        $credentials["complaint_id"] = Complaint::where('slug', $credentials["complaint_id"])->first()->id;
         $credentials["officer_nik"] = $credentials["student_nik"] = auth()->user()->nik ?? null;
 
         try {
+            // Create response
             $response = Response::create($credentials);
+            // Update status
+            Complaint::where('id', $response->complaint_id)->update(['status' => $credentials["status"]]);
+            // Redirect to response with id
             return redirect('/dashboard/responses/' . $response->id)->with('success', 'Tanggapan kamu berhasil dibuat!');
         } catch (\Exception $e) {
             return redirect('/dashboard/responses')->withErrors('Tanggapan kamu gagal dibuat.');
@@ -90,7 +92,7 @@ class ResponseController extends Controller
         return view("dashboard.responses.edit", [
             "title" => "Edit Tanggapan",
             "response" => $response,
-            "complaints" => Complaint::all(),
+            "complaint" => $response->complaint,
             "categories" => Category::all(),
         ]);
     }
@@ -107,10 +109,8 @@ class ResponseController extends Controller
         $credentials = $request->validate([
             "complaint_id" => ["required"],
             "body" => ["required"],
+            "status" => ["required", "numeric", "integer"],
         ]);
-
-        // Convert slug into id
-        $credentials["complaint_id"] = Complaint::where('slug', $credentials["complaint_id"])->first()->id;
 
         try {
             // Get the new and old of $response
@@ -123,10 +123,13 @@ class ResponseController extends Controller
             $newAttributes = $responseNew->getAttributes();
 
             // Compare the arrays to see if any attributes have changed
-            if ($oldAttributes === $newAttributes) {
+            if (($oldAttributes === $newAttributes) && ($response->complaint->status === $credentials["status"])) {
                 // The instance of the $complaint record has not been updated
                 return redirect('/dashboard/responses/' . $response->id)->with('info', 'Kamu tidak melakukan editing pada tanggapan.');
             }
+
+            // Update status
+            Complaint::where('id', $responseNew->complaint_id)->update(['status' => $credentials["status"]]);
 
             // The instance of the $complaint record has been updated
             return redirect('/dashboard/responses/' . $response->id)->with('success', 'Tanggapan kamu berhasil di-edit!');
