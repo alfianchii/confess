@@ -1,8 +1,8 @@
-export function handleDelete(slug) {
+export function handleDelete(slug, event, uri) {
     // Do fire first
     Swal.fire({
         title: "Apakah kamu yakin?",
-        text: "Kamu akan menghapus keluhan ini.",
+        text: `Kamu akan menghapus ${event} ini.`,
         icon: "question",
         showDenyButton: true,
         showCancelButton: false,
@@ -11,45 +11,36 @@ export function handleDelete(slug) {
     }).then((result) => {
         if (result.isConfirmed) {
             // Send a DELETE request using fetch and handle the response
-            fetch(`/dashboard/complaints/${slug}`, {
+            fetch(`${uri}/${slug}`, {
                 method: "DELETE",
                 headers: {
                     "X-CSRF-TOKEN": document
                         .querySelector('meta[name="csrf-token"]')
                         .getAttribute("content"),
                 },
-            })
-                .then(async (response) => {
-                    const body = await response.json();
-                    const message = body.message;
+            }).then(async (response) => {
+                const body = await response.json();
+                const message = body.message;
 
-                    if (response.ok) {
-                        // Show a success message using SweetAlert2
-                        Swal.fire({
-                            title: "Success!",
-                            text: message,
-                            icon: "success",
-                        }).then(() => {
-                            // Redirect to the dashboard page
-                            window.location.href = "/dashboard/complaints";
-                        });
-                    } else {
-                        // Show an error message using SweetAlert2
-                        Swal.fire({
-                            title: "Error!",
-                            text: message,
-                            icon: "error",
-                        });
-                    }
-                })
-                .catch((error) => {
+                if (response.ok) {
+                    // Show a success message using SweetAlert2
+                    Swal.fire({
+                        title: "Success!",
+                        text: message,
+                        icon: "success",
+                    }).then(() => {
+                        // Redirect to the dashboard page
+                        window.location.href = uri;
+                    });
+                } else {
                     // Show an error message using SweetAlert2
                     Swal.fire({
                         title: "Error!",
-                        text: "Tidak bisa menghapus keluhan.",
+                        text: message,
                         icon: "error",
                     });
-                });
+                }
+            });
         }
     });
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
 
 class ComplaintController extends Controller
 {
@@ -83,10 +85,13 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
+        // Short the responses based on new response (date)
+        $sortedResponses = $complaint->responses->sortByDesc("created_at");
+
         return view("dashboard.complaints.show", [
             "title" => ucwords($complaint->title),
             "complaint" => $complaint,
-            "responses" => $complaint->responses,
+            "responses" => $sortedResponses,
         ]);
     }
 
@@ -181,15 +186,22 @@ class ComplaintController extends Controller
         }
 
         try {
-            Complaint::destroy($complaint->id);
-        } catch (\Exception $e) {
+            if (!Complaint::destroy($complaint->id)) {
+                throw new \Exception('Error deleting complaint.');
+            }
+        } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
             return response()->json([
-                "message" => "Gagal untuk menghapus keluhan."
+                "message" => "Gagal menghapus keluhan."
             ], 422);
+        } catch (\Throwable $e) {
+            // catch all exceptions here
+            return response()->json([
+                "message" => "An error occurred: " . $e->getMessage()
+            ], 500);
         }
 
         return response()->json([
-            "message" => "Keluhan kamu telah dihapus!"
+            "message" => "Keluhan kamu telah dihapus!",
         ], 200);
     }
 

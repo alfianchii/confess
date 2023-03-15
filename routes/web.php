@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\{AuthController, ComplaintController, DashboardController};
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{AuthController, ComplaintController, ResponseController, DashboardController};
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +29,10 @@ Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     Route::get("/", [DashboardController::class, 'index']);
 
-    Route::get("/complaints/checkSlug", [ComplaintController::class, "checkSlug"]);
+    Route::get("/complaints/checkSlug", [ComplaintController::class, "checkSlug"])->middleware("student");
 
+    // Complaint
     Route::resource("/complaints", ComplaintController::class)->middleware("student");
+    // Response
+    Route::resource("/responses", ResponseController::class)->middleware("response");
 });

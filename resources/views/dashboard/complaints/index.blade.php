@@ -13,7 +13,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Semua Keluhan Kamu</h3>
+                    <h2>Semua Keluhan Kamu</h2>
                     <p class="text-subtitle text-muted">
                         Keseluruhan data dari keluhan kamu.
                     </p>
@@ -42,7 +42,7 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h4>Keluhan</h4>
+                    <h3>Keluhan</h3>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
@@ -123,8 +123,8 @@
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script>
         /* 
-        COMPLAINT TABLE
-     */
+                COMPLAINT TABLE
+             */
         let complaintTable = new simpleDatatables.DataTable(
             document.getElementById("table1"), {
                 perPage: 3,

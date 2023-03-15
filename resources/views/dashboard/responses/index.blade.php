@@ -19,8 +19,8 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/complaints/create" class="btn btn-success">
-                            <i class="bi bi-envelope-paper-heart me-1"></i> Buat Keluhan
+                        <a href="/dashboard/responses/create" class="btn btn-success">
+                            <i class="bi bi-envelope-paper-heart me-1"></i> Buat Tanggapan
                         </a>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Complaints
+                                Responses
                             </li>
                         </ol>
                     </nav>
@@ -64,15 +64,15 @@
                                         <p class="m-0">{{ $response->complaint->title }}</p>
                                     </td>
                                     <td>
-                                        @if ($response->status == 0)
+                                        @if ($response->complaint->status == 0)
                                             <span class="badge bg-danger">
                                                 Belum diproses
                                             </span>
-                                        @elseif ($response->status == 1)
+                                        @elseif ($response->complaint->status == 1)
                                             <span class="badge bg-secondary">
                                                 Sedang diproses
                                             </span>
-                                        @elseif ($response->status == 2)
+                                        @elseif ($response->complaint->status == 2)
                                             <span class="badge bg-success">
                                                 Selesai
                                             </span>
@@ -81,17 +81,17 @@
                                     <td>
                                         <div class="d-flex">
                                             <div class="me-2">
-                                                <a href="/dashboard/complaints/{{ $response->slug }}"
+                                                <a href="/dashboard/responses/{{ $response->id }}"
                                                     class="badge bg-info"><span data-feather="eye"></span></a>
                                             </div>
                                             <div class="me-2">
-                                                <a href="/dashboard/complaints/{{ $response->slug }}/edit"
+                                                <a href="/dashboard/responses/{{ $response->id }}/edit"
                                                     class="badge bg-warning"><span data-feather="edit"></span></a>
                                             </div>
                                             <div class="me-2">
                                                 <a href="#" class="badge bg-danger border-0 delete-record"
-                                                    data-slug="{{ $response->slug }}"><span data-feather="x-circle"
-                                                        class="delete-record" data-slug="{{ $response->slug }}"></span></a>
+                                                    data-slug="{{ $response->id }}"><span data-feather="x-circle"
+                                                        class="delete-record" data-slug="{{ $response->id }}"></span></a>
                                             </div>
                                         </div>
                                     </td>
