@@ -3,9 +3,6 @@
 @section('links')
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
-
-    {{-- Form: select option --}}
-    <link rel="stylesheet" href="{{ asset('assets/extensions/choices.js/public/assets/styles/choices.css') }}">
 @endsection
 
 @section('content')
@@ -19,8 +16,7 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/responses" class="btn btn-secondary me-1"><span
-                                data-feather="arrow-left"></span>
+                        <a href="/dashboard/responses" class="btn btn-secondary me-1"><span data-feather="arrow-left"></span>
                             Kembali</a>
                     </div>
                 </div>
@@ -57,26 +53,31 @@
 
                                     <div class="row">
                                         <div class="col-12 mb-1">
+                                            <div class="form-group">
+                                                <label class="form-label" for="complaint-own">Kepemilikan Keluhan </label>
+                                                {{-- To display --}}
+                                                <input type="text" class="form-control" id="complaint-own"
+                                                    readonly="readonly" value="{{ $complaint->student->user->name }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-1">
+                                            <div class="form-group">
+                                                <label class="form-label" for="complaint-category">Kategori
+                                                </label>
+                                                {{-- To display --}}
+                                                <input type="text" class="form-control" id="complaint-category"
+                                                    readonly="readonly" value="{{ $complaint->category->name }}">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-1">
                                             <div class="form-group mandatory">
-                                                <label for="complaints" class="form-label">Judul Keluhan</label>
-                                                <select class="choices form-select" id="complaints" name="complaint_id">
-                                                    @foreach ($categories as $category)
-                                                        <optgroup label="{{ $category->name }}">
-                                                            @forelse ($complaints as $complaint)
-                                                                @if ($complaint->category->slug === $category->slug)
-                                                                    <option
-                                                                        @if (old('complaint_id') == $complaint->slug) selected @endif
-                                                                        value="{{ $complaint->slug }}">
-                                                                        {{ $complaint->title }}
-                                                                        ({{ $complaint->student->user->name }})
-                                                                    </option>
-                                                                @endif
-                                                            @empty
-                                                                <option>Tidak ada keluhan</option>
-                                                            @endforelse
-                                                        </optgroup>
-                                                    @endforeach
-                                                </select>
+                                                <label class="form-label" for="complaint-display">Judul</label>
+                                                {{-- To display --}}
+                                                <input type="text" class="form-control" id="complaint-display"
+                                                    readonly="readonly" value="{{ $complaint->title }}">
+                                                {{-- To controller --}}
+                                                <input hidden type="text" class="form-control" id="complaint_id"
+                                                    name="complaint_id" readonly="readonly" value="{{ $complaint->id }}">
                                             </div>
                                         </div>
                                     </div>
@@ -97,6 +98,36 @@
                                                             <span class="parsley-required">{{ $message }}</span>
                                                         </div>
                                                     @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 mb-2">
+                                            <div class="form-group mandatory @error('status') is-invalid @enderror">
+                                                <label for="status" class="form-label">Status</label>
+
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="status"
+                                                        id="no-process" value="0" checked=""
+                                                        @if (old('status') == '0') checked @endif>
+                                                    <label class="form-check-label" for="no-process">
+                                                        Belum diproses
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="status"
+                                                        id="process" value="1"
+                                                        @if (old('status') == '1') checked @endif>
+                                                    <label class="form-check-label" for="process">
+                                                        Sedang diproses
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="status"
+                                                        id="done" value="2"
+                                                        @if (old('status') == '2') checked @endif>
+                                                    <label class="form-check-label" for="done">
+                                                        Selesai
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,14 +153,4 @@
     {{-- Quill --}}
     @vite(['resources/js/quill.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
-    {{-- Jquery --}}
-    <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
-    {{-- Form: parsley --}}
-    <script src="{{ asset('assets/extensions/parsleyjs/parsley.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/parsley.js') }}"></script>
-    {{-- Form: select option --}}
-    <script src="{{ asset('assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/form-element-select.js') }}"></script>
-    {{-- Image and Sluggable --}}
-    @vite(['resources/js/image.js'])
 @endsection
