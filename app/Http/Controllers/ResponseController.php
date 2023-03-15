@@ -17,7 +17,7 @@ class ResponseController extends Controller
         $responses = Response::where("officer_nik", auth()->user()->nik)->get() ?? [];
 
         return view("dashboard.responses.index", [
-            "title" => "Responses",
+            "title" => "Tanggapan",
             "responses" => $responses,
         ]);
     }
