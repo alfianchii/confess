@@ -13,7 +13,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Buat Keluhan</h3>
+                    <h2>Buat Keluhan</h2>
                     <p class="text-subtitle text-muted">
                         Ceritakan keluhan yang kamu miliki.
                     </p>
@@ -47,7 +47,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title mb-0">Kronologi</h4>
+                            <h3 class="card-title mb-0">Kronologi</h3>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
