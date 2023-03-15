@@ -83,7 +83,12 @@ class ResponseController extends Controller
      */
     public function edit(Response $response)
     {
-        //
+        return view("dashboard.responses.edit", [
+            "title" => "Edit Tanggapan",
+            "response" => $response,
+            "complaints" => Complaint::all(),
+            "categories" => Category::all(),
+        ]);
     }
 
     /**
