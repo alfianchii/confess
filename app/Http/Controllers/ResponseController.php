@@ -18,7 +18,7 @@ class ResponseController extends Controller
      */
     public function index()
     {
-        $responses = Response::where("officer_nik", auth()->user()->nik)->get() ?? [];
+        $responses = Response::where("officer_nik", auth()->user()->nik)->get()->sortByDesc("created_at") ?? [];
 
         return view("dashboard.responses.index", [
             "title" => "Tanggapan",
