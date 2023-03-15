@@ -44,7 +44,21 @@ class ResponseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $credentials = $request->validate([
+            "complaint_id" => ["required"],
+            "body" => ["required"],
+        ]);
+
+        // Convert slug into id
+        $credentials["complaint_id"] = Complaint::where('slug', $credentials["complaint_id"])->first()->id;
+        $credentials["officer_nik"] = $credentials["student_nik"] = auth()->user()->nik ?? null;
+
+        try {
+            $response = Response::create($credentials);
+            return redirect('/dashboard/responses/' . $response->id)->with('success', 'Tanggapan kamu berhasil dibuat!');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/responses')->withErrors('Tanggapan kamu gagal dibuat.');
+        }
     }
 
     /**
