@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +14,21 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view("dashboard.index", ["title" => "Dashboard"]);
+        $currentTime = Carbon::now();
+        $hour = $currentTime->hour;
+
+        if ($hour >= 5 && $hour <= 11) {
+            $greeting = 'Selamat pagi';
+        } elseif ($hour >= 12 && $hour <= 17) {
+            $greeting = 'Selamat sore';
+        } else {
+            $greeting = 'Selamat malam';
+        }
+
+        return view("dashboard.index", [
+            "title" => "Dashboard",
+            "greeting" => $greeting,
+        ]);
     }
 
     /**
