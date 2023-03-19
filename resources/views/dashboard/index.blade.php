@@ -125,6 +125,76 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Keluhan</h3>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-striped" id="table2">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Judul Keluhan</th>
+                                                <th>Status</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @forelse ($complaints as $complaint)
+                                                <tr>
+                                                    <td>
+                                                        <p>{{ $loop->iteration }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="m-0">{{ $complaint->title }}</p>
+                                                    </td>
+                                                    <td>
+                                                        @if ($complaint->status == 0)
+                                                            <span class="badge bg-danger">
+                                                                Belum diproses
+                                                            </span>
+                                                        @elseif ($complaint->status == 1)
+                                                            <span class="badge bg-secondary">
+                                                                Sedang diproses
+                                                            </span>
+                                                        @elseif ($complaint->status == 2)
+                                                            <span class="badge bg-success">
+                                                                Selesai
+                                                            </span>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        <div class="d-flex">
+                                                            @if ($complaint->status == 2)
+                                                                <span class="badge bg-success">
+                                                                    Kasus Selesai
+                                                                </span>
+                                                            @elseif($complaint->status < 2)
+                                                                <div class="me-2">
+                                                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                        class="btn btn-warning">
+                                                                        <i class="bi bi-pencil-square"></i> Tanggapi
+                                                                    </a>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="5">
+                                                        <p class="text-center mt-3">Tidak ada tanggapan</p>
+                                                    </td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
