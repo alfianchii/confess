@@ -1,5 +1,11 @@
 @extends('dashboard.layouts.main')
 
+@section('links')
+    {{-- Simple DataTable --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/pages/simple-datatables.css') }}" />
+@endsection
+
 @section('content')
     <div class="page-heading mb-0">
         <div class="page-title">
