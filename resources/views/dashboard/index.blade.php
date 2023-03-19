@@ -212,6 +212,50 @@
                             </div>
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Keluhan Terbaru</h4>
+                        </div>
+                        <div class="card-content pb-4">
+                            @forelse ($complaints->where("status", "!=", '2')->slice(0, 3) as $complaint)
+                                <a href="/dashboard/responses/create/{{ $complaint->slug }}">
+                                    <div class="recent-message d-flex px-4 py-3">
+                                        <div class="avatar avatar-lg">
+                                            @if ($complaint->student->user->image)
+                                                <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
+                                                    alt="User avatar" />
+                                            @else
+                                                @if ($complaint->student->user->gender == 'L')
+                                                    <img src="{{ asset('assets/images/faces/2.jpg') }}"
+                                                        alt="User avatar" />
+                                                @else
+                                                    <img src="{{ asset('assets/images/faces/5.jpg') }}"
+                                                        alt="User avatar" />
+                                                @endif
+                                            @endif
+                                        </div>
+                                        <div class="name ms-4">
+                                            <h5 class="mb-1">{{ $complaint->student->user->name }}</h5>
+                                            <h6 class="text-muted mb-0">
+                                                {{ htmlspecialchars('@' . $complaint->student->user->username) }}
+                                            </h6>
+                                        </div>
+                                    </div>
+                                </a>
+                            @empty
+                                <div class="recent-message d-flex px-4 py-3">
+                                    <div class="alert alert-warning" role="alert">
+                                        <h4 class="alert-heading">Tidak ada keluhan</h4>
+                                    </div>
+                                </div>
+                            @endforelse
+                            {{-- <div class="px-4">
+                                <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3">
+                                    Start Conversation
+                                </button>
+                            </div> --}}
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
