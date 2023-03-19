@@ -18,12 +18,12 @@ class ComplaintFactory extends Factory
     {
         return [
             "date" => $this->faker->date("Y-m-d"),
-            "title" => $this->faker->sentence(mt_rand(2, 5)),
+            "title" => $this->faker->sentence(mt_rand(1, 3)),
             "slug" => $this->faker->slug(),
             "body" => collect($this->faker->paragraphs(mt_rand(5, 10)))
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
-            "excerpt" => $this->faker->sentence(mt_rand(5, 7)),
+            "excerpt" => $this->faker->sentence(mt_rand(3, 5)),
             "student_nik" => $this->faker->randomElement(["1234561234567890", "1234556789061234", "5678901234561234"]),
             "category_id" => $this->faker->randomElement([1, 2, 3]),
             "place" => $this->faker->randomElement(["out", "in"]),
