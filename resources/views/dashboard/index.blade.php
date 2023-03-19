@@ -265,6 +265,56 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Tanggapan Terbaru</h3>
+                        </div>
+                        <div class="card-body">
+                            @forelse ($responses->slice(0, 3) as $response)
+                                <div class="row g-0 px-4 mt-3 mb-4 pb-2">
+                                    <div class="col-md-2 d-flex align-items-start">
+                                        @if ($response->officer->user->image)
+                                            <img src="{{ asset('storage/' . $response->officer->user->image) }}"
+                                                alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                        @else
+                                            @if ($response->officer->user->gender == 'L')
+                                                <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
+                                                    class="img-fluid rounded-circle mx-auto">
+                                            @else
+                                                <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
+                                                    class="img-fluid rounded-circle mx-auto">
+                                            @endif
+                                        @endif
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $response->officer->user->name }}</h5>
+                                            <h6 class="card-subtitle mb-2 text-muted">
+                                                {{ $response->created_at->diffForHumans() }}
+                                            </h6>
+                                            <p class="card-text">{!! $response->body !!}</p>
+                                            {{-- <div class="d-flex justify-content-between align-items-center">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-secondary">Reply</button>
+                                                    <button type="button"
+                                                        class="btn btn-sm btn-outline-secondary">Report</button>
+                                                </div>
+                                                <small class="text-muted">Likes: 15</small>
+                                            </div> --}}
+                                        </div>
+                                    </div>
+                                    <hr>
+                                </div>
+                            @empty
+                                <div class="alert alert-warning" role="alert">
+                                    <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                    <p>Belum ada tanggapan dari pihak terkait.</p>
+                                </div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
             </section>
         </div>
     </div>
