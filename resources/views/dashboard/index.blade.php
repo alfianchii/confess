@@ -256,6 +256,14 @@
                             </div> --}}
                         </div>
                     </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Profil Tanggapan</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart-visitors-profile"></div>
+                        </div>
+                    </div>
                 </div>
             </section>
         </div>
