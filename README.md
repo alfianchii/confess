@@ -1,4 +1,4 @@
-<h1 align="center">Aplikasi Pengaduan Sekolah</h1>
+<h1 align="center">Confess</h1>
 
 <p align="center">Confess adalah aplikasi pelaporan pengaduan sekolah yang memungkinkan siswa/siswi untuk melaporkan masalah dan keluhan mereka secara online.</p>
 
