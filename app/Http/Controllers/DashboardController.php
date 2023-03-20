@@ -138,15 +138,15 @@ class DashboardController extends Controller
         $dateRange = Carbon::now()->subDays(6)->toPeriod(Carbon::now());
 
         // Create an array to store the response counts for each day
-        $xAxis = [];
-        $yAxis = [];
+        $responseXAxis = [];
+        $responseYAxis = [];
 
         // Loop through the date range and populate the counts array with the response counts
         foreach ($dateRange as $date) {
             $formattedDate = $date->format('Y-m-d');
             $count = $responses->where('date', $formattedDate)->pluck('count')->first();
-            $yAxis[] = $count ?? 0; // Use 0 if the count is null
-            $xAxis[] = $date->format("Y-m-d");
+            $responseYAxis[] = $count ?? 0; // Use 0 if the count is null
+            $responseXAxis[] = $date->format("Y-m-d");
         }
 
         // Retrieve genders which based on responses
@@ -157,6 +157,76 @@ class DashboardController extends Controller
                 DB::raw('SUM(CASE WHEN users.gender = "L" THEN 1 ELSE 0 END) as male'),
                 DB::raw('SUM(CASE WHEN users.gender = "P" THEN 1 ELSE 0 END) as female'),
             )->get()[0];
+
+        if (auth()->user()->level === "admin") {
+            // Retrieve all complaints created in the last 7 days
+            $allComplaints = DB::table('complaints')
+                ->whereBetween('complaints.created_at', [Carbon::now()->subDays(6)->format("Y-m-d"), Carbon::now()->subDays(-1)->format("Y-m-d")])
+                // Select the date of creation and count of complaints for each day
+                ->select(
+                    DB::raw('DATE(complaints.created_at) as date'),
+                    DB::raw('COUNT(*) as count'),
+                )
+                // Group the results by the date of creation
+                ->groupBy('date', 'complaints.created_at')
+                // Order the results by date in ascending order
+                ->orderBy('date', 'asc')
+                // Execute the query and retrieve the results
+                ->get();
+
+            // Create an array to store the complaint counts for each day
+            $allComplaintXAxis = [];
+            $allComplaintYAxis = [];
+
+            // Loop through the date range and populate the counts array with the complaint counts
+            foreach ($dateRange as $date) {
+                $counts = 0;
+
+                foreach ($allComplaints as $complaint) {
+                    if ($date->format("Y-m-d") == $complaint->date) {
+                        $counts += $complaint->count;
+                    }
+                }
+
+                $allComplaintYAxis[] = $counts;
+                $allComplaintXAxis[] = $date->format("Y-m-d");
+            }
+
+            // Loop through the date range and populate the counts array with the complaint counts
+            // foreach ($dateRange as $date) {
+            //     $formattedDate = $date->format('Y-m-d');
+            //     $count = $allComplaints->where('date', $formattedDate)->pluck('count')->first();
+            //     $allComplaintYAxis[] = $count ?? 0; // Use 0 if the count is null
+            //     $allComplaintXAxis[] = $date->format("Y-m-d");
+            // }
+
+            // Retrieve all responses created in the last 7 days
+            $allResponses = DB::table('responses')
+                ->whereBetween('responses.created_at', [Carbon::now()->subDays(6), Carbon::now()])
+                // Select the date of creation and count of responses for each day
+                ->select(
+                    DB::raw('DATE(responses.created_at) as date'),
+                    DB::raw('COUNT(*) as count'),
+                )
+                // Group the results by the date of creation
+                ->groupBy('date')
+                // Order the results by date in ascending order
+                ->orderBy('date', 'asc')
+                // Execute the query and retrieve the results
+                ->get();
+
+            // Create an array to store the all response counts for each day
+            $allResponseXAxis = [];
+            $allResponseYAxis = [];
+
+            // Loop through the date range and populate the counts array with the all response counts
+            foreach ($dateRange as $date) {
+                $formattedDate = $date->format('Y-m-d');
+                $count = $allResponses->where('date', $formattedDate)->pluck('count')->first();
+                $allResponseYAxis[] = $count ?? 0; // Use 0 if the count is null
+                $allResponseXAxis[] = $date->format("Y-m-d");
+            }
+        }
 
         $chartData = [
             // Use the response counts as chart data
