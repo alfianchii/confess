@@ -75,6 +75,11 @@ class ResponseController extends Controller
      */
     public function show(Response $response)
     {
+        // Validate if the response is owned by the user
+        if ($response->officer_nik !== auth()->user()->nik) {
+            return redirect('/dashboard/responses')->withErrors('Kamu bukan pemilik dari tanggapan tersebut.');
+        }
+
         return view("dashboard.responses.show", [
             "title" => "Tanggapan",
             "response" => $response,
@@ -89,6 +94,11 @@ class ResponseController extends Controller
      */
     public function edit(Response $response)
     {
+        // Validate if the response is owned by the user
+        if ($response->officer_nik !== auth()->user()->nik) {
+            return redirect('/dashboard/responses')->withErrors('Kamu bukan pemilik dari tanggapan tersebut.');
+        }
+
         return view("dashboard.responses.edit", [
             "title" => "Edit Tanggapan",
             "response" => $response,

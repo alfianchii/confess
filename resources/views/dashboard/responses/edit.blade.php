@@ -22,9 +22,11 @@
                         <a href="/dashboard/responses" class="btn btn-secondary me-1"><span
                                 data-feather="arrow-left"></span>
                             Kembali</a>
-                        <a href="#" class="badge bg-danger border-0 delete-record me-1"
-                            data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
-                                data-slug="{{ $response->id }}"></span> Hapus</a>
+                        @if ($complaint->status != 2)
+                            <a href="#" class="badge bg-danger border-0 delete-record me-1"
+                                data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
+                                    data-slug="{{ $response->id }}"></span> Hapus</a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
@@ -113,30 +115,34 @@
                                             <div class="form-group mandatory @error('status') is-invalid @enderror">
                                                 <label for="status" class="form-label">Status</label>
 
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="status"
-                                                        id="no-process" value="0" checked=""
-                                                        @if (old('status', $complaint->status) == '0') checked @endif>
-                                                    <label class="form-check-label" for="no-process">
-                                                        Belum diproses
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="status"
-                                                        id="process" value="1"
-                                                        @if (old('status', $complaint->status) == '1') checked @endif>
-                                                    <label class="form-check-label" for="process">
-                                                        Sedang diproses
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="radio" name="status"
-                                                        id="done" value="2"
-                                                        @if (old('status', $complaint->status) == '2') checked @endif>
-                                                    <label class="form-check-label" for="done">
-                                                        Selesai
-                                                    </label>
-                                                </div>
+                                                @if ($complaint->status == 2)
+                                                    <p class="mb-0">Keluhan telah selesai.</p>
+                                                @else
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status"
+                                                            id="no-process" value="0" checked=""
+                                                            @if (old('status', $complaint->status) == '0') checked @endif>
+                                                        <label class="form-check-label" for="no-process">
+                                                            Belum diproses
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status"
+                                                            id="process" value="1"
+                                                            @if (old('status', $complaint->status) == '1') checked @endif>
+                                                        <label class="form-check-label" for="process">
+                                                            Sedang diproses
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="radio" name="status"
+                                                            id="done" value="2"
+                                                            @if (old('status', $complaint->status) == '2') checked @endif>
+                                                        <label class="form-check-label" for="done">
+                                                            Selesai
+                                                        </label>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
