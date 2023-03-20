@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="page-content mt-4">
-            @cannot('student')
+            @can('admin')
                 <section class="row">
                     <div class="col-12 col-lg-9">
                         <div class="row">
@@ -118,10 +118,10 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3>Tanggapan</h3>
+                                        <h3>Statistik Keluhan dan Tanggapan</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
+                                        <div id="chart-complaint"></div>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,19 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3>Keluhan</h3>
+                                        <h3>Statistik Tanggapan Kamu</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="chart-your-responses"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Daftar Keluhan</h3>
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-striped" id="table2">
@@ -317,7 +329,7 @@
                         </div>
                     </div>
                 </section>
-            @endcannot
+            @endcan
 
             @can('student')
                 <h1>STUDENT</h1>
