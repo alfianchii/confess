@@ -108,6 +108,11 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
+        // Validate if the complaint is owned by the user
+        if ($complaint->student_nik !== auth()->user()->nik) {
+            return redirect('/dashboard/complaints')->withErrors('Keluhan tidak ditemukan.');
+        }
+
         return view("dashboard.complaints.edit", [
             "title" => "Edit",
             "complaint" => $complaint,
