@@ -21,11 +21,13 @@
                         <a href="/dashboard/responses" class="btn btn-secondary me-1"><span
                                 data-feather="arrow-left"></span>
                             Kembali</a>
-                        <a href="/dashboard/responses/{{ $response->id }}/edit" class="badge bg-warning me-1"><span
-                                data-feather="edit"></span> Edit</a>
-                        <a href="#" class="badge bg-danger border-0 delete-record me-1"
-                            data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
-                                data-slug="{{ $response->id }}"></span> Hapus</a>
+                        @if ($response->complaint->status != 2)
+                            <a href="/dashboard/responses/{{ $response->id }}/edit" class="badge bg-warning me-1"><span
+                                    data-feather="edit"></span> Edit</a>
+                            <a href="#" class="badge bg-danger border-0 delete-record me-1"
+                                data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
+                                    data-slug="{{ $response->id }}"></span> Hapus</a>
+                        @endif
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">

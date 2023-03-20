@@ -25,276 +25,277 @@
             </div>
         </div>
         <div class="page-content mt-4">
-            <section class="row">
-                <div class="col-12 col-lg-9">
-                    <div class="row">
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon purple mb-2">
-                                                <i class="iconly-boldShow"></i>
+            @cannot('student')
+                <section class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon purple mb-2">
+                                                    <i class="iconly-boldShow"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">
+                                                    Keluhan
+                                                </h6>
+                                                <h6 class="font-extrabold mb-0">
+                                                    {{ $complaints->count() }}
+                                                </h6>
                                             </div>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">
-                                                Keluhan
-                                            </h6>
-                                            <h6 class="font-extrabold mb-0">
-                                                {{ $complaints->count() }}
-                                            </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon blue mb-2">
+                                                    <i class="iconly-boldProfile"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">
+                                                    Pegawai
+                                                </h6>
+                                                <h6 class="font-extrabold mb-0">
+                                                    {{ $officers->count() }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="iconly-boldAdd-User"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">
+                                                    Murid
+                                                </h6>
+                                                <h6 class="font-extrabold mb-0">
+                                                    {{ $students->count() }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                <div class="stats-icon red mb-2">
+                                                    <i class="iconly-boldBookmark"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">
+                                                    Tanggapan
+                                                </h6>
+                                                <h6 class="font-extrabold mb-0">
+                                                    {{ $responses->count() }}
+                                                </h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon blue mb-2">
-                                                <i class="iconly-boldProfile"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">
-                                                Pegawai
-                                            </h6>
-                                            <h6 class="font-extrabold mb-0">
-                                                {{ $officers->count() }}
-                                            </h6>
-                                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Tanggapan</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="chart-profile-visit"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon green mb-2">
-                                                <i class="iconly-boldAdd-User"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">
-                                                Murid
-                                            </h6>
-                                            <h6 class="font-extrabold mb-0">
-                                                {{ $students->count() }}
-                                            </h6>
-                                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Keluhan</h3>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-6 col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                            <div class="stats-icon red mb-2">
-                                                <i class="iconly-boldBookmark"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">
-                                                Tanggapan
-                                            </h6>
-                                            <h6 class="font-extrabold mb-0">
-                                                {{ $responses->count() }}
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Tanggapan</h3>
-                                </div>
-                                <div class="card-body">
-                                    <div id="chart-profile-visit"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3>Keluhan</h3>
-                                </div>
-                                <div class="card-body">
-                                    <table class="table table-striped" id="table2">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Judul Keluhan</th>
-                                                <th>Status</th>
-                                                <th>Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @forelse ($complaints as $complaint)
+                                    <div class="card-body">
+                                        <table class="table table-striped" id="table2">
+                                            <thead>
                                                 <tr>
-                                                    <td>
-                                                        <p>{{ $loop->iteration }}</p>
-                                                    </td>
-                                                    <td>
-                                                        <p class="m-0">{{ $complaint->title }}</p>
-                                                    </td>
-                                                    <td>
-                                                        @if ($complaint->status == 0)
-                                                            <span class="badge bg-danger">
-                                                                Belum diproses
-                                                            </span>
-                                                        @elseif ($complaint->status == 1)
-                                                            <span class="badge bg-secondary">
-                                                                Sedang diproses
-                                                            </span>
-                                                        @elseif ($complaint->status == 2)
-                                                            <span class="badge bg-success">
-                                                                Selesai
-                                                            </span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <div class="d-flex">
-                                                            @if ($complaint->status == 2)
-                                                                <span class="badge bg-success">
-                                                                    Kasus Selesai
+                                                    <th>#</th>
+                                                    <th>Judul Keluhan</th>
+                                                    <th>Status</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @forelse ($complaints as $complaint)
+                                                    <tr>
+                                                        <td>
+                                                            <p>{{ $loop->iteration }}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="m-0">{{ $complaint->title }}</p>
+                                                        </td>
+                                                        <td>
+                                                            @if ($complaint->status == 0)
+                                                                <span class="badge bg-danger">
+                                                                    Belum diproses
                                                                 </span>
-                                                            @elseif($complaint->status < 2)
-                                                                <div class="me-2">
-                                                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}"
-                                                                        class="btn btn-warning">
-                                                                        <i class="bi bi-pencil-square"></i> Tanggapi
-                                                                    </a>
-                                                                </div>
+                                                            @elseif ($complaint->status == 1)
+                                                                <span class="badge bg-secondary">
+                                                                    Sedang diproses
+                                                                </span>
+                                                            @elseif ($complaint->status == 2)
+                                                                <span class="badge bg-success">
+                                                                    Selesai
+                                                                </span>
                                                             @endif
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            @empty
-                                                <tr>
-                                                    <td colspan="5">
-                                                        <p class="text-center mt-3">Tidak ada tanggapan</p>
-                                                    </td>
-                                                </tr>
-                                            @endforelse
-                                        </tbody>
-                                    </table>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                @if ($complaint->status == 2)
+                                                                    <span class="badge bg-success">
+                                                                        Kasus Selesai
+                                                                    </span>
+                                                                @elseif($complaint->status < 2)
+                                                                    <div class="me-2">
+                                                                        <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                            class="btn btn-warning">
+                                                                            <i class="bi bi-pencil-square"></i> Tanggapi
+                                                                        </a>
+                                                                    </div>
+                                                                @endif
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <p class="text-center mt-3">Tidak ada tanggapan</p>
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-lg-3">
-                    <div class="card">
-                        <div class="card-body py-4 px-4">
-                            <div class="d-flex align-items-center">
-                                <div class="avatar avatar-xl">
-                                    <img src="assets/images/faces/1.jpg" alt="Face 1" />
-                                </div>
-                                <div class="ms-3 name">
-                                    <h5 class="font-bold">{{ auth()->user()->name }}</h5>
-                                    <h6 class="text-muted mb-0">
-                                        {{ htmlspecialchars('@' . auth()->user()->username) }}
-                                    </h6>
+                    <div class="col-12 col-lg-3">
+                        <div class="card">
+                            <div class="card-body py-4 px-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-xl">
+                                        <img src="assets/images/faces/1.jpg" alt="Face 1" />
+                                    </div>
+                                    <div class="ms-3 name">
+                                        <h5 class="font-bold">{{ auth()->user()->name }}</h5>
+                                        <h6 class="text-muted mb-0">
+                                            {{ htmlspecialchars('@' . auth()->user()->username) }}
+                                        </h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Keluhan Terbaru</h4>
-                        </div>
-                        <div class="card-content pb-4">
-                            @forelse ($complaints->where("status", "!=", '2')->slice(0, 3) as $complaint)
-                                <a href="/dashboard/responses/create/{{ $complaint->slug }}">
-                                    <div class="recent-message d-flex px-4 py-3">
-                                        <div class="avatar avatar-lg">
-                                            @if ($complaint->student->user->image)
-                                                <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
-                                                    alt="User avatar" />
-                                            @else
-                                                @if ($complaint->student->user->gender == 'L')
-                                                    <img src="{{ asset('assets/images/faces/2.jpg') }}"
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Keluhan Terbaru</h4>
+                            </div>
+                            <div class="card-content pb-4">
+                                @forelse ($complaints->where("status", "!=", '2')->slice(0, 3) as $complaint)
+                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}">
+                                        <div class="recent-message d-flex px-4 py-3">
+                                            <div class="avatar avatar-lg">
+                                                @if ($complaint->student->user->image)
+                                                    <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
                                                         alt="User avatar" />
                                                 @else
-                                                    <img src="{{ asset('assets/images/faces/5.jpg') }}"
-                                                        alt="User avatar" />
+                                                    @if ($complaint->student->user->gender == 'L')
+                                                        <img src="{{ asset('assets/images/faces/2.jpg') }}"
+                                                            alt="User avatar" />
+                                                    @else
+                                                        <img src="{{ asset('assets/images/faces/5.jpg') }}"
+                                                            alt="User avatar" />
+                                                    @endif
                                                 @endif
-                                            @endif
+                                            </div>
+                                            <div class="name ms-4">
+                                                <h5 class="mb-1">{{ $complaint->student->user->name }}</h5>
+                                                <h6 class="text-muted mb-0">
+                                                    {{ htmlspecialchars('@' . $complaint->student->user->username) }}
+                                                </h6>
+                                            </div>
                                         </div>
-                                        <div class="name ms-4">
-                                            <h5 class="mb-1">{{ $complaint->student->user->name }}</h5>
-                                            <h6 class="text-muted mb-0">
-                                                {{ htmlspecialchars('@' . $complaint->student->user->username) }}
-                                            </h6>
+                                    </a>
+                                @empty
+                                    <div class="recent-message d-flex px-4 py-3">
+                                        <div class="alert alert-warning" role="alert">
+                                            <h4 class="alert-heading">Tidak ada keluhan</h4>
                                         </div>
                                     </div>
-                                </a>
-                            @empty
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="alert alert-warning" role="alert">
-                                        <h4 class="alert-heading">Tidak ada keluhan</h4>
-                                    </div>
-                                </div>
-                            @endforelse
-                            {{-- <div class="px-4">
+                                @endforelse
+                                {{-- <div class="px-4">
                                 <button class="btn btn-block btn-xl btn-outline-primary font-bold mt-3">
                                     Start Conversation
                                 </button>
                             </div> --}}
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Profil Tanggapan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-visitors-profile"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <h4>Profil Tanggapan</h4>
-                        </div>
-                        <div class="card-body">
-                            <div id="chart-visitors-profile"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Tanggapan Terbaru</h3>
-                        </div>
-                        <div class="card-body">
-                            @forelse ($responses->slice(0, 3) as $response)
-                                <div class="row g-0 px-4 mt-3 mb-4 pb-2">
-                                    <div class="col-md-2 d-flex align-items-start">
-                                        @if ($response->officer->user->image)
-                                            <img src="{{ asset('storage/' . $response->officer->user->image) }}"
-                                                alt="User avatar" class="img-fluid rounded-circle mx-auto">
-                                        @else
-                                            @if ($response->officer->user->gender == 'L')
-                                                <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
-                                                    class="img-fluid rounded-circle mx-auto">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Tanggapan Terbaru</h3>
+                            </div>
+                            <div class="card-body">
+                                @forelse ($responses->slice(0, 3) as $response)
+                                    <div class="row g-0 px-4 mt-3 mb-4 pb-2">
+                                        <div class="col-md-2 d-flex align-items-start">
+                                            @if ($response->officer->user->image)
+                                                <img src="{{ asset('storage/' . $response->officer->user->image) }}"
+                                                    alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
-                                                <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
-                                                    class="img-fluid rounded-circle mx-auto">
+                                                @if ($response->officer->user->gender == 'L')
+                                                    <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
+                                                        class="img-fluid rounded-circle mx-auto">
+                                                @else
+                                                    <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
+                                                        class="img-fluid rounded-circle mx-auto">
+                                                @endif
                                             @endif
-                                        @endif
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $response->officer->user->name }}</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">
-                                                {{ $response->created_at->diffForHumans() }}
-                                            </h6>
-                                            <p class="card-text">{!! $response->body !!}</p>
-                                            {{-- <div class="d-flex justify-content-between align-items-center">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body">
+                                                <h5 class="card-title">{{ $response->officer->user->name }}</h5>
+                                                <h6 class="card-subtitle mb-2 text-muted">
+                                                    {{ $response->created_at->diffForHumans() }}
+                                                </h6>
+                                                <p class="card-text">{!! $response->body !!}</p>
+                                                {{-- <div class="d-flex justify-content-between align-items-center">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-sm btn-outline-secondary">Reply</button>
                                                     <button type="button"
@@ -302,20 +303,25 @@
                                                 </div>
                                                 <small class="text-muted">Likes: 15</small>
                                             </div> --}}
+                                            </div>
                                         </div>
+                                        <hr>
                                     </div>
-                                    <hr>
-                                </div>
-                            @empty
-                                <div class="alert alert-warning" role="alert">
-                                    <h4 class="alert-heading">Tidak ada tanggapan</h4>
-                                    <p>Belum ada tanggapan dari pihak terkait.</p>
-                                </div>
-                            @endforelse
+                                @empty
+                                    <div class="alert alert-warning" role="alert">
+                                        <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                        <p>Belum ada tanggapan dari pihak terkait.</p>
+                                    </div>
+                                @endforelse
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            @endcannot
+
+            @can('student')
+                <h1>STUDENT</h1>
+            @endcan
         </div>
     </div>
 @endsection
