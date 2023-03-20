@@ -232,11 +232,23 @@ class DashboardController extends Controller
             // Use the response counts as chart data
             'data' => [
                 // Records of responses
-                "yAxis" => $yAxis,
-                // Labels of responses
-                "xAxis" => $xAxis,
-                // Genders of responses
-                "genders" => $genders
+                "responses" => [
+                    "xAxis" => $responseXAxis,
+                    "yAxis" => $responseYAxis,
+                ],
+                // Records of all responses
+                "allResponses" => [
+                    "xAxis" => $allResponseXAxis ?? [],
+                    "yAxis" => $allResponseYAxis ?? [],
+                    // Genders of all responses
+                    "genders" => $genders,
+                ],
+                // Records of complaints
+                "allComplaints" => [
+                    "xAxis" => $allComplaintXAxis ?? [],
+                    "yAxis" => $allComplaintYAxis ?? [],
+                ],
+
             ],
         ];
 
