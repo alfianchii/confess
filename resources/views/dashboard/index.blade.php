@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="page-content mt-4">
-            @cannot('student')
+            @can('admin')
                 <section class="row">
                     <div class="col-12 col-lg-9">
                         <div class="row">
@@ -118,10 +118,10 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3>Tanggapan</h3>
+                                        <h3>Statistik Keluhan dan Tanggapan</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
+                                        <div id="chart-complaint"></div>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,19 @@
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h3>Keluhan</h3>
+                                        <h3>Statistik Tanggapan Kamu</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="chart-your-responses"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3>Daftar Keluhan</h3>
                                     </div>
                                     <div class="card-body">
                                         <table class="table table-striped" id="table2">
@@ -317,7 +329,7 @@
                         </div>
                     </div>
                 </section>
-            @endcannot
+            @endcan
 
             @can('student')
                 <h1>STUDENT</h1>
@@ -340,86 +352,143 @@
             },
         }).then(async (result) => {
             const body = await result.json();
+            const userLevel = {!! json_encode(optional(auth()->user())->level) !!}
 
-            const records = body.data.yAxis
-            const labels = body.data.xAxis
-            const genders = body.data.genders
+            // Response JSON
+            const allResponses = body.data.allResponses
+            const allComplaints = body.data.allComplaints
+            const responses = body.data.responses
+            const allResponsesGender = allResponses.genders
 
             // Convert string to int
-            for (const gender in genders) {
-                genders[gender] = parseInt(genders[gender]);
+            for (const gender in allResponsesGender) {
+                allResponsesGender[gender] = parseInt(allResponsesGender[gender]);
             }
 
-            var optionsProfileVisit = {
-                annotations: {
-                    position: "back",
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-                chart: {
-                    type: "bar",
-                    height: 300,
-                },
-                fill: {
-                    opacity: 1,
-                },
-                plotOptions: {},
-                series: [{
-                    name: "tanggapan",
-                    data: records,
-                }, ],
-                colors: "#435ebe",
-                xaxis: {
-                    categories: labels,
-                },
-                yaxis: {
-                    labels: {
-                        formatter: function(value) {
-                            if (value < 5) {
+            if (userLevel === "admin") {
+                // Set options
+                var optionsComplaintAndResponse = {
+                    series: [{
+                        name: "Keluhan",
+                        data: allComplaints.yAxis,
+                    }, {
+                        name: "Tanggapan",
+                        data: allResponses.yAxis,
+                    }],
+                    chart: {
+                        height: 350,
+                        type: "area",
+                        zoom: {
+                            enabled: false
+                        },
+                        stacked: false
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    stroke: {
+                        curve: "smooth",
+                    },
+                    xaxis: {
+                        categories: allComplaints.xAxis,
+                        type: "datetime",
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: function(value) {
                                 return Math.round(value);
                             }
-                            return value;
                         }
-                    }
-                }
-            }
-            let optionsVisitorsProfile = {
-                series: [genders.male, genders.female],
-                labels: ["Male", "Female"],
-                colors: ["#435ebe", "#55c6e8"],
-                chart: {
-                    type: "donut",
-                    width: "100%",
-                    height: "350px",
-                },
-                legend: {
-                    position: "bottom",
-                },
-                plotOptions: {
-                    pie: {
-                        donut: {
-                            size: "30%",
+                    },
+                    tooltip: {
+                        x: {
+                            format: "dd/MM/yy",
                         },
                     },
-                },
+                }
+                var optionsYourResponse = {
+                    annotations: {
+                        position: "back",
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    chart: {
+                        type: "bar",
+                        height: 300,
+                    },
+                    fill: {
+                        opacity: 1,
+                    },
+                    plotOptions: {},
+                    series: [{
+                        name: "Tanggapan Kamu",
+                        data: responses.yAxis,
+                    }, ],
+                    colors: "#435ebe",
+                    xaxis: {
+                        categories: responses.xAxis,
+                        type: "datetime",
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: function(value) {
+                                return Math.round(value);
+                            },
+                        },
+                        max: Math.max(...allResponses.yAxis),
+                    },
+                    tooltip: {
+                        x: {
+                            format: "dd/MM/yy",
+                        },
+                    },
+                }
+                let optionsAllResponsesGender = {
+                    series: [allResponsesGender.male, allResponsesGender.female],
+                    labels: ["Male", "Female"],
+                    colors: ["#435ebe", "#55c6e8"],
+                    chart: {
+                        type: "donut",
+                        width: "100%",
+                        height: "350px",
+                    },
+                    legend: {
+                        position: "bottom",
+                    },
+                    plotOptions: {
+                        pie: {
+                            donut: {
+                                size: "30%",
+                            },
+                        },
+                    },
+                }
+
+                // Instance chart
+                var chartComplaintAndResponse = new ApexCharts(
+                    document.getElementById("chart-complaint"),
+                    optionsComplaintAndResponse
+                )
+                var chartYourResponses = new ApexCharts(
+                    document.querySelector("#chart-your-responses"),
+                    optionsYourResponse
+                )
+                var chartAllResponsesGender = new ApexCharts(
+                    document.getElementById("chart-visitors-profile"),
+                    optionsAllResponsesGender
+                )
+
+                // Render
+                chartYourResponses.render()
+                chartAllResponsesGender.render()
+                chartComplaintAndResponse.render()
             }
-
-            var chartProfileVisit = new ApexCharts(
-                document.querySelector("#chart-profile-visit"),
-                optionsProfileVisit
-            )
-            var chartVisitorsProfile = new ApexCharts(
-                document.getElementById("chart-visitors-profile"),
-                optionsVisitorsProfile
-            )
-
-            chartProfileVisit.render()
-            chartVisitorsProfile.render()
         })
     </script>
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
+    {{-- Simple DataTable --}}
     <script>
         /* RESPONSE TABLE */
         let responseTable = new simpleDatatables.DataTable(
