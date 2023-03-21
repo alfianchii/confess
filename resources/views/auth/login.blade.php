@@ -57,7 +57,7 @@
 
                     </div>
                     <div class="text-start mt-5">
-                        <button type="submit" class="w-100 btn-color btn text-white btn-primary p-2">Masuk</button>
+                        <button type="submit" class="w-100 btn-color btn text-white p-2">Masuk</button>
                     </div>
                 </form>
             </div>
