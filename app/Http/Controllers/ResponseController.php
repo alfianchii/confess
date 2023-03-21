@@ -53,7 +53,7 @@ class ResponseController extends Controller
             "status" => ["required", "numeric", "integer"],
         ]);
 
-        $credentials["officer_nik"] = $credentials["student_nik"] = auth()->user()->nik ?? null;
+        $credentials["officer_nik"] = auth()->user()->nik ?? null;
 
         try {
             // Create response
