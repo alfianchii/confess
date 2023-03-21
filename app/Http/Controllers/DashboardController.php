@@ -20,9 +20,9 @@ class DashboardController extends Controller
         $currentTime = Carbon::now();
         $hour = $currentTime->hour;
 
-        if ($hour >= 5 && $hour <= 11) {
+        if ($hour >= 5 && $hour <= 13) {
             $greeting = 'Selamat pagi';
-        } elseif ($hour >= 12 && $hour <= 17) {
+        } elseif ($hour >= 14 && $hour <= 17) {
             $greeting = 'Selamat sore';
         } else {
             $greeting = 'Selamat malam';
