@@ -16,11 +16,7 @@ fetch(`/dashboard/responses-data`, {
     const allComplaints = body.chart.data.allComplaints;
     const responses = body.chart.data.responses;
     const allResponsesGender = allResponses.genders;
-
-    // Convert string to int
-    for (const gender in allResponsesGender) {
-        allResponsesGender[gender] = parseInt(allResponsesGender[gender]);
-    }
+    const allComplaintsGender = allComplaints.genders;
 
     if (userLevel === "admin") {
         // Set options
@@ -129,6 +125,26 @@ fetch(`/dashboard/responses-data`, {
                 },
             },
         };
+        let optionsAllComplaintsGender = {
+            series: [allComplaintsGender.male, allComplaintsGender.female],
+            labels: ["Male", "Female"],
+            colors: ["#435ebe", "#55c6e8"],
+            chart: {
+                type: "donut",
+                width: "100%",
+                height: "350px",
+            },
+            legend: {
+                position: "bottom",
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: "30%",
+                    },
+                },
+            },
+        };
 
         // Instance chart
         var chartComplaintAndResponse = new ApexCharts(
@@ -140,13 +156,18 @@ fetch(`/dashboard/responses-data`, {
             optionsYourResponse
         );
         var chartAllResponsesGender = new ApexCharts(
-            document.getElementById("chart-visitors-profile"),
+            document.getElementById("chart-response-genders"),
             optionsAllResponsesGender
+        );
+        var chartAllComplaintsGender = new ApexCharts(
+            document.getElementById("chart-complaint-genders"),
+            optionsAllComplaintsGender
         );
 
         // Render
         chartYourResponses.render();
         chartAllResponsesGender.render();
+        chartAllComplaintsGender.render();
         chartComplaintAndResponse.render();
     } else if (userLevel === "officer") {
         // Set options
@@ -219,7 +240,7 @@ fetch(`/dashboard/responses-data`, {
             optionsYourResponses
         );
         var chartAllResponsesGender = new ApexCharts(
-            document.getElementById("chart-visitors-profile"),
+            document.getElementById("chart-response-genders"),
             optionsAllResponsesGender
         );
 
