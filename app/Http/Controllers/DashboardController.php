@@ -50,72 +50,6 @@ class DashboardController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function responsesData()
     {
         // Retrieve responses created in the last 7 days
@@ -150,7 +84,7 @@ class DashboardController extends Controller
         }
 
         // Retrieve genders which based on responses
-        $genders = DB::table('responses')
+        $responseGenders = DB::table('responses')
             ->join("officers", 'responses.officer_nik', "=", "officers.officer_nik")
             ->join("users", 'officers.officer_nik', "=", "users.nik")
             ->select(
@@ -228,31 +162,39 @@ class DashboardController extends Controller
             }
         }
 
-        $chartData = [
+        $results = [
             // Use the response counts as chart data
-            'data' => [
-                // Records of responses
-                "responses" => [
-                    "xAxis" => $responseXAxis,
-                    "yAxis" => $responseYAxis,
+            'chart' => [
+                "data" => [
+                    // Records of responses
+                    "responses" => [
+                        "xAxis" => $responseXAxis ?? [],
+                        "yAxis" => $responseYAxis ?? [],
+                    ],
+                    // Records of all response
+                    "allResponses" => [
+                        "xAxis" => $allResponseXAxis ?? [],
+                        "yAxis" => $allResponseYAxis ?? [],
+                        // Genders of all response
+                        "genders" => $responseGenders ?? [],
+                    ],
+                    // Records of complaints
+                    "allComplaints" => [
+                        "xAxis" => $allComplaintXAxis ?? [],
+                        "yAxis" => $allComplaintYAxis ?? [],
+                        // Genders of all complaint
+                        "genders" => $complaintGenders ?? [],
+                    ],
                 ],
-                // Records of all responses
-                "allResponses" => [
-                    "xAxis" => $allResponseXAxis ?? [],
-                    "yAxis" => $allResponseYAxis ?? [],
-                    // Genders of all responses
-                    "genders" => $genders,
+            ],
+            "authentication" => [
+                "data" => [
+                    "level" => auth()->user()->level,
                 ],
-                // Records of complaints
-                "allComplaints" => [
-                    "xAxis" => $allComplaintXAxis ?? [],
-                    "yAxis" => $allComplaintYAxis ?? [],
-                ],
-
             ],
         ];
 
         // Return the chart data as a JSON response
-        return response()->json($chartData);
+        return response()->json($results);
     }
 }
