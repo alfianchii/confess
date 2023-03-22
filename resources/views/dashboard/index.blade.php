@@ -271,10 +271,18 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profil Tanggapan</h4>
+                                <h4>Tanggapan</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
+                                <div id="chart-response-genders"></div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Keluhan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-complaint-genders"></div>
                             </div>
                         </div>
                     </div>
@@ -565,10 +573,10 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profil Tanggapan</h4>
+                                <h4>Tanggapan</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
+                                <div id="chart-response-genders"></div>
                             </div>
                         </div>
                     </div>
