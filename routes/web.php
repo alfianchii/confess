@@ -42,4 +42,4 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
 });
 
 // Responses data
-Route::get('/dashboard/responses-data', [DashboardController::class, "responsesData"])->middleware("auth");
+Route::get('/dashboard/chart-data', [DashboardController::class, "chartData"])->middleware("auth");
