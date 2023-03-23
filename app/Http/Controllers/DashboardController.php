@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Complaint, Officer, Response, Student};
-use App\Services\ChartService;
-use Carbon\Carbon;
+use App\Services\Dashboard\{DashboardService, ChartService, GreetingService};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
