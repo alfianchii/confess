@@ -23,38 +23,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Timezone
-        $currentTime = Carbon::now();
-        $hour = $currentTime->hour;
+        $response = $this->dashboardService->index();
 
-        if ($hour >= 5 && $hour <= 13) {
-            $greeting = 'Selamat pagi';
-        } elseif ($hour >= 14 && $hour <= 17) {
-            $greeting = 'Selamat sore';
-        } else {
-            $greeting = 'Selamat malam';
-        }
-
-        // Complaints
-        $complaints = Complaint::orderByDesc("created_at")->get() ?? [];
-
-        // Officers
-        $officers = Officer::all();
-
-        // Students
-        $students = Student::all();
-
-        // Responses
-        $responses = Response::orderByDesc("created_at")->get() ?? [];
-
-        return view("dashboard.index", [
-            "title" => "Dashboard",
-            "greeting" => $greeting,
-            "complaints" => $complaints,
-            "officers" => $officers,
-            "students" => $students,
-            "responses" => $responses,
-        ]);
+        return view("dashboard.index", $response);
     }
 
     public function chartData()
