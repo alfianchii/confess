@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\{Complaint, Officer, Response, Student};
+use App\Services\ChartService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    protected $chartService;
+
+    // Constructor to add services
+    public function __construct(ChartService $chartService)
+    {
+        $this->chartService = $chartService;
+    }
+
     /**
      * Display a listing of the resource.
      *
