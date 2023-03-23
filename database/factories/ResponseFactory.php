@@ -22,7 +22,7 @@ class ResponseFactory extends Factory
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
             "officer_nik" => $this->faker->randomElement(["1234567890123456", "1201234563456789", "1234512345667890", "1234516678902345", '1238902345451667']),
-            "created_at" => $this->faker->dateTimeBetween("-7 days", "now"),
+            "created_at" => $this->faker->dateTimeBetween("-6 days", "now"),
         ];
     }
 }

@@ -12,11 +12,10 @@ fetch(`/dashboard/responses-data`, {
     const userLevel = body.authentication.data.level;
 
     // Response JSON
-    const allResponses = body.chart.data.allResponses;
-    const allComplaints = body.chart.data.allComplaints;
-    const responses = body.chart.data.responses;
-    const allResponsesGender = allResponses.genders;
-    const allComplaintsGender = allComplaints.genders;
+    const allComplaints = body.chart.data.allComplaints ?? [];
+    const allResponses = body.chart.data.allResponses ?? [];
+    const responses = body.chart.data.responses ?? [];
+    const complaints = body.chart.data.complaints ?? [];
 
     if (userLevel === "admin") {
         // Set options
@@ -24,11 +23,11 @@ fetch(`/dashboard/responses-data`, {
             series: [
                 {
                     name: "Keluhan",
-                    data: allComplaints.yAxis,
+                    data: allComplaints.data.yAxis,
                 },
                 {
                     name: "Tanggapan",
-                    data: allResponses.yAxis,
+                    data: allResponses.data.yAxis,
                 },
             ],
             chart: {
@@ -46,7 +45,7 @@ fetch(`/dashboard/responses-data`, {
                 curve: "smooth",
             },
             xaxis: {
-                categories: allComplaints.xAxis,
+                categories: allComplaints.data.xAxis,
                 type: "datetime",
             },
             yaxis: {
@@ -97,7 +96,7 @@ fetch(`/dashboard/responses-data`, {
                         return Math.round(value);
                     },
                 },
-                max: Math.max(...allResponses.yAxis),
+                max: Math.max(...allResponses.data.yAxis),
             },
             tooltip: {
                 x: {
@@ -106,7 +105,7 @@ fetch(`/dashboard/responses-data`, {
             },
         };
         let optionsAllResponsesGender = {
-            series: [allResponsesGender.male, allResponsesGender.female],
+            series: [allResponses.genders.male, allResponses.genders.female],
             labels: ["Male", "Female"],
             colors: ["#435ebe", "#55c6e8"],
             chart: {
@@ -126,7 +125,7 @@ fetch(`/dashboard/responses-data`, {
             },
         };
         let optionsAllComplaintsGender = {
-            series: [allComplaintsGender.male, allComplaintsGender.female],
+            series: [allComplaints.genders.male, allComplaints.genders.female],
             labels: ["Male", "Female"],
             colors: ["#435ebe", "#55c6e8"],
             chart: {
@@ -214,7 +213,7 @@ fetch(`/dashboard/responses-data`, {
             },
         };
         let optionsAllResponsesGender = {
-            series: [allResponsesGender.male, allResponsesGender.female],
+            series: [allResponses.genders.male, allResponses.genders.female],
             labels: ["Male", "Female"],
             colors: ["#435ebe", "#55c6e8"],
             chart: {
