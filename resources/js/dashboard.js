@@ -1,4 +1,4 @@
-fetch(`/dashboard/responses-data`, {
+fetch(`/dashboard/chart-data`, {
     method: "GET",
     headers: {
         "X-CSRF-TOKEN": document
