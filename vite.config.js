@@ -6,6 +6,7 @@ export default defineConfig({
         laravel({
             input: [
                 "resources/css/app.css",
+                "resources/js/dashboard.js",
                 "resources/js/sweetalert/swalSingle.js",
                 "resources/js/sweetalert/swalMulti.js",
                 "resources/js/sweetalert.js",
