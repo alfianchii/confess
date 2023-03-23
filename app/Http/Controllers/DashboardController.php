@@ -52,158 +52,18 @@ class DashboardController extends Controller
 
     public function responsesData()
     {
-        // Create an array with the dates for the last 7 days
-        $dateRange = Carbon::now()->subDays(6)->toPeriod(Carbon::now());
+        // Response
+        $responseAxises = Response::yourResponseAxises();
+        $allResponseAxises = Response::allResponseAxises();
 
-        // Admin
-        if (auth()->user()->level === "admin") {
-            // Retrieve all complaints created in the last 7 days
-            $allComplaints = DB::table('complaints')
-                ->whereBetween('complaints.created_at', [Carbon::now()->subDays(6)->format("Y-m-d"), Carbon::now()->subDays(-1)->format("Y-m-d")])
-                // Select the date of creation and count of complaints for each day
-                ->select(
-                    DB::raw('DATE(complaints.created_at) as date'),
-                    DB::raw('COUNT(*) as count'),
-                )
-                // Group the results by the date of creation
-                ->groupBy('date', 'complaints.created_at')
-                // Order the results by date in ascending order
-                ->orderBy('date', 'asc')
-                // Execute the query and retrieve the results
-                ->get();
+        // Complaint
+        $complaintAxises = Complaint::yourComplaintAxises();
+        $allComplaintAxises = Complaint::AllComplaintAxises();
 
-            // Create an array to store the complaint counts for each day
-            $allComplaintXAxis = [];
-            $allComplaintYAxis = [];
-
-            // Loop through the date range and populate the counts array with the complaint counts
-            foreach ($dateRange as $date) {
-                $counts = 0;
-
-                foreach ($allComplaints as $complaint) {
-                    if ($date->format("Y-m-d") == $complaint->date) {
-                        $counts += $complaint->count;
-                    }
-                }
-
-                $allComplaintYAxis[] = $counts;
-                $allComplaintXAxis[] = $date->format("Y-m-d");
-            }
-
-            // Retrieve all responses created in the last 7 days
-            $allResponses = DB::table('responses')
-                ->whereBetween('responses.created_at', [Carbon::now()->subDays(6), Carbon::now()])
-                // Select the date of creation and count of responses for each day
-                ->select(
-                    DB::raw('DATE(responses.created_at) as date'),
-                    DB::raw('COUNT(*) as count'),
-                )
-                // Group the results by the date of creation
-                ->groupBy('date')
-                // Order the results by date in ascending order
-                ->orderBy('date', 'asc')
-                // Execute the query and retrieve the results
-                ->get();
-
-            // Create an array to store the all response counts for each day
-            $allResponseXAxis = [];
-            $allResponseYAxis = [];
-
-            // Loop through the date range and populate the counts array with the all response counts
-            foreach ($dateRange as $date) {
-                $formattedDate = $date->format('Y-m-d');
-                $count = $allResponses->where('date', $formattedDate)->pluck('count')->first();
-                $allResponseYAxis[] = $count ?? 0; // Use 0 if the count is null
-                $allResponseXAxis[] = $date->format("Y-m-d");
-            }
-        }
-
-        // Admin and officer
-        if (auth()->user()->level === "admin" or auth()->user()->level === "officer") {
-            // Retrieve responses created in the last 7 days
-            $responses = DB::table('responses')
-                ->where("responses.officer_nik", auth()->user()->nik)
-                ->whereBetween('responses.created_at', [Carbon::now()->subDays(6), Carbon::now()])
-                // Select the date of creation and count of responses for each day
-                ->select(
-                    DB::raw('DATE(responses.created_at) as date'),
-                    DB::raw('COUNT(*) as count'),
-                )
-                // Group the results by the date of creation
-                ->groupBy('date')
-                // Order the results by date in ascending order
-                ->orderBy('date', 'asc')
-                // Execute the query and retrieve the results
-                ->get();
-
-            // Create an array to store the response counts for each day
-            $responseXAxis = [];
-            $responseYAxis = [];
-
-            // Loop through the date range and populate the counts array with the response counts
-            foreach ($dateRange as $date) {
-                $formattedDate = $date->format('Y-m-d');
-                $count = $responses->where('date', $formattedDate)->pluck('count')->first();
-                $responseYAxis[] = $count ?? 0; // Use 0 if the count is null
-                $responseXAxis[] = $date->format("Y-m-d");
-            }
-
-            // Retrieve genders which based on responses
-            $responseGenders = DB::table('responses')
-                ->join("officers", 'responses.officer_nik', "=", "officers.officer_nik")
-                ->join("users", 'officers.officer_nik', "=", "users.nik")
-                ->select(
-                    DB::raw('SUM(CASE WHEN users.gender = "L" THEN 1 ELSE 0 END) as male'),
-                    DB::raw('SUM(CASE WHEN users.gender = "P" THEN 1 ELSE 0 END) as female'),
-                )->get()[0];
-
-            // Convert string to int
-            foreach ($responseGenders as $gender => $value) {
-                $responseGenders->$gender = intval($responseGenders->$gender);
-            }
-        }
-
-        // Admin and student
-        if (auth()->user()->level === "admin" or auth()->user()->level === "student") {
-            // Retrieve genders which based on complaints
-            $complaintGenders = DB::table('complaints')
-                ->join("students", "complaints.student_nik", "=", "students.student_nik")
-                ->join("users", "students.student_nik", "=", "users.nik")
-                ->select(
-                    DB::raw("SUM(CASE WHEN users.gender = 'L' THEN 1 ELSE 0 END) as male"),
-                    DB::raw("SUM(CASE WHEN users.gender = 'P' THEN 1 ELSE 0 END) as female"),
-                )->get()[0];
-
-            // Convert string to int
-            foreach ($complaintGenders as $gender => $value) {
-                $complaintGenders->$gender = intval($complaintGenders->$gender);
-            }
-        }
-
+        // JSON response
         $results = [
-            // Use the response counts as chart data
             'chart' => [
-                "data" => [
-                    // Records of responses
-                    "responses" => [
-                        "xAxis" => $responseXAxis ?? [],
-                        "yAxis" => $responseYAxis ?? [],
-                    ],
-                    // Records of all response
-                    "allResponses" => [
-                        "xAxis" => $allResponseXAxis ?? [],
-                        "yAxis" => $allResponseYAxis ?? [],
-                        // Genders of all response
-                        "genders" => $responseGenders ?? [],
-                    ],
-                    // Records of complaints
-                    "allComplaints" => [
-                        "xAxis" => $allComplaintXAxis ?? [],
-                        "yAxis" => $allComplaintYAxis ?? [],
-                        // Genders of all complaint
-                        "genders" => $complaintGenders ?? [],
-                    ],
-                ],
+                "data" => [],
             ],
             "authentication" => [
                 "data" => [
@@ -211,6 +71,22 @@ class DashboardController extends Controller
                 ],
             ],
         ];
+
+        // Check level
+        if (auth()->user()->level === "admin") {
+            // All complaints
+            $results['chart']["data"]["allComplaints"] = $allComplaintAxises;
+            // All responses
+            $results['chart']["data"]["allResponses"] = $allResponseAxises;
+            // Your responses
+            $results['chart']["data"]["responses"] = $responseAxises;
+        } else if (auth()->user()->level === "officer") {
+            $results['chart']["data"]["allResponses"] = $allResponseAxises;
+            $results['chart']["data"]["responses"] = $responseAxises;
+        } else if (auth()->user()->level === "student") {
+            $results['chart']["data"]["allComplaints"] = $allComplaintAxises;
+            $results['chart']["data"]["complaints"] = $complaintAxises;
+        }
 
         // Return the chart data as a JSON response
         return response()->json($results);
