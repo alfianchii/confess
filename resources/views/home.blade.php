@@ -72,12 +72,8 @@
                 </div>
                 <div class="row">
                     <div class="col-12 text-center mt-5">
-                        @auth
-                            <a href="/dashboard" class="btn btn-lapor rounded-3 fw-bold">Buat Laporan</a>
-                        @endauth
-                        @guest
-                            <a href="/login" class="btn btn-lapor rounded-3 fw-bold">Buat Laporan</a>
-                        @endguest
+                        <a href="@auth /dashboard @else /login @endauth" class="btn btn-lapor rounded-3 fw-bold">Buat
+                            Laporan</a>
                     </div>
                 </div>
                 <div class="row mt-5">
