@@ -190,7 +190,7 @@ fetch(`/dashboard/chart-data`, {
             plotOptions: {},
             series: [
                 {
-                    name: "tanggapan",
+                    name: "Tanggapan Kamu",
                     data: responses.yAxis,
                 },
             ],
