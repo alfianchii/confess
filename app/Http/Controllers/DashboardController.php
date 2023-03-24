@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Dashboard\{DashboardService, ChartService, GreetingService};
+use App\Services\Dashboard\{DashboardService, ChartService};
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -23,7 +23,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $response = $this->dashboardService->index();
+        $response = $this->dashboardService->index(auth()->user());
 
         return view("dashboard.index", $response);
     }
