@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Complaint, Officer, Response, Student};
-use Carbon\Carbon;
+use App\Services\Dashboard\{DashboardService, ChartService};
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    protected $dashboardService, $chartService;
+
+    // Constructor to add services
+    public function __construct(DashboardService $dashboardService, ChartService $chartService)
+    {
+        $this->dashboardService = $dashboardService;
+        $this->chartService = $chartService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,79 +23,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Timezone
-        $currentTime = Carbon::now();
-        $hour = $currentTime->hour;
+        $response = $this->dashboardService->index(auth()->user());
 
-        if ($hour >= 5 && $hour <= 13) {
-            $greeting = 'Selamat pagi';
-        } elseif ($hour >= 14 && $hour <= 17) {
-            $greeting = 'Selamat sore';
-        } else {
-            $greeting = 'Selamat malam';
-        }
-
-        // Complaints
-        $complaints = Complaint::orderByDesc("created_at")->get() ?? [];
-
-        // Officers
-        $officers = Officer::all();
-
-        // Students
-        $students = Student::all();
-
-        // Responses
-        $responses = Response::orderByDesc("created_at")->get() ?? [];
-
-        return view("dashboard.index", [
-            "title" => "Dashboard",
-            "greeting" => $greeting,
-            "complaints" => $complaints,
-            "officers" => $officers,
-            "students" => $students,
-            "responses" => $responses,
-        ]);
+        return view("dashboard.index", $response);
     }
 
-    public function responsesData()
+    public function chartData()
     {
-        // Response
-        $responseAxises = Response::yourResponseAxises();
-        $allResponseAxises = Response::allResponseAxises();
-
-        // Complaint
-        $complaintAxises = Complaint::yourComplaintAxises();
-        $allComplaintAxises = Complaint::AllComplaintAxises();
-
-        // JSON response
-        $results = [
-            'chart' => [
-                "data" => [],
-            ],
-            "authentication" => [
-                "data" => [
-                    "level" => auth()->user()->level,
-                ],
-            ],
-        ];
-
-        // Check level
-        if (auth()->user()->level === "admin") {
-            // All complaints
-            $results['chart']["data"]["allComplaints"] = $allComplaintAxises;
-            // All responses
-            $results['chart']["data"]["allResponses"] = $allResponseAxises;
-            // Your responses
-            $results['chart']["data"]["responses"] = $responseAxises;
-        } else if (auth()->user()->level === "officer") {
-            $results['chart']["data"]["allResponses"] = $allResponseAxises;
-            $results['chart']["data"]["responses"] = $responseAxises;
-        } else if (auth()->user()->level === "student") {
-            $results['chart']["data"]["allComplaints"] = $allComplaintAxises;
-            $results['chart']["data"]["complaints"] = $complaintAxises;
-        }
-
-        // Return the chart data as a JSON response
-        return response()->json($results);
+        // Return the chart data (JSON response)
+        return $this->chartService->responses(auth()->user());
     }
 }

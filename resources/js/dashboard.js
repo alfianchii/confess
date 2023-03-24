@@ -1,4 +1,4 @@
-fetch(`/dashboard/responses-data`, {
+fetch(`/dashboard/chart-data`, {
     method: "GET",
     headers: {
         "X-CSRF-TOKEN": document
@@ -190,7 +190,7 @@ fetch(`/dashboard/responses-data`, {
             plotOptions: {},
             series: [
                 {
-                    name: "tanggapan",
+                    name: "Tanggapan Kamu",
                     data: responses.yAxis,
                 },
             ],
@@ -246,5 +246,58 @@ fetch(`/dashboard/responses-data`, {
         // Render
         chartYourResponses.render();
         chartAllResponsesGender.render();
+    } else if (userLevel === "student") {
+        // Set options
+        var optionsYourComplaints = {
+            annotations: {
+                position: "back",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            chart: {
+                type: "bar",
+                height: 300,
+                zoom: {
+                    enabled: false,
+                },
+            },
+            fill: {
+                opacity: 1,
+            },
+            plotOptions: {},
+            series: [
+                {
+                    name: "Keluhan Kamu",
+                    data: complaints.yAxis,
+                },
+            ],
+            colors: "#435ebe",
+            xaxis: {
+                categories: complaints.xAxis,
+                type: "datetime",
+            },
+            yaxis: {
+                labels: {
+                    formatter: function (value) {
+                        return Math.round(value);
+                    },
+                },
+            },
+            tooltip: {
+                x: {
+                    format: "dd/MM/yy",
+                },
+            },
+        };
+
+        // Instance chart
+        var chartYourComplaints = new ApexCharts(
+            document.querySelector("#chart-your-complaints"),
+            optionsYourComplaints
+        );
+
+        // Render
+        chartYourComplaints.render();
     }
 });
