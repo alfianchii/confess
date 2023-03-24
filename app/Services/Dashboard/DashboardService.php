@@ -3,6 +3,7 @@
 namespace App\Services\Dashboard;
 
 use App\Models\{Complaint, Officer, Response, Student};
+use Illuminate\Database\Eloquent\Collection;
 
 class DashboardService
 {
@@ -13,31 +14,76 @@ class DashboardService
         $this->greetingService = $greetingService;
     }
 
-    public function index(): array
+    public function index($user): array
     {
         // Greetings
         $greeting = $this->greetingService->dashboardGreeting();
 
-        // Complaints
-        $complaints = Complaint::orderByDesc("created_at")->get();
-
-        // Officers
-        $officers = Officer::all();
-
-        // Students
-        $students = Student::all();
-
-        // Responses
-        $responses = Response::orderByDesc("created_at")->get();
-
         $results = [
             "title" => "Dashboard",
             "greeting" => $greeting,
-            "complaints" => $complaints,
-            "officers" => $officers,
-            "students" => $students,
-            "responses" => $responses,
         ];
+
+        if ($user->level === "admin" || $user->level === "officer") {
+            // Complaints
+            $complaints = Complaint::orderByDesc("created_at")->get();
+            // Complaints count
+            $complaintsCount = $complaints->count();
+            // Recent complaints
+            $recentComplaints = $complaints->where("status", "!=", '2')->slice(0, 3);
+
+            // Officers
+            $officersCount = Officer::all()->count();
+
+            // Students
+            $studentsCount = Student::all()->count();
+
+            // Responses
+            $responsesCount = Response::all()->count();
+            // Recent responses
+            $recentResponses = Response::orderByDesc("created_at")->get()->slice(0, 3);
+
+            $results = array_merge($results, [
+                "complaints" => $complaints,
+                "complaintsCount" => $complaintsCount,
+                "recentComplaints" => $recentComplaints,
+                "officersCount" => $officersCount,
+                "studentsCount" => $studentsCount,
+                "responsesCount" => $responsesCount,
+                "recentResponses" => $recentResponses,
+            ]);
+        } else if ($user->level === "student") {
+            $complaints = Complaint::where("student_nik", $user->nik)->orderByDesc("created_at")->get();
+
+            // Your complaints count
+            $yourComplaintsCount = $complaints->count();
+
+            // Recent complaints
+            $recentComplaints = $complaints
+                ->where("status", "!=", '2')
+                ->slice(0, 3);
+
+            // Responses (Student complaint's responses)
+            $responsesStudent = new Collection();
+            foreach ($complaints as $complaint) {
+                if (!empty($complaint->responses)) {
+                    foreach ($complaint->responses as $response) {
+                        $responsesStudent->push($response);
+                    }
+                }
+            }
+            $responsesStudent = $responsesStudent->sortByDesc("created_at");
+
+            // Responses student count
+            $responsesStudentCount = $responsesStudent->count();
+
+            $results = array_merge($results, [
+                "recentComplaints" => $recentComplaints,
+                "yourComplaintsCount" => $yourComplaintsCount,
+                "recentResponsesStudent" => $responsesStudent->slice(0, 3),
+                "responsesStudentCount" => $responsesStudentCount,
+            ]);
+        }
 
         return $results;
     }
