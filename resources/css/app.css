@@ -78,10 +78,13 @@ body.theme-dark .navbar {
 }
 
 .btn-color {
-    background-color: #1e97af;
+    background-color: #1e97af !important;
+}
+.btn.btn-color:active {
+    background-color: #1e97af !important;
 }
 .btn-color:hover {
-    background-color: #25adc8;
+    background-color: #259eb7 !important;
 }
 
 .margin-form {
@@ -106,7 +109,96 @@ body.theme-dark .navbar {
     padding-top: 100px;
 }
 
-@media only screen and (max-width: 767px) {
+.alur-lapor {
+    width: 100%;
+    height: 100%;
+}
+
+.alur-lapor .col:nth-child(1) .ellipse {
+    background: #1a9fbb;
+}
+.ellipse {
+    padding: 19px;
+    margin: 0 auto;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    position: relative;
+    z-index: 2;
+}
+.theme-dark .ellipse {
+    background-color: #1e1e2d;
+}
+.theme-dark .ellipse img {
+    filter: invert(100%) sepia(3%) saturate(7495%) hue-rotate(337deg)
+        brightness(123%) contrast(95%);
+}
+.theme-dark .col:nth-child(1) .ellipse img {
+    filter: none;
+}
+.theme-dark .col:last-child .ellipse img {
+    filter: none;
+}
+.ellipse:hover {
+    background: #1a9fbb;
+}
+.ellipse:hover img {
+    filter: invert(100%) sepia(3%) saturate(7495%) hue-rotate(337deg)
+        brightness(123%) contrast(95%);
+}
+.col:nth-child(1) .ellipse:hover img {
+    filter: none;
+}
+
+.col:last-child .ellipse img {
+    filter: invert(0%) sepia(4%) saturate(2%) hue-rotate(318deg) brightness(16%)
+        contrast(100%);
+}
+.col:last-child .ellipse:hover img {
+    filter: none;
+}
+
+.garis {
+    margin-top: 2.5%;
+    position: absolute;
+    width: 69%;
+    height: 1.5px;
+    background-color: gray;
+    left: 15%;
+    z-index: 1;
+}
+
+body.theme-dark .ellipse ~ .h5 {
+    font-size: inherit;
+}
+
+.btn-lapor {
+    border-color: #1a9fbb !important;
+    color: #1a9fbb !important;
+    padding: 0.7rem 5rem !important;
+}
+.btn-lapor:hover {
+    background-color: #1994ac !important;
+    color: white !important;
+    box-shadow: 4px 3px 38px -13px #1994ac;
+}
+a.btn.btn-lapor:active {
+    background-color: #13aac8 !important;
+    color: white !important;
+}
+.jumlah-lapor {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(
+            243.3deg,
+            rgba(141, 255, 248, 0.79) 0%,
+            rgba(79, 181, 255, 0.79) 100%
+        );
+    padding-bottom: 5px;
+}
+@media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
     }
@@ -126,13 +218,189 @@ body.theme-dark .navbar {
         width: 100%;
         margin-top: 20px;
     }
-
+    .logo-smk {
+        width: 70%;
+    }
     .bg-about {
         height: 100%;
     }
+    .alur-lapor {
+        margin-left: 0.2px;
+    }
+    .alur-lapor .col {
+        width: 50px !important;
+    }
+    .garis {
+        margin-top: 6%;
+        left: 10%;
+        width: 80%;
+    }
+    .ellipse {
+        padding: 7px;
+        width: 40px;
+        height: 40px;
+    }
+    .ellipse img {
+        width: 20px;
+    }
+    .ellipse ~ h5 {
+        font-size: 10px !important;
+    }
+    .theme-dark .ellipse ~ h5 {
+        font-size: 10px !important;
+    }
+    .btn-lapor {
+        padding: 0.5rem 2rem !important;
+    }
 }
-
+@media only screen and (min-width: 373px) and (max-width: 430px) {
+    .margin-form {
+        margin: 0 15px;
+    }
+    .logo {
+        width: 74%;
+    }
+    .logo img {
+        width: 50%;
+    }
+    .logo-login img {
+        width: 50%;
+    }
+    .illus-login img {
+        width: 50%;
+    }
+    .illust-about {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .logo-smk {
+        width: 70%;
+    }
+    .bg-about {
+        height: 100%;
+    }
+    .alur-lapor {
+        margin-left: 1px !important;
+    }
+    .garis {
+        margin-top: 5.5%;
+        left: 10%;
+        width: 80%;
+    }
+    .ellipse {
+        padding: 7px;
+        width: 40px;
+        height: 40px;
+    }
+    .ellipse img {
+        width: 20px;
+    }
+    .ellipse ~ h5 {
+        font-size: 12px;
+    }
+    .theme-dark .ellipse ~ h5 {
+        font-size: 12px !important;
+    }
+    .btn-lapor {
+        padding: 0.5rem 2rem !important;
+    }
+}
+@media only screen and (min-width: 431px) and (max-width: 570px) {
+    .margin-form {
+        margin: 0 15px;
+    }
+    .logo {
+        width: 74%;
+    }
+    .logo img {
+        width: 50%;
+    }
+    .logo-login img {
+        width: 50%;
+    }
+    .illus-login img {
+        width: 50%;
+    }
+    .illust-about {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .logo-smk {
+        width: 60%;
+    }
+    .bg-about {
+        height: 100%;
+    }
+    .garis {
+        margin-top: 5%;
+        left: 10%;
+        width: 75%;
+    }
+    .ellipse {
+        padding: 10px;
+        width: 55px;
+        height: 55px;
+    }
+    .ellipse img {
+        width: 35px;
+    }
+    .ellipse ~ h5 {
+        font-size: 12px;
+    }
+    .btn-lapor {
+        padding: 0.5rem 2rem !important;
+    }
+}
+@media only screen and (min-width: 571px) and (max-width: 767px) {
+    .margin-form {
+        margin: 0 15px;
+    }
+    .logo {
+        width: 74%;
+    }
+    .logo img {
+        width: 50%;
+    }
+    .logo-login img {
+        width: 50%;
+    }
+    .illus-login img {
+        width: 50%;
+    }
+    .illust-about {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .logo-smk {
+        width: 60%;
+    }
+    .bg-about {
+        height: 100%;
+    }
+    .garis {
+        margin-top: 4%;
+        left: 16%;
+        width: 64%;
+    }
+    .ellipse {
+        padding: 10px;
+        width: 55px;
+        height: 55px;
+    }
+    .ellipse img {
+        width: 35px;
+    }
+    .ellipse ~ h5 {
+        font-size: 12px;
+    }
+    .btn-lapor {
+        padding: 0.5rem 2rem !important;
+    }
+}
 @media only screen and (min-width: 768px) and (max-width: 990px) {
+    p.fs-5 {
+        font-size: 1.2rem !important;
+    }
     .logo {
         width: 45%;
     }
@@ -143,5 +411,31 @@ body.theme-dark .navbar {
         border-bottom: solid 400px #f2f7ff;
         border-left: solid 400px transparent;
         border-right: solid 0px transparent;
+    }
+    .logo-smk {
+        width: 120%;
+    }
+    .garis {
+        margin-top: 4.5%;
+        width: 67%;
+    }
+    .btn-lapor {
+        padding: 0.7rem 4rem !important;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1439px) {
+    .garis {
+        margin-top: 3.5%;
+    }
+    .btn-lapor {
+        padding: 0.7rem 4rem !important;
+    }
+}
+@media only screen and (min-width: 2000px) {
+    .garis {
+        margin-top: 1.5%;
+        left: 29%;
+        width: 42%;
     }
 }
