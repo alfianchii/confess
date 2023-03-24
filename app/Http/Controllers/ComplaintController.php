@@ -67,7 +67,7 @@ class ComplaintController extends Controller
         }
 
         $credentials["student_nik"] = auth()->user()->nik ?? null;
-        $credentials["excerpt"] = Str::limit(strip_tags($request->body), 200, ' ...');
+        $credentials["excerpt"] = Str::limit(strip_tags($request->body), 50, ' ...');
 
         try {
             $complaint = Complaint::create($credentials);
@@ -156,7 +156,7 @@ class ComplaintController extends Controller
         }
 
         $credentials["student_nik"] = auth()->user()->nik ?? null;
-        $credentials["excerpt"] = Str::limit(strip_tags($request->body), 200, ' ...');
+        $credentials["excerpt"] = Str::limit(strip_tags($request->body), 50, ' ...');
 
         try {
             // $complaint = Complaint::where("id", $complaint->id)->update($credentials);
