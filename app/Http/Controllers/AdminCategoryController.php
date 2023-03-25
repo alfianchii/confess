@@ -30,7 +30,9 @@ class AdminCategoryController extends Controller
      */
     public function create()
     {
-        // 
+        return view("dashboard.categories.create", [
+            "title" => "Categories",
+        ]);
     }
 
     /**
