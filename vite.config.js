@@ -13,6 +13,8 @@ export default defineConfig({
                 "resources/js/quill.js",
                 "resources/js/image.js",
                 "resources/js/navbar.js",
+                "resources/js/sluggable/slug.js",
+                "resources/js/sluggable.js",
             ],
             refresh: true,
         }),
