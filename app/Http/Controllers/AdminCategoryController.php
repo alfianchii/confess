@@ -43,7 +43,17 @@ class AdminCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        // 
+        $credentials = $request->validate([
+            "name" => ["required", "max:255"],
+            "slug" => ["required", "unique:categories"],
+        ]);
+
+        try {
+            Category::create($credentials);
+            return redirect('/dashboard/categories/')->with('success', 'Kategori berhasil dibuat!');
+        } catch (\Exception $e) {
+            return redirect('/dashboard/categories')->withErrors('Kategori gagal dibuat.');
+        }
     }
 
     /**
