@@ -75,8 +75,28 @@ class AdminCategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        // 
-    }
+        try {
+            if (!Category::destroy($category->id)) {
+                throw new \Exception('Error deleting category.');
+            }
+        } catch (QueryException $e) {
+            // On delete, then restrict
+            if ($e->errorInfo[1] === 1451) {
+                return response()->json([
+                    "message" => "Tidak bisa menghapus kategori karena masih ada keluhan yang menggunakan kategori ini.",
+                ], 422);
+            }
+        } catch (\PDOException | ModelNotFoundException | \Exception $e) {
+            return response()->json([
+                "message" => "Gagal menghapus kategori.",
+                "error" => $e->getMessage(),
+            ], 422);
+        } catch (\Throwable $e) {
+            // Catch all exceptions here
+            return response()->json([
+                "message" => "An error occurred: " . $e->getMessage()
+            ], 500);
+        }
 }
 
     public function checkSlug(Request $request)
