@@ -97,7 +97,11 @@ class AdminCategoryController extends Controller
                 "message" => "An error occurred: " . $e->getMessage()
             ], 500);
         }
-}
+
+        return response()->json([
+            "message" => "Kategori telah dihapus!",
+        ], 200);
+    }
 
     public function checkSlug(Request $request)
     {
