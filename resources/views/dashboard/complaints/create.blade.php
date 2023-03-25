@@ -80,7 +80,7 @@
                                                 class="form-group has-icon-left mandatory @error('slug') is-invalid @enderror">
                                                 <label for="slug" class="form-label">Slug</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control py-2" placeholder="Slugable"
+                                                    <input type="text" class="form-control py-2" placeholder="Sluggable"
                                                         id="slug" name="slug" value="{{ old('slug') }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-pencil py-2"></i>
@@ -238,4 +238,5 @@
     <script src="{{ asset('assets/js/pages/form-element-select.js') }}"></script>
     {{-- Image and Sluggable --}}
     @vite(['resources/js/image.js'])
+    @vite(['resources/js/sluggable/slug.js'])
 @endsection

@@ -1,20 +1,3 @@
-// Image preview and Sluggable
-// Sluggable
-let title = document.querySelector("#title");
-let slug = document.querySelector("#slug");
-
-title.addEventListener("change", function () {
-    if (!title.value) {
-        slug.value = "";
-    } else {
-        fetch(`/dashboard/complaints/checkSlug?title=${title.value}`)
-            .then((response) => response.json())
-            .then((data) => {
-                slug.value = data.slug;
-            });
-    }
-});
-
 // Image Preview
 const imageInput = document.getElementById("image");
 imageInput.addEventListener("change", function () {
