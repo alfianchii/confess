@@ -64,7 +64,10 @@ class AdminCategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // 
+        return view("dashboard.categories.edit", [
+            "title" => $category->name,
+            "category" => $category,
+        ]);
     }
 
     /**
@@ -76,7 +79,39 @@ class AdminCategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        // 
+        $rules = [
+            "name" => ["required", "max:255"],
+        ];
+
+        if ($request->slug !== $category->slug) {
+            $rules["slug"] = ["required", "unique:categories"];
+        }
+
+        $credentials = $request->validate($rules);
+
+        try {
+            // $category = Category::where("id", $category->id)->update($credentials);
+            // Get the new and old of $category
+            $categoryOld = $category->fresh();
+            $category->update($credentials);
+            $categoryNew = $category->fresh();
+
+            // Get the old and new versions of the model as arrays
+            $oldAttributes = $categoryOld->getAttributes();
+            $newAttributes = $categoryNew->getAttributes();
+
+            // Compare the arrays to see if any attributes have changed
+            if ($oldAttributes === $newAttributes) {
+                // The instance of the $category record has not been updated
+                return redirect('/dashboard/categories')->with('info', 'Kamu tidak melakukan editing pada kategori.');
+            }
+
+            // The instance of the $category record has been updated
+            return redirect('/dashboard/categories/')->with('success', 'Kategori kamu berhasil di-edit!');
+        } catch (\Exception $e) {
+            // If something was wrong ...
+            return redirect('/dashboard/categories')->withErrors('Kategori kamu gagal di-edit.');
+        }
     }
 
     /**
