@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AuthController, ComplaintController, ResponseController, DashboardController};
+use App\Http\Controllers\{AdminCategoryController, AuthController, ComplaintController, ResponseController, DashboardController};
 
 /*
 |--------------------------------------------------------------------------
@@ -32,13 +32,17 @@ Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     Route::get("/", [DashboardController::class, 'index']);
 
+    // Sluggable check
     Route::get("/complaints/checkSlug", [ComplaintController::class, "checkSlug"])->middleware("student");
+    Route::get("/categories/checkSlug", [AdminCategoryController::class, "checkSlug"])->middleware("admin");
 
     // Complaint
     Route::resource("/complaints", ComplaintController::class)->middleware("student");
     // Response
     Route::resource("/responses", ResponseController::class)->middleware("response")->except("create");
     Route::get("/responses/create/{complaint:slug}", [ResponseController::class, "create"])->middleware("response");
+    // Category
+    Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except("show");
 });
 
 // Responses data
