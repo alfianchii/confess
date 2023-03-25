@@ -59,7 +59,7 @@ class ComplaintController extends Controller
             "body" => ["required"],
         ]);
 
-        // Convert slug into id
+        // Convert category's slug into id
         $credentials["category_id"] = Category::where('slug', $credentials["category_id"])->first()->id;
 
         if ($request->file("image")) {
