@@ -241,6 +241,9 @@ a.btn.btn-lapor:active {
     .alur-lapor {
         margin-left: 0.2px;
     }
+    body.theme-dark .alur-lapor {
+        margin-left: 0.2px;
+    }
     .alur-lapor .col {
         width: 50px !important;
     }
@@ -350,6 +353,9 @@ a.btn.btn-lapor:active {
         left: 10%;
         width: 75%;
     }
+    .alur-lapor {
+        margin-left: 1px !important;
+    }
     .ellipse {
         padding: 10px;
         width: 55px;
@@ -359,6 +365,9 @@ a.btn.btn-lapor:active {
         width: 35px;
     }
     .ellipse ~ h5 {
+        font-size: 12px;
+    }
+    body.theme-dark .ellipse ~ h5 {
         font-size: 12px;
     }
     .btn-lapor {
