@@ -91,6 +91,20 @@ body.theme-dark .navbar {
     margin: 0 120px;
 }
 
+.sidebar-header .logo {
+    width: 200%;
+}
+body.theme-dark .sidebar-header .logo {
+    width: 200%;
+}
+.sidebar-header .logo img {
+    width: 80%;
+    height: 100%;
+}
+body.theme-dark .sidebar-header .logo img {
+    width: 80%;
+    height: 100%;
+}
 .logo {
     width: 25%;
 }
