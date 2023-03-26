@@ -28,7 +28,8 @@
 
             <div id="main-content" class="pb-0">
                 @yield('content')
-
+            </div>
+            <div class="w-100">
                 @include('layouts.footer')
             </div>
         </div>
