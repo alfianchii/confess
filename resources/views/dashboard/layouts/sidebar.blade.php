@@ -83,11 +83,11 @@
                                 <i class="bi bi-person-fill"></i>
                                 <span>User</span>
                             </a>
-                            <ul class="submenu {{ Request::is('dashboard/user*') }}">
-                                <li class="submenu-item {{ Request::is('dashboard/user/all*') }}">
-                                    <a href="/dashboard/user/all">All</a>
+                            <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
+                                <li class="submenu-item {{ Request::is('dashboard/users*') ? 'active' : '' }}">
+                                    <a href="/dashboard/users">All</a>
                                 </li>
-                                <li class="submenu-item {{ Request::is('dashboard/user/register*') }}">
+                                <li class="submenu-item {{ Request::is('dashboard/user/register*') ? 'active' : '' }}">
                                     <a href="/dashboard/user/register">Register</a>
                                 </li>
                             </ul>
