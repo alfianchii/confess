@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AdminCategoryController, AuthController, ComplaintController, ResponseController, DashboardController};
+use App\Http\Controllers\{AdminCategoryController, AuthController, ComplaintController, ResponseController, DashboardController, UserController};
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +30,7 @@ Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
 // Dashboard
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
+    // Dashboard
     Route::get("/", [DashboardController::class, 'index']);
 
     // Sluggable check
@@ -39,10 +40,13 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     // Complaint
     Route::resource("/complaints", ComplaintController::class)->middleware("student");
     // Response
-    Route::resource("/responses", ResponseController::class)->middleware("response")->except("create");
+    Route::resource("/responses", ResponseController::class)->middleware("response")->except(["create"]);
     Route::get("/responses/create/{complaint:slug}", [ResponseController::class, "create"])->middleware("response");
     // Category
-    Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except("show");
+    Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except(["show"]);
+    // Register
+    Route::get("/user/register", [UserController::class, "create"])->middleware("admin");
+    Route::resource("/users", UserController::class)->middleware("admin")->except(["create"]);
 });
 
 // Responses data
