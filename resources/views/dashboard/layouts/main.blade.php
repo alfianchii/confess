@@ -30,7 +30,7 @@
                 @yield('content')
             </div>
             <div class="w-100">
-                @include('layouts.footer')
+                @include('dashboard.layouts.footer')
             </div>
         </div>
     </div>
