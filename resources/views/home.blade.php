@@ -44,14 +44,14 @@
                                 <img src="../images/icon/In Progress.svg" alt="icon" width="38">
                             </div>
                             <h5 class="mt-2">Proses Verifikasi</h5>
-                            <p class="d-md-block d-none">laporan Anda akan diverifikasi dan diteruskan </p>
+                            <p class="d-md-block d-none">Laporan Anda akan diverifikasi dan diteruskan </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="../images/icon/Messaging.svg" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
-                            <p class="d-md-block d-none">petugas akan menindaklanjuti dan membalas laporan Anda</p>
+                            <p class="d-md-block d-none">Petugas akan menindaklanjuti dan membalas laporan Anda</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
