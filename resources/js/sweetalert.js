@@ -1,4 +1,4 @@
-export function handleDelete(slug, event, uri) {
+export function handleDelete(slug, event, uri, redirect = uri) {
     // Do fire first
     Swal.fire({
         title: "Apakah kamu yakin?",
@@ -30,7 +30,7 @@ export function handleDelete(slug, event, uri) {
                         icon: "success",
                     }).then(() => {
                         // Redirect to the dashboard page
-                        window.location.href = uri;
+                        window.location.href = redirect;
                     });
                 } else {
                     // Show an error message using SweetAlert2

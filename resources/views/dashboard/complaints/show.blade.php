@@ -168,7 +168,7 @@
                 </div>
                 <div class="card-body">
                     @forelse ($responses as $response)
-                        <div class="row g-0 px-4 mt-3 mb-4 pb-2">
+                        <div class="row g-0 px-4 mt-5 mb-4 pb-2">
                             <div class="col-md-2 d-flex align-items-start">
                                 @if ($response->officer->user->image)
                                     <img src="{{ asset('storage/' . $response->officer->user->image) }}"
@@ -200,8 +200,8 @@
                                     </div> --}}
                                 </div>
                             </div>
-                            <hr>
                         </div>
+                        <hr>
                     @empty
                         <div class="alert alert-warning" role="alert">
                             <h4 class="alert-heading">Tidak ada tanggapan</h4>
