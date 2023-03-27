@@ -33,9 +33,13 @@ class ResponseController extends Controller
      */
     public function create(Complaint $complaint)
     {
+        // Short the responses based on new response (date)
+        $sortedResponses = $complaint->responses->sortByDesc("created_at");
+
         return view("dashboard.responses.create", [
             "title" => "Buat Tanggapan",
             "complaint" => $complaint,
+            "responses" => $sortedResponses,
         ]);
     }
 
@@ -61,7 +65,7 @@ class ResponseController extends Controller
             // Update status
             Complaint::where('id', $response->complaint_id)->update(['status' => $credentials["status"]]);
             // Redirect to response with id
-            return redirect('/dashboard/responses/' . $response->id)->with('success', 'Tanggapan kamu berhasil dibuat!');
+            return redirect('/dashboard/responses/create/' . $response->complaint->slug)->with('success', 'Tanggapan kamu berhasil dibuat!');
         } catch (\Exception $e) {
             return redirect('/dashboard/responses')->withErrors('Tanggapan kamu gagal dibuat.');
         }
@@ -156,6 +160,13 @@ class ResponseController extends Controller
      */
     public function destroy(Response $response)
     {
+        // Validate if the response is owned by the user
+        if ($response->officer_nik !== auth()->user()->nik) {
+            return response()->json([
+                "message" => "Kamu bukan pemilik dari tanggapan tersebut.",
+            ], 401);
+        }
+
         try {
             if (!Response::destroy($response->id)) {
                 throw new \Exception('Error deleting complaint.');

@@ -195,9 +195,10 @@
                                                         <td>
                                                             <div class="d-flex">
                                                                 @if ($complaint->status == 2)
-                                                                    <span class="badge bg-success">
-                                                                        Kasus Selesai
-                                                                    </span>
+                                                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                        class="btn btn-info">
+                                                                        <i class="bi bi-eye"></i> Detail
+                                                                    </a>
                                                                 @elseif($complaint->status < 2)
                                                                     <div class="me-2">
                                                                         <a href="/dashboard/responses/create/{{ $complaint->slug }}"

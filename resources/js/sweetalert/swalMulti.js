@@ -49,4 +49,20 @@ if (currentPath === "/dashboard/complaints") {
                 );
             }
         });
+} else if (currentPath.startsWith("/dashboard/responses/create")) {
+    document
+        .getElementById("responses")
+        .addEventListener("click", function (event) {
+            if (
+                event.target &&
+                event.target.classList.contains("delete-record")
+            ) {
+                handleDelete(
+                    event.target.dataset.slug,
+                    "tanggapan",
+                    "/dashboard/responses",
+                    currentPath
+                );
+            }
+        });
 }
