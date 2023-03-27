@@ -19,10 +19,12 @@ class Response extends Model
         'id',
     ];
 
-    // protected $with = [
-    //     'officer',
-    //     'complaint',
-    // ];
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array<int, string>
+     */
+    protected $with = ['officer', 'complaint'];
 
     public function complaint()
     {

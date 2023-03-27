@@ -21,10 +21,7 @@ class Officer extends Model
 
     protected $primaryKey = 'officer_nik';
 
-    protected $with = [
-        'user',
-        'responses',
-    ];
+    protected $with = ['user'];
 
     public function user()
     {

@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
             "slug" => "bully",
         ]);
 
-        Complaint::factory(100)->create();
-        Response::factory(100)->create();
+        Complaint::factory(500)->create();
+        Response::factory(500)->create();
     }
 }
