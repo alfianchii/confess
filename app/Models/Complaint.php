@@ -34,12 +34,6 @@ class Complaint extends Model
         ];
     }
 
-    // protected $with = [
-    //     'student',
-    //     'category',
-    //     'responses',
-    // ];
-
     public function getRouteKeyName()
     {
         return "slug";

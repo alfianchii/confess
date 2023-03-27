@@ -26,7 +26,7 @@ class DashboardService
 
         if ($user->level === "admin" || $user->level === "officer") {
             // Complaints
-            $complaints = Complaint::orderByDesc("created_at")->get();
+            $complaints = Complaint::with(["student", "responses", "category"])->orderByDesc("created_at")->get();
             // Complaints count
             $complaintsCount = $complaints->count();
             // Recent complaints
@@ -41,7 +41,7 @@ class DashboardService
             // Responses
             $responsesCount = Response::all()->count();
             // Recent responses
-            $recentResponses = Response::orderByDesc("created_at")->get()->slice(0, 3);
+            $recentResponses = Response::with(['officer', "complaint"])->orderByDesc("created_at")->get()->slice(0, 3);
 
             $results = array_merge($results, [
                 "complaints" => $complaints,
@@ -53,7 +53,7 @@ class DashboardService
                 "recentResponses" => $recentResponses,
             ]);
         } else if ($user->level === "student") {
-            $complaints = Complaint::where("student_nik", $user->nik)->orderByDesc("created_at")->get();
+            $complaints = Complaint::with(["student", "responses", "category"])->where("student_nik", $user->nik)->orderByDesc("created_at")->get();
 
             // Your complaints count
             $yourComplaintsCount = $complaints->count();

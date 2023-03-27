@@ -21,10 +21,12 @@ class Student extends Model
 
     protected $primaryKey = 'student_nik';
 
-    protected $with = [
-        "user",
-        "complaints",
-    ];
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array<int, string>
+     */
+    protected $with = ['user'];
 
     public function user()
     {
