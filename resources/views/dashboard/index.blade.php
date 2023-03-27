@@ -123,7 +123,13 @@
                                         <h3>Statistik Keluhan dan Tanggapan</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-complaint"></div>
+                                        <div id="chart-complaint">
+                                            <div class="d-flex justify-content-center skeleton-loading">
+                                                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +141,13 @@
                                         <h3>Statistik Tanggapan Kamu</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-your-responses"></div>
+                                        <div id="chart-your-responses">
+                                            <div class="d-flex justify-content-center skeleton-loading">
+                                                <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -276,7 +288,13 @@
                                 <h4>Tanggapan</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-response-genders"></div>
+                                <div id="chart-response-genders">
+                                    <div class="d-flex justify-content-center skeleton-loading">
+                                        <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card">
@@ -284,7 +302,13 @@
                                 <h4>Keluhan</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-complaint-genders"></div>
+                                <div id="chart-complaint-genders">
+                                    <div class="d-flex justify-content-center skeleton-loading">
+                                        <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -437,7 +461,16 @@
                                         <h3>Statistik Tanggapan Kamu</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-your-responses"></div>
+                                        <div id="chart-your-responses">
+                                            <div id="chart-your-responses">
+                                                <div class="d-flex justify-content-center skeleton-loading">
+                                                    <div class="spinner-border" style="width: 3rem; height: 3rem"
+                                                        role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -578,7 +611,15 @@
                                 <h4>Tanggapan</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-response-genders"></div>
+                                <div id="chart-response-genders">
+                                    <div id="chart-your-responses">
+                                        <div class="d-flex justify-content-center skeleton-loading">
+                                            <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -689,7 +730,16 @@
                                         <h3>Statistik Keluhan Kamu</h3>
                                     </div>
                                     <div class="card-body">
-                                        <div id="chart-your-complaints"></div>
+                                        <div id="chart-your-complaints">
+                                            <div id="chart-your-responses">
+                                                <div class="d-flex justify-content-center skeleton-loading">
+                                                    <div class="spinner-border" style="width: 3rem; height: 3rem"
+                                                        role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
