@@ -4,7 +4,7 @@
     @cannot('student')
         {{-- Simple DataTable --}}
         <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}" />
-        <link rel="stylesheet" href="{{ asset('assets/css/pages/simple-datatables.css') }}" />
+        <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     @endcannot
 @endsection
 
@@ -229,7 +229,7 @@
                             <div class="card-body py-4 px-4">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-xl">
-                                        <img src="{{ asset('assets/images/faces/1.jpg') }}" alt="Face 1" />
+                                        <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="Face 1" />
                                     </div>
                                     <div class="ms-3 name">
                                         <h5 class="font-bold">{{ auth()->user()->name }}</h5>
@@ -254,10 +254,10 @@
                                                         alt="User avatar" />
                                                 @else
                                                     @if ($complaint->student->user->gender == 'L')
-                                                        <img src="{{ asset('assets/images/faces/2.jpg') }}"
+                                                        <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
                                                             alt="User avatar" />
                                                     @else
-                                                        <img src="{{ asset('assets/images/faces/5.jpg') }}"
+                                                        <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
                                                             alt="User avatar" />
                                                     @endif
                                                 @endif
@@ -327,11 +327,11 @@
                                                     alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
-                                                    <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
-                                                        class="img-fluid rounded-circle mx-auto">
+                                                    <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                 @else
-                                                    <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
-                                                        class="img-fluid rounded-circle mx-auto">
+                                                    <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                 @endif
                                             @endif
                                         </div>
@@ -552,7 +552,7 @@
                             <div class="card-body py-4 px-4">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-xl">
-                                        <img src="{{ asset('assets/images/faces/1.jpg') }}" alt="Face 1" />
+                                        <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="Face 1" />
                                     </div>
                                     <div class="ms-3 name">
                                         <h5 class="font-bold">{{ auth()->user()->name }}</h5>
@@ -577,10 +577,10 @@
                                                         alt="User avatar" />
                                                 @else
                                                     @if ($complaint->student->user->gender == 'L')
-                                                        <img src="{{ asset('assets/images/faces/2.jpg') }}"
+                                                        <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
                                                             alt="User avatar" />
                                                     @else
-                                                        <img src="{{ asset('assets/images/faces/5.jpg') }}"
+                                                        <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
                                                             alt="User avatar" />
                                                     @endif
                                                 @endif
@@ -638,11 +638,11 @@
                                                     alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
-                                                    <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
-                                                        class="img-fluid rounded-circle mx-auto">
+                                                    <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                 @else
-                                                    <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
-                                                        class="img-fluid rounded-circle mx-auto">
+                                                    <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                 @endif
                                             @endif
                                         </div>
@@ -751,7 +751,7 @@
                             <div class="card-body py-4 px-4">
                                 <div class="d-flex align-items-center">
                                     <div class="avatar avatar-xl">
-                                        <img src="{{ asset('assets/images/faces/1.jpg') }}" alt="Face 1" />
+                                        <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="Face 1" />
                                     </div>
                                     <div class="ms-3 name">
                                         <h5 class="font-bold">{{ auth()->user()->name }}</h5>
@@ -809,11 +809,11 @@
                                                         alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                 @else
                                                     @if ($response->officer->user->gender == 'L')
-                                                        <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
-                                                            class="img-fluid rounded-circle mx-auto">
+                                                        <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                            alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                     @else
-                                                        <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
-                                                            class="img-fluid rounded-circle mx-auto">
+                                                        <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                            alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                     @endif
                                                 @endif
                                             </div>

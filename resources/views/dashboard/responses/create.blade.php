@@ -267,11 +267,11 @@
                                                 alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                         @else
                                             @if ($response->officer->user->gender == 'L')
-                                                <img src="{{ asset('assets/images/faces/2.jpg') }}" alt="User avatar"
-                                                    class="img-fluid rounded-circle mx-auto">
+                                                <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                    alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
-                                                <img src="{{ asset('assets/images/faces/5.jpg') }}" alt="User avatar"
-                                                    class="img-fluid rounded-circle mx-auto">
+                                                <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                    alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @endif
                                         @endif
                                     </div>

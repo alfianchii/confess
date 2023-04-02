@@ -3,7 +3,7 @@
 @section('links')
     {{-- Simple DataTable --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/simple-datatables.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Fontawesome --}}
