@@ -51,15 +51,14 @@
                                 <img src="../images/icon/Messaging.svg" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
-                            <p class="d-md-block d-none">Petugas akan menindaklanjuti dan membalas laporan Anda</p>
+                            <p class="d-md-block d-none">Petugas akan memperlajari dan menindaklanjuti laporan Anda</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="../images/icon/Chat Bubble.svg" alt="icon" width="37">
                             </div>
-                            <h5 class="mt-2">Beri Tanggapan</h5>
-                            <p class="d-md-block d-none">Anda dapat menanggapi kembali balasan yang diberikan oleh petugas
-                            </p>
+                            <h5 class="mt-2">Dapat Tanggapan</h5>
+                            <p class="d-md-block d-none">Laporan anda akan di tanggapi oleh petugas</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
