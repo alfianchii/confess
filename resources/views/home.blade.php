@@ -24,9 +24,10 @@
             </div>
             <div class="col-12">
                 @if (session()->has('success'))
-                    <div class="alert alert-success alert-dismissible show fade mt-4">
+                    <div class="alert bg alert-dismissible show fade mt-4">
                         {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close text-white" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                 @endif
                 <div class="container">
