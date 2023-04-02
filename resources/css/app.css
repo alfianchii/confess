@@ -178,10 +178,10 @@ body.theme-dark .sidebar-header .logo img {
 .garis {
     margin-top: 2.5%;
     position: absolute;
-    width: 69%;
+    width: 65%;
     height: 1.5px;
     background-color: gray;
-    left: 15%;
+    left: 17%;
     z-index: 1;
 }
 
@@ -443,6 +443,7 @@ a.btn.btn-lapor:active {
     .garis {
         margin-top: 4.5%;
         width: 67%;
+        left: 15%;
     }
     .btn-lapor {
         padding: 0.7rem 4rem !important;
@@ -452,6 +453,18 @@ a.btn.btn-lapor:active {
 @media only screen and (min-width: 1024px) and (max-width: 1439px) {
     .garis {
         margin-top: 3.5%;
+        width: 69%;
+        left: 15%;
+    }
+    .btn-lapor {
+        padding: 0.7rem 4rem !important;
+    }
+}
+@media only screen and (min-width: 1440px) and (max-width: 1699px) {
+    .garis {
+        margin-top: 2.5%;
+        width: 69%;
+        left: 15%;
     }
     .btn-lapor {
         padding: 0.7rem 4rem !important;
