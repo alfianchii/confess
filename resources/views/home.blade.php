@@ -41,7 +41,7 @@
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/In Progress.svg" alt="icon" width="38">
+                                <img src="../images/icon/In Progress.svg" alt="icon" width="36">
                             </div>
                             <h5 class="mt-2">Proses Verifikasi</h5>
                             <p class="d-md-block d-none">Laporan Anda akan diverifikasi dan diteruskan </p>
