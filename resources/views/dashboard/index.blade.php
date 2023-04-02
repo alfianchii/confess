@@ -172,10 +172,10 @@
                                                 @forelse ($complaints as $complaint)
                                                     <tr>
                                                         <td>
-                                                            <p>{{ $loop->iteration }}</p>
+                                                            {{ $loop->iteration }}
                                                         </td>
                                                         <td>
-                                                            <p class="m-0">{{ $complaint->title }}</p>
+                                                            {{ $complaint->title }}
                                                         </td>
                                                         <td>
                                                             @if ($complaint->status == 0)
@@ -496,10 +496,10 @@
                                                 @forelse ($complaints as $complaint)
                                                     <tr>
                                                         <td>
-                                                            <p>{{ $loop->iteration }}</p>
+                                                            {{ $loop->iteration }}
                                                         </td>
                                                         <td>
-                                                            <p class="m-0">{{ $complaint->title }}</p>
+                                                            {{ $complaint->title }}
                                                         </td>
                                                         <td>
                                                             @if ($complaint->status == 0)

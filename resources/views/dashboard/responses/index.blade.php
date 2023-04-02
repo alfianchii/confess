@@ -53,10 +53,10 @@
                             @forelse ($responses as $response)
                                 <tr>
                                     <td>
-                                        <p>{{ $loop->iteration }}</p>
+                                        {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        <p class="m-0">{{ $response->complaint->title }}</p>
+                                        {{ $response->complaint->title }}
                                     </td>
                                     <td>
                                         @if ($response->complaint->status == 0)
