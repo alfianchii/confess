@@ -172,7 +172,9 @@ body.theme-dark .sidebar-header .logo img {
 .col:last-child .ellipse:hover img {
     filter: none;
 }
-
+.ellipse img::selection {
+    background-color: transparent;
+}
 .garis {
     margin-top: 2.5%;
     position: absolute;
