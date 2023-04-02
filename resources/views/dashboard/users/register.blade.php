@@ -291,7 +291,7 @@
 @section('scripts')
     {{-- Form: parsley --}}
     <script src="{{ asset('assets/extensions/parsleyjs/parsley.min.js') }}"></script>
-    <script src="{{ asset('assets/js/pages/parsley.js') }}"></script>
+    <script src="{{ asset('assets/static/js/pages/parsley.js') }}"></script>
     {{-- Image and Sluggable --}}
     @vite(['resources/js/image.js'])
 @endsection
