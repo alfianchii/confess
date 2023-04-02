@@ -61,10 +61,10 @@
                             @forelse ($categories as $category)
                                 <tr>
                                     <td>
-                                        <p>{{ $loop->iteration }}</p>
+                                        {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        <p class="m-0">{{ $category->name }}</p>
+                                        {{ $category->name }}
                                     </td>
                                     <td>
                                         <div class="d-flex">
@@ -82,7 +82,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5">
-                                        <p class="text-center mt-3">Tidak ada keluhan</p>
+                                        <p class="text-center mt-3">Tidak ada kategori</p>
                                     </td>
                                 </tr>
                             @endforelse

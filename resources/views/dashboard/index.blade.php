@@ -172,10 +172,10 @@
                                                 @forelse ($complaints as $complaint)
                                                     <tr>
                                                         <td>
-                                                            <p>{{ $loop->iteration }}</p>
+                                                            {{ $loop->iteration }}
                                                         </td>
                                                         <td>
-                                                            <p class="m-0">{{ $complaint->title }}</p>
+                                                            {{ $complaint->title }}
                                                         </td>
                                                         <td>
                                                             @if ($complaint->status == 0)
@@ -496,10 +496,10 @@
                                                 @forelse ($complaints as $complaint)
                                                     <tr>
                                                         <td>
-                                                            <p>{{ $loop->iteration }}</p>
+                                                            {{ $loop->iteration }}
                                                         </td>
                                                         <td>
-                                                            <p class="m-0">{{ $complaint->title }}</p>
+                                                            {{ $complaint->title }}
                                                         </td>
                                                         <td>
                                                             @if ($complaint->status == 0)
@@ -519,9 +519,10 @@
                                                         <td>
                                                             <div class="d-flex">
                                                                 @if ($complaint->status == 2)
-                                                                    <span class="badge bg-success">
-                                                                        Kasus Selesai
-                                                                    </span>
+                                                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                        class="btn btn-info">
+                                                                        <i class="bi bi-eye"></i> Detail
+                                                                    </a>
                                                                 @elseif($complaint->status < 2)
                                                                     <div class="me-2">
                                                                         <a href="/dashboard/responses/create/{{ $complaint->slug }}"

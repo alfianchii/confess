@@ -59,13 +59,13 @@
                             @forelse ($complaints as $complaint)
                                 <tr>
                                     <td>
-                                        <p>{{ $loop->iteration }}</p>
+                                        {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        <p class="m-0">{{ $complaint->title }}</p>
+                                        {{ $complaint->title }}
                                     </td>
                                     <td>
-                                        <p class="m-0">{{ $complaint->category->name }}</p>
+                                        {{ $complaint->category->name }}
                                     </td>
                                     <td>
                                         @if ($complaint->status == 0)
@@ -122,9 +122,7 @@
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script>
-        /* 
-                    COMPLAINT TABLE
-                 */
+        /* COMPLAINT TABLE */
         let complaintTable = new simpleDatatables.DataTable(
             document.getElementById("table1"), {
                 perPage: 3,
