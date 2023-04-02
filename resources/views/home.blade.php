@@ -24,9 +24,10 @@
             </div>
             <div class="col-12">
                 @if (session()->has('success'))
-                    <div class="alert alert-success alert-dismissible show fade mt-4">
+                    <div class="alert bg alert-dismissible show fade mt-4">
                         {{ session('success') }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        <button type="button" class="btn-close text-white" data-bs-dismiss="alert"
+                            aria-label="Close"></button>
                     </div>
                 @endif
                 <div class="container">
@@ -41,7 +42,7 @@
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/In Progress.svg" alt="icon" width="38">
+                                <img src="../images/icon/In Progress.svg" alt="icon" width="36">
                             </div>
                             <h5 class="mt-2">Proses Verifikasi</h5>
                             <p class="d-md-block d-none">Laporan Anda akan diverifikasi dan diteruskan </p>
@@ -51,15 +52,14 @@
                                 <img src="../images/icon/Messaging.svg" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
-                            <p class="d-md-block d-none">Petugas akan menindaklanjuti dan membalas laporan Anda</p>
+                            <p class="d-md-block d-none">Petugas akan memperlajari dan menindaklanjuti laporan Anda</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="../images/icon/Chat Bubble.svg" alt="icon" width="37">
                             </div>
-                            <h5 class="mt-2">Beri Tanggapan</h5>
-                            <p class="d-md-block d-none">Anda dapat menanggapi kembali balasan yang diberikan oleh petugas
-                            </p>
+                            <h5 class="mt-2">Dapat Tanggapan</h5>
+                            <p class="d-md-block d-none">Laporan anda akan di tanggapi oleh petugas</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">

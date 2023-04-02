@@ -26,7 +26,7 @@
                         dengan baik. Akibatnya terjadi duplikasi penanganan pengaduan, atau bahkan bisa terjadi suatu
                         pengaduan tidak ditangani oleh satupun organisasi penyelenggara, dengan alasan pengaduan bukan
                         kewenangannya. Oleh karena itu, perlu untuk mengintegrasikan sistem pengelolaan pengaduan pelayanan
-                        publik dalam satu pintu. Tujuannya, Warga sekolah memiliki satu saluran pengaduan secara Nasional.
+                        sekolah dalam satu pintu. Tujuannya, Warga sekolah memiliki satu saluran pengaduan.
                     </p>
 
                     <div class="text-center">
