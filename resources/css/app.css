@@ -70,7 +70,7 @@ body.theme-dark .poligon {
         );
     height: 600px;
 }
-body.theme-dark .navbar {
+html[data-bs-theme="dark"] * .navbar {
     position: fixed;
 }
 .height {
