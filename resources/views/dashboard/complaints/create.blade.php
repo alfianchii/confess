@@ -6,6 +6,11 @@
 
     {{-- Form: select option --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/choices.js/public/assets/styles/choices.css') }}">
+
+    {{-- Image preview --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
 @endsection
 
 @section('content')
@@ -166,19 +171,15 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group ">
                                                 <div class="position-relative">
-                                                    <label for="image"
-                                                        class="form-label @error('image') is-invalid @enderror">Foto</label>
+                                                    <label for="image" class="form-label">Foto</label>
 
-                                                    <!-- Image preview -->
-                                                    <img class="img-preview img-fluid mb-3 col-sm-5 rounded">
                                                     <!-- File uploader with image preview -->
-                                                    <input class="form-control @error('image') is-invalid @enderror"
-                                                        type="file" id="image" name="image">
+                                                    <input type="file" class="image-preview-filepond" name="image"
+                                                        id="image" />
 
                                                     @error('image')
-                                                        <div class="parsley-error filled" id="parsley-id-3"
-                                                            aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -237,6 +238,23 @@
     <script src="{{ asset('assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
     <script src="{{ asset('assets/static/js/pages/form-element-select.js') }}"></script>
     {{-- Image and Sluggable --}}
-    @vite(['resources/js/image.js'])
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/uploader/image.js'])
     @vite(['resources/js/sluggable/slug.js'])
 @endsection

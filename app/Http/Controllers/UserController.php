@@ -15,7 +15,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view("dashboard.users.all", [
+            "title" => "Pengguna",
+            "users" => User::all(),
+        ]);
     }
 
     /**

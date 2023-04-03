@@ -1,7 +1,5 @@
 import { handleDelete } from "../sweetalert";
-
-// Path
-const currentPath = window.location.pathname;
+import { currentPath } from "../helpers/currentPath";
 
 // Single delete button
 const buttons = document.getElementsByClassName("delete-record");

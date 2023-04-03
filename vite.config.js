@@ -1,21 +1,13 @@
 import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
+import fs from "fs";
 
 export default defineConfig({
     plugins: [
         laravel({
-            input: [
-                "css/app.css",
-                "js/dashboard.js",
-                "js/sweetalert/swalSingle.js",
-                "js/sweetalert/swalMulti.js",
-                "js/sweetalert.js",
-                "js/quill.js",
-                "js/image.js",
-                "js/navbar.js",
-                "js/sluggable/slug.js",
-                "js/sluggable.js",
-            ].map((path) => `resources/${path}`),
+            input: fs
+                .readdirSync("resources")
+                .filter((file) => fs.statSync(`resources/${file}`).isFile()),
             refresh: true,
         }),
     ],

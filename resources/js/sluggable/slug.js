@@ -1,7 +1,5 @@
 import { sluggable } from "../sluggable";
-
-// Current path
-const currentPath = window.location.pathname;
+import { currentPath } from "../helpers/currentPath";
 
 // Sluggable
 if (currentPath.startsWith("/dashboard/complaints")) {

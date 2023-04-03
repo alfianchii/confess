@@ -55,7 +55,7 @@ class ComplaintController extends Controller
             "date" => ["required", "date", "date_format:Y-m-d"],
             "category_id" => ["required"],
             "place" => ["required"],
-            "image" => ["image", "file", "max:1024"],
+            "image" => ["image", "file", "max:5120"],
             "body" => ["required"],
         ]);
 
@@ -132,7 +132,7 @@ class ComplaintController extends Controller
         $rules = [
             "title" => ["required", "max:255"],
             "category_id" => ["required"],
-            "image" => ["image", "file", "max:1024"],
+            "image" => ["image", "file", "max:5120"],
             "date" => ["required", "date", "date_format:Y-m-d"],
             "body" => ["required"],
             "place" => ["required"],
