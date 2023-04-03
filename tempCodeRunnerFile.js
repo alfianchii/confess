@@ -1,1 +1,0 @@
-const root = resolve(__dirname, "resources");

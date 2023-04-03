@@ -28,8 +28,9 @@
 -   Instal [Vite](https://vitejs.dev/) dan [Laravel Vite Plugin](https://www.npmjs.com/package/laravel-vite-plugin) menggunakan npm `npm install --save-dev vite laravel-vite-plugin`
 -   Untuk melakukan konfigurasi pada Vite, buka `vite.config.js`
 -   Lakukan migrasi dengan `php artisan migrate --seed`
+-   Lakukan _symlinks_ dengan `php artisan storage:link`
 -   Jalankan server (artisan) dengan `php artisan serve --port=8081`
--   Jalankan Vite dengan `npm run watch`
+-   Jalankan Vite dengan `npm run dev`
 -   Buka `http://localhost:8081`
 
 ## Author
