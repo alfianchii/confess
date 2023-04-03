@@ -23,7 +23,7 @@ a {
     z-index: 10;
     position: relative;
 }
-body.theme-dark .poligon {
+html[data-bs-theme="dark"] * .poligon {
     border-bottom: solid 500px #151521;
 }
 .poligon {
@@ -94,14 +94,14 @@ html[data-bs-theme="dark"] * .navbar {
 .sidebar-header .logo {
     width: 200%;
 }
-body.theme-dark .sidebar-header .logo {
+html[data-bs-theme="dark"] * .sidebar-header .logo {
     width: 200%;
 }
 .sidebar-header .logo img {
     width: 80%;
     height: 100%;
 }
-body.theme-dark .sidebar-header .logo img {
+html[data-bs-theme="dark"] * .sidebar-header .logo img {
     width: 80%;
     height: 100%;
 }
@@ -141,20 +141,23 @@ body.theme-dark .sidebar-header .logo img {
     position: relative;
     z-index: 2;
 }
-.theme-dark .ellipse {
+html[data-bs-theme="dark"] * .ellipse {
     background-color: #1e1e2d;
 }
-.theme-dark .ellipse img {
+html[data-bs-theme="dark"] * .ellipse img {
     filter: invert(100%) sepia(3%) saturate(7495%) hue-rotate(337deg)
         brightness(123%) contrast(95%);
 }
-.theme-dark .col:nth-child(1) .ellipse img {
+html[data-bs-theme="dark"] * .col:nth-child(1) .ellipse img {
     filter: none;
 }
-.theme-dark .col:last-child .ellipse img {
+html[data-bs-theme="dark"] * .col:last-child .ellipse img {
     filter: none;
 }
 .ellipse:hover {
+    background: #1a9fbb;
+}
+html[data-bs-theme="dark"] * .ellipse:hover {
     background: #1a9fbb;
 }
 .ellipse:hover img {
@@ -185,7 +188,7 @@ body.theme-dark .sidebar-header .logo img {
     z-index: 1;
 }
 
-body.theme-dark .ellipse ~ .h5 {
+html[data-bs-theme="dark"] * .ellipse ~ .h5 {
     font-size: inherit;
 }
 
@@ -243,7 +246,7 @@ a.btn.btn-lapor:active {
     .alur-lapor {
         margin-left: 0.2px;
     }
-    body.theme-dark .alur-lapor {
+    html[data-bs-theme="dark"] * .alur-lapor {
         margin-left: 0.2px;
     }
     .alur-lapor .col {
@@ -265,7 +268,7 @@ a.btn.btn-lapor:active {
     .ellipse ~ h5 {
         font-size: 10px !important;
     }
-    .theme-dark .ellipse ~ h5 {
+    html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 10px !important;
     }
     .btn-lapor {
@@ -317,7 +320,7 @@ a.btn.btn-lapor:active {
     .ellipse ~ h5 {
         font-size: 12px;
     }
-    .theme-dark .ellipse ~ h5 {
+    html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 12px !important;
     }
     .btn-lapor {
@@ -369,7 +372,7 @@ a.btn.btn-lapor:active {
     .ellipse ~ h5 {
         font-size: 12px;
     }
-    body.theme-dark .ellipse ~ h5 {
+    html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 12px;
     }
     .btn-lapor {
