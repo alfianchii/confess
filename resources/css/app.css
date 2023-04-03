@@ -154,11 +154,10 @@ html[data-bs-theme="dark"] * .col:nth-child(1) .ellipse img {
 html[data-bs-theme="dark"] * .col:last-child .ellipse img {
     filter: none;
 }
-.ellipse:hover {
-    background: #1a9fbb;
-}
+.ellipse:hover,
 html[data-bs-theme="dark"] * .ellipse:hover {
     background: #1a9fbb;
+    transition: 0.5s all;
 }
 .ellipse:hover img {
     filter: invert(100%) sepia(3%) saturate(7495%) hue-rotate(337deg)
