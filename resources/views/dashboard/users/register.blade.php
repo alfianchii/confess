@@ -1,6 +1,10 @@
 @extends('dashboard.layouts.main')
 
 @section('links')
+    {{-- Filepond: image auto crop --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
 @endsection
 
 @section('content')
@@ -45,8 +49,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="/dashboard/users" method="POST" data-parsley-validate
-                                    enctype="multipart/form-data">
+                                <form class="form" action="/dashboard/users" method="POST" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="row">
@@ -62,8 +65,8 @@
                                                         <i class="bi bi-person py-2"></i>
                                                     </div>
                                                     @error('name')
-                                                        <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -81,8 +84,8 @@
                                                         <i class="bi bi-person-vcard py-2"></i>
                                                     </div>
                                                     @error('nik')
-                                                        <div class="parsley-error filled" id="parsley-id-2" aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -100,8 +103,8 @@
                                                         <i class="bi bi-at py-2"></i>
                                                     </div>
                                                     @error('username')
-                                                        <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -119,9 +122,8 @@
                                                         <i class="bi bi-envelope-paper py-2"></i>
                                                     </div>
                                                     @error('email')
-                                                        <div class="parsley-error filled" id="parsley-id-1"
-                                                            aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -139,9 +141,8 @@
                                                         <i class="bi bi-key py-2"></i>
                                                     </div>
                                                     @error('password')
-                                                        <div class="parsley-error filled" id="parsley-id-1"
-                                                            aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -161,9 +162,8 @@
                                                         <i class="bi bi-key-fill py-2"></i>
                                                     </div>
                                                     @error('password_confirmation')
-                                                        <div class="parsley-error filled" id="parsley-id-1"
-                                                            aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -198,8 +198,8 @@
                                                     </div>
                                                 </fieldset>
                                                 @error('gender')
-                                                    <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                        <span class="parsley-required">{{ $message }}</span>
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
@@ -241,8 +241,8 @@
                                                     </div>
                                                 </fieldset>
                                                 @error('level')
-                                                    <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                        <span class="parsley-required">{{ $message }}</span>
+                                                    <div class="invalid-feedback">
+                                                        {{ $message }}
                                                     </div>
                                                 @enderror
                                             </div>
@@ -252,19 +252,14 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group ">
                                                 <div class="position-relative">
-                                                    <label for="image"
-                                                        class="form-label @error('image') is-invalid @enderror">Foto</label>
+                                                    <label for="image" class="form-label">Foto</label>
 
-                                                    <!-- Image preview -->
-                                                    <img class="img-preview img-fluid mb-3 col-sm-5 rounded">
-                                                    <!-- File uploader with image preview -->
-                                                    <input class="form-control @error('image') is-invalid @enderror"
-                                                        type="file" id="image" name="image">
+                                                    <!-- Auto crop image file uploader -->
+                                                    <input type="file" class="image-crop-filepond" name="image" />
 
                                                     @error('image')
-                                                        <div class="parsley-error filled" id="parsley-id-3"
-                                                            aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
                                                         </div>
                                                     @enderror
                                                 </div>
@@ -289,9 +284,23 @@
 @endsection
 
 @section('scripts')
-    {{-- Form: parsley --}}
-    <script src="{{ asset('assets/extensions/parsleyjs/parsley.min.js') }}"></script>
-    <script src="{{ asset('assets/static/js/pages/parsley.js') }}"></script>
-    {{-- Image and Sluggable --}}
-    @vite(['resources/js/image.js'])
+    {{-- Filepond: image auto crop --}}
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/uploader/image.js'])
 @endsection

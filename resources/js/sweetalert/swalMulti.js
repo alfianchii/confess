@@ -1,7 +1,5 @@
 import { handleDelete } from "../sweetalert";
-
-// Path
-const currentPath = window.location.pathname;
+import { currentPath } from "../helpers/currentPath";
 
 // Multiple delete buttons (add a click event listener to each delete button)
 if (currentPath === "/dashboard/complaints") {

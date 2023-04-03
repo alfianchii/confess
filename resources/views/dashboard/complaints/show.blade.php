@@ -99,8 +99,7 @@
                         <a href="#">
                             @if ($complaint->image)
                                 <img class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageDetail"
-                                    src="{{ asset('storage/' . $complaint->image) }}"
-                                    alt="{{ $complaint->category->name }}">
+                                    src="{{ asset("storage/$complaint->image") }}" alt="{{ $complaint->category->name }}">
                             @else
                                 {{-- <img class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageDetail"
                                 src="https://source.unsplash.com/random/1000x2000?{{ $complaint->category->name }}"
@@ -135,7 +134,7 @@
                                             @if ($complaint->image)
                                                 <img class="img-fluid rounded" data-bs-toggle="modal"
                                                     data-bs-target="#imageDetail"
-                                                    src="{{ asset('storage/' . $complaint->image) }}"
+                                                    src="{{ asset("storage/$complaint->image") }}"
                                                     alt="{{ $complaint->category->name }}">
                                             @else
                                                 <img class="img-fluid rounded" data-bs-toggle="modal"
@@ -171,7 +170,7 @@
                         <div class="row g-0 px-4 mt-5 mb-4 pb-2">
                             <div class="col-md-2 d-flex align-items-start">
                                 @if ($response->officer->user->image)
-                                    <img src="{{ asset('storage/' . $response->officer->user->image) }}"
+                                    <img src="{{ asset('storage') . '/' . $response->officer->user->image }}"
                                         alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                 @else
                                     @if ($response->officer->user->gender == 'L')
