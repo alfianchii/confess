@@ -98,12 +98,18 @@ html[data-bs-theme="dark"] * .sidebar-header .logo {
     width: 200%;
 }
 .sidebar-header .logo img {
-    width: 80%;
+    width: 22%;
     height: 100%;
 }
+.sidebar-header .logo span {
+    color: #25396f;
+}
 html[data-bs-theme="dark"] * .sidebar-header .logo img {
-    width: 80%;
+    width: 23%;
     height: 100%;
+}
+html[data-bs-theme="dark"] * .sidebar-header .logo span {
+    color: white;
 }
 .logo {
     width: 25%;
