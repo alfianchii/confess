@@ -90,7 +90,15 @@ html[data-bs-theme="dark"] * .navbar {
 .margin-form {
     margin: 0 120px;
 }
-
+.logo-smk4 {
+    width: 30%;
+}
+.logo-smk4 ~ span {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 97.39%;
+}
 .sidebar-header .logo {
     width: 200%;
 }
@@ -102,7 +110,7 @@ html[data-bs-theme="dark"] * .sidebar-header .logo {
     height: 100%;
 }
 .sidebar-header .logo span {
-    color: #25396f;
+    color: #6076ab;
 }
 html[data-bs-theme="dark"] * .sidebar-header .logo img {
     width: 23%;
@@ -280,6 +288,15 @@ a.btn.btn-lapor:active {
     .btn-lapor {
         padding: 0.5rem 2rem !important;
     }
+    .logo-smk4 {
+        width: 30%;
+    }
+    .logo-smk4 ~ span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 97.39%;
+    }
 }
 @media only screen and (min-width: 373px) and (max-width: 430px) {
     .margin-form {
@@ -384,6 +401,16 @@ a.btn.btn-lapor:active {
     .btn-lapor {
         padding: 0.5rem 2rem !important;
     }
+    .logo-smk4 {
+        width: 20%;
+    }
+    .logo-smk4 ~ span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 26px;
+        line-height: 97.39%;
+        width: 50%;
+    }
 }
 @media only screen and (min-width: 571px) and (max-width: 767px) {
     .margin-form {
@@ -431,7 +458,7 @@ a.btn.btn-lapor:active {
         padding: 0.5rem 2rem !important;
     }
 }
-@media only screen and (min-width: 768px) and (max-width: 990px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
     p.fs-5 {
         font-size: 1.2rem !important;
     }
@@ -457,6 +484,24 @@ a.btn.btn-lapor:active {
     .btn-lapor {
         padding: 0.7rem 4rem !important;
     }
+    .logo-smk4 {
+        width: 30%;
+    }
+    .logo-smk4 ~ span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 97.39%;
+    }
+    .hashtag {
+        font-size: 100% !important;
+    }
+    p.fs-5.sosial {
+        font-size: 100% !important;
+    }
+    .bi.bi-github.fs-1 {
+        font-size: calc(1.3rem + 1.5vw) !important;
+    }
 }
 
 @media only screen and (min-width: 1024px) and (max-width: 1439px) {
@@ -468,6 +513,15 @@ a.btn.btn-lapor:active {
     .btn-lapor {
         padding: 0.7rem 4rem !important;
     }
+    .logo-smk4 {
+        width: 30%;
+    }
+    .logo-smk4 ~ span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 17px;
+        line-height: 97.39%;
+    }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1699px) {
     .garis {
@@ -477,6 +531,15 @@ a.btn.btn-lapor:active {
     }
     .btn-lapor {
         padding: 0.7rem 4rem !important;
+    }
+    .logo-smk4 {
+        width: 30%;
+    }
+    .logo-smk4 ~ span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 97.39%;
     }
 }
 @media only screen and (min-width: 2000px) {
