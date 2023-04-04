@@ -47,11 +47,7 @@
                                 <th>Foto</th>
                                 <th>Nama</th>
                                 <th>NIK</th>
-                                <th>Username</th>
-                                <th>Gender</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                                <th>Dibuat</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -75,16 +71,23 @@
                                         {{ $user->nik }}
                                     </td>
                                     <td>
-                                        {{ $user->nik }}
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                                <a href="/dashboard/users/{{ $user->id }}" class="badge bg-info"><span
+                                                        data-feather="eye"></span></a>
+                                            </div>
+                                            <div class="me-2">
+                                                <a href="/dashboard/users/{{ $user->id }}/edit"
+                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
+                                            </div>
+                                            <div class="me-2">
+                                                <a href="#" class="badge bg-danger border-0 delete-record"
+                                                    data-slug="{{ $user->id }}"><span data-feather="x-circle"
+                                                        class="delete-record" data-slug="{{ $user->id }}"></span></a>
+                                            </div>
+                                        </div>
                                     </td>
-                                    <td>
-                                        @if ($user->gender === 'L')
-                                            Laki-laki
-                                        @elseif($user->gender === 'P')
-                                            Perempuan
-                                        @endif
-                                    </td>
-                                    <td>
+                                    {{-- <td>
                                         @if ($user->email)
                                             {{ $user->email }}
                                         @else
@@ -105,10 +108,7 @@
                                                 Admin
                                             </span>
                                         @endif
-                                    </td>
-                                    <td>
-                                        {{ $user->created_at->format('Y-m-d') }}
-                                    </td>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 <tr>
@@ -133,7 +133,7 @@
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script>
         /* RESPONSE TABLE */
-        let responseTable = new simpleDatatables.DataTable(
+        let dataTable = new simpleDatatables.DataTable(
             document.getElementById("table2"), {
                 perPage: 3,
                 perPageSelect: [3, 10, 25, 50],
@@ -144,50 +144,55 @@
                     perPage: "{select} tanggapan per halaman",
                 },
             }
-        );
-
+        )
         // Move "per page dropdown" selector element out of label
         // to make it work with bootstrap 5. Add bs5 classes.
         function adaptPageDropdown() {
-            const selector = responseTable.wrapper.querySelector(".dataTable-selector");
-            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode);
-            selector.classList.add("form-select");
+            const selector = dataTable.wrapper.querySelector(".dataTable-selector")
+            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode)
+            selector.classList.add("form-select")
         }
 
         // Add bs5 classes to pagination elements
         function adaptPagination() {
-            const paginations = responseTable.wrapper.querySelectorAll(
+            const paginations = dataTable.wrapper.querySelectorAll(
                 "ul.dataTable-pagination-list"
-            );
+            )
 
             for (const pagination of paginations) {
-                pagination.classList.add(...["pagination", "pagination-primary"]);
+                pagination.classList.add(...["pagination", "pagination-primary"])
             }
 
-            const paginationLis = responseTable.wrapper.querySelectorAll(
+            const paginationLis = dataTable.wrapper.querySelectorAll(
                 "ul.dataTable-pagination-list li"
-            );
+            )
 
             for (const paginationLi of paginationLis) {
-                paginationLi.classList.add("page-item");
+                paginationLi.classList.add("page-item")
             }
 
-            const paginationLinks = responseTable.wrapper.querySelectorAll(
+            const paginationLinks = dataTable.wrapper.querySelectorAll(
                 "ul.dataTable-pagination-list li a"
-            );
+            )
 
             for (const paginationLink of paginationLinks) {
-                paginationLink.classList.add("page-link");
+                paginationLink.classList.add("page-link")
             }
         }
 
+        const refreshPagination = () => {
+            adaptPagination()
+        }
+
         // Patch "per page dropdown" and pagination after table rendered
-        responseTable.on("datatable.init", function() {
-            adaptPageDropdown();
-            adaptPagination();
-        });
+        dataTable.on("datatable.init", () => {
+            adaptPageDropdown()
+            refreshPagination()
+        })
+        dataTable.on("datatable.update", refreshPagination)
+        dataTable.on("datatable.sort", refreshPagination)
 
         // Re-patch pagination after the page was changed
-        responseTable.on("datatable.page", adaptPagination);
+        dataTable.on("datatable.page", adaptPagination)
     </script>
 @endsection

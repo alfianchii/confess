@@ -102,7 +102,7 @@
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script>
         // COMPLAINT TABLE
-        let complaintTable = new simpleDatatables.DataTable(
+        let dataTable = new simpleDatatables.DataTable(
             document.getElementById("table3"), {
                 perPage: 3,
                 perPageSelect: [3, 10, 25, 50],
@@ -113,52 +113,55 @@
                     perPage: "{select} kategori per halaman",
                 },
             }
-        );
-
+        )
         // Move "per page dropdown" selector element out of label
         // to make it work with bootstrap 5. Add bs5 classes.
         function adaptPageDropdown() {
-            const selector = complaintTable.wrapper.querySelector(
-                ".dataTable-selector"
-            );
-            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode);
-            selector.classList.add("form-select");
+            const selector = dataTable.wrapper.querySelector(".dataTable-selector")
+            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode)
+            selector.classList.add("form-select")
         }
 
         // Add bs5 classes to pagination elements
         function adaptPagination() {
-            const paginations = complaintTable.wrapper.querySelectorAll(
+            const paginations = dataTable.wrapper.querySelectorAll(
                 "ul.dataTable-pagination-list"
-            );
+            )
 
             for (const pagination of paginations) {
-                pagination.classList.add(...["pagination", "pagination-primary"]);
+                pagination.classList.add(...["pagination", "pagination-primary"])
             }
 
-            const paginationLis = complaintTable.wrapper.querySelectorAll(
+            const paginationLis = dataTable.wrapper.querySelectorAll(
                 "ul.dataTable-pagination-list li"
-            );
+            )
 
             for (const paginationLi of paginationLis) {
-                paginationLi.classList.add("page-item");
+                paginationLi.classList.add("page-item")
             }
 
-            const paginationLinks = complaintTable.wrapper.querySelectorAll(
+            const paginationLinks = dataTable.wrapper.querySelectorAll(
                 "ul.dataTable-pagination-list li a"
-            );
+            )
 
             for (const paginationLink of paginationLinks) {
-                paginationLink.classList.add("page-link");
+                paginationLink.classList.add("page-link")
             }
         }
 
+        const refreshPagination = () => {
+            adaptPagination()
+        }
+
         // Patch "per page dropdown" and pagination after table rendered
-        complaintTable.on("datatable.init", function() {
-            adaptPageDropdown();
-            adaptPagination();
-        });
+        dataTable.on("datatable.init", () => {
+            adaptPageDropdown()
+            refreshPagination()
+        })
+        dataTable.on("datatable.update", refreshPagination)
+        dataTable.on("datatable.sort", refreshPagination)
 
         // Re-patch pagination after the page was changed
-        complaintTable.on("datatable.page", adaptPagination);
+        dataTable.on("datatable.page", adaptPagination)
     </script>
 @endsection
