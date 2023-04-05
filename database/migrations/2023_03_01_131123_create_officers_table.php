@@ -20,7 +20,8 @@ return new class extends Migration
             $table->foreign("officer_nik")
                 ->references("nik")
                 ->on("users")
-                ->onDelete("cascade");
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
 
             $table->timestamps();
         });
