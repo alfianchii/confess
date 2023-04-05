@@ -188,8 +188,6 @@
                                                     @if ($complaint->image)
                                                         <img src="{{ asset("storage/$complaint->image") }}"
                                                             class="img-preview img-fluid mb-3 col-sm-5 rounded">
-                                                    @else
-                                                        <img class="img-preview img-fluid mb-3 col-sm-5 rounded">
                                                     @endif
 
                                                     <!-- File uploader with image preview -->
