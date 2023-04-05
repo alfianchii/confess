@@ -12,21 +12,20 @@
 
             <div class="col-12">
                 <div class="container mt-4 text-center ">
-                    <p class="fs-5 px-sm-5">Confess merupakan sebuah wadah bagi siswa/i SMKN 4 Kota Tangerang. Dimana
-                        pada aplikasi
-                        ini siswa
-                        dapat menyampaikan Pengaduan dan aspirasi nya dengan terbuka dan aman. Harapan nya dengan ada nya
-                        confess, Siswa/i akan lebih berani dan terbuka kepada sekolah untuk menyelesaikan masalah nya. </p>
+                    <p class="fs-5 px-sm-5"> Confess merupakan tempat bagi kalian yang menjadi bagian siswa/i SMKN 4 Kota
+                        Tangerang untuk memberi kritik, saran, ataupun Aspirasi kalian selama menjadi siswa/i di sekolah
+                        ini. dengan dibuatnya aplikasi ini kami berharap kalian semua menjadi lebih berani dan terbuka
+                        kepada sekolah untuk mengatasi permasalahan - permasalahan yang ada. </p>
                     <h2 class="mt-5 mb-4">
                         Kenapa diciptakan nya Confess?
                     </h2>
-                    <p class="fs-5 px-sm-5">Pengelolaan pengaduan pelayanan di sekolah belum terkelola secara efektif dan
-                        terintegrasi.
-                        Masing-masing organisasi penyelenggara mengelola pengaduan secara parsial dan tidak terkoordinir
-                        dengan baik. Akibatnya terjadi duplikasi penanganan pengaduan, atau bahkan bisa terjadi suatu
-                        pengaduan tidak ditangani oleh satupun organisasi penyelenggara, dengan alasan pengaduan bukan
-                        kewenangannya. Oleh karena itu, perlu untuk mengintegrasikan sistem pengelolaan pengaduan pelayanan
-                        sekolah dalam satu pintu. Tujuannya, Warga sekolah memiliki satu saluran pengaduan.
+                    <p class="fs-5 px-sm-5">Karena kami melihat banyak sekali tindakan tindakan yang tidak mencerminkan
+                        seorang siswa/i sekolah seperti pemalakan, pembulian, pencurian dan masih banyak lagi yang terjadi
+                        di sekolah ini, dengan adanya Confess kami ingin membantu siswa/i yang menjadi korban untuk
+                        melaporkan masalah ini ke guru ataupun staff yang ada di sekolah ini melalui Confess. Jadi kami bisa
+                        sedikit demi sedikit memberantas tindakan tindakan seperti itu. Selain itu Confess juga bisa
+                        digunakan sebagai wadah untuk kalian yang mempunyai ide ide kreatif yang dapat membangun
+                        karakteristik SMKN 4 Kota Tangerang.
                     </p>
 
                     <div class="text-center">
