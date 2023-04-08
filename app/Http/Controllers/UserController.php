@@ -19,11 +19,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        // Get all users but without the current user
         $users = User::where("id", "!=", auth()->user()->id)->orderByDesc("created_at")->get();
 
         return view("dashboard.users.all", [
             "title" => "Pengguna",
-            "users" => User::all(),
+            "users" => $users,
         ]);
     }
 
@@ -111,7 +112,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit(User $user, Request $request)
     {
         return view("dashboard.users.edit", [
             "title" => "Edit " . $user->username,

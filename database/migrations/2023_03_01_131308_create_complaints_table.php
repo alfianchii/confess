@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string("image")->nullable();
             $table->enum("place", ["out", "in"]);
             $table->enum("status", ["0", "1", "2"]);
-            $table->enum("status", ["anonymous", "public"]);
+            $table->enum("privacy", ["anonymous", "public"]);
 
             $table->foreign("student_nik")
                 ->references("student_nik")
