@@ -65,7 +65,7 @@
                                                         <i class="bi bi-person py-2"></i>
                                                     </div>
                                                     @error('name')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
@@ -84,7 +84,7 @@
                                                         <i class="bi bi-person-vcard py-2"></i>
                                                     </div>
                                                     @error('nik')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
@@ -103,7 +103,7 @@
                                                         <i class="bi bi-at py-2"></i>
                                                     </div>
                                                     @error('username')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
@@ -122,7 +122,7 @@
                                                         <i class="bi bi-envelope-paper py-2"></i>
                                                     </div>
                                                     @error('email')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
@@ -141,7 +141,7 @@
                                                         <i class="bi bi-key py-2"></i>
                                                     </div>
                                                     @error('password')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
@@ -162,7 +162,7 @@
                                                         <i class="bi bi-key-fill py-2"></i>
                                                     </div>
                                                     @error('password_confirmation')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
@@ -198,7 +198,7 @@
                                                     </div>
                                                 </fieldset>
                                                 @error('gender')
-                                                    <div class="invalid-feedback">
+                                                    <div class="invalid-feedback d-block">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -241,7 +241,7 @@
                                                     </div>
                                                 </fieldset>
                                                 @error('level')
-                                                    <div class="invalid-feedback">
+                                                    <div class="invalid-feedback d-block">
                                                         {{ $message }}
                                                     </div>
                                                 @enderror
@@ -258,7 +258,7 @@
                                                     <input type="file" class="image-crop-filepond" name="image" />
 
                                                     @error('image')
-                                                        <div class="invalid-feedback">
+                                                        <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
                                                     @enderror
