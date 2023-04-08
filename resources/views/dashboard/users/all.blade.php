@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -101,16 +103,16 @@
                                             @if ($user->level === 'admin')
                                                 <div class="me-2">
                                                     <button data-user="{{ $user->username }}" type="submit"
-                                                        class="border-0 badge bg-secondary"><span class="demote-record"
-                                                            data-user="{{ $user->username }}"
-                                                            data-feather="arrow-down"></span></button>
+                                                        class="btn bg-secondary px-2 pt-2 text-white demote-record">
+                                                        <span class="fa-fw fa-lg select-all fas demote-record"></span>
+                                                    </button>
                                                 </div>
                                             @elseif ($user->level === 'officer')
                                                 <div class="me-2">
                                                     <button data-user="{{ $user->username }}" type="submit"
-                                                        class="border-0 badge bg-primary"><span class="promote-record"
-                                                            data-user="{{ $user->username }}"
-                                                            data-feather="arrow-up"></span></button>
+                                                        class="btn bg-primary px-2 pt-2 text-white promote-record">
+                                                        <span class="fa-fw fa-lg select-all fas promote-record"></span>
+                                                    </button>
                                                 </div>
                                             @endif
                                         </div>
