@@ -77,7 +77,10 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <p>
-                                <span class="fw-bold">Judul keluhan:</span> {{ $response->complaint->title }}
+                                <span class="fw-bold">Judul keluhan:</span>
+                                <a href="/dashboard/responses/create/{{ $response->complaint->slug }}">
+                                    {{ $response->complaint->title }}
+                                </a>
                             </p>
                         </div>
                         <div class="col-12 col-md-6">
