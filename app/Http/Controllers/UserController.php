@@ -19,6 +19,8 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = User::where("id", "!=", auth()->user()->id)->orderByDesc("created_at")->get();
+
         return view("dashboard.users.all", [
             "title" => "Pengguna",
             "users" => User::all(),

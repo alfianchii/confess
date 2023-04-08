@@ -20,7 +20,7 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        $complaints = Complaint::with(["student", "responses", "category"])->where('student_nik', auth()->user()->nik)->get();
+        $complaints = Complaint::with(["student", "responses", "category"])->where('student_nik', auth()->user()->nik)->orderBy('created_at', "desc")->get();
 
         return view("dashboard.complaints.index", [
             "title" => "Complaints",

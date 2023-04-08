@@ -19,7 +19,7 @@ class AdminCategoryController extends Controller
     {
         return view("dashboard.categories.index", [
             "title" => "Categories",
-            "categories" => Category::all()
+            "categories" => Category::all()->sortByDesc("created_at")
         ]);
     }
 
