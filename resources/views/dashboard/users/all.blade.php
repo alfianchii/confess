@@ -99,24 +99,19 @@
                                             </div>
 
                                             @if ($user->level === 'admin')
-                                                <form action="/dashboard/user/{{ $user->username }}/demote" method="POST">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <div class="me-2">
-                                                        <button type="submit" class="border-0 badge bg-secondary"><span
-                                                                data-feather="arrow-down"></span></button>
-                                                    </div>
-                                                </form>
+                                                <div class="me-2">
+                                                    <button data-user="{{ $user->username }}" type="submit"
+                                                        class="border-0 badge bg-secondary"><span class="demote-record"
+                                                            data-user="{{ $user->username }}"
+                                                            data-feather="arrow-down"></span></button>
+                                                </div>
                                             @elseif ($user->level === 'officer')
-                                                <form action="/dashboard/user/{{ $user->username }}/promote"
-                                                    method="POST">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <div class="me-2">
-                                                        <button type="submit" class="border-0 badge bg-primary"><span
-                                                                data-feather="arrow-up"></span></button>
-                                                    </div>
-                                                </form>
+                                                <div class="me-2">
+                                                    <button data-user="{{ $user->username }}" type="submit"
+                                                        class="border-0 badge bg-primary"><span class="promote-record"
+                                                            data-user="{{ $user->username }}"
+                                                            data-feather="arrow-up"></span></button>
+                                                </div>
                                             @endif
                                         </div>
                                     </td>

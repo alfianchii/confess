@@ -1,4 +1,4 @@
-import { handleDelete } from "../sweetalert";
+import { handleDelete, handlePromoteDemote } from "../sweetalert";
 import { currentPath } from "../helpers/currentPath";
 
 // Multiple delete buttons (add a click event listener to each delete button)
@@ -75,6 +75,29 @@ if (currentPath === "/dashboard/complaints") {
                     event.target.dataset.slug,
                     "pengguna",
                     "/dashboard/users"
+                );
+            }
+
+            // Promote and demote user
+            if (
+                event.target &&
+                event.target.classList.contains("promote-record")
+            ) {
+                handlePromoteDemote(
+                    "promote",
+                    event.target.dataset.user,
+                    "/dashboard/user",
+                    `/dashboard/users/${event.target.dataset.user}`
+                );
+            } else if (
+                event.target &&
+                event.target.classList.contains("demote-record")
+            ) {
+                handlePromoteDemote(
+                    "demote",
+                    event.target.dataset.user,
+                    "/dashboard/user",
+                    `/dashboard/users/${event.target.dataset.user}`
                 );
             }
         });

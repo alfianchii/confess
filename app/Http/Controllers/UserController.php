@@ -237,17 +237,43 @@ class UserController extends Controller
 
     public function promote(User $user)
     {
-        $user->level = "admin";
-        $user->save();
+        try {
+            $user->level = "admin";
+            $user->save();
+        } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
+            return response()->json([
+                "message" => "Gagal melakukan promote pengguna."
+            ], 422);
+        } catch (\Throwable $e) {
+            // catch all exceptions here
+            return response()->json([
+                "message" => "An error occurred: " . $e->getMessage()
+            ], 500);
+        }
 
-        return redirect("/dashboard/users/$user->username")->with('success', "Pengguna @$user->username berhasil di-promote menjadi admin!");
+        return response()->json([
+            "message" => "Pengguna @$user->username berhasil di-promote menjadi admin!",
+        ], 200);
     }
 
     public function demote(User $user)
     {
-        $user->level = "officer";
-        $user->save();
+        try {
+            $user->level = "officer";
+            $user->save();
+        } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
+            return response()->json([
+                "message" => "Gagal melakukan demote pengguna."
+            ], 422);
+        } catch (\Throwable $e) {
+            // catch all exceptions here
+            return response()->json([
+                "message" => "An error occurred: " . $e->getMessage()
+            ], 500);
+        }
 
-        return redirect("/dashboard/users/$user->username")->with('success', "Pengguna @$user->username turun pangkat menjadi officer.");
+        return response()->json([
+            "message" => "Pengguna @$user->username turun pangkat menjadi officer.",
+        ], 200);
     }
 }
