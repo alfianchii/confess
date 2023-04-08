@@ -101,11 +101,11 @@
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
                                                 class="form-group has-icon-left mandatory @error('date') is-invalid @enderror">
-                                                <label for="date" class="form-label">Date</label>
+                                                <label for="date" class="form-label">Tanggal Kejadian</label>
                                                 <div class="position-relative">
                                                     <input type="date" class="form-control py-2"
                                                         placeholder="Judul keluhan" id="date" name="date"
-                                                        value="{{ old('date') }}" />
+                                                        value="{{ old('date') ?? date('Y-m-d') }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-calendar-day py-2"></i>
                                                     </div>
