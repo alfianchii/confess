@@ -44,8 +44,10 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     Route::get("/responses/create/{complaint:slug}", [ResponseController::class, "create"])->middleware("response");
     // Category
     Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except(["show"]);
-    // Register
+    // User
     Route::get("/user/register", [UserController::class, "create"])->middleware("admin");
+    Route::put("/user/{user:username}/promote", [UserController::class, "promote"])->middleware("admin");
+    Route::put("/user/{user:username}/demote", [UserController::class, "demote"])->middleware("admin");
     Route::resource("/users", UserController::class)->middleware("admin")->except(["create"]);
 });
 

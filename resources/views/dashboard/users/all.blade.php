@@ -40,13 +40,13 @@
                     <h3>Pengguna</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" id="table2">
+                    <table class="table table-striped" id="table4">
                         <thead>
                             <tr>
                                 <th>#</th>
                                 <th>Foto</th>
                                 <th>Nama</th>
-                                <th>NIK</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -68,33 +68,6 @@
                                         {{ $user->name }}
                                     </td>
                                     <td>
-                                        {{ $user->nik }}
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <div class="me-2">
-                                                <a href="/dashboard/users/{{ $user->id }}" class="badge bg-info"><span
-                                                        data-feather="eye"></span></a>
-                                            </div>
-                                            <div class="me-2">
-                                                <a href="/dashboard/users/{{ $user->id }}/edit"
-                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
-                                            </div>
-                                            <div class="me-2">
-                                                <a href="#" class="badge bg-danger border-0 delete-record"
-                                                    data-slug="{{ $user->id }}"><span data-feather="x-circle"
-                                                        class="delete-record" data-slug="{{ $user->id }}"></span></a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    {{-- <td>
-                                        @if ($user->email)
-                                            {{ $user->email }}
-                                        @else
-                                            Tidak ada
-                                        @endif
-                                    </td>
-                                    <td>
                                         @if ($user->level === 'student')
                                             <span class="badge bg-success">
                                                 Student
@@ -108,7 +81,45 @@
                                                 Admin
                                             </span>
                                         @endif
-                                    </td> --}}
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <div class="me-2">
+                                                <a href="/dashboard/users/{{ $user->username }}" class="badge bg-info"><span
+                                                        data-feather="eye"></span></a>
+                                            </div>
+                                            <div class="me-2">
+                                                <a href="/dashboard/users/{{ $user->username }}/edit"
+                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
+                                            </div>
+                                            <div class="me-2">
+                                                <a href="#" class="badge bg-danger border-0 delete-record"
+                                                    data-slug="{{ $user->username }}"><span data-feather="x-circle"
+                                                        class="delete-record" data-slug="{{ $user->username }}"></span></a>
+                                            </div>
+
+                                            @if ($user->level === 'admin')
+                                                <form action="/dashboard/user/{{ $user->username }}/demote" method="POST">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="me-2">
+                                                        <button type="submit" class="border-0 badge bg-secondary"><span
+                                                                data-feather="arrow-down"></span></button>
+                                                    </div>
+                                                </form>
+                                            @elseif ($user->level === 'officer')
+                                                <form action="/dashboard/user/{{ $user->username }}/promote"
+                                                    method="POST">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <div class="me-2">
+                                                        <button type="submit" class="border-0 badge bg-primary"><span
+                                                                data-feather="arrow-up"></span></button>
+                                                    </div>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
@@ -132,9 +143,9 @@
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     <script>
-        /* RESPONSE TABLE */
+        /* USER TABLE */
         let dataTable = new simpleDatatables.DataTable(
-            document.getElementById("table2"), {
+            document.getElementById("table4"), {
                 perPage: 3,
                 perPageSelect: [3, 10, 25, 50],
                 labels: {
