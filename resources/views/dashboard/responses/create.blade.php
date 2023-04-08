@@ -217,14 +217,6 @@
                                                 @else
                                                     <div class="form-check">
                                                         <input class="form-check-input" type="radio" name="status"
-                                                            id="no-process" value="0" checked=""
-                                                            @if (old('status', $complaint->status) == '0') checked @endif>
-                                                        <label class="form-check-label" for="no-process">
-                                                            Belum diproses
-                                                        </label>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="status"
                                                             id="process" value="1"
                                                             @if (old('status', $complaint->status) == '1') checked @endif>
                                                         <label class="form-check-label" for="process">
