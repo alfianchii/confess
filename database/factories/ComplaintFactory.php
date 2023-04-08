@@ -28,6 +28,7 @@ class ComplaintFactory extends Factory
             "category_id" => $this->faker->randomElement([1, 2, 3]),
             "place" => $this->faker->randomElement(["out", "in"]),
             "status" => $this->faker->randomElement(["0", "1", "2"]),
+            "privacy" => $this->faker->randomElement(["anonymous", "public"]),
             "created_at" => $this->faker->dateTimeBetween("-6 days", "now"),
         ];
     }

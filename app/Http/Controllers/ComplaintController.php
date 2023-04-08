@@ -55,6 +55,7 @@ class ComplaintController extends Controller
             "date" => ["required", "date", "date_format:Y-m-d"],
             "category_id" => ["required"],
             "place" => ["required"],
+            "privacy" => ["required"],
             "image" => ["image", "file", "max:5120"],
             "body" => ["required"],
         ]);
@@ -136,6 +137,7 @@ class ComplaintController extends Controller
             "date" => ["required", "date", "date_format:Y-m-d"],
             "body" => ["required"],
             "place" => ["required"],
+            "privacy" => ["required"],
         ];
 
         if ($request->slug != $complaint->slug) {

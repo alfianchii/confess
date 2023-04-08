@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="page-content">
-        <section class="row  ">
+        <section class="row">
             <div class="col-6 mb-3 header-about bg-home w-100 pb-5">
                 <div class="container pt-2 pt-sm-5">
                     <div class="row d-flex align-items-center text-sm-start text-center">

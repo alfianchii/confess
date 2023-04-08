@@ -143,7 +143,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-12 mb-1">
+                                        <div class="col-md-6 col-12 mb-1">
                                             <div
                                                 class="form-group mandatory @error('place') text-danger is-invalid @enderror">
                                                 <fieldset>
@@ -168,6 +168,44 @@
                                                     </div>
                                                 </fieldset>
                                                 @error('place')
+                                                    <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
+                                                        <span class="parsley-required">{{ $message }}</span>
+                                                    </div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div
+                                                class="form-group mandatory @error('privacy') text-danger is-invalid @enderror">
+                                                <fieldset>
+                                                    <label class="form-label">
+                                                        Kerahasian Keluhan
+                                                    </label>
+                                                    <div class="d-flex">
+                                                        <div class="form-check me-3">
+                                                            <input class="form-check-input" type="radio" name="privacy"
+                                                                id="privacy-anonymous" value="anonymous"
+                                                                @if (old('privacy', $complaint->privacy) == 'anonymous') checked @endif />
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Nama kamu dirahasiakan dari siswa lain."
+                                                                class="form-check-label form-label"
+                                                                for="privacy-anonymous">
+                                                                Anonim
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check me-3">
+                                                            <input class="form-check-input" type="radio" name="privacy"
+                                                                id="privacy-public" value="public"
+                                                                @if (old('privacy', $complaint->privacy) == 'public') checked @endif />
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Nama kamu bisa dilihat oleh siswa lain"
+                                                                class="form-check-label form-label" for="privacy-public">
+                                                                Publik
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                                @error('privacy')
                                                     <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
                                                         <span class="parsley-required">{{ $message }}</span>
                                                     </div>

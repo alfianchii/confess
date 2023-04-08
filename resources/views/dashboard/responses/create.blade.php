@@ -47,11 +47,16 @@
                     {{-- Complaint --}}
                     <div class="card mb-5">
                         <div class="card-header">
-                            <h3 class="card-title">Keluhan</h3>
+                            <h3 class="card-title d-inline-block">Keluhan</h3> <small
+                                class="text-muted">({{ $complaint->privacy }})</small>
                         </div>
                         <div class="card-body">
                             <div class="text-center mb-3">
                                 <h4>{{ $complaint->title }}</h4>
+                                <h6 class="text-muted">
+                                    {{ $complaint->student->user->name }}
+                                    ({{ htmlspecialchars('@' . $complaint->student->user->username) }})
+                                </h6>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <div class="me-4">
@@ -99,11 +104,8 @@
                                             src="{{ asset("storage/$complaint->image") }}"
                                             alt="{{ $complaint->category->name }}">
                                     @else
-                                        {{-- <img class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageDetail"
-                                src="https://source.unsplash.com/random/1000x2000?{{ $complaint->category->name }}"
-                                alt="{{ $complaint->category->name }}"> --}}
                                         <img class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageDetail"
-                                            src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                            src="https://source.unsplash.com/random/600x600?school {{ $complaint->category->name }}"
                                             alt="{{ $complaint->category->name }}">
                                     @endif
                                 </a>
@@ -141,7 +143,7 @@
                                                     @else
                                                         <img class="img-fluid rounded" data-bs-toggle="modal"
                                                             data-bs-target="#imageDetail"
-                                                            src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
+                                                            src="https://source.unsplash.com/random/600x600?school {{ $complaint->category->name }}"
                                                             alt="{{ $complaint->category->name }}">
                                                     @endif
                                                 </div>
