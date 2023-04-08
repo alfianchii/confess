@@ -17,6 +17,8 @@ for (const btn of buttons) {
                 "tanggapan",
                 "/dashboard/responses"
             );
+        } else if (currentPath.startsWith("/dashboard/users")) {
+            handleDelete(e.target.dataset.slug, "pengguna", "/dashboard/users");
         }
     });
 }

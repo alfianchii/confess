@@ -63,4 +63,19 @@ if (currentPath === "/dashboard/complaints") {
                 );
             }
         });
+} else if (currentPath === "/dashboard/users") {
+    document
+        .getElementById("table4")
+        .addEventListener("click", function (event) {
+            if (
+                event.target &&
+                event.target.classList.contains("delete-record")
+            ) {
+                handleDelete(
+                    event.target.dataset.slug,
+                    "pengguna",
+                    "/dashboard/users"
+                );
+            }
+        });
 }
