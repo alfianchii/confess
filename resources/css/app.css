@@ -246,6 +246,9 @@ html[data-bs-theme="dark"] .ql-snow .ql-fill,
 html[data-bs-theme="dark"] .ql-snow .ql-picker {
     color: inherit;
 }
+html[data-bs-theme="dark"] .filepond--drop-label {
+    background-color: #181826;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
