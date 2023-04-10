@@ -104,14 +104,16 @@
                                                 <div class="me-2">
                                                     <button data-user="{{ $user->username }}" type="submit"
                                                         class="btn bg-secondary px-2 pt-2 text-white demote-record">
-                                                        <span class="fa-fw fa-lg select-all fas demote-record"></span>
+                                                        <span data-user="{{ $user->username }}"
+                                                            class="fa-fw fa-lg select-all fas demote-record"></span>
                                                     </button>
                                                 </div>
                                             @elseif ($user->level === 'officer')
                                                 <div class="me-2">
                                                     <button data-user="{{ $user->username }}" type="submit"
                                                         class="btn bg-primary px-2 pt-2 text-white promote-record">
-                                                        <span class="fa-fw fa-lg select-all fas promote-record"></span>
+                                                        <span data-user="{{ $user->username }}"
+                                                            class="fa-fw fa-lg select-all fas promote-record"></span>
                                                     </button>
                                                 </div>
                                             @endif
