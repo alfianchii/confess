@@ -230,6 +230,25 @@ a.btn.btn-lapor:active {
         );
     padding-bottom: 5px;
 }
+.ql-editor.ql-blank::before {
+    color: inherit !important;
+}
+html[data-bs-theme="dark"] .ql-editor.ql-blank p {
+    margin-bottom: 0;
+}
+html[data-bs-theme="dark"] .ql-snow .ql-stroke {
+    stroke: #c2c2d9;
+}
+html[data-bs-theme="dark"] .ql-snow .ql-fill,
+.ql-snow .ql-stroke.ql-fill {
+    fill: #c2c2d9;
+}
+html[data-bs-theme="dark"] .ql-snow .ql-picker {
+    color: inherit;
+}
+html[data-bs-theme="dark"] .filepond--drop-label {
+    background-color: #181826;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
@@ -295,6 +314,12 @@ a.btn.btn-lapor:active {
         font-weight: bold;
         font-size: 20px;
         line-height: 97.39%;
+    }
+    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
+        padding: 2rem 0.8rem !important;
+    }
+    .page-content .row .col-12 .row .col-6:nth-child(2) .card .card-body {
+        padding: 2rem 0.8rem !important;
     }
 }
 @media only screen and (min-width: 373px) and (max-width: 430px) {
@@ -521,6 +546,9 @@ a.btn.btn-lapor:active {
         font-size: 17px;
         line-height: 97.39%;
     }
+    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
+        padding: 2rem 0.5rem !important;
+    }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1699px) {
     .garis {
@@ -539,6 +567,9 @@ a.btn.btn-lapor:active {
         font-weight: bold;
         font-size: 20px;
         line-height: 97.39%;
+    }
+    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
+        padding: 2rem 0.8rem !important;
     }
 }
 @media only screen and (min-width: 2000px) {
