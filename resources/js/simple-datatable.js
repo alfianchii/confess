@@ -74,6 +74,8 @@ export function simpleDatatable(
     // Re-patch pagination after the page was changed
     dataTable.on("datatable.page", adaptPagination);
     if (isTooltip) {
+        dataTable.on("datatable.update", tooltip);
+        dataTable.on("datatable.sort", tooltip);
         dataTable.on("datatable.page", tooltip);
     }
 }
