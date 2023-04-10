@@ -1,7 +1,7 @@
 import { tooltip } from "../js/tooltip";
 
 export function simpleDatatable(
-    table,
+    table = "table1",
     perPageData = 10,
     perPageSelectData = [5, 10, 15, 20, 25],
     label = "data",
