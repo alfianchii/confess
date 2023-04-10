@@ -147,7 +147,9 @@
                                                             <input class="form-check-input" type="radio" name="place"
                                                                 id="place-in" value="in"
                                                                 @if (old('place') == 'in') checked @endif />
-                                                            <label class="form-check-label form-label" for="place-in">
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Tempat kejadian berada di dalam sekolah"
+                                                                class="form-check-label form-label" for="place-in">
                                                                 Dalam sekolah
                                                             </label>
                                                         </div>
@@ -155,7 +157,9 @@
                                                             <input class="form-check-input" type="radio" name="place"
                                                                 id="place-out" value="out"
                                                                 @if (old('place') == 'out') checked @endif />
-                                                            <label class="form-check-label form-label" for="place-out">
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Tempat kejadian berada di luar sekolah"
+                                                                class="form-check-label form-label" for="place-out">
                                                                 Luar sekolah
                                                             </label>
                                                         </div>
