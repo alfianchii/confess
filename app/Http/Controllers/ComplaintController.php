@@ -37,7 +37,7 @@ class ComplaintController extends Controller
     {
         return view("dashboard.complaints.create", [
             "title" => "Buat Keluhan",
-            "categories" => Category::all(),
+            "categories" => Category::all()->sortBy("name"),
         ]);
     }
 
