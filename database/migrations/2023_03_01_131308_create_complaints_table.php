@@ -31,7 +31,8 @@ return new class extends Migration
             $table->foreign("student_nik")
                 ->references("student_nik")
                 ->on("students")
-                ->onDelete("cascade");
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
 
             $table->foreign("category_id")
                 ->references("id")

@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('officers', function (Blueprint $table) {
             $table->string('officer_nik')->primary();
-            $table->string('nip', 18)->nullable();
+            $table->string('nip', 18)->unique()->nullable();
 
             $table->foreign("officer_nik")
                 ->references("nik")

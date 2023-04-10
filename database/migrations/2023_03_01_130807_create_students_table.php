@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->string('student_nik')->primary();
-            $table->string('nisn', 10)->nullable();
+            $table->string('nisn', 10)->unique()->nullable();
 
             $table->foreign("student_nik")
                 ->references("nik")
                 ->on("users")
-                ->onDelete("cascade");
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
 
             $table->timestamps();
         });

@@ -23,11 +23,13 @@ return new class extends Migration
             $table->foreign("complaint_id")
                 ->references("id")
                 ->on("complaints")
-                ->onDelete("cascade");
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
             $table->foreign("officer_nik")
                 ->references("officer_nik")
                 ->on("officers")
-                ->onDelete("cascade");
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
 
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->index("nik");
 
-            $table->string('nik', 16);
+            $table->string('nik', 16)->unique();
             $table->string('name', 50);
             $table->string('username')->unique();
             $table->enum('gender', ["L", "P"]);
