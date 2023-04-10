@@ -216,8 +216,9 @@
                                                             <input class="form-check-input" type="radio" name="level"
                                                                 id="level-student" value="student"
                                                                 @if (old('level') == 'student') checked @endif />
-                                                            <label class="form-check-label form-label"
-                                                                for="level-student">
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Status pengguna sebagai siswa."
+                                                                class="form-check-label form-label" for="level-student">
                                                                 Student
                                                             </label>
                                                         </div>
@@ -225,8 +226,9 @@
                                                             <input class="form-check-input" type="radio" name="level"
                                                                 id="level-officer" value="officer"
                                                                 @if (old('level') == 'officer') checked @endif />
-                                                            <label class="form-check-label form-label"
-                                                                for="level-officer">
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Status pengguna sebagai pegawai."
+                                                                class="form-check-label form-label" for="level-officer">
                                                                 Officer
                                                             </label>
                                                         </div>
@@ -234,7 +236,9 @@
                                                             <input class="form-check-input" type="radio" name="level"
                                                                 id="level-admin" value="admin"
                                                                 @if (old('level') == 'admin') checked @endif />
-                                                            <label class="form-check-label form-label" for="level-admin">
+                                                            <label data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Status pengguna sebagai admin."
+                                                                class="form-check-label form-label" for="level-admin">
                                                                 Admin
                                                             </label>
                                                         </div>
