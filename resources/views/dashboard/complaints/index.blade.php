@@ -85,20 +85,29 @@
                                     <td>
                                         <div class="d-flex">
                                             @if ($complaint->status == 2)
-                                                <a href="/dashboard/complaints/{{ $complaint->slug }}" class="btn btn-info">
+                                                <a data-bs-toggle="tooltip"
+                                                    data-bs-original-title="Detail dari keluhan kamu yang sudah selesai."
+                                                    href="/dashboard/complaints/{{ $complaint->slug }}"
+                                                    class="btn btn-info">
                                                     <i class="bi bi-eye"></i> Detail
                                                 </a>
                                             @elseif($complaint->status < 2)
                                                 <div class="me-2">
-                                                    <a href="/dashboard/complaints/{{ $complaint->slug }}"
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Detail dari keluhan kamu."
+                                                        href="/dashboard/complaints/{{ $complaint->slug }}"
                                                         class="badge bg-info"><span data-feather="eye"></span></a>
                                                 </div>
                                                 <div class="me-2">
-                                                    <a href="/dashboard/complaints/{{ $complaint->slug }}/edit"
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Lakukan editing terhadap keluhan kamu."
+                                                        href="/dashboard/complaints/{{ $complaint->slug }}/edit"
                                                         class="badge bg-warning"><span data-feather="edit"></span></a>
                                                 </div>
                                                 <div class="me-2">
-                                                    <a href="#" class="badge bg-danger border-0 delete-record"
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Hapus keluhan yang kamu miliki."
+                                                        href="#" class="badge bg-danger border-0 delete-record"
                                                         data-slug="{{ $complaint->slug }}"><span data-feather="x-circle"
                                                             class="delete-record"
                                                             data-slug="{{ $complaint->slug }}"></span></a>
@@ -128,68 +137,5 @@
     @vite(['resources/js/sweetalert/swalMulti.js'])
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-    <script>
-        /* COMPLAINT TABLE */
-        let dataTable = new simpleDatatables.DataTable(
-            document.getElementById("table1"), {
-                perPage: 3,
-                perPageSelect: [3, 10, 25, 50],
-                labels: {
-                    placeholder: "Cari ...",
-                    noRows: "Tidak ada keluhan",
-                    info: "Menampilkan {start} hingga {end} dari {rows} keluhan",
-                    perPage: "{select} keluhan per halaman",
-                },
-            }
-        )
-        // Move "per page dropdown" selector element out of label
-        // to make it work with bootstrap 5. Add bs5 classes.
-        function adaptPageDropdown() {
-            const selector = dataTable.wrapper.querySelector(".dataTable-selector")
-            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode)
-            selector.classList.add("form-select")
-        }
-
-        // Add bs5 classes to pagination elements
-        function adaptPagination() {
-            const paginations = dataTable.wrapper.querySelectorAll(
-                "ul.dataTable-pagination-list"
-            )
-
-            for (const pagination of paginations) {
-                pagination.classList.add(...["pagination", "pagination-primary"])
-            }
-
-            const paginationLis = dataTable.wrapper.querySelectorAll(
-                "ul.dataTable-pagination-list li"
-            )
-
-            for (const paginationLi of paginationLis) {
-                paginationLi.classList.add("page-item")
-            }
-
-            const paginationLinks = dataTable.wrapper.querySelectorAll(
-                "ul.dataTable-pagination-list li a"
-            )
-
-            for (const paginationLink of paginationLinks) {
-                paginationLink.classList.add("page-link")
-            }
-        }
-
-        const refreshPagination = () => {
-            adaptPagination()
-        }
-
-        // Patch "per page dropdown" and pagination after table rendered
-        dataTable.on("datatable.init", () => {
-            adaptPageDropdown()
-            refreshPagination()
-        })
-        dataTable.on("datatable.update", refreshPagination)
-        dataTable.on("datatable.sort", refreshPagination)
-
-        // Re-patch pagination after the page was changed
-        dataTable.on("datatable.page", adaptPagination)
-    </script>
+    @vite(['resources/js/simple-datatable/complaints.js'])
 @endsection

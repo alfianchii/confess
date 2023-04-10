@@ -40,7 +40,7 @@
                     <h3>Tanggapan</h3>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped" id="table2">
+                    <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -76,23 +76,31 @@
                                     <td>
                                         <div class="d-flex">
                                             @if ($response->complaint->status == 2)
-                                                <a href="/dashboard/responses/create/{{ $response->complaint->slug }}"
+                                                <a data-bs-toggle="tooltip"
+                                                    data-bs-original-title="Detail dari keluhan siswa yang sudah selesai."
+                                                    href="/dashboard/responses/create/{{ $response->complaint->slug }}"
                                                     class="btn btn-info">
                                                     <i class="bi bi-eye"></i> Detail
                                                 </a>
                                             @elseif($response->complaint->status < 2)
                                                 <div class="me-2">
-                                                    <a href="/dashboard/responses/{{ $response->id }}/edit"
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Edit tanggapan yang kamu miliki."
+                                                        href="/dashboard/responses/{{ $response->id }}/edit"
                                                         class="badge bg-warning"><span data-feather="edit"></span></a>
                                                 </div>
 
                                                 <div class="me-2">
-                                                    <a href="/dashboard/responses/{{ $response->id }}"
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Lihat detail dari tanggapan kamu."
+                                                        href="/dashboard/responses/{{ $response->id }}"
                                                         class="badge bg-info"><span data-feather="eye"></span></a>
                                                 </div>
 
                                                 <div class="me-2">
-                                                    <a href="#" class="badge bg-danger border-0 delete-record"
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Hapus tanggapan yang sudah kamu buat."
+                                                        href="#" class="badge bg-danger border-0 delete-record"
                                                         data-slug="{{ $response->id }}"><span data-feather="x-circle"
                                                             class="delete-record"
                                                             data-slug="{{ $response->id }}"></span></a>
@@ -122,68 +130,5 @@
     @vite(['resources/js/sweetalert/swalMulti.js'])
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
-    <script>
-        /* RESPONSE TABLE */
-        let dataTable = new simpleDatatables.DataTable(
-            document.getElementById("table2"), {
-                perPage: 3,
-                perPageSelect: [3, 10, 25, 50],
-                labels: {
-                    placeholder: "Cari ...",
-                    noRows: "Tidak ada tanggapan",
-                    info: "Menampilkan {start} hingga {end} dari {rows} tanggapan",
-                    perPage: "{select} tanggapan per halaman",
-                },
-            }
-        )
-        // Move "per page dropdown" selector element out of label
-        // to make it work with bootstrap 5. Add bs5 classes.
-        function adaptPageDropdown() {
-            const selector = dataTable.wrapper.querySelector(".dataTable-selector")
-            selector.parentNode.parentNode.insertBefore(selector, selector.parentNode)
-            selector.classList.add("form-select")
-        }
-
-        // Add bs5 classes to pagination elements
-        function adaptPagination() {
-            const paginations = dataTable.wrapper.querySelectorAll(
-                "ul.dataTable-pagination-list"
-            )
-
-            for (const pagination of paginations) {
-                pagination.classList.add(...["pagination", "pagination-primary"])
-            }
-
-            const paginationLis = dataTable.wrapper.querySelectorAll(
-                "ul.dataTable-pagination-list li"
-            )
-
-            for (const paginationLi of paginationLis) {
-                paginationLi.classList.add("page-item")
-            }
-
-            const paginationLinks = dataTable.wrapper.querySelectorAll(
-                "ul.dataTable-pagination-list li a"
-            )
-
-            for (const paginationLink of paginationLinks) {
-                paginationLink.classList.add("page-link")
-            }
-        }
-
-        const refreshPagination = () => {
-            adaptPagination()
-        }
-
-        // Patch "per page dropdown" and pagination after table rendered
-        dataTable.on("datatable.init", () => {
-            adaptPageDropdown()
-            refreshPagination()
-        })
-        dataTable.on("datatable.update", refreshPagination)
-        dataTable.on("datatable.sort", refreshPagination)
-
-        // Re-patch pagination after the page was changed
-        dataTable.on("datatable.page", adaptPagination)
-    </script>
+    @vite(['resources/js/simple-datatable/responses.js'])
 @endsection

@@ -192,7 +192,7 @@
                                                                 id="privacy-public" value="public"
                                                                 @if (old('privacy') == 'public') checked @endif />
                                                             <label data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Nama kamu bisa dilihat oleh siswa lain"
+                                                                data-bs-original-title="Nama kamu bisa dilihat oleh siswa lain."
                                                                 class="form-check-label form-label" for="privacy-public">
                                                                 Publik
                                                             </label>

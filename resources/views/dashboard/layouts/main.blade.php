@@ -41,6 +41,8 @@
     @yield('scripts')
     {{-- realrashid/sweetalert --}}
     @include('sweetalert::alert')
+    {{-- Tooltip globally --}}
+    @vite(['resources/js/tooltip/globalTooltip.js'])
 </body>
 
 </html>

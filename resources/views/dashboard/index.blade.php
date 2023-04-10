@@ -159,7 +159,7 @@
                                         <h3>Daftar Keluhan</h3>
                                     </div>
                                     <div class="card-body">
-                                        <table class="table table-striped" id="table2">
+                                        <table class="table table-striped" id="table1">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -195,17 +195,19 @@
                                                         <td>
                                                             <div class="d-flex">
                                                                 @if ($complaint->status == 2)
-                                                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                    <a data-bs-toggle="tooltip"
+                                                                        data-bs-original-title="Detail dari keluhan milik {{ $complaint->student->user->name }}."
+                                                                        href="/dashboard/responses/create/{{ $complaint->slug }}"
                                                                         class="btn btn-info">
                                                                         <i class="bi bi-eye"></i> Detail
                                                                     </a>
                                                                 @elseif($complaint->status < 2)
-                                                                    <div class="me-2">
-                                                                        <a href="/dashboard/responses/create/{{ $complaint->slug }}"
-                                                                            class="btn btn-warning">
-                                                                            <i class="bi bi-pencil-square"></i> Tanggapi
-                                                                        </a>
-                                                                    </div>
+                                                                    <a data-bs-toggle="tooltip"
+                                                                        data-bs-original-title="Menanggapi keluhan milik {{ $complaint->student->user->name }}."
+                                                                        href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                        class="btn btn-warning">
+                                                                        <i class="bi bi-pencil-square"></i> Tanggapi
+                                                                    </a>
                                                                 @endif
                                                             </div>
                                                         </td>
@@ -487,7 +489,7 @@
                                         <h3>Daftar Keluhan</h3>
                                     </div>
                                     <div class="card-body">
-                                        <table class="table table-striped" id="table2">
+                                        <table class="table table-striped" id="table1">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -523,13 +525,17 @@
                                                         <td>
                                                             <div class="d-flex">
                                                                 @if ($complaint->status == 2)
-                                                                    <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                    <a data-bs-toggle="tooltip"
+                                                                        data-bs-original-title="Detail dari keluhan milik {{ $complaint->student->user->name }}."
+                                                                        href="/dashboard/responses/create/{{ $complaint->slug }}"
                                                                         class="btn btn-info">
                                                                         <i class="bi bi-eye"></i> Detail
                                                                     </a>
                                                                 @elseif($complaint->status < 2)
                                                                     <div class="me-2">
-                                                                        <a href="/dashboard/responses/create/{{ $complaint->slug }}"
+                                                                        <a data-bs-toggle="tooltip"
+                                                                            data-bs-original-title="Menanggapi keluhan milik {{ $complaint->student->user->name }}."
+                                                                            href="/dashboard/responses/create/{{ $complaint->slug }}"
                                                                             class="btn btn-warning">
                                                                             <i class="bi bi-pencil-square"></i> Tanggapi
                                                                         </a>
@@ -875,69 +881,6 @@
         {{-- Simple DataTable --}}
         <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
         {{-- Simple DataTable --}}
-        <script>
-            /* RESPONSE TABLE */
-            let dataTable = new simpleDatatables.DataTable(
-                document.getElementById("table2"), {
-                    perPage: 3,
-                    perPageSelect: [3, 10, 25, 50],
-                    labels: {
-                        placeholder: "Cari ...",
-                        noRows: "Tidak ada keluhan",
-                        info: "Menampilkan {start} hingga {end} dari {rows} keluhan",
-                        perPage: "{select} keluhan per halaman",
-                    },
-                }
-            )
-            // Move "per page dropdown" selector element out of label
-            // to make it work with bootstrap 5. Add bs5 classes.
-            function adaptPageDropdown() {
-                const selector = dataTable.wrapper.querySelector(".dataTable-selector")
-                selector.parentNode.parentNode.insertBefore(selector, selector.parentNode)
-                selector.classList.add("form-select")
-            }
-
-            // Add bs5 classes to pagination elements
-            function adaptPagination() {
-                const paginations = dataTable.wrapper.querySelectorAll(
-                    "ul.dataTable-pagination-list"
-                )
-
-                for (const pagination of paginations) {
-                    pagination.classList.add(...["pagination", "pagination-primary"])
-                }
-
-                const paginationLis = dataTable.wrapper.querySelectorAll(
-                    "ul.dataTable-pagination-list li"
-                )
-
-                for (const paginationLi of paginationLis) {
-                    paginationLi.classList.add("page-item")
-                }
-
-                const paginationLinks = dataTable.wrapper.querySelectorAll(
-                    "ul.dataTable-pagination-list li a"
-                )
-
-                for (const paginationLink of paginationLinks) {
-                    paginationLink.classList.add("page-link")
-                }
-            }
-
-            const refreshPagination = () => {
-                adaptPagination()
-            }
-
-            // Patch "per page dropdown" and pagination after table rendered
-            dataTable.on("datatable.init", () => {
-                adaptPageDropdown()
-                refreshPagination()
-            })
-            dataTable.on("datatable.update", refreshPagination)
-            dataTable.on("datatable.sort", refreshPagination)
-
-            // Re-patch pagination after the page was changed
-            dataTable.on("datatable.page", adaptPagination)
-        </script>
+        @vite(['resources/js/simple-datatable/responses.js'])
     @endcannot
 @endsection

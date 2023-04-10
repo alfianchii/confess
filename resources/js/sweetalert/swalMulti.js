@@ -19,7 +19,7 @@ if (currentPath === "/dashboard/complaints") {
         });
 } else if (currentPath === "/dashboard/responses") {
     document
-        .getElementById("table2")
+        .getElementById("table1")
         .addEventListener("click", function (event) {
             if (
                 event.target &&
@@ -34,7 +34,7 @@ if (currentPath === "/dashboard/complaints") {
         });
 } else if (currentPath === "/dashboard/categories") {
     document
-        .getElementById("table3")
+        .getElementById("table1")
         .addEventListener("click", function (event) {
             if (
                 event.target &&
@@ -65,7 +65,7 @@ if (currentPath === "/dashboard/complaints") {
         });
 } else if (currentPath === "/dashboard/users") {
     document
-        .getElementById("table4")
+        .getElementById("table1")
         .addEventListener("click", function (event) {
             if (
                 event.target &&

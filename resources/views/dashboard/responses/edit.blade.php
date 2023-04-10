@@ -23,7 +23,8 @@
                                 data-feather="arrow-left"></span>
                             Kembali</a>
                         @if ($complaint->status != 2)
-                            <a href="#" class="badge bg-danger border-0 delete-record me-1"
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Hapus tanggapan yang sudah kamu buat."
+                                href="#" class="badge bg-danger border-0 delete-record me-1"
                                 data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
                                     data-slug="{{ $response->id }}"></span> Hapus</a>
                         @endif
@@ -52,7 +53,8 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title d-inline-block">Tanggapan</h3> <a href="/dashboard/responses/create/{{ $complaint->slug }}"><small>({{ $complaint->privacy }})</small></a>
+                            <h3 class="card-title d-inline-block">Tanggapan</h3> <a
+                                href="/dashboard/responses/create/{{ $complaint->slug }}"><small>({{ $complaint->privacy }})</small></a>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

@@ -56,7 +56,6 @@ export function handlePromoteDemote(event, user, uri, redirect = uri) {
         denyButtonText: `Tidak ...`,
     }).then((result) => {
         if (result.isConfirmed) {
-            console.log(`${uri}/${user}/${event}`);
             // Send a PUT request using fetch and handle the response
             fetch(`${uri}/${user}/${event}`, {
                 method: "PUT",
