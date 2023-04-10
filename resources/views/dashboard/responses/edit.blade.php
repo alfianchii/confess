@@ -52,7 +52,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title mb-0">Tanggapan</h3>
+                            <h3 class="card-title d-inline-block">Tanggapan</h3> <a href="/dashboard/responses/create/{{ $complaint->slug }}"><small>({{ $complaint->privacy }})</small></a>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

@@ -84,19 +84,26 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <div class="me-2">
-                                                <a href="/dashboard/complaints/{{ $complaint->slug }}"
-                                                    class="badge bg-info"><span data-feather="eye"></span></a>
-                                            </div>
-                                            <div class="me-2">
-                                                <a href="/dashboard/complaints/{{ $complaint->slug }}/edit"
-                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
-                                            </div>
-                                            <div class="me-2">
-                                                <a href="#" class="badge bg-danger border-0 delete-record"
-                                                    data-slug="{{ $complaint->slug }}"><span data-feather="x-circle"
-                                                        class="delete-record" data-slug="{{ $complaint->slug }}"></span></a>
-                                            </div>
+                                            @if ($complaint->status == 2)
+                                                <a href="/dashboard/complaints/{{ $complaint->slug }}" class="btn btn-info">
+                                                    <i class="bi bi-eye"></i> Detail
+                                                </a>
+                                            @elseif($complaint->status < 2)
+                                                <div class="me-2">
+                                                    <a href="/dashboard/complaints/{{ $complaint->slug }}"
+                                                        class="badge bg-info"><span data-feather="eye"></span></a>
+                                                </div>
+                                                <div class="me-2">
+                                                    <a href="/dashboard/complaints/{{ $complaint->slug }}/edit"
+                                                        class="badge bg-warning"><span data-feather="edit"></span></a>
+                                                </div>
+                                                <div class="me-2">
+                                                    <a href="#" class="badge bg-danger border-0 delete-record"
+                                                        data-slug="{{ $complaint->slug }}"><span data-feather="x-circle"
+                                                            class="delete-record"
+                                                            data-slug="{{ $complaint->slug }}"></span></a>
+                                                </div>
+                                            @endif
                                         </div>
                                     </td>
                                 </tr>

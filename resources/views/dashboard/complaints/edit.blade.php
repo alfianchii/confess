@@ -62,199 +62,164 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="/dashboard/complaints/{{ $complaint->slug }}" method="POST"
-                                    data-parsley-validate enctype="multipart/form-data">
-                                    @method('PUT')
-                                    @csrf
-
-                                    <div class="row">
-                                        <div class="col-md-6 col-12 mb-1">
-                                            <div
-                                                class="form-group has-icon-left mandatory @error('title') is-invalid @enderror">
-                                                <label for="title" class="form-label">Judul</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control py-2"
-                                                        placeholder="Judul keluhan" id="title" name="title"
-                                                        value="{{ old('title', $complaint->title) }}" />
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-card-heading py-2"></i>
-                                                    </div>
-                                                    @error('title')
-                                                        <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12 mb-1">
-                                            <div
-                                                class="form-group has-icon-left mandatory @error('slug') is-invalid @enderror">
-                                                <label for="slug" class="form-label">Slug</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control py-2" placeholder="Sluggable"
-                                                        id="slug" name="slug"
-                                                        value="{{ old('slug', $complaint->slug) }}" />
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-pencil py-2"></i>
-                                                    </div>
-                                                    @error('slug')
-                                                        <div class="parsley-error filled" id="parsley-id-2" aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12 mb-1">
-                                            <div
-                                                class="form-group has-icon-left mandatory @error('date') is-invalid @enderror">
-                                                <label for="date" class="form-label">Date</label>
-                                                <div class="position-relative">
-                                                    <input type="date" class="form-control py-2"
-                                                        placeholder="Judul keluhan" id="date" name="date"
-                                                        value="{{ old('date', $complaint->date) }}" />
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-calendar-day py-2"></i>
-                                                    </div>
-                                                    @error('date')
-                                                        <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                            <span class="parsley-required">{{ $message }}</span>
-                                                        </div>
-                                                    @enderror
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-12 mb-1">
-                                            <div class="form-group mandatory">
-                                                <label for="categories" class="form-label">Kategori</label>
-                                                <select class="choices form-select" id="categories" name="category_id">
-                                                    <optgroup label="Kategori">
-                                                        @forelse ($categories as $category)
-                                                            <option @if (old('category_id', $complaint->category->slug) == $category->slug) selected @endif
-                                                                value="{{ $category->slug }}">
-                                                                {{ $category->name }}</option>
-                                                        @empty
-                                                            <option>No category</option>
-                                                        @endforelse
-                                                    </optgroup>
-                                                </select>
-                                            </div>
-                                        </div>
+                                @if ($complaint->status == 2)
+                                    <div class="alert alert-success">
+                                        <h4 class="alert-heading">Selesai</h4>
+                                        <p>Keluhan kamu sudah selesai ditangani.</p>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6 col-12 mb-1">
-                                            <div
-                                                class="form-group mandatory @error('place') text-danger is-invalid @enderror">
-                                                <fieldset>
-                                                    <label class="form-label">
-                                                        Tempat Kejadian
-                                                    </label>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="place"
-                                                            id="place-in" value="in"
-                                                            @if (old('place', $complaint->place) == 'in') checked @endif />
-                                                        <label class="form-check-label form-label" for="place-in">
-                                                            Dalam sekolah
-                                                        </label>
+                                @else
+                                    <form class="form" action="/dashboard/complaints/{{ $complaint->slug }}"
+                                        method="POST" data-parsley-validate enctype="multipart/form-data">
+                                        @method('PUT')
+                                        @csrf
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div
+                                                    class="form-group has-icon-left mandatory @error('title') is-invalid @enderror">
+                                                    <label for="title" class="form-label">Judul</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control py-2"
+                                                            placeholder="Judul keluhan" id="title" name="title"
+                                                            value="{{ old('title', $complaint->title) }}" />
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-card-heading py-2"></i>
+                                                        </div>
+                                                        @error('title')
+                                                            <div class="parsley-error filled" id="parsley-id-1"
+                                                                aria-hidden="false">
+                                                                <span class="parsley-required">{{ $message }}</span>
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="place"
-                                                            id="place-out" value="out"
-                                                            @if (old('place', $complaint->place) == 'out') checked @endif />
-                                                        <label class="form-check-label form-label" for="place-out">
-                                                            Luar sekolah
-                                                        </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div
+                                                    class="form-group has-icon-left mandatory @error('slug') is-invalid @enderror">
+                                                    <label for="slug" class="form-label">Slug</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control py-2"
+                                                            placeholder="Sluggable" id="slug" name="slug"
+                                                            value="{{ old('slug', $complaint->slug) }}" />
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-pencil py-2"></i>
+                                                        </div>
+                                                        @error('slug')
+                                                            <div class="parsley-error filled" id="parsley-id-2"
+                                                                aria-hidden="false">
+                                                                <span class="parsley-required">{{ $message }}</span>
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                </fieldset>
-                                                @error('place')
-                                                    <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                        <span class="parsley-required">{{ $message }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div
+                                                    class="form-group has-icon-left mandatory @error('date') is-invalid @enderror">
+                                                    <label for="date" class="form-label">Date</label>
+                                                    <div class="position-relative">
+                                                        <input type="date" class="form-control py-2"
+                                                            placeholder="Judul keluhan" id="date" name="date"
+                                                            value="{{ old('date', $complaint->date) }}" />
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-calendar-day py-2"></i>
+                                                        </div>
+                                                        @error('date')
+                                                            <div class="parsley-error filled" id="parsley-id-1"
+                                                                aria-hidden="false">
+                                                                <span class="parsley-required">{{ $message }}</span>
+                                                            </div>
+                                                        @enderror
                                                     </div>
-                                                @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div class="form-group mandatory">
+                                                    <label for="categories" class="form-label">Kategori</label>
+                                                    <select class="choices form-select" id="categories"
+                                                        name="category_id">
+                                                        <optgroup label="Kategori">
+                                                            @forelse ($categories as $category)
+                                                                <option @if (old('category_id', $complaint->category->slug) == $category->slug) selected @endif
+                                                                    value="{{ $category->slug }}">
+                                                                    {{ $category->name }}</option>
+                                                            @empty
+                                                                <option>No category</option>
+                                                            @endforelse
+                                                        </optgroup>
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-md-6 col-12 mb-1">
-                                            <div
-                                                class="form-group mandatory @error('privacy') text-danger is-invalid @enderror">
-                                                <fieldset>
-                                                    <label class="form-label">
-                                                        Kerahasian Keluhan
-                                                    </label>
-                                                    <div class="d-flex">
-                                                        <div class="form-check me-3">
-                                                            <input class="form-check-input" type="radio" name="privacy"
-                                                                id="privacy-anonymous" value="anonymous"
-                                                                @if (old('privacy', $complaint->privacy) == 'anonymous') checked @endif />
-                                                            <label data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Nama kamu dirahasiakan dari siswa lain."
-                                                                class="form-check-label form-label"
-                                                                for="privacy-anonymous">
-                                                                Anonim
+                                        <div class="row">
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div
+                                                    class="form-group mandatory @error('place') text-danger is-invalid @enderror">
+                                                    <fieldset>
+                                                        <label class="form-label">
+                                                            Tempat Kejadian
+                                                        </label>
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="place"
+                                                                id="place-in" value="in"
+                                                                @if (old('place', $complaint->place) == 'in') checked @endif />
+                                                            <label class="form-check-label form-label" for="place-in">
+                                                                Dalam sekolah
                                                             </label>
                                                         </div>
-                                                        <div class="form-check me-3">
-                                                            <input class="form-check-input" type="radio" name="privacy"
-                                                                id="privacy-public" value="public"
-                                                                @if (old('privacy', $complaint->privacy) == 'public') checked @endif />
-                                                            <label data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Nama kamu bisa dilihat oleh siswa lain"
-                                                                class="form-check-label form-label" for="privacy-public">
-                                                                Publik
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="radio" name="place"
+                                                                id="place-out" value="out"
+                                                                @if (old('place', $complaint->place) == 'out') checked @endif />
+                                                            <label class="form-check-label form-label" for="place-out">
+                                                                Luar sekolah
                                                             </label>
                                                         </div>
-                                                    </div>
-                                                </fieldset>
-                                                @error('privacy')
-                                                    <div class="parsley-error filled" id="parsley-id-1" aria-hidden="false">
-                                                        <span class="parsley-required">{{ $message }}</span>
-                                                    </div>
-                                                @enderror
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 mb-1">
-                                            <div class="form-group ">
-                                                <div class="position-relative">
-                                                    <label for="image"
-                                                        class="@if ($complaint->image) d-block @endif form-label @error('image') is-invalid @enderror">Foto</label>
-                                                    <input type="hidden" name="oldImage"
-                                                        value="{{ $complaint->image }}">
-
-                                                    <!-- Image preview -->
-                                                    @if ($complaint->image)
-                                                        <img src="{{ asset("storage/$complaint->image") }}"
-                                                            class="img-preview img-fluid mb-3 col-sm-5 rounded">
-                                                    @endif
-
-                                                    <!-- File uploader with image preview -->
-                                                    <input type="file" class="image-preview-filepond" name="image"
-                                                        id="image" />
-
-                                                    @error('image')
-                                                        <div class="invalid-feedback">
-                                                            {{ $message }}
+                                                    </fieldset>
+                                                    @error('place')
+                                                        <div class="parsley-error filled" id="parsley-id-1"
+                                                            aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
                                                         </div>
                                                     @enderror
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 mb-1">
-                                            <div class="form-group mandatory @error('body') is-invalid @enderror">
-                                                <div class="position-relative">
-                                                    <label for="body" class="form-label">Isi Keluhan</label>
-
-                                                    <input id="body" name="body"
-                                                        value="{{ old('body', $complaint->body) }}" type="hidden">
-                                                    <div id="editor">
-                                                        {!! old('body', $complaint->body) !!}
-                                                    </div>
-
-                                                    @error('body')
-                                                        <div class="parsley-error filled" id="parsley-id-3"
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div
+                                                    class="form-group mandatory @error('privacy') text-danger is-invalid @enderror">
+                                                    <fieldset>
+                                                        <label class="form-label">
+                                                            Kerahasian Keluhan
+                                                        </label>
+                                                        <div class="d-flex">
+                                                            <div class="form-check me-3">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="privacy" id="privacy-anonymous"
+                                                                    value="anonymous"
+                                                                    @if (old('privacy', $complaint->privacy) == 'anonymous') checked @endif />
+                                                                <label data-bs-toggle="tooltip"
+                                                                    data-bs-original-title="Nama kamu dirahasiakan dari siswa lain."
+                                                                    class="form-check-label form-label"
+                                                                    for="privacy-anonymous">
+                                                                    Anonim
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check me-3">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="privacy" id="privacy-public" value="public"
+                                                                    @if (old('privacy', $complaint->privacy) == 'public') checked @endif />
+                                                                <label data-bs-toggle="tooltip"
+                                                                    data-bs-original-title="Nama kamu bisa dilihat oleh siswa lain"
+                                                                    class="form-check-label form-label"
+                                                                    for="privacy-public">
+                                                                    Publik
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    @error('privacy')
+                                                        <div class="parsley-error filled" id="parsley-id-1"
                                                             aria-hidden="false">
                                                             <span class="parsley-required">{{ $message }}</span>
                                                         </div>
@@ -262,15 +227,65 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12 mt-2 d-flex justify-content-start">
-                                            <button type="submit" class="btn btn-primary me-1 mb-1">
-                                                Submit
-                                            </button>
+                                        <div class="row">
+                                            <div class="col-12 mb-1">
+                                                <div class="form-group ">
+                                                    <div class="position-relative">
+                                                        <label for="image"
+                                                            class="@if ($complaint->image) d-block @endif form-label @error('image') is-invalid @enderror">Foto</label>
+                                                        <input type="hidden" name="oldImage"
+                                                            value="{{ $complaint->image }}">
+
+                                                        <!-- Image preview -->
+                                                        @if ($complaint->image)
+                                                            <img src="{{ asset("storage/$complaint->image") }}"
+                                                                class="img-preview img-fluid mb-3 col-sm-5 rounded">
+                                                        @endif
+
+                                                        <!-- File uploader with image preview -->
+                                                        <input type="file" class="image-preview-filepond"
+                                                            name="image" id="image" />
+
+                                                        @error('image')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                        <div class="row">
+                                            <div class="col-12 mb-1">
+                                                <div class="form-group mandatory @error('body') is-invalid @enderror">
+                                                    <div class="position-relative">
+                                                        <label for="body" class="form-label">Isi Keluhan</label>
+
+                                                        <input id="body" name="body"
+                                                            value="{{ old('body', $complaint->body) }}" type="hidden">
+                                                        <div id="editor">
+                                                            {!! old('body', $complaint->body) !!}
+                                                        </div>
+
+                                                        @error('body')
+                                                            <div class="parsley-error filled" id="parsley-id-3"
+                                                                aria-hidden="false">
+                                                                <span class="parsley-required">{{ $message }}</span>
+                                                            </div>
+                                                        @enderror
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 mt-2 d-flex justify-content-start">
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">
+                                                    Submit
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>

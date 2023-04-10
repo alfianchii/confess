@@ -47,8 +47,7 @@
                     {{-- Complaint --}}
                     <div class="card mb-5">
                         <div class="card-header">
-                            <h3 class="card-title d-inline-block">Keluhan</h3> <small
-                                class="text-muted">({{ $complaint->privacy }})</small>
+                            <h3 class="card-title d-inline-block">Keluhan</h3> <small class="text-muted">({{ $complaint->privacy }})</small>
                         </div>
                         <div class="card-body">
                             <div class="text-center mb-3">

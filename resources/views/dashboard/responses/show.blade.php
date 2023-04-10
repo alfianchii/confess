@@ -52,7 +52,7 @@
             {{-- Complaint --}}
             <div class="card mb-5">
                 <div class="card-header">
-                    <h3 class="card-title">Tanggapan</h3>
+                    <h3 class="card-title d-inline-block">Tanggapan</h3> <a href="/dashboard/responses/create/{{ $response->complaint->slug }}"><small>({{ $response->complaint->privacy }})</small></a>
                     <p class="text-subtitle text-muted">
                         {{ $response->created_at->diffForHumans() }}
                     </p>
