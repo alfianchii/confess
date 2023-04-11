@@ -21,8 +21,9 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/complaints/create" class="btn btn-success">
-                            <i class="bi bi-envelope-paper-heart me-1"></i> Buat Keluhan
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Buat keluhan yang kamu alami."
+                            href="/dashboard/complaints/create" class="btn btn-success px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
                     </div>
                 </div>

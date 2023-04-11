@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -27,12 +30,15 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary me-1"><span
-                                data-feather="arrow-left"></span>
-                            Kembali</a>
-                        <a href="#" class="badge bg-danger border-0 delete-record me-1"
-                            data-slug="{{ $complaint->slug }}"><span data-feather="x-circle" class="delete-record"
-                                data-slug="{{ $complaint->slug }}"></span> Hapus</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman keluhan."
+                            href="/dashboard/complaints" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas text-white"></span>
+                        </a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Hapus keluhan." href="#"
+                            class="btn btn-danger px-2 pt-2 me-1 delete-record" data-slug="{{ $complaint->slug }}">
+                            <span data-slug="{{ $complaint->slug }}"
+                                class="delete-record fa-fw fa-lg select-all fas"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
