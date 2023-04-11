@@ -88,16 +88,16 @@
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Detail dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                                                    href="/dashboard/users/{{ $user->username }}"
+                                                    data-bs-original-title="Edit pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                                    href="/dashboard/users/{{ $user->username }}/edit"
                                                     class="btn btn-warning px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>
                                                 </a>
                                             </div>
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Edit pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                                                    href="/dashboard/users/{{ $user->username }}/edit"
+                                                    data-bs-original-title="Detail dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                                    href="/dashboard/users/{{ $user->username }}"
                                                     class="btn btn-info px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>
                                                 </a>
