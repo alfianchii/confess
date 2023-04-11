@@ -76,6 +76,9 @@
                                         @endif
                                     </td>
                                     <td>
+                                        {{ $response->created_at->format('Y-m-d') }}
+                                    </td>
+                                    <td>
                                         <div class="d-flex">
                                             @if ($response->complaint->status == 2)
                                                 <a data-bs-toggle="tooltip"
