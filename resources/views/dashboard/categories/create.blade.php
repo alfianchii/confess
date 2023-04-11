@@ -1,8 +1,6 @@
 @extends('dashboard.layouts.main')
 
 @section('links')
-    {{-- Fontawesome --}}
-    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')

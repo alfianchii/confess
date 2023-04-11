@@ -14,9 +14,6 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
-
-    {{-- Fontawesome --}}
-    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')

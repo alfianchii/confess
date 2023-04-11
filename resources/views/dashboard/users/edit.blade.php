@@ -1,15 +1,12 @@
 @extends('dashboard.layouts.main')
 
 @section('links')
-    @vite('resources/css/app.css')
     {{-- SweetAlert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Filepond: image auto crop --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
-    {{-- Fontawesome --}}
-    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')

@@ -5,8 +5,6 @@
         {{-- Simple DataTable --}}
         <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
-        {{-- Fontawesome --}}
-        <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
     @endcannot
 @endsection
 

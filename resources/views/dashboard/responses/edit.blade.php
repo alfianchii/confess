@@ -5,8 +5,6 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
-    {{-- Fontawesome --}}
-    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
