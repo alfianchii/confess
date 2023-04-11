@@ -21,11 +21,10 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <button type="submit" class="btn btn-success px-3 py-2">
-                            <a href="/dashboard/categories/create" class="text-white">
-                                <span class="text-white fa-fw select-all fas"></span> Buat Kategori
-                            </a>
-                        </button>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Buat sebuah kategori untuk keluhan."
+                            href="/dashboard/categories/create" class="btn btn-success px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas text-white"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">

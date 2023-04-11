@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -18,9 +20,10 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="{{ url()->previous() }}" class="btn btn-secondary me-1"><span
-                                data-feather="arrow-left"></span>
-                            Kembali</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman dashboard."
+                            href="/dashboard/responses" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
@@ -47,7 +50,8 @@
                     {{-- Complaint --}}
                     <div class="card mb-5">
                         <div class="card-header">
-                            <h3 class="card-title d-inline-block">Keluhan</h3> <small class="text-muted">({{ $complaint->privacy }})</small>
+                            <h3 class="card-title d-inline-block">Keluhan</h3> <small
+                                class="text-muted">({{ $complaint->privacy }})</small>
                         </div>
                         <div class="card-body">
                             <div class="text-center mb-3">
@@ -270,32 +274,47 @@
                                     </div>
                                     <div class="col-md-10">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ $response->officer->user->name }}</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">
-                                                {{ $response->created_at->diffForHumans() }}
-                                            </h6>
-                                            <p class="card-text">{!! $response->body !!}</p>
-                                            <div class="d-flex justify-content-between align-items-center">
+                                            <div class="text-md-start text-center">
+                                                <h4 class="card-title">{{ $response->officer->user->name }}</h4>
+                                                <h5 class="card-subtitle mb-2 text-muted">
+                                                    {{ $response->created_at->diffForHumans() }}
+                                                </h5>
+                                                <p class="card-text">{!! $response->body !!}</p>
+                                            </div>
+                                            <div
+                                                class="d-flex justify-content-md-between justify-content-center align-items-center">
                                                 @if ($response->officer_nik === auth()->user()->nik)
                                                     <div class="btn-group" id="responses">
                                                         <div class="me-2">
-                                                            <a href="/dashboard/responses/{{ $response->id }}/edit"
-                                                                class="badge bg-warning"><span
-                                                                    data-feather="edit"></span></a>
+                                                            <a data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Edit tanggapan milik kamu."
+                                                                href="/dashboard/responses/{{ $response->id }}/edit"
+                                                                class="btn btn-warning px-2 pt-2">
+                                                                <span class="fa-fw fa-lg select-all fas"></span>
+                                                            </a>
                                                         </div>
 
                                                         <div class="me-2">
-                                                            <a href="/dashboard/responses/{{ $response->id }}"
-                                                                class="badge bg-info"><span data-feather="eye"></span></a>
+                                                            <a data-bs-toggle="tooltip"
+                                                                data-bs-original-title="Detail dari tanggapan yang kamu buat."
+                                                                href="/dashboard/responses/{{ $response->id }}"
+                                                                class="btn btn-info px-2 pt-2">
+                                                                <span class="fa-fw fa-lg select-all fas"></span>
+                                                            </a>
                                                         </div>
 
-                                                        <div class="me-2">
-                                                            <a href="#"
-                                                                class="badge bg-danger border-0 delete-record"
-                                                                data-slug="{{ $response->id }}"><span
-                                                                    data-feather="x-circle" class="delete-record"
-                                                                    data-slug="{{ $response->id }}"></span></a>
-                                                        </div>
+                                                        @if ($response->complaint->status != 2)
+                                                            <div class="me-2">
+                                                                <a data-bs-toggle="tooltip"
+                                                                    data-bs-original-title="Hapus tanggapan yang sudah kamu berikan."
+                                                                    href="#"
+                                                                    class="btn btn-danger px-2 pt-2 delete-record"
+                                                                    data-slug="{{ $response->id }}">
+                                                                    <span data-slug="{{ $response->id }}"
+                                                                        class="delete-record fa-fw fa-lg select-all fas"></span>
+                                                                </a>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                     {{-- <small class="text-muted">Likes: 15</small> --}}
                                                 @endif

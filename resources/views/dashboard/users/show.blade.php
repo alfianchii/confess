@@ -3,6 +3,8 @@
 @section('links')
     {{-- SweetAlert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -16,13 +18,22 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/users" class="btn btn-secondary me-1"><span data-feather="arrow-left"></span>
-                            Kembali</a>
-                        <a href="/dashboard/users/{{ $user->username }}/edit" class="badge bg-warning me-1"><span
-                                data-feather="edit"></span> Edit</a>
-                        <a href="#" class="badge bg-danger border-0 delete-record me-1"
-                            data-slug="{{ $user->username }}"><span data-feather="x-circle" class="delete-record"
-                                data-slug="{{ $user->username }}"></span> Hapus</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman semua pengguna."
+                            href="/dashboard/users" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
+                        <a data-bs-toggle="tooltip"
+                            data-bs-original-title="Detail dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                            href="/dashboard/users/{{ $user->username }}" class="btn btn-warning px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
+                        <a data-bs-toggle="tooltip"
+                            data-bs-original-title="Hapus pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                            href="#" class="btn btn-danger px-2 pt-2 me-1 delete-record"
+                            data-slug="{{ $user->username }}">
+                            <span data-slug="{{ $user->username }}"
+                                class="delete-record fa-fw fa-lg select-all fas"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">

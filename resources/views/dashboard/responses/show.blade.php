@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -18,15 +20,21 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/responses" class="btn btn-secondary me-1"><span
-                                data-feather="arrow-left"></span>
-                            Kembali</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman sebelumnya."
+                            href="{{ url()->previous() }}" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
                         @if ($response->complaint->status != 2)
-                            <a href="/dashboard/responses/{{ $response->id }}/edit" class="badge bg-warning me-1"><span
-                                    data-feather="edit"></span> Edit</a>
-                            <a href="#" class="badge bg-danger border-0 delete-record me-1"
-                                data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
-                                    data-slug="{{ $response->id }}"></span> Hapus</a>
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Edit tanggapan milik kamu."
+                                href="/dashboard/responses/{{ $response->id }}/edit" class="btn btn-warning px-2 pt-2 me-1">
+                                <span class="fa-fw fa-lg select-all fas"></span>
+                            </a>
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Hapus tanggapan yang sudah kamu berikan."
+                                href="#" class="btn btn-danger px-2 pt-2 delete-record me-1"
+                                data-slug="{{ $response->id }}">
+                                <span data-slug="{{ $response->id }}"
+                                    class="delete-record fa-fw fa-lg select-all fas"></span>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -52,7 +60,8 @@
             {{-- Complaint --}}
             <div class="card mb-5">
                 <div class="card-header">
-                    <h3 class="card-title d-inline-block">Tanggapan</h3> <a href="/dashboard/responses/create/{{ $response->complaint->slug }}"><small>({{ $response->complaint->privacy }})</small></a>
+                    <h3 class="card-title d-inline-block">Tanggapan</h3> <a
+                        href="/dashboard/responses/create/{{ $response->complaint->slug }}"><small>({{ $response->complaint->privacy }})</small></a>
                     <p class="text-subtitle text-muted">
                         {{ $response->created_at->diffForHumans() }}
                     </p>

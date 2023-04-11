@@ -48,6 +48,7 @@
                                 <th>#</th>
                                 <th>Judul Keluhan</th>
                                 <th>Status</th>
+                                <th>Tanggal</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>

@@ -3,9 +3,10 @@
 @section('links')
     {{-- SweetAlert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
-
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -19,14 +20,17 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/responses" class="btn btn-secondary me-1"><span
-                                data-feather="arrow-left"></span>
-                            Kembali</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman sebelumnya."
+                            href="{{ url()->previous() }}" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
                         @if ($complaint->status != 2)
-                            <a data-bs-toggle="tooltip" data-bs-original-title="Hapus tanggapan yang sudah kamu buat."
-                                href="#" class="badge bg-danger border-0 delete-record me-1"
-                                data-slug="{{ $response->id }}"><span data-feather="x-circle" class="delete-record"
-                                    data-slug="{{ $response->id }}"></span> Hapus</a>
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Hapus tanggapan yang sudah kamu berikan."
+                                href="#" class="btn btn-danger px-2 pt-2 delete-record me-1"
+                                data-slug="{{ $response->id }}">
+                                <span data-slug="{{ $response->id }}"
+                                    class="delete-record fa-fw fa-lg select-all fas"></span>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -40,7 +44,7 @@
                                 <a href="/dashboard/responses">Responses</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Create
+                                Edit
                             </li>
                         </ol>
                     </nav>

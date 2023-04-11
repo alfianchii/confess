@@ -1,6 +1,10 @@
 @extends('dashboard.layouts.main')
 
 @section('links')
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
+    {{-- Sweetalert --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
 @endsection
 
 @section('content')
@@ -14,8 +18,15 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/categories" class="btn btn-secondary me-1"><span data-feather="arrow-left"></span>
-                            Kembali</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman kategori."
+                            href="/dashboard/categories" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Hapus kategori." href="#"
+                            class="btn btn-danger px-2 pt-2 delete-record" data-slug="{{ $category->slug }}">
+                            <span data-slug="{{ $category->slug }}"
+                                class="delete-record fa-fw fa-lg select-all fas"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
@@ -109,4 +120,7 @@
 @section('scripts')
     {{-- Sluggable --}}
     @vite(['resources/js/sluggable/slug.js'])
+    {{-- SweetAlert --}}
+    <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    @vite(['resources/js/sweetalert/swalSingle.js'])
 @endsection

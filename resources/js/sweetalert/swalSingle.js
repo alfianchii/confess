@@ -19,6 +19,12 @@ for (const btn of buttons) {
             );
         } else if (currentPath.startsWith("/dashboard/users")) {
             handleDelete(e.target.dataset.slug, "pengguna", "/dashboard/users");
+        } else if (currentPath.startsWith("/dashboard/categories")) {
+            handleDelete(
+                e.target.dataset.slug,
+                "kategori",
+                "/dashboard/categories"
+            );
         }
     });
 }

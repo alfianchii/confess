@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
     <link rel="stylesheet"
         href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -18,8 +20,10 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a href="/dashboard/users" class="btn btn-secondary me-1"><span data-feather="arrow-left"></span>
-                            Kembali</a>
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman semua pengguna."
+                            href="/dashboard/users" class="btn btn-secondary px-2 pt-2 me-1">
+                            <span class="fa-fw fa-lg select-all fas"></span>
+                        </a>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
