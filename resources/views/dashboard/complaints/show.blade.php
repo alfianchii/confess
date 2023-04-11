@@ -175,15 +175,16 @@
                         <div class="row g-0 px-4 mt-5 mb-4 pb-2">
                             <div class="col-md-2 d-flex align-items-start">
                                 @if ($response->officer->user->image)
-                                    <img src="{{ asset('storage') . '/' . $response->officer->user->image }}"
+                                    <img width="200"
+                                        src="{{ asset('storage') . '/' . $response->officer->user->image }}"
                                         alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                 @else
                                     @if ($response->officer->user->gender == 'L')
-                                        <img src="{{ asset('assets/static/images/faces/2.jpg') }}" alt="User avatar"
-                                            class="img-fluid rounded-circle mx-auto">
+                                        <img width="200" src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                            alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                     @else
-                                        <img src="{{ asset('assets/static/images/faces/5.jpg') }}" alt="User avatar"
-                                            class="img-fluid rounded-circle mx-auto">
+                                        <img width="200" src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                            alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                     @endif
                                 @endif
                             </div>
