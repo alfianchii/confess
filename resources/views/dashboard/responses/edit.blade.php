@@ -85,7 +85,7 @@
                                             </div>
                                         </div>
                                         <div class="col-12 mb-1">
-                                            <div class="form-group mandatory">
+                                            <div class="form-group">
                                                 <label class="form-label" for="complaint-display">Judul</label>
                                                 {{-- To display --}}
                                                 <input type="text" class="form-control" id="complaint-display"
