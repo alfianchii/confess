@@ -63,66 +63,38 @@
                 @endcan
 
                 @cannot('student')
-                    <li class="sidebar-title">Administrator</li>
-
                     <li class="sidebar-item {{ Request::is('dashboard/responses*') ? 'active' : '' }}">
                         <a href="/dashboard/responses" class="sidebar-link">
                             <i class="bi bi-stack"></i>
                             <span>Responses</span>
                         </a>
                     </li>
-
-                    @can('admin')
-                        <li class="sidebar-item {{ Request::is('dashboard/categories*') ? 'active' : '' }}">
-                            <a href="/dashboard/categories" class="sidebar-link">
-                                <i class="bi bi-card-list"></i>
-                                <span>Categories</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item has-sub {{ Request::is('dashboard/user*') ? 'active' : '' }}">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-person-fill"></i>
-                                <span>User</span>
-                            </a>
-                            <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
-                                <li class="submenu-item {{ Request::is('dashboard/users*') ? 'active' : '' }}">
-                                    <a href="/dashboard/users">All</a>
-                                </li>
-                                <li class="submenu-item {{ Request::is('dashboard/user/register*') ? 'active' : '' }}">
-                                    <a href="/dashboard/user/register">Register</a>
-                                </li>
-                            </ul>
-                        </li>
-                    @endcan
-
-                    {{-- <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-hexagon-fill"></i>
-                        <span>Form Elements</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="form-element-input.html">Input</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="form-element-input-group.html">Input Group</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="form-element-select.html">Select</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="form-element-radio.html">Radio</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="form-element-checkbox.html">Checkbox</a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="form-element-textarea.html">Textarea</a>
-                        </li>
-                    </ul>
-                </li> --}}
                 @endcannot
+
+                @can('admin')
+                    <li class="sidebar-title">Administrator</li>
+                    <li class="sidebar-item {{ Request::is('dashboard/categories*') ? 'active' : '' }}">
+                        <a href="/dashboard/categories" class="sidebar-link">
+                            <i class="bi bi-card-list"></i>
+                            <span>Categories</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item has-sub {{ Request::is('dashboard/user*') ? 'active' : '' }}">
+                        <a href="#" class="sidebar-link">
+                            <i class="bi bi-person-fill"></i>
+                            <span>User</span>
+                        </a>
+                        <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
+                            <li class="submenu-item {{ Request::is('dashboard/users*') ? 'active' : '' }}">
+                                <a href="/dashboard/users">All</a>
+                            </li>
+                            <li class="submenu-item {{ Request::is('dashboard/user/register*') ? 'active' : '' }}">
+                                <a href="/dashboard/user/register">Register</a>
+                            </li>
+                        </ul>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>
