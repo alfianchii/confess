@@ -14,9 +14,6 @@ let quill = new Quill("#editor", {
                 {
                     color: [],
                 },
-                {
-                    background: [],
-                },
             ],
             ["blockquote", "code-block"],
             [
