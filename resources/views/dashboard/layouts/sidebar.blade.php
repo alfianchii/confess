@@ -1,4 +1,4 @@
-<div id="sidebar" class="active">
+<div id="sidebar">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
