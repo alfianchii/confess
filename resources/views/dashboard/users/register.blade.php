@@ -22,7 +22,7 @@
                     <div class="mb-4">
                         <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman semua pengguna."
                             href="/dashboard/users" class="btn btn-secondary px-2 pt-2 me-1">
-                            <span class="fa-fw fa-lg select-all fas"></span>
+                            <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
                     </div>
                 </div>

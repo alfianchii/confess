@@ -20,7 +20,7 @@
                     <div class="mb-4">
                         <a data-bs-toggle="tooltip" data-bs-original-title="Kembali ke halaman kategori."
                             href="/dashboard/categories" class="btn btn-secondary px-2 pt-2 me-1">
-                            <span class="fa-fw fa-lg select-all fas"></span>
+                            <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
                         <a data-bs-toggle="tooltip" data-bs-original-title="Hapus kategori." href="#"
                             class="btn btn-danger px-2 pt-2 delete-record" data-slug="{{ $category->slug }}">
