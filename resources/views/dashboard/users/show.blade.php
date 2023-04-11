@@ -21,8 +21,8 @@
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
                         <a data-bs-toggle="tooltip"
-                            data-bs-original-title="Detail dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                            href="/dashboard/users/{{ $user->username }}" class="btn btn-warning px-2 pt-2 me-1">
+                            data-bs-original-title="Edit pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                            href="/dashboard/users/{{ $user->username }}/edit" class="btn btn-warning px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas"></span>
                         </a>
                         <a data-bs-toggle="tooltip"
