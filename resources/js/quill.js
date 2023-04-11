@@ -9,6 +9,8 @@ let quill = new Quill("#editor", {
                 {
                     size: [],
                 },
+                { header: 1 },
+                { header: 2 },
             ],
             ["bold", "italic", "underline", "strike"],
             [
