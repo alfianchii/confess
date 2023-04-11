@@ -275,9 +275,9 @@
                                         <div class="card-body">
                                             <div class="text-md-start text-center">
                                                 <h4 class="card-title">{{ $response->officer->user->name }}</h4>
-                                                <h5 class="card-subtitle mb-2 text-muted">
+                                                <small class="card-subtitle mb-2 text-muted">
                                                     {{ $response->created_at->diffForHumans() }}
-                                                </h5>
+                                                </small>
                                                 <p class="card-text">{!! $response->body !!}</p>
                                             </div>
                                             <div
