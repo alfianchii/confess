@@ -5,6 +5,8 @@
         {{-- Simple DataTable --}}
         <link rel="stylesheet" href="{{ asset('assets/extensions/simple-datatables/style.css') }}" />
         <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
+        {{-- Fontawesome --}}
+        <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
     @endcannot
 @endsection
 
@@ -198,15 +200,15 @@
                                                                     <a data-bs-toggle="tooltip"
                                                                         data-bs-original-title="Detail dari keluhan milik {{ $complaint->student->user->name }}."
                                                                         href="/dashboard/responses/create/{{ $complaint->slug }}"
-                                                                        class="btn btn-info">
-                                                                        <i class="bi bi-eye"></i> Detail
+                                                                        class="btn btn-info px-2 pt-2">
+                                                                        <span class="fa-fw fa-lg select-all fas"></span>
                                                                     </a>
                                                                 @elseif($complaint->status < 2)
                                                                     <a data-bs-toggle="tooltip"
                                                                         data-bs-original-title="Menanggapi keluhan milik {{ $complaint->student->user->name }}."
                                                                         href="/dashboard/responses/create/{{ $complaint->slug }}"
-                                                                        class="btn btn-warning">
-                                                                        <i class="bi bi-pencil-square"></i> Tanggapi
+                                                                        class="btn btn-warning px-2 pt-2">
+                                                                        <span class="fa-fw fa-lg select-all fas"></span>
                                                                     </a>
                                                                 @endif
                                                             </div>
@@ -528,16 +530,16 @@
                                                                     <a data-bs-toggle="tooltip"
                                                                         data-bs-original-title="Detail dari keluhan milik {{ $complaint->student->user->name }}."
                                                                         href="/dashboard/responses/create/{{ $complaint->slug }}"
-                                                                        class="btn btn-info">
-                                                                        <i class="bi bi-eye"></i> Detail
+                                                                        class="btn btn-info px-2 pt-2">
+                                                                        <span class="fa-fw fa-lg select-all fas"></span>
                                                                     </a>
                                                                 @elseif($complaint->status < 2)
                                                                     <div class="me-2">
                                                                         <a data-bs-toggle="tooltip"
                                                                             data-bs-original-title="Menanggapi keluhan milik {{ $complaint->student->user->name }}."
                                                                             href="/dashboard/responses/create/{{ $complaint->slug }}"
-                                                                            class="btn btn-warning">
-                                                                            <i class="bi bi-pencil-square"></i> Tanggapi
+                                                                            class="btn btn-warning px-2 pt-2">
+                                                                            <span class="fa-fw fa-lg select-all fas"></span>
                                                                         </a>
                                                                     </div>
                                                                 @endif

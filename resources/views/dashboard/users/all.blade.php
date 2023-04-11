@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
-
+    {{-- Fontawesome --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
@@ -90,22 +90,29 @@
                                                 <a data-bs-toggle="tooltip"
                                                     data-bs-original-title="Detail dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
                                                     href="/dashboard/users/{{ $user->username }}"
-                                                    class="badge bg-info"><span data-feather="eye"></span></a>
+                                                    class="btn btn-info px-2 pt-2">
+                                                    <span class="fa-fw fa-lg select-all fas"></span>
+                                                </a>
                                             </div>
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"
                                                     data-bs-original-title="Edit pengguna {{ htmlspecialchars('@' . $user->username) }}."
                                                     href="/dashboard/users/{{ $user->username }}/edit"
-                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
+                                                    class="btn btn-warning px-2 pt-2">
+                                                    <span class="fa-fw fa-lg select-all fas"></span>
+                                                </a>
                                             </div>
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"
                                                     data-bs-original-title="Hapus pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                                                    href="#" class="badge bg-danger border-0 delete-record"
-                                                    data-slug="{{ $user->username }}"><span data-feather="x-circle"
-                                                        class="delete-record" data-slug="{{ $user->username }}"></span></a>
+                                                    href="#" class="btn btn-danger px-2 pt-2 delete-record"
+                                                    data-slug="{{ $user->username }}">
+                                                    <span data-slug="{{ $user->username }}"
+                                                        class="delete-record fa-fw fa-lg select-all fas"></span>
+                                                </a>
                                             </div>
 
+                                            {{-- Promote and demote --}}
                                             @if ($user->level === 'admin')
                                                 <div class="me-2">
                                                     <button data-bs-toggle="tooltip"
@@ -113,7 +120,7 @@
                                                         data-user="{{ $user->username }}" type="submit"
                                                         class="btn bg-secondary px-2 pt-2 text-white demote-record">
                                                         <span data-user="{{ $user->username }}"
-                                                            class="fa-fw fa-lg select-all fas demote-record"></span>
+                                                            class="text-white fa-fw fa-lg select-all fas demote-record"></span>
                                                     </button>
                                                 </div>
                                             @elseif ($user->level === 'officer')
@@ -123,7 +130,7 @@
                                                         data-user="{{ $user->username }}" type="submit"
                                                         class="btn bg-primary px-2 pt-2 text-white promote-record">
                                                         <span data-user="{{ $user->username }}"
-                                                            class="fa-fw fa-lg select-all fas promote-record"></span>
+                                                            class="text-white fa-fw fa-lg select-all fas promote-record"></span>
                                                     </button>
                                                 </div>
                                             @endif

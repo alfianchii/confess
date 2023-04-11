@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -79,31 +81,36 @@
                                                 <a data-bs-toggle="tooltip"
                                                     data-bs-original-title="Detail dari keluhan siswa yang sudah selesai."
                                                     href="/dashboard/responses/create/{{ $response->complaint->slug }}"
-                                                    class="btn btn-info">
-                                                    <i class="bi bi-eye"></i> Detail
+                                                    class="btn btn-info px-2 pt-2">
+                                                    <span class="fa-fw fa-lg select-all fas"></span>
                                                 </a>
                                             @elseif($response->complaint->status < 2)
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
                                                         data-bs-original-title="Edit tanggapan yang kamu miliki."
                                                         href="/dashboard/responses/{{ $response->id }}/edit"
-                                                        class="badge bg-warning"><span data-feather="edit"></span></a>
+                                                        class="btn btn-warning px-2 pt-2">
+                                                        <span class="fa-fw fa-lg select-all fas"></span>
+                                                    </a>
                                                 </div>
 
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
                                                         data-bs-original-title="Lihat detail dari tanggapan kamu."
                                                         href="/dashboard/responses/{{ $response->id }}"
-                                                        class="badge bg-info"><span data-feather="eye"></span></a>
+                                                        class="btn btn-info px-2 pt-2">
+                                                        <span class="fa-fw fa-lg select-all fas"></span>
+                                                    </a>
                                                 </div>
 
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
                                                         data-bs-original-title="Hapus tanggapan yang sudah kamu buat."
-                                                        href="#" class="badge bg-danger border-0 delete-record"
-                                                        data-slug="{{ $response->id }}"><span data-feather="x-circle"
-                                                            class="delete-record"
-                                                            data-slug="{{ $response->id }}"></span></a>
+                                                        href="#" class="btn btn-danger delete-record px-2 pt-2"
+                                                        data-slug="{{ $response->id }}">
+                                                        <span data-slug="{{ $response->id }}"
+                                                            class="delete-record fa-fw fa-lg select-all fas"></span>
+                                                    </a>
                                                 </div>
                                             @endif
                                         </div>

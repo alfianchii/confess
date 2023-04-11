@@ -23,7 +23,7 @@
                     <div class="mb-4">
                         <button type="submit" class="btn btn-success px-3 py-2">
                             <a href="/dashboard/categories/create" class="text-white">
-                                <span class="fa-fw select-all fas"></span> Buat Kategori
+                                <span class="text-white fa-fw select-all fas"></span> Buat Kategori
                             </a>
                         </button>
                     </div>
@@ -69,16 +69,19 @@
                                     <td>
                                         <div class="d-flex">
                                             <div class="me-2">
-                                                <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Lihat detail dari kategori."
+                                                <a data-bs-toggle="tooltip" data-bs-original-title="Update kategori."
                                                     href="/dashboard/categories/{{ $category->slug }}/edit"
-                                                    class="badge bg-warning"><span data-feather="edit"></span></a>
+                                                    class="btn btn-warning px-2 pt-2">
+                                                    <span class="fa-fw fa-lg select-all fas"></span>
+                                                </a>
                                             </div>
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip" data-bs-original-title="Hapus kategori."
-                                                    href="#" class="badge bg-danger border-0 delete-record"
-                                                    data-slug="{{ $category->slug }}"><span data-feather="x-circle"
-                                                        class="delete-record" data-slug="{{ $category->slug }}"></span></a>
+                                                    href="#" class="btn btn-danger px-2 pt-2 delete-record"
+                                                    data-slug="{{ $category->slug }}">
+                                                    <span data-slug="{{ $category->slug }}"
+                                                        class="delete-record fa-fw fa-lg select-all fas"></span>
+                                                </a>
                                             </div>
                                     </td>
                                 </tr>

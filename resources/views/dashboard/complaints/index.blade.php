@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
+    {{-- Fontawesome --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/@fortawesome/fontawesome-free/css/all.min.css') }}">
 @endsection
 
 @section('content')
@@ -88,29 +90,34 @@
                                                 <a data-bs-toggle="tooltip"
                                                     data-bs-original-title="Detail dari keluhan kamu yang sudah selesai."
                                                     href="/dashboard/complaints/{{ $complaint->slug }}"
-                                                    class="btn btn-info">
-                                                    <i class="bi bi-eye"></i> Detail
+                                                    class="btn btn-info px-2 pt-2">
+                                                    <span class="fa-fw fa-lg select-all fas"></span>
                                                 </a>
                                             @elseif($complaint->status < 2)
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Detail dari keluhan kamu."
-                                                        href="/dashboard/complaints/{{ $complaint->slug }}"
-                                                        class="badge bg-info"><span data-feather="eye"></span></a>
+                                                        data-bs-original-title="Lakukan editing terhadap keluhan kamu."
+                                                        href="/dashboard/complaints/{{ $complaint->slug }}/edit"
+                                                        class="btn btn-warning px-2 pt-2">
+                                                        <span class="fa-fw fa-lg select-all fas"></span>
+                                                    </a>
                                                 </div>
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Lakukan editing terhadap keluhan kamu."
-                                                        href="/dashboard/complaints/{{ $complaint->slug }}/edit"
-                                                        class="badge bg-warning"><span data-feather="edit"></span></a>
+                                                        data-bs-original-title="Detail dari keluhan kamu."
+                                                        href="/dashboard/complaints/{{ $complaint->slug }}"
+                                                        class="btn btn-info px-2 pt-2">
+                                                        <span class="fa-fw fa-lg select-all fas"></span>
+                                                    </a>
                                                 </div>
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
                                                         data-bs-original-title="Hapus keluhan yang kamu miliki."
-                                                        href="#" class="badge bg-danger border-0 delete-record"
-                                                        data-slug="{{ $complaint->slug }}"><span data-feather="x-circle"
-                                                            class="delete-record"
-                                                            data-slug="{{ $complaint->slug }}"></span></a>
+                                                        href="#" class="btn btn-danger px-2 pt-2 delete-record"
+                                                        data-slug="{{ $complaint->slug }}">
+                                                        <span data-slug="{{ $complaint->slug }}"
+                                                            class="delete-record fa-fw fa-lg select-all fas"></span>
+                                                    </a>
                                                 </div>
                                             @endif
                                         </div>
