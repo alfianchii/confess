@@ -6,9 +6,6 @@ let quill = new Quill("#editor", {
                 {
                     font: [],
                 },
-                {
-                    size: [],
-                },
                 { header: 1 },
                 { header: 2 },
             ],
