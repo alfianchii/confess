@@ -190,11 +190,13 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $response->officer->user->name }}</h5>
-                                    <h6 class="card-subtitle mb-2 text-muted">
-                                        {{ $response->created_at->diffForHumans() }}
-                                    </h6>
-                                    <p class="card-text">{!! $response->body !!}</p>
+                                    <div class="text-md-start text-center">
+                                        <h4 class="card-title">{{ $response->officer->user->name }}</h4>
+                                        <h5 class="card-subtitle mb-2 text-muted">
+                                            {{ $response->created_at->diffForHumans() }}
+                                        </h5>
+                                        <p class="card-text">{!! $response->body !!}</p>
+                                    </div>
                                     {{-- <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-sm btn-outline-secondary">Reply</button>
