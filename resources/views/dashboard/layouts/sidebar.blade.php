@@ -96,6 +96,23 @@
                         </ul>
                     </li>
                 @endcan
+
+                <li class="sidebar-title">Profile</li>
+                <li
+                    class="sidebar-item has-sub {{ (Request::is('dashboard/user/profile') or Request::is('dashboard/user/setting')) ? 'active' : '' }}">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-gear"></i>
+                        <span>Settings</span>
+                    </a>
+                    <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
+                        <li class="submenu-item {{ Request::is('dashboard/user/profile*') ? 'active' : '' }}">
+                            <a href="/dashboard/user/profile">Profile</a>
+                        </li>
+                        <li class="submenu-item {{ Request::is('dashboard/user/setting*') ? 'active' : '' }}">
+                            <a href="/dashboard/user/setting">Register</a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
