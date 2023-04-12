@@ -315,6 +315,8 @@ class UserController extends Controller
             "nisn" => ["numeric"],
         ];
 
+        $request->validate($userRules);
+
         // Rules for username, email, and nik
         if ($request->username != $user->username) {
             $userRules["username"] = ["required", "unique:users,username", "min:3"];
