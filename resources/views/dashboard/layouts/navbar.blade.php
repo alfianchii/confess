@@ -104,6 +104,11 @@
                             Settings</a>
                     </li>
                     <li>
+                        <a class="dropdown-item @if (Request::is('dashboard/user/account/password*')) active @endif"
+                            href="/dashboard/user/account/password"><i class="icon-mid bi bi-key me-2"></i>
+                            Password</a>
+                    </li>
+                    <li>
                         <hr class="dropdown-divider" />
                     </li>
                     <li>

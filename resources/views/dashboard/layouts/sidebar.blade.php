@@ -110,6 +110,9 @@
                         <li class="submenu-item {{ Request::is('dashboard/user/account/setting*') ? 'active' : '' }}">
                             <a href="/dashboard/user/account/setting">Setting</a>
                         </li>
+                        <li class="submenu-item {{ Request::is('dashboard/user/account/password*') ? 'active' : '' }}">
+                            <a href="/dashboard/user/account/password">Change Password</a>
+                        </li>
                     </ul>
                 </li>
             </ul>
