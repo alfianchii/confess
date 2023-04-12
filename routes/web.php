@@ -28,6 +28,17 @@ Route::get("/login", [AuthController::class, "index"])->name("login")->middlewar
 Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
 Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
 
+// User
+Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function () {
+    // User
+    Route::get("/account/profile", [UserController::class, "profile"]);
+    Route::get("/account/setting", [UserController::class, "setting"]);
+    Route::put("/account/setting/{user:username}", [UserController::class, "settingUpdate"]);
+    Route::get("/register", [UserController::class, "create"])->middleware("admin");
+    Route::put("/{user:username}/promote", [UserController::class, "promote"])->middleware("admin");
+    Route::put("/{user:username}/demote", [UserController::class, "demote"])->middleware("admin");
+});
+
 // Dashboard
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     // Dashboard
@@ -45,12 +56,6 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     // Category
     Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except(["show"]);
     // User
-    Route::get("/user/account/profile", [UserController::class, "profile"]);
-    Route::get("/user/account/setting", [UserController::class, "setting"]);
-    Route::put("/user/account/setting/{user:username}", [UserController::class, "settingUpdate"]);
-    Route::get("/user/register", [UserController::class, "create"])->middleware("admin");
-    Route::put("/user/{user:username}/promote", [UserController::class, "promote"])->middleware("admin");
-    Route::put("/user/{user:username}/demote", [UserController::class, "demote"])->middleware("admin");
     Route::resource("/users", UserController::class)->middleware("admin")->except(["create"]);
 });
 
