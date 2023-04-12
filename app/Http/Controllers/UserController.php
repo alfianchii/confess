@@ -6,8 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\{Auth, Hash, Storage};
 use Intervention\Image\Facades\Image;
 
 class UserController extends Controller
@@ -49,8 +48,11 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $credentials = $request->validate([
-            "name" => ["required", "max:255"],
             "nik" => ["required", "size:16", "string"],
+        ]);
+
+        $credentials = $request->validate([
+            "name" => ["required", "max:255"],
             "nik" => ["numeric", "unique:users,nik"],
             "username" => ["required", "unique:users,username", "min:3"],
             "email" => ["required", "unique:users,email", "email:rfc,dns"],
@@ -136,6 +138,8 @@ class UserController extends Controller
             "level" => ['required'],
             "image" => ["image", "file", "max:2048"],
         ];
+
+        $credentials = $request->validate($rules);
 
         if ($request->username != $user->username) {
             $rules["username"] = ["required", "unique:users,username", "min:3"];
@@ -275,5 +279,110 @@ class UserController extends Controller
         return response()->json([
             "message" => "Pengguna @$user->username turun pangkat menjadi officer.",
         ], 200);
+    }
+
+    public function profile()
+    {
+        return view("dashboard.users.profile", [
+            "title" => "Profile",
+            "user" => Auth::user(),
+        ]);
+    }
+
+    public function setting()
+    {
+        return view("dashboard.users.setting", [
+            "title" => "Setting",
+            "user" => Auth::user(),
+        ]);
+    }
+
+    public function settingUpdate(Request $request, User $user)
+    {
+        // Default rules for user
+        $userRules = [
+            "name" => ["required", "max:255"],
+            "nik" => ["required", "size:16", "string"],
+            "nip" => ["nullable", "size:18", "string"],
+            "nisn" => ["nullable", "size:10", "string"],
+            "image" => ["image", "file", "max:2048"],
+        ];
+
+        // Number rules for user (nik, nip, nisn)
+        $numberRules = [
+            "nik" => ["numeric"],
+            "nip" => ["numeric"],
+            "nisn" => ["numeric"],
+        ];
+
+        // Rules for username, email, and nik
+        if ($request->username != $user->username) {
+            $userRules["username"] = ["required", "unique:users,username", "min:3"];
+        }
+
+        if ($request->email != $user->email) {
+            $userRules["email"] = ["required", "unique:users,email", "email:rfc,dns"];
+        }
+
+        if ($request->nik != $user->nik) {
+            $userRules["nik"] = ["unique:users,nik"];
+        }
+
+        // Add rules for each level
+        if (isset($request->nisn)) {
+            if ($request->nisn != $user->student->nisn) {
+                $userRules["nisn"] = ["unique:students,nisn"];
+            }
+        } else if (isset($request->nip)) {
+            if ($request->nip != $user->officer->nip) {
+                $userRules["nip"] = ["unique:officers,nip"];
+            }
+        }
+
+        // Validate all
+        $request->validate($numberRules);
+        $userCredentials = $request->validate($userRules);
+
+        // Image
+        if ($request->file("image")) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+
+            // Store original image
+            $imageOriginalPath = $request->file('image')->store("user-images");
+
+            // Set path 
+            $userCredentials["image"] = $imageOriginalPath;
+
+            // Open image using Intervention Image
+            $imageCrop = Image::make("storage/" . $imageOriginalPath);
+
+            // Crop the image to a square with a width of 300 pixels
+            $imageCrop->fit(1200, 1200, function ($constraint) {
+                $constraint->upsize();
+            }, "top");
+
+            // Replace original image with cropped image
+            Storage::put($imageOriginalPath, $imageCrop->stream());
+        }
+
+        try {
+            // Update user
+            $user->update($userCredentials);
+            $user->refresh();
+
+            // Update student or officer with fresh nik
+            $account = $user->level == "student" ? $user->student : $user->officer;
+
+            // Update user's level
+            $account->update($userCredentials);
+
+            // The instance of the $user record has been updated
+            return redirect('/dashboard/user/profile')->with('success', "Set-up kamu berhasil disimpan!");
+        } catch (\Exception $e) {
+            // If something was wrong ...
+            return redirect('/dashboard/user/profile')->withErrors("Set-up kamu gagal disimpan.");
+        }
     }
 }

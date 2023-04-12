@@ -45,6 +45,9 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     // Category
     Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except(["show"]);
     // User
+    Route::get("/user/profile", [UserController::class, "profile"]);
+    Route::get("/user/setting", [UserController::class, "setting"]);
+    Route::put("/user/setting/{user:username}", [UserController::class, "settingUpdate"]);
     Route::get("/user/register", [UserController::class, "create"])->middleware("admin");
     Route::put("/user/{user:username}/promote", [UserController::class, "promote"])->middleware("admin");
     Route::put("/user/{user:username}/demote", [UserController::class, "demote"])->middleware("admin");

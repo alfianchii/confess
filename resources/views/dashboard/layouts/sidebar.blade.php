@@ -80,7 +80,8 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item has-sub {{ Request::is('dashboard/user*') ? 'active' : '' }}">
+                    <li
+                        class="sidebar-item has-sub {{ (Request::is('dashboard/users*') or Request::is('dashboard/user/register')) ? 'active' : '' }}">
                         <a href="#" class="sidebar-link">
                             <i class="bi bi-person-fill"></i>
                             <span>User</span>
