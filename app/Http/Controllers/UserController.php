@@ -310,9 +310,9 @@ class UserController extends Controller
 
         // Number rules for user (nik, nip, nisn)
         $numberRules = [
-            "nik" => ["numeric"],
-            "nip" => ["numeric"],
-            "nisn" => ["numeric"],
+            "nik" => ["nullable", "numeric"],
+            "nip" => ["nullable", "numeric"],
+            "nisn" => ["nullable", "numeric"],
         ];
 
         $request->validate($userRules);
