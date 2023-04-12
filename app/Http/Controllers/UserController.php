@@ -381,10 +381,10 @@ class UserController extends Controller
             $account->update($userCredentials);
 
             // The instance of the $user record has been updated
-            return redirect('/dashboard/user/profile')->with('success', "Set-up kamu berhasil disimpan!");
+            return redirect('/dashboard/user/account/profile')->with('success', "Set-up kamu berhasil disimpan!");
         } catch (\Exception $e) {
             // If something was wrong ...
-            return redirect('/dashboard/user/profile')->withErrors("Set-up kamu gagal disimpan.");
+            return redirect('/dashboard/user/account/profile')->withErrors("Set-up kamu gagal disimpan.");
         }
     }
 }

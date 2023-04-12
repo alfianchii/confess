@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form class="form" action="/dashboard/user/setting/{{ $user->username }}" method="POST"
+                    <form class="form" action="/dashboard/user/account/setting/{{ $user->username }}" method="POST"
                         enctype="multipart/form-data">
                         @method('PUT')
                         @csrf

@@ -94,13 +94,13 @@
                         <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
                     </li>
                     <li>
-                        <a class="dropdown-item @if (Request::is('dashboard/user/profile*')) active @endif"
-                            href="/dashboard/user/profile"><i class="icon-mid bi bi-person me-2"></i> My
+                        <a class="dropdown-item @if (Request::is('dashboard/user/account/profile*')) active @endif"
+                            href="/dashboard/user/account/profile"><i class="icon-mid bi bi-person me-2"></i> My
                             Profile</a>
                     </li>
                     <li>
-                        <a class="dropdown-item @if (Request::is('dashboard/user/setting*')) active @endif"
-                            href="/dashboard/user/setting"><i class="icon-mid bi bi-gear me-2"></i>
+                        <a class="dropdown-item @if (Request::is('dashboard/user/account/setting*')) active @endif"
+                            href="/dashboard/user/account/setting"><i class="icon-mid bi bi-gear me-2"></i>
                             Settings</a>
                     </li>
                     <li>

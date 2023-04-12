@@ -20,8 +20,8 @@
                             href="/dashboard/users" class="btn btn-secondary px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
-                        <a data-bs-toggle="tooltip" data-bs-original-title="Edit akun kamu." href="/dashboard/user/setting"
-                            class="btn btn-warning px-2 pt-2 me-1">
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Edit akun kamu."
+                            href="/dashboard/user/account/setting" class="btn btn-warning px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas"></span>
                         </a>
                     </div>

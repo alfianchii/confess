@@ -98,18 +98,17 @@
                 @endcan
 
                 <li class="sidebar-title">Setting</li>
-                <li
-                    class="sidebar-item has-sub {{ (Request::is('dashboard/user/profile') or Request::is('dashboard/user/setting')) ? 'active' : '' }}">
+                <li class="sidebar-item has-sub {{ Request::is('dashboard/user/account*') ? 'active' : '' }}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-person"></i>
                         <span>Account</span>
                     </a>
                     <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
-                        <li class="submenu-item {{ Request::is('dashboard/user/profile*') ? 'active' : '' }}">
-                            <a href="/dashboard/user/profile">Profile</a>
+                        <li class="submenu-item {{ Request::is('dashboard/user/account/profile*') ? 'active' : '' }}">
+                            <a href="/dashboard/user/account/profile">Profile</a>
                         </li>
-                        <li class="submenu-item {{ Request::is('dashboard/user/setting*') ? 'active' : '' }}">
-                            <a href="/dashboard/user/setting">Setting</a>
+                        <li class="submenu-item {{ Request::is('dashboard/user/account/setting*') ? 'active' : '' }}">
+                            <a href="/dashboard/user/account/setting">Setting</a>
                         </li>
                     </ul>
                 </li>
