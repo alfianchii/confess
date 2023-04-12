@@ -34,6 +34,8 @@ Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function ()
     Route::get("/account/profile", [UserController::class, "profile"]);
     Route::get("/account/setting", [UserController::class, "setting"]);
     Route::put("/account/setting/{user:username}", [UserController::class, "settingUpdate"]);
+    Route::get("/account/password", [UserController::class, "changeYourPassword"]);
+    Route::put("/account/password/{user:username}", [UserController::class, "changePassword"]);
     Route::get("/register", [UserController::class, "create"])->middleware("admin");
     Route::put("/{user:username}/promote", [UserController::class, "promote"])->middleware("admin");
     Route::put("/{user:username}/demote", [UserController::class, "demote"])->middleware("admin");

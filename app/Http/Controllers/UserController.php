@@ -387,4 +387,32 @@ class UserController extends Controller
             return redirect('/dashboard/user/account/profile')->withErrors("Set-up kamu gagal disimpan.");
         }
     }
+
+    public function changeYourPassword()
+    {
+        return view("dashboard.users.password", [
+            "title" => "Ganti Password",
+            "user" => Auth::user(),
+        ]);
+    }
+
+    public function changePassword(Request $request, User $user)
+    {
+        $credentials = $request->validate([
+            "current_password" => ["required", "min:6"],
+            "new_password" => ["required", "min:6"],
+        ]);
+
+        // Password validation
+        if (Hash::check($credentials["current_password"], $user->password)) {
+            $data["password"] = Hash::make($credentials["new_password"]);
+
+            $user->update($data);
+        } else {
+            return redirect("/dashboard/user/account/password")->with("errorPassword", "Password lama salah! Silakan coba password yang lain.");
+        }
+
+        // The instance of the $user record has been updated
+        return redirect('/dashboard/user/account/profile')->with('success', "Set-up kamu berhasil disimpan!");
+    }
 }
