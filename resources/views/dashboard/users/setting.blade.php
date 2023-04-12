@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h2>Setting</h2>
                     <p class="text-subtitle text-muted">
-                        Lakukan set-up pada beberapa data kamu.
+                        Lakukan set-up pada beberapa data yang kamu miliki.
                     </p>
                     <hr>
                     <div class="mb-4">

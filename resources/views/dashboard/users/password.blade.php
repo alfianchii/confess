@@ -72,7 +72,7 @@
                         <div class="row">
                             <div class="col-md-6 col-12 mb-1">
                                 <div class="form-group has-icon-left @error('current_password') is-invalid @enderror">
-                                    <label for="current_password" class="form-label">Password Lama</label>
+                                    <label for="current_password" class="form-label">Password Saat Ini</label>
                                     <div class="position-relative">
                                         <input type="password" class="form-control py-2" placeholder="e.g. 4kuBu7uhM3dk1t"
                                             id="current_password" name="current_password" maxlength="255" />

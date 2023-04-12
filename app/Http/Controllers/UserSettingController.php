@@ -166,7 +166,7 @@ class UserSettingController extends Controller
 
             $user->update($data);
         } else {
-            return redirect("/dashboard/user/account/password")->with("errorPassword", "Password lama salah! Silakan coba password yang lain.");
+            return redirect("/dashboard/user/account/password")->with("errorPassword", "Password lama salah! Silakan coba lagi.");
         }
 
         // The instance of the $user record has been updated
