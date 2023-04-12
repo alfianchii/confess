@@ -109,7 +109,7 @@
                             <a href="/dashboard/user/profile">Profile</a>
                         </li>
                         <li class="submenu-item {{ Request::is('dashboard/user/setting*') ? 'active' : '' }}">
-                            <a href="/dashboard/user/setting">Register</a>
+                            <a href="/dashboard/user/setting">Setting</a>
                         </li>
                     </ul>
                 </li>
