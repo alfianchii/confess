@@ -232,7 +232,7 @@
                                 <div class="text-center">
                                     <div class="avatar avatar-xl mb-3">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage') . '/' . auth()->user()->image }}" />
+                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" />
                                         @else
                                             <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
                                         @endif
@@ -256,7 +256,7 @@
                                         <div class="recent-message d-flex px-4 py-3">
                                             <div class="avatar avatar-lg">
                                                 @if ($complaint->student->user->image)
-                                                    <img src="{{ asset("storage/$complaint->student->user->image") }}"
+                                                    <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
                                                         alt="User avatar" />
                                                 @else
                                                     @if ($complaint->student->user->gender == 'L')
@@ -330,7 +330,7 @@
                                         <div class="col-md-2 d-flex align-items-start">
                                             @if ($response->officer->user->image)
                                                 <img width="200"
-                                                    src="{{ asset('storage') . '/' . $response->officer->user->image }}"
+                                                    src="{{ asset('storage/' . $response->officer->user->image) }}"
                                                     alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
@@ -567,7 +567,7 @@
                                 <div class="text-center">
                                     <div class="avatar avatar-xl mb-3">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage') . '/' . auth()->user()->image }}" />
+                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" />
                                         @else
                                             <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
                                         @endif
@@ -591,7 +591,7 @@
                                         <div class="recent-message d-flex px-4 py-3">
                                             <div class="avatar avatar-lg">
                                                 @if ($complaint->student->user->image)
-                                                    <img src="{{ asset('storage') . '/' . $complaint->student->user->image }}"
+                                                    <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
                                                         alt="User avatar" />
                                                 @else
                                                     @if ($complaint->student->user->gender == 'L')
@@ -653,7 +653,7 @@
                                         <div class="col-md-2 d-flex align-items-start">
                                             @if ($response->officer->user->image)
                                                 <img width="200"
-                                                    src="{{ asset('storage') . '/' . $response->officer->user->image }}"
+                                                    src="{{ asset('storage/' . $response->officer->user->image) }}"
                                                     alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
@@ -773,7 +773,7 @@
                                 <div class="text-center">
                                     <div class="avatar avatar-xl mb-3">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage') . '/' . auth()->user()->image }}" />
+                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" />
                                         @else
                                             <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
                                         @endif
@@ -831,7 +831,7 @@
                                             <div class="col-md-2 d-flex align-items-start">
                                                 @if ($response->officer->user->image)
                                                     <img width="200"
-                                                        src="{{ asset('storage') . '/' . $response->officer->user->image }}"
+                                                        src="{{ asset('storage/' . $response->officer->user->image) }}"
                                                         alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                                 @else
                                                     @if ($response->officer->user->gender == 'L')
