@@ -138,7 +138,7 @@
                                                 <div class="position-relative">
                                                     <input type="password" class="form-control py-2"
                                                         placeholder="e.g. 4kuBu7uhM3dk1t" id="password" name="password"
-                                                        value="{{ old('password') }}" maxlength="255" />
+                                                        maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-key py-2"></i>
                                                     </div>
@@ -158,8 +158,7 @@
                                                 <div class="position-relative">
                                                     <input type="password" class="form-control py-2"
                                                         placeholder="e.g. 4kuBu7uhM3dk1t" id="password_confirmation"
-                                                        name="password_confirmation"
-                                                        value="{{ old('password_confirmation') }}" maxlength="255" />
+                                                        name="password_confirmation" maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-key-fill py-2"></i>
                                                     </div>
