@@ -684,6 +684,12 @@ html[data-bs-theme="dark"]
     .card-keuntungan .card {
         height: 360px !important;
     }
+    .navbar-collapse {
+        display: flex;
+    }
+    .navbar-collapse .ms-auto {
+        margin: 0 auto 0 0 !important;
+    }
 }
 @media only screen and (min-width: 991px) and (max-width: 991.9px) {
     .logo img {
@@ -693,6 +699,12 @@ html[data-bs-theme="dark"]
         margin-top: 4% !important;
         width: 64% !important;
         left: 16.5% !important;
+    }
+    .navbar-collapse {
+        display: flex;
+    }
+    .navbar-collapse .ms-auto {
+        margin: 0 auto 0 0 !important;
     }
 }
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
