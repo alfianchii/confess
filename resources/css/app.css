@@ -383,7 +383,7 @@ html[data-bs-theme="dark"] * .fa-fw {
         padding: 0.5rem 2rem !important;
     }
 }
-@media only screen and (min-width: 431px) and (max-width: 570px) {
+@media only screen and (min-width: 430px) and (max-width: 570px) {
     .margin-form {
         margin: 0 15px;
     }
@@ -410,7 +410,7 @@ html[data-bs-theme="dark"] * .fa-fw {
         height: 100%;
     }
     .garis {
-        margin-top: 5%;
+        margin-top: 5.9%;
         left: 10%;
         width: 75%;
     }
@@ -445,7 +445,7 @@ html[data-bs-theme="dark"] * .fa-fw {
         width: 50%;
     }
 }
-@media only screen and (min-width: 571px) and (max-width: 767px) {
+@media only screen and (min-width: 570px) and (max-width: 671px) {
     .margin-form {
         margin: 0 15px;
     }
@@ -472,9 +472,9 @@ html[data-bs-theme="dark"] * .fa-fw {
         height: 100%;
     }
     .garis {
-        margin-top: 4%;
-        left: 16%;
-        width: 64%;
+        margin-top: 4.5%;
+        left: 13%;
+        width: 70%;
     }
     .ellipse {
         padding: 10px;
@@ -491,7 +491,53 @@ html[data-bs-theme="dark"] * .fa-fw {
         padding: 0.5rem 2rem !important;
     }
 }
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width: 671px) and (max-width: 768px) {
+    .margin-form {
+        margin: 0 15px;
+    }
+    .logo {
+        width: 74%;
+    }
+    .logo img {
+        width: 50%;
+    }
+    .logo-login img {
+        width: 50%;
+    }
+    .illus-login img {
+        width: 50%;
+    }
+    .illust-about {
+        width: 100%;
+        margin-top: 20px;
+    }
+    .logo-smk {
+        width: 60%;
+    }
+    .bg-about {
+        height: 100%;
+    }
+    .garis {
+        margin-top: 4.5%;
+        left: 17.5%;
+        width: 60%;
+    }
+    .ellipse {
+        padding: 10px;
+        width: 55px;
+        height: 55px;
+    }
+    .ellipse img {
+        width: 35px;
+    }
+    .ellipse ~ h5 {
+        font-size: 12px;
+    }
+    .btn-lapor {
+        padding: 0.5rem 2rem !important;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     p.fs-5 {
         font-size: 1.2rem !important;
     }
@@ -511,8 +557,16 @@ html[data-bs-theme="dark"] * .fa-fw {
     }
     .garis {
         margin-top: 4.5%;
-        width: 67%;
-        left: 15%;
+        width: 64%;
+        left: 16.5%;
+    }
+    .ellipse {
+        padding: 19px;
+        width: 75px;
+        height: 75px;
+    }
+    .ellipse ~ h5 {
+        font-size: inherit;
     }
     .btn-lapor {
         padding: 0.7rem 4rem !important;
@@ -536,12 +590,46 @@ html[data-bs-theme="dark"] * .fa-fw {
         font-size: calc(1.3rem + 1.5vw) !important;
     }
 }
-
-@media only screen and (min-width: 1024px) and (max-width: 1439px) {
+@media only screen and (min-width: 991px) and (max-width: 991.9px) {
+    .logo img {
+        width: 80% !important;
+    }
+    .garis {
+        margin-top: 4% !important;
+        width: 64% !important;
+        left: 16.5% !important;
+    }
+}
+@media only screen and (min-width: 991px) and (max-width: 1200px) {
+    .garis {
+        margin-top: 3.5%;
+        width: 70%;
+        left: 14.3%;
+    }
+    .btn-lapor {
+        padding: 0.7rem 4rem !important;
+    }
+    .logo img {
+        width: 60%;
+    }
+    .logo-smk4 {
+        width: 30%;
+    }
+    .logo-smk4 ~ span {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 17px;
+        line-height: 97.39%;
+    }
+    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
+        padding: 2rem 0.5rem !important;
+    }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
     .garis {
         margin-top: 2.8%;
-        width: 69%;
-        left: 15%;
+        width: 70%;
+        left: 14.3%;
     }
     .btn-lapor {
         padding: 0.7rem 4rem !important;
@@ -563,7 +651,7 @@ html[data-bs-theme="dark"] * .fa-fw {
     .garis {
         margin-top: 2.5%;
         width: 69%;
-        left: 15%;
+        left: 14%;
     }
     .btn-lapor {
         padding: 0.7rem 4rem !important;
