@@ -316,6 +316,10 @@ html[data-bs-theme="dark"]
     transition: 0.5s ease-in-out;
 }
 
+.card-keuntungan .card {
+    width: 100%;
+    height: 100%;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
@@ -366,6 +370,12 @@ html[data-bs-theme="dark"]
     }
     .ellipse ~ h5 {
         font-size: 10px !important;
+    }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 18px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 18px !important;
     }
     html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 10px !important;
@@ -434,6 +444,12 @@ html[data-bs-theme="dark"]
     .ellipse ~ h5 {
         font-size: 12px;
     }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
     html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 12px !important;
     }
@@ -460,6 +476,12 @@ html[data-bs-theme="dark"]
     .illust-about {
         width: 100%;
         margin-top: 20px;
+    }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
     }
     .logo-smk {
         width: 60%;
@@ -539,6 +561,12 @@ html[data-bs-theme="dark"]
         width: 55px;
         height: 55px;
     }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
     .ellipse img {
         width: 35px;
     }
@@ -568,6 +596,12 @@ html[data-bs-theme="dark"]
     .illust-about {
         width: 100%;
         margin-top: 20px;
+    }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
     }
     .logo-smk {
         width: 60%;
@@ -647,6 +681,9 @@ html[data-bs-theme="dark"]
     .bi.bi-github.fs-1 {
         font-size: calc(1.3rem + 1.5vw) !important;
     }
+    .card-keuntungan .card {
+        height: 360px !important;
+    }
 }
 @media only screen and (min-width: 991px) and (max-width: 991.9px) {
     .logo img {
@@ -705,7 +742,7 @@ html[data-bs-theme="dark"]
         padding: 2rem 0.5rem !important;
     }
 }
-@media only screen and (min-width: 1440px) and (max-width: 1699px) {
+@media only screen and (min-width: 1440px) and (max-width: 1700px) {
     .garis {
         margin-top: 2.5%;
         width: 69%;
@@ -727,10 +764,13 @@ html[data-bs-theme="dark"]
         padding: 2rem 0.8rem !important;
     }
 }
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 1700px) {
     .garis {
         margin-top: 1.5%;
         left: 29%;
         width: 42%;
+    }
+    .card-keuntungan .card {
+        width: 50% !important;
     }
 }
