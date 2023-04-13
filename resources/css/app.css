@@ -539,7 +539,7 @@ html[data-bs-theme="dark"] * .fa-fw {
 
 @media only screen and (min-width: 1024px) and (max-width: 1439px) {
     .garis {
-        margin-top: 3.5%;
+        margin-top: 2.8%;
         width: 69%;
         left: 15%;
     }
