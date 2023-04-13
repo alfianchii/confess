@@ -770,7 +770,4 @@ html[data-bs-theme="dark"]
         left: 29%;
         width: 42%;
     }
-    .card-keuntungan .card {
-        width: 50% !important;
-    }
 }
