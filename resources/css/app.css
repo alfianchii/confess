@@ -258,6 +258,68 @@ html[data-bs-theme="dark"] * .fa-fw {
     color: #ebebeb;
 }
 
+.card-keuntungan .ellipse {
+    background-color: #1a9fbb;
+    box-shadow: 0px 0px 50px 3px rgba(26, 159, 187, 0.3);
+}
+html[data-bs-theme="dark"] .card-keuntungan .ellipse {
+    background-color: #1a9fbb;
+}
+.card-keuntungan .ellipse img.icon-keuntungan {
+    filter: none;
+}
+html[data-bs-theme="dark"] .card-keuntungan .ellipse img.icon-keuntungan {
+    filter: none;
+}
+.card-keuntungan .ellipse:hover {
+    background-color: #ffffff;
+}
+html[data-bs-theme="dark"] .card-keuntungan .ellipse:hover {
+    background-color: #ffffff;
+}
+.card-keuntungan .card:hover .ellipse {
+    background-color: #ffffff;
+    transition: 0.5s ease-in-out;
+    box-shadow: 0px 0px 50px 3px rgba(255, 255, 255, 0.65);
+}
+.card-keuntungan .card:hover .ellipse img.icon-keuntungan {
+    filter: invert(99%) sepia(5%) saturate(0%) hue-rotate(274deg)
+        brightness(114%) contrast(100%);
+    transition: 0.5s ease-in-out;
+}
+html[data-bs-theme="dark"] .card-keuntungan .card:hover .ellipse {
+    background-color: #ffffff;
+    transition: 0.5s ease-in-out;
+    box-shadow: 0px 0px 50px 3px rgba(255, 255, 255, 0.65);
+}
+html[data-bs-theme="dark"]
+    .card-keuntungan
+    .card:hover
+    .ellipse
+    img.icon-keuntungan {
+    filter: invert(99%) sepia(5%) saturate(0%) hue-rotate(274deg)
+        brightness(114%) contrast(100%);
+    transition: 0.5s ease-in-out;
+}
+
+.card-keuntungan .card:hover {
+    background-color: #1a9fbb;
+    transition: 0.8s ease-in-out;
+}
+
+.card-keuntungan .card:hover .ellipse ~ h5 {
+    color: #ffffff;
+    transition: 0.5s ease-in-out;
+}
+.card-keuntungan .card:hover .ellipse ~ p {
+    color: #ffffff;
+    transition: 0.5s ease-in-out;
+}
+
+.card-keuntungan .card {
+    width: 100%;
+    height: 100%;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
@@ -308,6 +370,12 @@ html[data-bs-theme="dark"] * .fa-fw {
     }
     .ellipse ~ h5 {
         font-size: 10px !important;
+    }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 18px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 18px !important;
     }
     html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 10px !important;
@@ -376,6 +444,12 @@ html[data-bs-theme="dark"] * .fa-fw {
     .ellipse ~ h5 {
         font-size: 12px;
     }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
     html[data-bs-theme="dark"] * .ellipse ~ h5 {
         font-size: 12px !important;
     }
@@ -402,6 +476,12 @@ html[data-bs-theme="dark"] * .fa-fw {
     .illust-about {
         width: 100%;
         margin-top: 20px;
+    }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
     }
     .logo-smk {
         width: 60%;
@@ -481,6 +561,12 @@ html[data-bs-theme="dark"] * .fa-fw {
         width: 55px;
         height: 55px;
     }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
     .ellipse img {
         width: 35px;
     }
@@ -510,6 +596,12 @@ html[data-bs-theme="dark"] * .fa-fw {
     .illust-about {
         width: 100%;
         margin-top: 20px;
+    }
+    .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
+    }
+    html[data-bs-theme="dark"] .card-keuntungan .ellipse ~ h5 {
+        font-size: 20px !important;
     }
     .logo-smk {
         width: 60%;
@@ -589,6 +681,15 @@ html[data-bs-theme="dark"] * .fa-fw {
     .bi.bi-github.fs-1 {
         font-size: calc(1.3rem + 1.5vw) !important;
     }
+    .card-keuntungan .card {
+        height: 360px !important;
+    }
+    .navbar-collapse {
+        display: flex;
+    }
+    .navbar-collapse .ms-auto {
+        margin: 0 auto 0 0 !important;
+    }
 }
 @media only screen and (min-width: 991px) and (max-width: 991.9px) {
     .logo img {
@@ -598,6 +699,12 @@ html[data-bs-theme="dark"] * .fa-fw {
         margin-top: 4% !important;
         width: 64% !important;
         left: 16.5% !important;
+    }
+    .navbar-collapse {
+        display: flex;
+    }
+    .navbar-collapse .ms-auto {
+        margin: 0 auto 0 0 !important;
     }
 }
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
@@ -647,7 +754,7 @@ html[data-bs-theme="dark"] * .fa-fw {
         padding: 2rem 0.5rem !important;
     }
 }
-@media only screen and (min-width: 1440px) and (max-width: 1699px) {
+@media only screen and (min-width: 1440px) and (max-width: 1700px) {
     .garis {
         margin-top: 2.5%;
         width: 69%;
@@ -669,7 +776,7 @@ html[data-bs-theme="dark"] * .fa-fw {
         padding: 2rem 0.8rem !important;
     }
 }
-@media only screen and (min-width: 2000px) {
+@media only screen and (min-width: 1700px) {
     .garis {
         margin-top: 1.5%;
         left: 29%;
