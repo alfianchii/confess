@@ -258,6 +258,64 @@ html[data-bs-theme="dark"] * .fa-fw {
     color: #ebebeb;
 }
 
+.card-keuntungan .ellipse {
+    background-color: #1a9fbb;
+    box-shadow: 0px 0px 50px 3px rgba(26, 159, 187, 0.3);
+}
+html[data-bs-theme="dark"] .card-keuntungan .ellipse {
+    background-color: #1a9fbb;
+}
+.card-keuntungan .ellipse img.icon-keuntungan {
+    filter: none;
+}
+html[data-bs-theme="dark"] .card-keuntungan .ellipse img.icon-keuntungan {
+    filter: none;
+}
+.card-keuntungan .ellipse:hover {
+    background-color: #ffffff;
+}
+html[data-bs-theme="dark"] .card-keuntungan .ellipse:hover {
+    background-color: #ffffff;
+}
+.card-keuntungan .card:hover .ellipse {
+    background-color: #ffffff;
+    transition: 0.5s ease-in-out;
+    box-shadow: 0px 0px 50px 3px rgba(255, 255, 255, 0.65);
+}
+.card-keuntungan .card:hover .ellipse img.icon-keuntungan {
+    filter: invert(99%) sepia(5%) saturate(0%) hue-rotate(274deg)
+        brightness(114%) contrast(100%);
+    transition: 0.5s ease-in-out;
+}
+html[data-bs-theme="dark"] .card-keuntungan .card:hover .ellipse {
+    background-color: #ffffff;
+    transition: 0.5s ease-in-out;
+    box-shadow: 0px 0px 50px 3px rgba(255, 255, 255, 0.65);
+}
+html[data-bs-theme="dark"]
+    .card-keuntungan
+    .card:hover
+    .ellipse
+    img.icon-keuntungan {
+    filter: invert(99%) sepia(5%) saturate(0%) hue-rotate(274deg)
+        brightness(114%) contrast(100%);
+    transition: 0.5s ease-in-out;
+}
+
+.card-keuntungan .card:hover {
+    background-color: #1a9fbb;
+    transition: 0.8s ease-in-out;
+}
+
+.card-keuntungan .card:hover .ellipse ~ h5 {
+    color: #ffffff;
+    transition: 0.5s ease-in-out;
+}
+.card-keuntungan .card:hover .ellipse ~ p {
+    color: #ffffff;
+    transition: 0.5s ease-in-out;
+}
+
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
