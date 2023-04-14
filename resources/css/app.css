@@ -392,12 +392,6 @@ html[data-bs-theme="dark"]
         font-size: 20px;
         line-height: 97.39%;
     }
-    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
-        padding: 2rem 0.8rem !important;
-    }
-    .page-content .row .col-12 .row .col-6:nth-child(2) .card .card-body {
-        padding: 2rem 0.8rem !important;
-    }
 }
 @media only screen and (min-width: 373px) and (max-width: 430px) {
     .margin-form {
@@ -728,9 +722,6 @@ html[data-bs-theme="dark"]
         font-size: 17px;
         line-height: 97.39%;
     }
-    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
-        padding: 2rem 0.5rem !important;
-    }
 }
 @media only screen and (min-width: 1200px) and (max-width: 1440px) {
     .garis {
@@ -749,9 +740,6 @@ html[data-bs-theme="dark"]
         font-weight: bold;
         font-size: 17px;
         line-height: 97.39%;
-    }
-    .page-content .row .col-12 .row .col-6:last-child .card .card-body {
-        padding: 2rem 0.5rem !important;
     }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1700px) {
