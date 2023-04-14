@@ -342,6 +342,9 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     background-color: #1e1e2d;
     border-color: #0f0f15;
 }
+.navbar-expand .navbar-nav .dropdown-menu {
+    position: absolute;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
@@ -417,6 +420,24 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     #tanggapan-student {
         padding: 2rem 0.8rem !important;
     }
+    .hashtag {
+        font-size: 100% !important;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 17%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 360px) and (max-width: 360.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 12%;
+        left: 0;
+        right: 0;
+    }
 }
 @media only screen and (min-width: 373px) and (max-width: 430px) {
     .margin-form {
@@ -474,6 +495,42 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     }
     .btn-lapor {
         padding: 0.5rem 2rem !important;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 16%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 375px) and (max-width: 375.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 13%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 390px) and (max-width: 393.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 12%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 412px) and (max-width: 429.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 10%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 425px) and (max-width: 425.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 17%;
+        left: 0;
+        right: 0;
     }
 }
 @media only screen and (min-width: 430px) and (max-width: 570px) {
@@ -543,6 +600,14 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
         line-height: 97.39%;
         width: 50%;
     }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 14%;
+        left: 0;
+        right: 0;
+    }
 }
 @media only screen and (min-width: 570px) and (max-width: 671px) {
     .margin-form {
@@ -595,6 +660,14 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     .btn-lapor {
         padding: 0.5rem 2rem !important;
     }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 18%;
+        left: 0;
+        right: 0;
+    }
 }
 @media only screen and (min-width: 671px) and (max-width: 768px) {
     .margin-form {
@@ -646,6 +719,23 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     }
     .btn-lapor {
         padding: 0.5rem 2rem !important;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 18%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 768.9px) {
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: absolute;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 100%;
+        left: auto;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -708,6 +798,9 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     }
     .navbar-collapse .ms-auto {
         margin: 0 auto 0 0 !important;
+    }
+    .navbar-collapse .ms-auto#notif {
+        margin: 0 0 0 auto !important;
     }
 }
 @media only screen and (min-width: 991px) and (max-width: 991.9px) {
