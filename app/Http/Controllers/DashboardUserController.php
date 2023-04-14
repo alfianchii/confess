@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Hash, Storage};
 use Intervention\Image\Facades\Image;
 
-class UserController extends Controller
+class DashboardUserController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
-class AdminCategoryController extends Controller
+class DashboardAdminCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.

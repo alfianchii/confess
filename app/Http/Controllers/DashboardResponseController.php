@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
-class ResponseController extends Controller
+class DashboardResponseController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{AdminCategoryController, AuthController, ComplaintController, ResponseController, DashboardController, PromoteController, UserController, UserSettingController};
+use App\Http\Controllers\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
 
 /*
 |--------------------------------------------------------------------------
@@ -24,21 +24,21 @@ Route::get('/about', function () {
 });
 
 // Authentication
-Route::get("/login", [AuthController::class, "index"])->name("login")->middleware("guest");
-Route::post("/login", [AuthController::class, "authenticate"])->middleware("guest");
-Route::post("/logout", [AuthController::class, "logout"])->middleware("auth");
+Route::get("/login", [DashboardAuthController::class, "index"])->name("login")->middleware("guest");
+Route::post("/login", [DashboardAuthController::class, "authenticate"])->middleware("guest");
+Route::post("/logout", [DashboardAuthController::class, "logout"])->middleware("auth");
 
 // User
 Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function () {
     // User
-    Route::get("/account/profile", [UserSettingController::class, "profile"]);
-    Route::get("/account/setting", [UserSettingController::class, "setting"]);
-    Route::put("/account/setting/{user:username}", [UserSettingController::class, "settingUpdate"]);
-    Route::get("/account/password", [UserSettingController::class, "changeYourPassword"]);
-    Route::put("/account/password/{user:username}", [UserSettingController::class, "changePassword"]);
-    Route::get("/register", [UserController::class, "create"])->middleware("admin");
-    Route::put("/{user:username}/promote", [PromoteController::class, "promote"])->middleware("admin");
-    Route::put("/{user:username}/demote", [PromoteController::class, "demote"])->middleware("admin");
+    Route::get("/account/profile", [DashboardUserSettingController::class, "profile"]);
+    Route::get("/account/setting", [DashboardUserSettingController::class, "setting"]);
+    Route::put("/account/setting/{user:username}", [DashboardUserSettingController::class, "settingUpdate"]);
+    Route::get("/account/password", [DashboardUserSettingController::class, "changeYourPassword"]);
+    Route::put("/account/password/{user:username}", [DashboardUserSettingController::class, "changePassword"]);
+    Route::get("/register", [DashboardUserController::class, "create"])->middleware("admin");
+    Route::put("/{user:username}/promote", [DashboardUserPromoteController::class, "promote"])->middleware("admin");
+    Route::put("/{user:username}/demote", [DashboardUserPromoteController::class, "demote"])->middleware("admin");
 });
 
 // Dashboard
@@ -47,18 +47,18 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     Route::get("/", [DashboardController::class, 'index']);
 
     // Sluggable check
-    Route::get("/complaints/checkSlug", [ComplaintController::class, "checkSlug"])->middleware("student");
-    Route::get("/categories/checkSlug", [AdminCategoryController::class, "checkSlug"])->middleware("admin");
+    Route::get("/complaints/checkSlug", [DashboardComplaintController::class, "checkSlug"])->middleware("student");
+    Route::get("/categories/checkSlug", [DashboardAdminCategoryController::class, "checkSlug"])->middleware("admin");
 
     // Complaint
-    Route::resource("/complaints", ComplaintController::class)->middleware("student");
+    Route::resource("/complaints", DashboardComplaintController::class)->middleware("student");
     // Response
-    Route::resource("/responses", ResponseController::class)->middleware("response")->except(["create"]);
-    Route::get("/responses/create/{complaint:slug}", [ResponseController::class, "create"])->middleware("response");
+    Route::resource("/responses", DashboardResponseController::class)->middleware("response")->except(["create"]);
+    Route::get("/responses/create/{complaint:slug}", [DashboardResponseController::class, "create"])->middleware("response");
     // Category
-    Route::resource("/categories", AdminCategoryController::class)->middleware("admin")->except(["show"]);
+    Route::resource("/categories", DashboardAdminCategoryController::class)->middleware("admin")->except(["show"]);
     // User
-    Route::resource("/users", UserController::class)->middleware("admin")->except(["create"]);
+    Route::resource("/users", DashboardUserController::class)->middleware("admin")->except(["create"]);
 });
 
 // Responses data

@@ -11,7 +11,7 @@ use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 
-class ComplaintController extends Controller
+class DashboardComplaintController extends Controller
 {
     /**
      * Display a listing of the resource.

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
-class PromoteController extends Controller
+class DashboardUserPromoteController extends Controller
 {
     /**
      * Promote a user.

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth, Hash, Storage};
 use Intervention\Image\Facades\Image;
 
-class UserSettingController extends Controller
+class DashboardUserSettingController extends Controller
 {
     /**
      * Display the specified resource.
