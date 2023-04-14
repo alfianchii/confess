@@ -20,6 +20,8 @@ class Complaint extends Model
         'id',
     ];
 
+    protected $with = ['category', 'student'];
+
     /**
      * Return the sluggable configuration array for this model.
      *

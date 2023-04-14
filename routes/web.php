@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
+use App\Http\Controllers\{ComplaintController, DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +40,9 @@ Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function ()
     Route::put("/{user:username}/promote", [DashboardUserPromoteController::class, "promote"])->middleware("admin");
     Route::put("/{user:username}/demote", [DashboardUserPromoteController::class, "demote"])->middleware("admin");
 });
+
+/* Landing page */
+Route::resource('/complaints', ComplaintController::class)->except(["create", "edit", "update", "destroy", "store"]);
 
 // Dashboard
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {

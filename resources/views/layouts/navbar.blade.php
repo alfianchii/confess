@@ -18,6 +18,16 @@
                     <a class="nav-link text-white {{ Request::is('about') ? 'border-bottom border-3 fw-bold' : '' }}"
                         href="/about">Tentang</a>
                 </li>
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link text-white {{ Request::is('complaints') ? 'border-bottom border-3 fw-bold' : '' }}"
+                            href="/complaints">Keluhan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white {{ Request::is('categories') ? 'border-bottom border-3 fw-bold' : '' }}"
+                            href="/categories">Kategori</a>
+                    </li>
+                @endauth
             </ul>
 
             <ul class="nav">
