@@ -4,7 +4,7 @@
     <div class="page-heading">
         <div class="page-title">
             <div class="row justify-content-center">
-                <div class="col-12 mb-3 header-about">
+                <div class="col-12 mb-3 header-about mt-3">
                     <div class="container text-center mt-2 mt-sm-5">
                         <h1 class="">Keluhan</h1>
                     </div>
