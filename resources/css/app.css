@@ -392,6 +392,9 @@ html[data-bs-theme="dark"]
         font-size: 20px;
         line-height: 97.39%;
     }
+    #tanggapan-student {
+        padding: 2rem 0.8rem !important;
+    }
 }
 @media only screen and (min-width: 373px) and (max-width: 430px) {
     .margin-form {
@@ -761,6 +764,9 @@ html[data-bs-theme="dark"]
         line-height: 97.39%;
     }
     .page-content .row .col-12 .row .col-6:last-child .card .card-body {
+        padding: 2rem 0.8rem !important;
+    }
+    #tanggapan-student {
         padding: 2rem 0.8rem !important;
     }
 }
