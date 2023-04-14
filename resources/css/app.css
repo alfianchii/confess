@@ -320,6 +320,31 @@ html[data-bs-theme="dark"]
     width: 100%;
     height: 100%;
 }
+#pagin-links p {
+    margin-right: 20px;
+}
+#pagin-links .page-link.active,
+.active > .page-link {
+    background-color: #1e97af;
+    border-color: #1e97af;
+}
+html[data-bs-theme="dark"] #pagin-links .page-link.active,
+.active > .page-link {
+    color: #ffffff !important;
+    background-color: #1e97af !important;
+    border-color: #1e97af !important;
+}
+#pagin-links .page-link {
+    color: #435ebe;
+}
+html[data-bs-theme="dark"] #pagin-links .page-link {
+    color: #7c8db5;
+    background-color: #1e1e2d;
+    border-color: #0f0f15;
+}
+.navbar-expand .navbar-nav .dropdown-menu {
+    position: absolute;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
@@ -392,6 +417,27 @@ html[data-bs-theme="dark"]
         font-size: 20px;
         line-height: 97.39%;
     }
+    #tanggapan-student {
+        padding: 2rem 0.8rem !important;
+    }
+    .hashtag {
+        font-size: 100% !important;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 17%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 360px) and (max-width: 360.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 12%;
+        left: 0;
+        right: 0;
+    }
 }
 @media only screen and (min-width: 373px) and (max-width: 430px) {
     .margin-form {
@@ -449,6 +495,42 @@ html[data-bs-theme="dark"]
     }
     .btn-lapor {
         padding: 0.5rem 2rem !important;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 16%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 375px) and (max-width: 375.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 13%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 390px) and (max-width: 393.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 12%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 412px) and (max-width: 429.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 10%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 425px) and (max-width: 425.9px) {
+    .dropdown-menu[data-bs-popper] {
+        top: 17%;
+        left: 0;
+        right: 0;
     }
 }
 @media only screen and (min-width: 430px) and (max-width: 570px) {
@@ -518,6 +600,14 @@ html[data-bs-theme="dark"]
         line-height: 97.39%;
         width: 50%;
     }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 14%;
+        left: 0;
+        right: 0;
+    }
 }
 @media only screen and (min-width: 570px) and (max-width: 671px) {
     .margin-form {
@@ -570,6 +660,14 @@ html[data-bs-theme="dark"]
     .btn-lapor {
         padding: 0.5rem 2rem !important;
     }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 18%;
+        left: 0;
+        right: 0;
+    }
 }
 @media only screen and (min-width: 671px) and (max-width: 768px) {
     .margin-form {
@@ -621,6 +719,23 @@ html[data-bs-theme="dark"]
     }
     .btn-lapor {
         padding: 0.5rem 2rem !important;
+    }
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: fixed;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 18%;
+        left: 0;
+        right: 0;
+    }
+}
+@media only screen and (min-width: 768px) and (max-width: 768.9px) {
+    .navbar-expand .navbar-nav .dropdown-menu {
+        position: absolute;
+    }
+    .dropdown-menu[data-bs-popper] {
+        top: 100%;
+        left: auto;
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -683,6 +798,9 @@ html[data-bs-theme="dark"]
     }
     .navbar-collapse .ms-auto {
         margin: 0 auto 0 0 !important;
+    }
+    .navbar-collapse .ms-auto#notif {
+        margin: 0 0 0 auto !important;
     }
 }
 @media only screen and (min-width: 991px) and (max-width: 991.9px) {
@@ -761,6 +879,9 @@ html[data-bs-theme="dark"]
         line-height: 97.39%;
     }
     .page-content .row .col-12 .row .col-6:last-child .card .card-body {
+        padding: 2rem 0.8rem !important;
+    }
+    #tanggapan-student {
         padding: 2rem 0.8rem !important;
     }
 }

@@ -4,7 +4,7 @@
     <div class="page-heading">
         <div class="page-title">
             <div class="row justify-content-center">
-                <div class="col-12 mb-3 header-about">
+                <div class="col-12 mb-3 header-about mt-3">
                     <div class="container text-center mt-2 mt-sm-5">
                         <h1 class="">Keluhan</h1>
                     </div>
@@ -22,7 +22,7 @@
                         <div class="input-group mb-3">
                             <input type="text" name="search" class="form-control" placeholder="Search ..."
                                 value="{{ request('search') }}">
-                            <button class="btn btn-primary" id="search-button" type="submit">Search</button>
+                            <button class="btn btn-color text-white" id="search-button" type="submit">Search</button>
                         </div>
                     </form>
                 </div>
@@ -70,7 +70,7 @@
 
                         <p class="card-text">{{ $complaints[0]->excerpt }}</p>
 
-                        <a class="btn btn-primary" href="/complaints/{{ $complaints[0]->slug }}">Read
+                        <a class="btn btn-color text-white" href="/complaints/{{ $complaints[0]->slug }}">Read
                             More</a>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
 
                                     <p class="card-text">{{ $complaint->excerpt }}</p>
 
-                                    <a class="btn btn-primary" href="/complaints/{{ $complaint->slug }}">
+                                    <a class="btn btn-color text-white" href="/complaints/{{ $complaint->slug }}">
                                         Read More
                                     </a>
                                 </div>
@@ -124,7 +124,7 @@
             @endif
 
             <div class="row">
-                <div class="col d-flex justify-content-center">
+                <div class="col d-flex justify-content-center" id="pagin-links">
                     {{ $complaints->links() }}
                 </div>
             </div>

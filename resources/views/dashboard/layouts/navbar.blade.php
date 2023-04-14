@@ -9,7 +9,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-lg-0">
+            <ul class="navbar-nav ms-auto mb-lg-0" id="notif">
                 {{-- <li class="nav-item dropdown me-1">
                 <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
                     aria-expanded="false">
@@ -27,7 +27,7 @@
                         data-bs-display="static" aria-expanded="false">
                         <i class="bi bi-bell bi-sub fs-4"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end notification-dropdown"
+                    <ul class="dropdown-menu dropdown-menu-center dropdown-menu-md-end notification-dropdown"
                         aria-labelledby="dropdownMenuButton">
                         <li class="dropdown-header">
                             <h6>Notifications</h6>
