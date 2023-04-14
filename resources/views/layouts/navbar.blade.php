@@ -33,7 +33,7 @@
 
             <ul class="nav">
                 @auth
-                    <li class="nav-item dropdown me-3">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false"> Selamat datang, {{ auth()->user()->name }}!</a>
                         <ul class="dropdown-menu">
@@ -62,8 +62,8 @@
                 @endguest
 
                 {{-- Light/Dark mode --}}
-                <li class="nav-item ms-3">
-                    <div class="theme-toggle d-flex gap-2 align-items-center mt-2 text-white">
+                <li class="nav-item">
+                    <div class="theme-toggle d-flex gap-1 align-items-center mt-2 text-white">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
                             height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
