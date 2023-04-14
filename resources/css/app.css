@@ -320,6 +320,28 @@ html[data-bs-theme="dark"]
     width: 100%;
     height: 100%;
 }
+#pagin-links p {
+    margin-right: 20px;
+}
+#pagin-links .page-link.active,
+.active > .page-link {
+    background-color: #1e97af;
+    border-color: #1e97af;
+}
+html[data-bs-theme="dark"] #pagin-links .page-link.active,
+.active > .page-link {
+    color: #ffffff !important;
+    background-color: #1e97af !important;
+    border-color: #1e97af !important;
+}
+#pagin-links .page-link {
+    color: #435ebe;
+}
+html[data-bs-theme="dark"] #pagin-links .page-link {
+    color: #7c8db5;
+    background-color: #1e1e2d;
+    border-color: #0f0f15;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
