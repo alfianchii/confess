@@ -5,7 +5,8 @@ export function simpleDatatable(
     perPageData = 10,
     perPageSelectData = [5, 10, 15, 20, 25],
     label = "data",
-    isTooltip = false
+    isTooltip = false,
+    maxPagination = 3
 ) {
     let dataTable = new simpleDatatables.DataTable(
         document.getElementById(`${table}`),
@@ -18,6 +19,7 @@ export function simpleDatatable(
                 info: `Menampilkan {start} hingga {end} dari {rows} ${label}`,
                 perPage: `{select} ${label} per halaman`,
             },
+            fixedHeight: true,
         }
     );
 
@@ -34,6 +36,15 @@ export function simpleDatatable(
 
     // Add bs5 classes to pagination elements
     function adaptPagination() {
+        // Limit the number of page links displayed
+        const currentPage = dataTable.currentPage;
+        const totalPages = dataTable.totalPages;
+        const startPage = Math.max(
+            1,
+            currentPage - Math.floor(maxPagination / 2)
+        );
+        const endPage = Math.min(totalPages, startPage + maxPagination - 1);
+
         const paginations = dataTable.wrapper.querySelectorAll(
             "ul.dataTable-pagination-list"
         );
@@ -56,12 +67,44 @@ export function simpleDatatable(
 
         for (const paginationLink of paginationLinks) {
             paginationLink.classList.add("page-link");
+
+            // Take the current page number from the data-page attribute
+            const page = parseInt(paginationLink.dataset.page);
+
+            // Remove ellipsis
+            if (paginationLink.parentNode.classList.contains("ellipsis")) {
+                paginationLink.parentNode.classList.add("d-none");
+            }
+
+            // Hide pages that are not in the range
+            if (page < startPage || page > endPage) {
+                paginationLink.parentNode.classList.add("d-none");
+
+                // Show ellipsis as first page
+                if (paginationLink.dataset.page == 1) {
+                    paginationLink.parentNode.classList.replace(
+                        "d-none",
+                        "d-block"
+                    );
+                    paginationLink.innerHTML = "...";
+                }
+
+                // Show ellipsis as last page
+                if (paginationLink.dataset.page == totalPages) {
+                    paginationLink.parentNode.classList.replace(
+                        "d-none",
+                        "d-block"
+                    );
+                    paginationLink.innerHTML = "...";
+                }
+            } else {
+                // Show pages that are in the range
+                paginationLink.parentNode.classList.add("d-block");
+            }
         }
     }
 
-    const refreshPagination = () => {
-        adaptPagination();
-    };
+    const refreshPagination = () => adaptPagination();
 
     // Patch "per page dropdown" and pagination after table rendered
     dataTable.on("datatable.init", () => {
@@ -73,6 +116,8 @@ export function simpleDatatable(
 
     // Re-patch pagination after the page was changed
     dataTable.on("datatable.page", adaptPagination);
+
+    // Tooltip
     if (isTooltip) {
         dataTable.on("datatable.update", tooltip);
         dataTable.on("datatable.sort", tooltip);
