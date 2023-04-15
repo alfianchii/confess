@@ -86,7 +86,7 @@ export function simpleDatatable(
                         "d-none",
                         "d-block"
                     );
-                    paginationLink.innerHTML = "...";
+                    paginationLink.innerHTML = "«";
                 }
 
                 // Show ellipsis as last page
@@ -95,7 +95,7 @@ export function simpleDatatable(
                         "d-none",
                         "d-block"
                     );
-                    paginationLink.innerHTML = "...";
+                    paginationLink.innerHTML = "»";
                 }
             } else {
                 // Show pages that are in the range
