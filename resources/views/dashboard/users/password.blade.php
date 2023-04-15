@@ -130,4 +130,6 @@
 @endsection
 
 @section('scripts')
+    {{-- Display password --}}
+    @vite('resources/js/display-password/change-password.js')
 @endsection
