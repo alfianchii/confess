@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboards\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
-use App\Http\Controllers\{ComplaintController};
+use App\Http\Controllers\{ComplaintController, HomeController};
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +16,7 @@ use App\Http\Controllers\{ComplaintController};
 */
 
 // Homepage
-Route::get('/', function () {
-    return view('home', ["title" => "Welcome!"]);
-});
+Route::get('/', [HomeController::class, "index"]);
 
 Route::get('/about', function () {
     return view('about', ["title" => "Tentang"]);
@@ -31,13 +29,17 @@ Route::post("/logout", [DashboardAuthController::class, "logout"])->middleware("
 
 // User
 Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function () {
-    // User
+    // Profile
     Route::get("/account/profile", [DashboardUserSettingController::class, "profile"]);
+    // Setting
     Route::get("/account/setting", [DashboardUserSettingController::class, "setting"]);
     Route::put("/account/setting/{user:username}", [DashboardUserSettingController::class, "settingUpdate"]);
+    // Change password
     Route::get("/account/password", [DashboardUserSettingController::class, "changeYourPassword"]);
     Route::put("/account/password/{user:username}", [DashboardUserSettingController::class, "changePassword"]);
+    // Register
     Route::get("/register", [DashboardUserController::class, "create"])->middleware("admin");
+    // Promote and demote
     Route::put("/{user:username}/promote", [DashboardUserPromoteController::class, "promote"])->middleware("admin");
     Route::put("/{user:username}/demote", [DashboardUserPromoteController::class, "demote"])->middleware("admin");
 });

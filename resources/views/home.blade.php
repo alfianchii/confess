@@ -85,7 +85,7 @@
                 <div class="row mt-5">
                     <div class="col-12 jumlah-lapor mt-5 text-center">
                         <h3 class="text-white mt-4 fs-2">Jumlah Pelapor Sekarang</h3><br>
-                        <p class="text-white fw-bold fs-1 mt-2"> 10 </p><br>
+                        <p class="text-white fw-bold fs-1 mt-2"> {{ $complaintsCount }} </p><br>
                         <p class="text-white fw-bold fs-3 ">#JANGANTAKUTLAPOR!</p>
                     </div>
                 </div>
