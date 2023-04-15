@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboards;
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\{Hash, Storage};
+use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\{Hash, Storage};
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DashboardUserController extends Controller
 {

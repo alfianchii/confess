@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboards;
 
-use App\Services\Dashboard\{DashboardService, ChartService};
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Services\Dashboard\{DashboardService, ChartService};
 
 class DashboardController extends Controller
 {

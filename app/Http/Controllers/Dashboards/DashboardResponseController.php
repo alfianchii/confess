@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboards;
 
-use App\Models\Category;
-use App\Models\Complaint;
-use App\Models\Response;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Database\QueryException;
+use App\Models\{Response, Complaint};
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DashboardResponseController extends Controller
 {
@@ -107,7 +106,6 @@ class DashboardResponseController extends Controller
             "title" => "Edit Tanggapan",
             "response" => $response,
             "complaint" => $response->complaint,
-            "categories" => Category::all(),
         ]);
     }
 
