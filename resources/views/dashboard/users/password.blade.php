@@ -105,6 +105,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row my-2">
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="show_change_pw">
+                                    <label class="form-check-label" id="label-show_pw" for="show_change_pw">
+                                        Tampilkan Password
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-12 mt-3 d-flex justify-content-start">
                                 <button type="submit" class="btn btn-primary me-1 mb-1">

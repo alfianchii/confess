@@ -345,6 +345,10 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
 .navbar-expand .navbar-nav .dropdown-menu {
     position: absolute;
 }
+.show-password {
+    position: absolute;
+    left: auto;
+}
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;
