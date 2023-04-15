@@ -125,7 +125,7 @@
 
             <div class="row">
                 <div class="col d-flex justify-content-center" id="pagin-links">
-                    {{ $complaints->links() }}
+                    {{ $complaints->links('vendor.pagination.bootstrap') }}
                 </div>
             </div>
         </div>
