@@ -49,7 +49,7 @@
                                 id="password" name="password" />
                             <button type="button" class="btn bg-transparent show-password" id="show-btn"
                                 data-bs-toggle="tooltip" data-bs-title="Tampilkan / Sembunyikan password">
-                                <i class="bi bi-eye-fill"></i>
+                                <i class="bi bi-eye-slash-fill"></i>
                             </button>
                         </div>
                         @error('password')

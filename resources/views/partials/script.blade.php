@@ -8,5 +8,8 @@
     @vite('resources/js/navbar.js')
 @endif
 @if (Route::is('login'))
-    @vite('resources/js/showpassword.js')
+    {{-- Display password --}}
+    @vite('resources/js/display-password/login.js')
+    {{-- Tooltip globally --}}
+    @vite(['resources/js/tooltip/globalTooltip.js'])
 @endif
