@@ -1,4 +1,4 @@
-export function showPassword(field, btn) {
+export function displayPassword(field, btn) {
     btn.addEventListener("click", () => {
         if (field.type === "password") {
             field.type = "text";
