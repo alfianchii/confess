@@ -7,3 +7,6 @@
 @if (!Route::is('login'))
     @vite('resources/js/navbar.js')
 @endif
+@if (Route::is('login'))
+    @vite('resources/js/showpassword.js')
+@endif

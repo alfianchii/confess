@@ -44,8 +44,14 @@
                     </div>
                     <div class="mb-5">
                         <label for="password" class="form-label">Password</label>
-                        <input type="password" class="form-control p-2 mt-1 @error('password') is-invalid @enderror"
-                            id="password" name="password" />
+                        <div class="d-flex flex-row-reverse align-items-center" id="wrapper">
+                            <input type="password" class="form-control p-2 mt-1 @error('password') is-invalid @enderror"
+                                id="password" name="password" />
+                            <button type="button" class="btn bg-transparent show-password" id="show-btn"
+                                data-bs-toggle="tooltip" data-bs-title="Tampilkan / Sembunyikan password">
+                                <i class="bi bi-eye-fill"></i>
+                            </button>
+                        </div>
                         @error('password')
                             <div class="invalid-feedback">
                                 {{ $message }}
