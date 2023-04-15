@@ -43,7 +43,7 @@ Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function ()
 });
 
 /* Landing page */
-Route::resource('/complaints', ComplaintController::class)->except(["create", "edit", "update", "destroy", "store"]);
+Route::resource('/complaints', ComplaintController::class)->except(["create", "edit", "update", "destroy", "store"])->middleware("auth");
 
 // Dashboard
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
