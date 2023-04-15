@@ -19,11 +19,9 @@
                 @if ($loop->first)
                     @if ($paginator->currentPage() > 2)
                         <li class="page-item">
-                            <a class="page-link" href="{{ $paginator->url(1) }}">1</a>
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Halaman 1" class="page-link"
+                                href="{{ $paginator->url(1) }}">«</a>
                         </li>
-                        @if ($paginator->currentPage() > 3)
-                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
-                        @endif
                     @endif
                 @endif
 
@@ -31,10 +29,12 @@
                 @if (is_array($element))
                     @foreach ($element as $page => $url)
                         @if ($page == $paginator->currentPage())
-                            <li class="page-item active" aria-current="page"><span
+                            <li data-bs-toggle="tooltip" data-bs-original-title="Halaman {{ $page }}"
+                                class="page-item active" aria-current="page"><span
                                     class="page-link">{{ $page }}</span></li>
                         @elseif (abs($page - $paginator->currentPage()) <= 1)
-                            <li class="page-item"><a class="page-link"
+                            <li data-bs-toggle="tooltip" data-bs-original-title="Halaman {{ $page }}"
+                                class="page-item"><a class="page-link"
                                     href="{{ $url }}">{{ $page }}</a></li>
                         @endif
                     @endforeach
@@ -43,12 +43,9 @@
                 {{-- Do last page --}}
                 @if ($loop->last)
                     @if ($paginator->currentPage() < $paginator->lastPage() - 1)
-                        @if ($paginator->currentPage() < $paginator->lastPage() - 2)
-                            <li class="page-item disabled" aria-disabled="true"><span class="page-link">...</span></li>
-                        @endif
                         <li class="page-item">
-                            <a class="page-link"
-                                href="{{ $paginator->url($paginator->lastPage()) }}">{{ $paginator->lastPage() }}</a>
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Halaman {{ $paginator->lastPage() }}"
+                                class="page-link" href="{{ $paginator->url($paginator->lastPage()) }}">»</a>
                         </li>
                     @endif
                 @endif

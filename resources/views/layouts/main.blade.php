@@ -29,6 +29,8 @@
     </div>
 
     @include('partials.script')
+    {{-- Tooltip globally --}}
+    @vite(['resources/js/tooltip/globalTooltip.js'])
 </body>
 
 </html>
