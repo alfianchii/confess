@@ -36,6 +36,166 @@ class Complaint extends Model
         ];
     }
 
+    public function scopeFilter($query, array $filters)
+    {
+        /* SEARCH: COMPLAINT AND USER */
+        if (isset($filters["search"]) && isset($filters["user"])) {
+            return $query->where(
+                fn ($query) =>
+                $query->where("title", "like", "%" . $filters["search"] . "%")
+                    ->orWhere("body", "like", "%" . $filters["search"] . "%")
+            )
+                ->whereHas(
+                    "student",
+                    fn ($query) =>
+                    $query->whereHas(
+                        "user",
+                        fn ($query) =>
+                        $query->where("username", $filters["user"])
+                            ->where('privacy', 'public')
+                    )
+                );
+        }
+
+        /* SEARCH: COMPLAINT AND CATEGORY */
+        if (isset($filters["search"]) && isset($filters["category"])) {
+            return $query->where(
+                fn ($query) =>
+                $query->where("title", "like", "%" . $filters["search"] . "%")
+                    ->orWhere("body", "like", "%" . $filters["search"] . "%")
+            )
+                ->whereHas(
+                    "category",
+                    fn ($query) =>
+                    $query->where("slug", $filters["category"])
+                );
+        }
+
+
+        /* SEARCH: COMPLAINT AND STATUS */
+        if (isset($filters["search"]) && isset($filters["status"])) {
+            $str = "";
+
+            // Convert enum
+            if ($filters["status"] == "not") $str = "0";
+            if ($filters["status"] == "proc") $str = "1";
+            if ($filters["status"] == "done") $str = "2";
+
+
+            return $query->where(
+                fn ($query) =>
+                $query->where("title", "like", "%" . $filters["search"] . "%")
+                    ->orWhere("body", "like", "%" . $filters["search"] . "%")
+            )
+                ->whereHas(
+                    "student",
+                    fn ($query) =>
+                    $query->whereHas(
+                        "complaints",
+                        fn ($query) =>
+                        $query->where('status', $str)
+                    )
+                );
+        }
+
+        /* SEARCH: COMPLAINT AND PRIVACY */
+        if (isset($filters["search"]) && isset($filters["status"])) {
+            $str = "";
+
+            // Convert enum
+            if ($filters["privacy"] == "anyone") $str = "public";
+            if ($filters["privacy"] == "anon") $str = "anonymous";
+
+            // Do query
+            return $query->where(
+                fn ($query) =>
+                $query->where("title", "like", "%" . $filters["search"] . "%")
+                    ->orWhere("body", "like", "%" . $filters["search"] . "%")
+            )
+                ->whereHas(
+                    "student",
+                    fn ($query) =>
+                    $query->whereHas(
+                        "complaints",
+                        fn ($query) =>
+                        $query->where("privacy", $str)
+                    )
+                );
+        }
+
+        /* SEARCH: COMPLAINT */
+        $query->when(
+            $filters["search"] ?? false,
+            fn ($query, $search) =>
+            $query->where(
+                fn ($query) =>
+                $query->where("title", "like", "%" . $search . "%")
+                    ->orWhere("body", "like", "%" . $search . "%")
+            )
+        );
+
+        /* SEARCH: USER */
+        $query->when(
+            $filters["user"] ?? false,
+            fn ($query, $user) =>
+            $query->whereHas(
+                "student",
+                fn ($query) =>
+                $query->whereHas(
+                    "user",
+                    fn ($query) =>
+                    $query->where("username", $user)
+                        ->where('privacy', 'public')
+                )
+            )
+        );
+
+        /* SEARCH: CATEGORY */
+        $query->when(
+            $filters["category"] ?? false,
+            fn ($query, $category) =>
+            $query->whereHas(
+                "category",
+                fn ($query) =>
+                $query->where("slug", $category)
+            )
+        );
+
+        /* SEARCH: STATUS */
+        if (isset($filters["status"])) {
+            $str = "";
+
+            // Convert enum
+            if ($filters["status"] == "not") $str = "0";
+            if ($filters["status"] == "proc") $str = "1";
+            if ($filters["status"] == "done") $str = "2";
+
+            // Do query
+            // return $query->where("status", $str);
+            return $query->whereHas(
+                "student",
+                fn ($query) =>
+                $query->whereHas(
+                    "complaints",
+                    fn ($query) =>
+                    $query->where("status", $str)
+                )
+            );
+        }
+
+        /* SEARCH: PRIVACY */
+        if (isset($filters["privacy"])) {
+            $str = "";
+
+            // Convert enum
+            if ($filters["privacy"] == "anyone") $str = "public";
+            if ($filters["privacy"] == "anon") $str = "anonymous";
+
+            // Do query
+            return $query->where('privacy', $str);
+        }
+    }
+
     public function getRouteKeyName()
     {
         return "slug";

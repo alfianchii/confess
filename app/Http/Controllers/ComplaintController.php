@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Complaint;
+use App\Models\{Complaint, User, Category};
 use Illuminate\Http\Request;
 
 class ComplaintController extends Controller
@@ -14,11 +14,18 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        // $complaints = Complaint::latest()->filter(request(["search", "category", "status", "privacy"]))->paginate(7)->withQueryString();
-        $complaints = Complaint::latest()->paginate(7)->withQueryString();
+        $title = '';
 
-        return view("complaints", [
-            "title" => "Keluhan",
+        $complaints = Complaint::latest()->filter(request(["user", "search", "category", "status", "privacy"]))->paginate(7)->withQueryString();
+        // $complaints = Complaint::latest()->paginate(7)->withQueryString();
+
+        $category = Category::firstWhere("slug", request("category"))->name ?? '';
+        $username = User::firstWhere("username", request("user"))->name ?? "";
+        $title = request("category") ? "in " . $category : '';
+        $title = request("user") ? "oleh " . $username : $title;
+
+        return view("complaints.index", [
+            "title" => "Complaints $title",
             "complaints" => $complaints,
         ]);
     }
@@ -31,6 +38,9 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
-        //
+        return view("complaints.show", [
+            "title" => $complaint->title,
+            "complaint" => $complaint,
+        ]);
     }
 }
