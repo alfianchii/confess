@@ -1,80 +1,87 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="page-heading">
-        <div class="page-title">
-            <div class="row justify-content-center">
-                <div class="col-12 mb-3 header-about mt-3">
-                    <div class="container text-center mt-2 mt-sm-5">
-                        <h1 class="">Keluhan</h1>
+    <section class="container px-4">
+        <div class="page-heading">
+            <div class="page-title">
+                <div class="row justify-content-center">
+                    <div class="col-12 mb-3 header-about mt-3">
+                        <div class="container text-center mt-2 mt-sm-5">
+                            <h1 class="">Keluhan</h1>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <form class="mx-auto" action="/complaints">
-                        @if (request('category'))
-                            <input type="hidden" name="category" value="{{ request('category') }}">
-                        @elseif(request('status'))
-                            <input type="hidden" name="status" value="{{ request('status') }}">
-                        @elseif(request('privacy'))
-                            <input type="hidden" name="privacy" value="{{ request('privacy') }}">
-                        @endif
 
-                        <div class="input-group mb-3">
-                            <input type="text" name="search" class="form-control" placeholder="Search ..."
-                                value="{{ request('search') }}">
-                            <button class="btn btn-color text-white" id="search-button" type="submit">Search</button>
-                        </div>
-                    </form>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <form class="mx-auto" action="/complaints">
+                            @if (request('category'))
+                                <input type="hidden" name="category" value="{{ request('category') }}">
+                            @elseif(request('status'))
+                                <input type="hidden" name="status" value="{{ request('status') }}">
+                            @elseif(request('privacy'))
+                                <input type="hidden" name="privacy" value="{{ request('privacy') }}">
+                            @endif
+
+                            <div class="input-group mb-3">
+                                <input type="text" name="search" class="form-control" placeholder="Search ..."
+                                    value="{{ request('search') }}">
+                                <button class="btn btn-color text-white" id="search-button" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="page-content">
-        <div class="container">
+        <div class="page-content">
             @if ($complaints->count())
-                {{-- First --}}
-                <div class="card mb-3">
-                    @if ($complaints[0]->image)
-                        <div style="max-height: 400px; overflow: hidden;">
-                            <img class="img-fluid rounded" src="{{ asset('storage/' . $complaints[0]->image) }}"
-                                alt="{{ $complaints[0]->category->name }}">
-                        </div>
-                    @else
-                        <img class="img-fluid rounded" src="{{ asset('images/no-image-2.jpg') }}"
-                            alt="{{ $complaints[0]->category->name }}">
-                    @endif
+                <div class="row">
+                    <div class="col">
+                        {{-- First --}}
+                        <div class="card mb-3">
+                            @if ($complaints[0]->image)
+                                <div style="max-height: 400px; overflow: hidden;">
+                                    <img class="img-fluid rounded" src="{{ asset('storage/' . $complaints[0]->image) }}"
+                                        alt="{{ $complaints[0]->category->name }}">
+                                </div>
+                            @else
+                                <img class="img-fluid rounded" src="{{ asset('images/no-image-2.jpg') }}"
+                                    alt="{{ $complaints[0]->category->name }}">
+                            @endif
 
-                    <div class="card-body text-center">
-                        <h3 class="card-title"><a
-                                href="/complaints/{{ $complaints[0]->slug }}">{{ $complaints[0]->title }}</a>
-                        </h3>
-                        <p>
-                            <small class="text-muted">By
-                                @if ($complaints[0]->privacy == 'anonymous')
-                                    *******
-                                @else
-                                    <a href="/complaints?user={{ $complaints[0]->student->user->username }}">
-                                        {{ $complaints[0]->student->user->name }}
-                                    </a>
-                                @endif
+                            <div class="card-body text-center">
+                                <h3 class="card-title"><a
+                                        href="/complaints/{{ $complaints[0]->slug }}">{{ $complaints[0]->title }}</a>
+                                </h3>
+                                <p>
+                                    <small class="text-muted">By
+                                        @if ($complaints[0]->privacy == 'anonymous')
+                                            *******
+                                        @else
+                                            <a href="/complaints?user={{ $complaints[0]->student->user->username }}">
+                                                {{ $complaints[0]->student->user->name }}
+                                            </a>
+                                        @endif
 
-                                in
+                                        in
 
-                                <a href="/complaints?category={{ $complaints[0]->category->slug }}">
-                                    {{ $complaints[0]->category->name }}
+                                        <a href="/complaints?category={{ $complaints[0]->category->slug }}">
+                                            {{ $complaints[0]->category->name }}
+                                        </a>
+                                        {{ $complaints[0]->created_at->diffForHumans() }}
+                                    </small>
+                                </p>
+
+                                <p class="card-text">{{ $complaints[0]->excerpt }}</p>
+
+                                <a class="btn btn-color text-white" href="/complaints/{{ $complaints[0]->slug }}">
+                                    Selengkapnya ...
                                 </a>
-                                {{ $complaints[0]->created_at->diffForHumans() }}
-                            </small>
-                        </p>
-
-                        <p class="card-text">{{ $complaints[0]->excerpt }}</p>
-
-                        <a class="btn btn-color text-white" href="/complaints/{{ $complaints[0]->slug }}">Read
-                            More</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div class="row">
                     @foreach ($complaints->skip(1) as $complaint)
                         <div class="col-md-4 mb-3">
@@ -112,7 +119,7 @@
                                     <p class="card-text">{{ $complaint->excerpt }}</p>
 
                                     <a class="btn btn-color text-white" href="/complaints/{{ $complaint->slug }}">
-                                        Read More
+                                        Selengkapnya ...
                                     </a>
                                 </div>
                             </div>
@@ -129,5 +136,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
