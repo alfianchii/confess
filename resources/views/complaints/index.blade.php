@@ -164,19 +164,19 @@
                                     </p>
 
                                     <div class="mb-4">
-                                        @if ($complaints[0]->status == 0)
+                                        @if ($complaint->status == 0)
                                             <a href="/complaints?status=not">
                                                 <span class="badge bg-danger">
                                                     Belum diproses
                                                 </span>
                                             </a>
-                                        @elseif ($complaints[0]->status == 1)
+                                        @elseif ($complaint->status == 1)
                                             <a href="/complaints?status=proc">
                                                 <span class="badge bg-secondary">
                                                     Sedang diproses
                                                 </span>
                                             </a>
-                                        @elseif ($complaints[0]->status == 2)
+                                        @elseif ($complaint->status == 2)
                                             <a href="/complaints?status=done">
                                                 <span class="badge bg-success">
                                                     Selesai
