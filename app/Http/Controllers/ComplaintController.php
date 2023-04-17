@@ -17,10 +17,10 @@ class ComplaintController extends Controller
         $title = '';
 
         $complaints = Complaint::latest()->filter(request(["user", "search", "category", "status", "privacy"]))->paginate(7)->withQueryString();
-        // $complaints = Complaint::latest()->paginate(7)->withQueryString();
 
         $category = Category::firstWhere("slug", request("category"))->name ?? '';
         $username = User::firstWhere("username", request("user"))->name ?? "";
+
         $title = request("category") ? "in " . $category : '';
         $title = request("user") ? "by " . $username : $title;
 

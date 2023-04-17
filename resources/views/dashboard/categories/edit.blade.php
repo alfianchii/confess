@@ -1,6 +1,12 @@
 @extends('dashboard.layouts.main')
 
 @section('links')
+    {{-- Image preview --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+    {{-- Quill --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
 @endsection
 
 @section('content')
@@ -52,7 +58,8 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="/dashboard/categories/{{ $category->slug }}" method="POST">
+                                <form class="form" action="/dashboard/categories/{{ $category->slug }}" method="POST"
+                                    enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
@@ -97,6 +104,56 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <div class="form-group mandatory @error('description') is-invalid @enderror">
+                                                <div class="position-relative">
+                                                    <label for="description" class="form-label">Deskripsi Kategori</label>
+
+                                                    <input id="description" name="description"
+                                                        value="{{ old('description', $category->description) }}"
+                                                        type="hidden">
+                                                    <div id="editor">
+                                                        {!! old('description', $category->description) !!}
+                                                    </div>
+
+                                                    @error('description')
+                                                        <div class="parsley-error filled" id="parsley-id-3" aria-hidden="false">
+                                                            <span class="parsley-required">{{ $message }}</span>
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <div class="form-group ">
+                                                <div class="position-relative">
+                                                    <label for="image"
+                                                        class="@if ($category->image) d-block @endif form-label @error('image') is-invalid @enderror">Foto</label>
+                                                    <input type="hidden" name="oldImage"
+                                                        value="{{ $category->image }}">
+
+                                                    <!-- Image preview -->
+                                                    @if ($category->image)
+                                                        <img src="{{ asset("storage/$category->image") }}"
+                                                            class="img-preview img-fluid mb-3 col-sm-5 rounded">
+                                                    @endif
+
+                                                    <!-- File uploader with image preview -->
+                                                    <input type="file" class="image-crop-filepond" name="image"
+                                                        id="image" />
+
+                                                    @error('image')
+                                                        <div class="invalid-feedback">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-12 mt-2 d-flex justify-content-start">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">
                                                 Submit
@@ -114,9 +171,31 @@
 @endsection
 
 @section('scripts')
+    {{-- Quill --}}
+    @vite(['resources/js/quill/categories.js'])
+    <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
     {{-- Sluggable --}}
     @vite(['resources/js/sluggable/slug.js'])
     {{-- SweetAlert --}}
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/swalSingle.js'])
+    {{-- Image  --}}
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/uploader/image.js'])
 @endsection

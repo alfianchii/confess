@@ -94,16 +94,19 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Category::create([
-            "name" => "Oppression",
-            "slug" => "oppression",
+            "name" => "Penindasan",
+            "slug" => "penindasan",
+            "description" => "Merupakan tindakan yang merugikan seseorang atau kelompok dengan memaksa, mengintimidasi, atau membatasi kebebasannya.",
         ]);
         Category::create([
-            "name" => "Sexual Harassment",
-            "slug" => "sexual-harassment",
+            "name" => "Pelecehan Seksual",
+            "slug" => "pelecehan-seksual",
+            "description" => "Tindakan yang dilakukan oleh seseorang terhadap orang lain yang dianggap sebagai tindakan tidak senonoh atau tidak diinginkan secara seksual.",
         ]);
         Category::create([
             "name" => "Bully",
             "slug" => "bully",
+            "description" => "Intimidasi atau penganiayaan terhadap seseorang atau kelompok orang secara berulang dan sengaja.",
         ]);
 
         Complaint::factory(500)->create();
