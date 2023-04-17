@@ -341,6 +341,6 @@
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/swalMulti.js'])
     {{-- Quill --}}
-    @vite(['resources/js/quill.js'])
+    @vite(['resources/js/quill/responses.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
 @endsection

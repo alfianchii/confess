@@ -159,7 +159,7 @@
 
 @section('scripts')
     {{-- Quill --}}
-    @vite(['resources/js/quill.js'])
+    @vite(['resources/js/quill/responses.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
     {{-- SweetAlert --}}
     @vite(['resources/js/sweetalert/swalSingle.js'])

@@ -301,7 +301,7 @@
 
 @section('scripts')
     {{-- Quill --}}
-    @vite(['resources/js/quill.js'])
+    @vite(['resources/js/quill/complaints.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
     {{-- Jquery --}}
     <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>

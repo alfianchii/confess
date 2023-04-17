@@ -1,59 +1,39 @@
-let quill = new Quill("#editor", {
-    bounds: "#editor-container .editor",
-    modules: {
-        toolbar: [
-            [
-                {
-                    font: [],
-                },
-                { header: 1 },
-                { header: 2 },
-            ],
-            ["bold", "italic", "underline", "strike"],
-            [
-                {
-                    color: [],
-                },
-            ],
-            ["blockquote", "code-block"],
-            [
-                {
-                    script: "super",
-                },
-                {
-                    script: "sub",
-                },
-            ],
-            [
-                {
-                    list: "ordered",
-                },
-                {
-                    list: "bullet",
-                },
-                {
-                    indent: "-1",
-                },
-                {
-                    indent: "+1",
-                },
-            ],
-            [
-                "direction",
-                {
-                    align: [],
-                },
-            ],
-            ["link"],
-            ["clean"],
+const defaultConfig = {
+    toolbar: [
+        [{ font: [] }],
+        [{ align: [] }],
+        ["bold", "italic", "underline", "strike"],
+        [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
         ],
-    },
-    theme: "snow",
-    placeholder: "Tuliskan keluhan kamu di sini ...",
-});
+        [{ header: [1, 2, 3, 4, 5, 6, false] }],
+        [{ color: [] }, { background: [] }],
+        ["blockquote", "code-block"],
+        [{ script: "super" }, { script: "sub" }],
+        ["clean"],
+    ],
+};
 
-function updateBody() {
-    document.getElementById("body").value = quill.root.innerHTML;
+export function quillTextEditor(
+    element,
+    body,
+    text,
+    quillModules = defaultConfig,
+    quillTheme = "snow"
+) {
+    let quill = new Quill(element, {
+        bounds: "#editor-container .editor",
+        modules: quillModules,
+        theme: quillTheme,
+        placeholder: `Tuliskan ${text} di sini ...`,
+    });
+
+    function updateBody() {
+        document.getElementById(body).value = quill.root.innerHTML;
+    }
+
+    quill.on("text-change", updateBody);
 }
-
-quill.on("text-change", updateBody);
