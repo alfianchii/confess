@@ -106,7 +106,7 @@
                                             alt="{{ $complaint->category->name }}">
                                     @else
                                         <img class="img-fluid rounded" data-bs-toggle="modal" data-bs-target="#imageDetail"
-                                            src="https://source.unsplash.com/random/600x600?school {{ $complaint->category->name }}"
+                                            src="{{ asset('images/no-image-2.jpg') }}"
                                             alt="{{ $complaint->category->name }}">
                                     @endif
                                 </a>
@@ -144,7 +144,7 @@
                                                     @else
                                                         <img class="img-fluid rounded" data-bs-toggle="modal"
                                                             data-bs-target="#imageDetail"
-                                                            src="https://source.unsplash.com/random/600x600?school {{ $complaint->category->name }}"
+                                                            src="{{ asset('images/no-image-2.jpg') }}"
                                                             alt="{{ $complaint->category->name }}">
                                                     @endif
                                                 </div>
