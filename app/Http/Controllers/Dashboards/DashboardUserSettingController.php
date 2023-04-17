@@ -15,11 +15,14 @@ class DashboardUserSettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function profile()
+    public function profile(Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.users.profile", [
             "title" => "Profile",
             "user" => Auth::user(),
+            "previousUrl" => $previousUrl
         ]);
     }
 
@@ -28,11 +31,14 @@ class DashboardUserSettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function setting()
+    public function setting(Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.users.setting", [
             "title" => "Setting",
             "user" => Auth::user(),
+            "previousUrl" => $previousUrl
         ]);
     }
 
@@ -139,11 +145,14 @@ class DashboardUserSettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function changeYourPassword()
+    public function changeYourPassword(Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.users.password", [
             "title" => "Ganti Password",
             "user" => Auth::user(),
+            "previousUrl" => $previousUrl,
         ]);
     }
 

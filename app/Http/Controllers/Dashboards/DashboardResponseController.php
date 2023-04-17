@@ -30,8 +30,10 @@ class DashboardResponseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Complaint $complaint)
+    public function create(Request $request, Complaint $complaint)
     {
+        $previousUrl = $request->headers->get('referer');
+
         // Short the responses based on new response (date)
         $sortedResponses = $complaint->responses->sortByDesc("created_at");
 
@@ -39,6 +41,7 @@ class DashboardResponseController extends Controller
             "title" => "Buat Tanggapan",
             "complaint" => $complaint,
             "responses" => $sortedResponses,
+            "previousUrl" => $previousUrl,
         ]);
     }
 
@@ -76,8 +79,10 @@ class DashboardResponseController extends Controller
      * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function show(Response $response)
+    public function show(Request $request, Response $response)
     {
+        $previousUrl = $request->headers->get('referer');
+
         // Validate if the response is owned by the user
         if ($response->officer_nik !== auth()->user()->nik) {
             return redirect('/dashboard/responses')->withErrors('Kamu bukan pemilik dari tanggapan tersebut.');
@@ -86,6 +91,7 @@ class DashboardResponseController extends Controller
         return view("dashboard.responses.show", [
             "title" => "Tanggapan",
             "response" => $response,
+            "previousUrl" => $previousUrl
         ]);
     }
 
@@ -95,8 +101,10 @@ class DashboardResponseController extends Controller
      * @param  \App\Models\Response  $response
      * @return \Illuminate\Http\Response
      */
-    public function edit(Response $response)
+    public function edit(Request $request, Response $response)
     {
+        $previousUrl = $request->headers->get('referer');
+
         // Validate if the response is owned by the user
         if ($response->officer_nik !== auth()->user()->nik) {
             return redirect('/dashboard/responses')->withErrors('Kamu bukan pemilik dari tanggapan tersebut.');
@@ -106,6 +114,7 @@ class DashboardResponseController extends Controller
             "title" => "Edit Tanggapan",
             "response" => $response,
             "complaint" => $response->complaint,
+            "previousUrl" => $previousUrl,
         ]);
     }
 

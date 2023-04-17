@@ -33,11 +33,14 @@ class DashboardComplaintController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.complaints.create", [
             "title" => "Buat Keluhan",
             "categories" => Category::all()->sortBy("name"),
+            "previousUrl" => $previousUrl,
         ]);
     }
 
@@ -84,8 +87,10 @@ class DashboardComplaintController extends Controller
      * @param  \App\Models\Complaint  $complaint
      * @return \Illuminate\Http\Response
      */
-    public function show(Complaint $complaint)
+    public function show(Request $request, Complaint $complaint)
     {
+        $previousUrl = $request->headers->get('referer');
+
         // Validate if the complaint is owned by the user
         if ($complaint->student_nik !== auth()->user()->nik) {
             return redirect('/dashboard/complaints')->withErrors('Keluhan tidak ditemukan.');
@@ -98,6 +103,7 @@ class DashboardComplaintController extends Controller
             "title" => ucwords($complaint->title),
             "complaint" => $complaint,
             "responses" => $sortedResponses,
+            "previousUrl" => $previousUrl,
         ]);
     }
 
@@ -107,8 +113,10 @@ class DashboardComplaintController extends Controller
      * @param  \App\Models\Complaint  $complaint
      * @return \Illuminate\Http\Response
      */
-    public function edit(Complaint $complaint)
+    public function edit(Request $request, Complaint $complaint)
     {
+        $previousUrl = $request->headers->get('referer');
+
         // Validate if the complaint is owned by the user
         if ($complaint->student_nik !== auth()->user()->nik) {
             return redirect('/dashboard/complaints')->withErrors('Keluhan tidak ditemukan.');
@@ -118,6 +126,7 @@ class DashboardComplaintController extends Controller
             "title" => "Edit",
             "complaint" => $complaint,
             "categories" => Category::all(),
+            "previousUrl" => $previousUrl,
         ]);
     }
 

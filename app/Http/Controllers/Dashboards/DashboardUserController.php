@@ -33,10 +33,13 @@ class DashboardUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.users.register", [
-            "title" => "Register"
+            "title" => "Register",
+            "previousUrl" => $previousUrl
         ]);
     }
 
@@ -101,11 +104,14 @@ class DashboardUserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.users.show", [
             "title" => $user->username,
             "user" => $user,
+            "previousUrl" => $previousUrl,
         ]);
     }
 
@@ -117,9 +123,12 @@ class DashboardUserController extends Controller
      */
     public function edit(User $user, Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.users.edit", [
             "title" => "Edit " . $user->username,
             "user" => $user,
+            "previousUrl" => $previousUrl,
         ]);
     }
 

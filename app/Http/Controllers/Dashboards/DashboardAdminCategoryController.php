@@ -31,10 +31,13 @@ class DashboardAdminCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.categories.create", [
             "title" => "Categories",
+            "previousUrl" => $previousUrl
         ]);
     }
 
@@ -87,11 +90,14 @@ class DashboardAdminCategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Request $request, Category $category)
     {
+        $previousUrl = $request->headers->get('referer');
+
         return view("dashboard.categories.edit", [
             "title" => $category->name,
             "category" => $category,
+            "previousUrl" => $previousUrl
         ]);
     }
 
