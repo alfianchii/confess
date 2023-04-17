@@ -20,7 +20,7 @@
                     <p class="fs-5 text-gray-600">
                         You are unauthorized to see this page.
                     </p>
-                    <a href="{{ url()->previous() }}" class="btn btn-lg btn-outline-primary mt-3">Go Back</a>
+                    <a href="/" class="btn btn-lg btn-outline-primary mt-3">Go Back</a>
                 </div>
             </div>
         </div>
