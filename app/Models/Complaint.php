@@ -71,7 +71,6 @@ class Complaint extends Model
                 );
         }
 
-
         /* SEARCH: COMPLAINT AND STATUS */
         if (isset($filters["search"]) && isset($filters["status"])) {
             $str = "";
@@ -87,15 +86,7 @@ class Complaint extends Model
                 $query->where("title", "like", "%" . $filters["search"] . "%")
                     ->orWhere("body", "like", "%" . $filters["search"] . "%")
             )
-                ->whereHas(
-                    "student",
-                    fn ($query) =>
-                    $query->whereHas(
-                        "complaints",
-                        fn ($query) =>
-                        $query->where('status', $str)
-                    )
-                );
+                ->where('status', $str);
         }
 
         /* SEARCH: COMPLAINT AND PRIVACY */
@@ -172,15 +163,7 @@ class Complaint extends Model
 
             // Do query
             // return $query->where("status", $str);
-            return $query->whereHas(
-                "student",
-                fn ($query) =>
-                $query->whereHas(
-                    "complaints",
-                    fn ($query) =>
-                    $query->where("status", $str)
-                )
-            );
+            return $query->where("status", $str);
         }
 
         /* SEARCH: PRIVACY */
