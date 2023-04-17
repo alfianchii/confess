@@ -20,8 +20,9 @@
                     </div>
                 </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 p-0 shadow">
+                <div class="row justify-content-center mb-5">
+                    <div class="col-12 col-md-10 shadow p-0">
+                        {{-- Complaint --}}
                         <div class="card mb-0">
                             <div class="card-header">
                                 <h3 class="card-title d-inline-block">{{ $complaint->title }}</h3>
@@ -156,6 +157,57 @@
                                 <div class="my-2">
                                     <a href="/complaints" class="btn btn-color text-white mt-3">Kembali ke Keluhan</a>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-10">
+                        {{-- Responses --}}
+                        <div class="card mb-0">
+                            <div class="card-header">
+                                <h3 class="card-title">Tanggapan</h3>
+                            </div>
+                            <div class="card-body">
+                                @forelse ($complaint->responses as $response)
+                                    <div class="row g-0 px-4 mt-5 mb-4 pb-2">
+                                        <div class="col-md-2 d-flex align-items-start">
+                                            @if ($response->officer->user->image)
+                                                <img width="200"
+                                                    src="{{ asset('storage') . '/' . $response->officer->user->image }}"
+                                                    alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                            @else
+                                                @if ($response->officer->user->gender == 'L')
+                                                    <img width="200"
+                                                        src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                @else
+                                                    <img width="200"
+                                                        src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                @endif
+                                            @endif
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body">
+                                                <div class="text-md-start text-center">
+                                                    <h4 class="card-title">{{ $response->officer->user->name }}</h4>
+                                                    <small class="card-subtitle mb-2 text-muted">
+                                                        {{ $response->created_at->diffForHumans() }}
+                                                    </small>
+                                                    <p class="card-text">{!! $response->body !!}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                @empty
+                                    <div class="alert alert-warning" role="alert">
+                                        <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                        <p>Belum ada tanggapan dari pihak terkait.</p>
+                                    </div>
+                                @endforelse
                             </div>
                         </div>
                     </div>

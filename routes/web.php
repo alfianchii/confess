@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboards\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
-use App\Http\Controllers\{ComplaintController, HomeController};
+use App\Http\Controllers\{HomeController, ComplaintController, CategoryController};
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +45,8 @@ Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function ()
 });
 
 /* Landing page */
-Route::resource('/complaints', ComplaintController::class)->except(["create", "edit", "update", "destroy", "store"])->middleware("auth");
+Route::resource('/complaints', ComplaintController::class)->only(["index", "show"])->middleware("auth");
+Route::get('/categories', [CategoryController::class, "index"])->middleware("auth");
 
 // Dashboard
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {

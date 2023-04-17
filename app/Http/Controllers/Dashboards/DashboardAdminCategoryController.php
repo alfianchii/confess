@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class DashboardAdminCategoryController extends Controller
 {
@@ -47,7 +49,29 @@ class DashboardAdminCategoryController extends Controller
         $credentials = $request->validate([
             "name" => ["required", "max:255"],
             "slug" => ["required", "unique:categories"],
+            "description" => ["required"],
+            "image" => ["image", "file", "max:2048"],
         ]);
+
+        // Image
+        if ($request->file("image")) {
+            // Store original image
+            $imageOriginalPath = $request->file('image')->store("category-images");
+
+            // Set path 
+            $credentials["image"] = $imageOriginalPath;
+
+            // Open image using Intervention Image
+            $imageCrop = Image::make("storage/" . $imageOriginalPath);
+
+            // Crop the image to a square with a width of 300 pixels
+            $imageCrop->fit(1200, 1200, function ($constraint) {
+                $constraint->upsize();
+            }, "top");
+
+            // Replace original image with cropped image
+            Storage::put($imageOriginalPath, $imageCrop->stream());
+        }
 
         try {
             Category::create($credentials);
@@ -82,6 +106,8 @@ class DashboardAdminCategoryController extends Controller
     {
         $rules = [
             "name" => ["required", "max:255"],
+            "description" => ["required"],
+            "image" => ["image", "file", "max:2048"],
         ];
 
         if ($request->slug !== $category->slug) {
@@ -89,6 +115,29 @@ class DashboardAdminCategoryController extends Controller
         }
 
         $credentials = $request->validate($rules);
+
+        if ($request->file("image")) {
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+
+            // Store original image
+            $imageOriginalPath = $request->file('image')->store("category-images");
+
+            // Set path 
+            $credentials["image"] = $imageOriginalPath;
+
+            // Open image using Intervention Image
+            $imageCrop = Image::make("storage/" . $imageOriginalPath);
+
+            // Crop the image to a square with a width of 300 pixels
+            $imageCrop->fit(1200, 1200, function ($constraint) {
+                $constraint->upsize();
+            }, "top");
+
+            // Replace original image with cropped image
+            Storage::put($imageOriginalPath, $imageCrop->stream());
+        }
 
         try {
             // $category = Category::where("id", $category->id)->update($credentials);
@@ -123,6 +172,10 @@ class DashboardAdminCategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->image) {
+            Storage::delete($category->image);
+        }
+
         try {
             if (!Category::destroy($category->id)) {
                 throw new \Exception('Error deleting category.');
