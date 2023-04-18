@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top {{ Request::is('complaints*') ? 'bg-nav' : 'bg-transparent' }}"
-    id="{{ Request::is('complaints*') ? '' : 'navbar' }}">
+<nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top {{ Request::is('complaints*') || Request::is('categories') ? 'bg-nav' : 'bg-transparent' }}"
+    id="{{ Request::is('complaints*') || Request::is('categories') ? '' : 'navbar' }}">
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
             <img src="{{ asset('images/logoT.png') }}" alt="logo confess" width="20%">
