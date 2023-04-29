@@ -92,7 +92,7 @@ npm install
 copy .env.example .env
 ```
 
-2. Konfigurasi database
+2. Konfigurasi database melalui `.env`
 
 ```
 DB_PORT=3306
