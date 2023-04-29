@@ -134,4 +134,4 @@ Kamu bisa mendukung aku di platform Trakteer! Dukungan kamu akan sangat berarti 
 
 <h2 id="pembuat">🧍 Author</h2>
 
-<p>Confess dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> (as back-end) dan <a href="https://instagram.com/nata_ardhana">Surya</a> (as front-end).</p>
+<p>Confess dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.</p>
