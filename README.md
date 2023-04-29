@@ -120,7 +120,7 @@ php artisan serve
 <h2 id="dukungan">💌 Support Me</h2>
 
 <p>
-Kamu bisa mendukung aku di platform Trakteer! Dukungan kamu akan sangat berarti untuk aku. Namun, dengan kamu memberikan <i>star</i> pada <i>project</i> ini juga sudah sangat cukup kok~!
+Kamu bisa mendukung aku di platform Trakteer! Dukungan kamu akan sangat berarti. Namun, dengan kamu memberikan <i>star</i> pada <i>project</i> ini juga sudah sangat cukup kok~!
 </p>
 
 <a href="https://trakteer.id/alfianchii/tip" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="40" style="border:0px;height:40px;" alt="Trakteer Saya"></a>
