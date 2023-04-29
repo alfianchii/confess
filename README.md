@@ -50,7 +50,7 @@ Confess adalah aplikasi pelaporan pengaduan sekolah yang memungkinkan siswa/sisw
     -   <i>Response</i>
     -   <i>Category</i>
     -   <i>User</i>
--   Pencarian <i>complaint</i> di <i>homepage</i>
+-   Pencarian <i>Complaint</i> di <i>Homepage</i>
 
 <h2 id="testing-account">👤 Default Account for Testing</h2>
 
@@ -134,4 +134,4 @@ Kamu bisa mendukung aku di platform Trakteer! Dukungan kamu akan sangat berarti 
 
 <h2 id="pembuat">🧍 Author</h2>
 
-<p>Confess dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.</p>
+<p>Confess dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> (as back-end) dan <a href="https://instagram.com/nata_ardhana">Surya</a> (as front-end).</p>
