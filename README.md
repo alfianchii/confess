@@ -112,6 +112,8 @@ php artisan storage:link
 4. Jalankan website
 
 ```bash
+npm run dev
+# Run in different terminal
 php artisan serve
 ```
 
