@@ -104,6 +104,7 @@ DB_PASSWORD=
 3. Migrasi dan symlinks
 
 ```bash
+php artisan key:generate
 php artisan migrate --seed
 php artisan storage:link
 ```
