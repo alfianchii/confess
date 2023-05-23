@@ -111,5 +111,7 @@ class DatabaseSeeder extends Seeder
 
         Complaint::factory(500)->create();
         Response::factory(500)->create();
+
+        $this->call(SettingSeeder::class);
     }
 }
