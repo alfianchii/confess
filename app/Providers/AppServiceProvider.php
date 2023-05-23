@@ -43,9 +43,12 @@ class AppServiceProvider extends ServiceProvider
             return $user->level == "student";
         });
 
-        Schema::hasTable('settings');
-        $web_config = DB::table('settings')->pluck('value', 'key');
-        config(['web_config' => $web_config]);
+        try {
+            Schema::hasTable('settings');
+            $web_config = DB::table('settings')->pluck('value', 'key');
+            config(['web_config' => $web_config]);
+        } catch (\Exception $e) {
+        }
 
         Model::preventLazyLoading(!app()->environment('production'));
     }
