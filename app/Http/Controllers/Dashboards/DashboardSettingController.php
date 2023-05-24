@@ -34,6 +34,7 @@ class DashboardSettingController extends Controller
     {
         $credentials = $request->validate([
             "WEB_TITLE" => ["required", "string", "max:30"],
+            "WEB_LOCATION" => ["required", "string"],
             "HERO_TEXT_HEADER" => ["required", "string", "max:125"],
             "HERO_TEXT_DESCRIPTION" => ["required", "string", "max:255"],
 

@@ -130,6 +130,26 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div
+                                                class="form-group has-icon-left mandatory @error('WEB_LOCATION') is-invalid @enderror">
+                                                <label for="WEB_LOCATION" class="form-label">Email</label>
+                                                <div class="position-relative">
+                                                    <input type="WEB_LOCATION" class="form-control py-2"
+                                                        placeholder='<iframe src="..." width="..." height="..."></iframe>'
+                                                        id="WEB_LOCATION" name="WEB_LOCATION"
+                                                        value="{{ old('WEB_LOCATION', config('web_config')['WEB_LOCATION']) }}" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-chat-left-quote py-2"></i>
+                                                    </div>
+                                                    @error('WEB_LOCATION')
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-4">
