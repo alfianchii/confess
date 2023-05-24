@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('web_config')['WEB_TITLE'] }} | {{ $title }}</title>
+    <title>{{ $title }} - {{ config('web_config')['WEB_TITLE'] }}</title>
 
     @include('partials.link')
 
