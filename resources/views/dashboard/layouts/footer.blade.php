@@ -4,9 +4,15 @@
             <div class="col-12 col-md-3 text-center text-md-start">
                 <p class="fs-5">Dikelola oleh</p>
                 <div class="d-flex align-items-center justify-content-center justify-content-md-start">
-                    <img src="{{ asset('images/smk.png') }}" class="logo-smk4"
-                        alt="logo smkn 4 kota tangerang"width="100%">
-                    <span class="ms-2">SMK NEGERI 4 TANGERANG</span>
+                    {{-- If FOOTER_IMAGE_DASHBOARD didn't contains "/" --}}
+                    @if (strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/') === false)
+                        <img src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
+                            class="logo-smk4" alt="Footer Website" width="100%">
+                    @else
+                        <img src="{{ asset('storage/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
+                            class="logo-smk4" alt="Footer Website" width="100%">
+                    @endif
+                    <span class="ms-2">{{ config('web_config')['FOOTER_TEXT_DASHBOARD'] }}</span>
                 </div>
             </div>
             <div class="col pt-5 text-center">

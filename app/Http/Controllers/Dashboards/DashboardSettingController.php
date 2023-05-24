@@ -37,6 +37,7 @@ class DashboardSettingController extends Controller
             "WEB_LOCATION" => ["required", "string"],
             "HERO_TEXT_HEADER" => ["required", "string", "max:125"],
             "HERO_TEXT_DESCRIPTION" => ["required", "string", "max:255"],
+            "FOOTER_TEXT_DASHBOARD" => ["required", "string", "max:255"],
 
             "WEB_LOGO_WHITE" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
             "OLD_WEB_LOGO_WHITE" => ["required", "string"],
@@ -46,11 +47,17 @@ class DashboardSettingController extends Controller
 
             "WEB_FAVICON" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
             "OLD_WEB_FAVICON" => ["required", "string"],
+
+            "FOOTER_IMAGE" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
+            "OLD_FOOTER_IMAGE" => ["required", "string"],
+
+            "FOOTER_IMAGE_DASHBOARD" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
+            "OLD_FOOTER_IMAGE_DASHBOARD" => ["required", "string"],
         ]);
 
         try {
             foreach ($credentials as $key => $value) {
-                if ($key == 'WEB_LOGO' || $key == 'WEB_LOGO_WHITE' || $key == 'WEB_FAVICON') {
+                if (in_array($key, ['WEB_LOGO', 'WEB_LOGO_WHITE', 'WEB_FAVICON', 'FOOTER_IMAGE', 'FOOTER_IMAGE_DASHBOARD'])) {
                     $value = $request->file($key)->store('website-settings');;
 
                     $old = "OLD_" . $key;

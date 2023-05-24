@@ -112,9 +112,10 @@
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
                                                 class="form-group has-icon-left mandatory @error('HERO_TEXT_DESCRIPTION') is-invalid @enderror">
-                                                <label for="HERO_TEXT_DESCRIPTION" class="form-label">Email</label>
+                                                <label for="HERO_TEXT_DESCRIPTION" class="form-label">Hero Text
+                                                    Description</label>
                                                 <div class="position-relative">
-                                                    <input type="HERO_TEXT_DESCRIPTION" class="form-control py-2"
+                                                    <input type="text" class="form-control py-2"
                                                         placeholder="Sampaikan laporan, kritik, atau saran kamu di website ini~"
                                                         id="HERO_TEXT_DESCRIPTION" name="HERO_TEXT_DESCRIPTION"
                                                         value="{{ old('HERO_TEXT_DESCRIPTION', config('web_config')['HERO_TEXT_DESCRIPTION']) }}"
@@ -133,9 +134,9 @@
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
                                                 class="form-group has-icon-left mandatory @error('WEB_LOCATION') is-invalid @enderror">
-                                                <label for="WEB_LOCATION" class="form-label">Email</label>
+                                                <label for="WEB_LOCATION" class="form-label">Google Maps</label>
                                                 <div class="position-relative">
-                                                    <input type="WEB_LOCATION" class="form-control py-2"
+                                                    <input type="text" class="form-control py-2"
                                                         placeholder='<iframe src="..." width="..." height="..."></iframe>'
                                                         id="WEB_LOCATION" name="WEB_LOCATION"
                                                         value="{{ old('WEB_LOCATION', config('web_config')['WEB_LOCATION']) }}" />
@@ -150,10 +151,31 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-md-6 col-12 mb-1">
+                                            <div
+                                                class="form-group has-icon-left mandatory @error('FOOTER_TEXT_DASHBOARD') is-invalid @enderror">
+                                                <label for="FOOTER_TEXT_DASHBOARD" class="form-label">Footer Text
+                                                    (Dashboard)</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder='SMK NEGERI 4 TANGERANG' id="FOOTER_TEXT_DASHBOARD"
+                                                        name="FOOTER_TEXT_DASHBOARD"
+                                                        value="{{ old('FOOTER_TEXT_DASHBOARD', config('web_config')['FOOTER_TEXT_DASHBOARD']) }}" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-chat-left-quote py-2"></i>
+                                                    </div>
+                                                    @error('FOOTER_TEXT_DASHBOARD')
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label for="WEB_LOGO_WHITE" class="form-label">Logo Website
                                                     (Homepage)</label>
                                                 <div class="position-relative">
@@ -234,11 +256,11 @@
                                                     @if (strpos(config('web_config')['WEB_FAVICON'], '/') === false)
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['WEB_FAVICON']) }}"
-                                                            alt="Logo Website">
+                                                            alt="Favicon Website">
                                                     @else
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('storage/' . config('web_config')['WEB_FAVICON']) }}"
-                                                            alt="Logo Website">
+                                                            alt="Favicon Website">
                                                     @endif
 
                                                     <!-- Auto crop image file uploader -->
@@ -246,6 +268,76 @@
                                                         name="WEB_FAVICON" />
 
                                                     @error('WEB_FAVICON')
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-4">
+                                            <div class="form-group ">
+                                                <label for="FOOTER_IMAGE" class="form-label">Footer Website
+                                                    (Homepage)</label>
+                                                <div class="position-relative">
+                                                    <input type="hidden" name="OLD_FOOTER_IMAGE"
+                                                        value="{{ config('web_config')['FOOTER_IMAGE'] }}">
+
+                                                    <!-- Image preview -->
+                                                    {{-- If FOOTER_IMAGE didn't contains "/" --}}
+                                                    @if (strpos(config('web_config')['FOOTER_IMAGE'], '/') === false)
+                                                        <img class="img-fluid rounded mb-3 col-sm-5"
+                                                            src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE']) }}"
+                                                            alt="Footer Website">
+                                                    @else
+                                                        <img class="img-fluid rounded mb-3 col-sm-5"
+                                                            src="{{ asset('storage/' . config('web_config')['FOOTER_IMAGE']) }}"
+                                                            alt="Footer Website">
+                                                    @endif
+
+                                                    <!-- Auto crop image file uploader -->
+                                                    <input type="file" class="image-preview-filepond"
+                                                        name="FOOTER_IMAGE" />
+
+                                                    @error('FOOTER_IMAGE')
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 mb-4">
+                                            <div class="form-group ">
+                                                <label for="FOOTER_IMAGE_DASHBOARD" class="form-label">Footer Website
+                                                    (Dashboard)</label>
+                                                <div class="position-relative">
+                                                    <input type="hidden" name="OLD_FOOTER_IMAGE_DASHBOARD"
+                                                        value="{{ config('web_config')['FOOTER_IMAGE_DASHBOARD'] }}">
+
+                                                    <!-- Image preview -->
+                                                    {{-- If FOOTER_IMAGE_DASHBOARD didn't contains "/" --}}
+                                                    @if (strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/') === false)
+                                                        <img class="img-fluid rounded mb-3 col-sm-5"
+                                                            src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
+                                                            alt="Footer Website">
+                                                    @else
+                                                        <img class="img-fluid rounded mb-3 col-sm-5"
+                                                            src="{{ asset('storage/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
+                                                            alt="Footer Website">
+                                                    @endif
+
+                                                    <!-- Auto crop image file uploader -->
+                                                    <input type="file" class="image-preview-filepond"
+                                                        name="FOOTER_IMAGE_DASHBOARD" />
+
+                                                    @error('FOOTER_IMAGE_DASHBOARD')
                                                         <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
