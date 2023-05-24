@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h2>Registrasi Pengguna</h2>
                     <p class="text-subtitle text-muted">
-                        Daftarkan pengguna untuk melakukan sesuatu di Confess.
+                        Daftarkan pengguna untuk melakukan sesuatu di {{ config('web_config')['WEB_TITLE'] }}.
                     </p>
                     <hr>
                     <div class="mb-4">

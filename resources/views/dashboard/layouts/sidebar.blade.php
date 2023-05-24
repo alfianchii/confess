@@ -4,8 +4,14 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="/" class="d-flex align-items-end">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" width="80" />
-                        <span class="fs-5 fw-bold">CONFESS</span>
+                        {{-- If WEB_LOGO didn't contains "/" --}}
+                        @if (strpos(config('web_config')['WEB_LOGO'], '/') === false)
+                            <img src="{{ asset('images/' . config('web_config')['WEB_LOGO']) }}"
+                                alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                        @else
+                            <img src="{{ asset('storage/' . config('web_config')['WEB_LOGO']) }}"
+                                alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                        @endif
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
@@ -115,6 +121,15 @@
                         </li>
                     </ul>
                 </li>
+
+                @can('admin')
+                    <li class="sidebar-item {{ Request::is('dashboard/website*') ? 'active' : '' }}">
+                        <a href="/dashboard/website" class="sidebar-link">
+                            <i class="bi bi-gear"></i>
+                            <span>Website</span>
+                        </a>
+                    </li>
+                @endcan
             </ul>
         </div>
     </div>

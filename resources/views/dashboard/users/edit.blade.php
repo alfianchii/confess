@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h2>Edit Pengguna</h2>
                     <p class="text-subtitle text-muted">
-                        Pengguna bisa melakukan sesuatu di Confess.
+                        Pengguna bisa melakukan sesuatu di {{ config('web_config')['WEB_TITLE'] }}.
                     </p>
                     <hr>
                     <div class="mb-4">

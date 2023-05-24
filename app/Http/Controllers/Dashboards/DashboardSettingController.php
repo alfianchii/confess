@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboards;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DashboardSettingController extends Controller
 {
@@ -13,9 +14,13 @@ class DashboardSettingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $title = "Website Settings";
+        $settings = Setting::all()->pluck("value", "key");
+        $previousUrl = $request->headers->get('referer');
+
+        return view("dashboard.settings.index", compact('settings', 'previousUrl', "title"));
     }
 
     /**
@@ -27,6 +32,38 @@ class DashboardSettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        //
+        $credentials = $request->validate([
+            "WEB_TITLE" => ["required", "string", "max:30"],
+            "HERO_TEXT_HEADER" => ["required", "string", "max:125"],
+            "HERO_TEXT_DESCRIPTION" => ["required", "string", "max:255"],
+
+            "WEB_LOGO_WHITE" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
+            "OLD_WEB_LOGO_WHITE" => ["required", "string"],
+
+            "WEB_LOGO" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
+            "OLD_WEB_LOGO" => ["required", "string"],
+
+            "WEB_FAVICON" => ["nullable", "file", "image", "mimes:png,jpg", "max:1024"],
+            "OLD_WEB_FAVICON" => ["required", "string"],
+        ]);
+
+        try {
+            foreach ($credentials as $key => $value) {
+                if ($key == 'WEB_LOGO' || $key == 'WEB_LOGO_WHITE' || $key == 'WEB_FAVICON') {
+                    $value = $request->file($key)->store('website-settings');;
+
+                    $old = "OLD_" . $key;
+                    if ($request->$old && strpos($request->$old, "/") !== false) {
+                        Storage::delete($request->$old);
+                    }
+                }
+
+                Setting::where('key', $key)->update(['value' => $value]);
+            }
+
+            return redirect('/dashboard/website')->with('success', "Berhasil mengubah pengaturan website!");
+        } catch (\Exception $e) {
+            return redirect('/dashboard/website')->with('error', "Gagal mengubah pengaturan website :(");
+        }
     }
 }

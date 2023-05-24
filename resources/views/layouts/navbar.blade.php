@@ -2,7 +2,14 @@
     id="{{ Request::is('complaints*') || Request::is('categories') ? '' : 'navbar' }}">
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
-            <img src="{{ asset('images/logoT.png') }}" alt="logo confess" width="20%">
+            {{-- If WEB_LOGO_WHITE didn't contains "/" --}}
+            @if (strpos(config('web_config')['WEB_LOGO_WHITE'], '/') === false)
+                <img src="{{ asset('images/' . config('web_config')['WEB_LOGO_WHITE']) }}"
+                    alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+            @else
+                <img src="{{ asset('storage/' . config('web_config')['WEB_LOGO_WHITE']) }}"
+                    alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+            @endif
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -35,7 +42,8 @@
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false"> Selamat datang, {{ auth()->user()->name }}!</a>
+                            data-bs-toggle="dropdown" aria-expanded="false"> Selamat datang,
+                            {{ auth()->user()->name }}!</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/dashboard"><i class="bi bi-speedometer2 me-1"></i>
                                     Dashboard</a>

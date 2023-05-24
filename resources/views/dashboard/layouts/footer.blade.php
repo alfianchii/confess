@@ -25,7 +25,7 @@
         </div>
         <div class="row mx-auto w-100">
             <div class="col-12 text-center">
-                <p>Copyright © 2023 Confess. All rights reserved</p>
+                <p>Copyright © 2023 {{ config('web_config')['WEB_TITLE'] }}. All rights reserved</p>
             </div>
         </div>
     </div>

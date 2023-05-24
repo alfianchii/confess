@@ -4,7 +4,14 @@
     <div class="col-12 col-sm-5 bg pt-3">
         <div class=" d-flex pt-3 pt-sm-0 align-items-center">
             <a href="/" class=" ms-3 ms-sm-5 me-auto  mb-2 mb-sm-5 logo-login">
-                <img src="{{ asset('images/logoT.png') }}" alt="illustrasi" width="20%" />
+                {{-- If WEB_LOGO_WHITE didn't contains "/" --}}
+                @if (strpos(config('web_config')['WEB_LOGO_WHITE'], '/') === false)
+                    <img src="{{ asset('images/' . config('web_config')['WEB_LOGO_WHITE']) }}"
+                        alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                @else
+                    <img src="{{ asset('storage/' . config('web_config')['WEB_LOGO_WHITE']) }}"
+                        alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                @endif
             </a>
             <div class="text-end me-3 ms-sm-5 mb-2 mb-sm-5 d-block d-sm-none">
                 <a href="/" class="text-white opacity-75">Kembali</a>

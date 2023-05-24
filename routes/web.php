@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboards\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
+use App\Http\Controllers\Dashboards\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardSettingController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
 use App\Http\Controllers\{HomeController, ComplaintController, CategoryController};
 
 /*
@@ -21,6 +21,10 @@ Route::get('/', [HomeController::class, "index"]);
 Route::get('/about', function () {
     return view('about', ["title" => "Tentang"]);
 });
+
+// Landing page
+Route::resource('/complaints', ComplaintController::class)->only(["index", "show"])->middleware("auth");
+Route::get('/categories', [CategoryController::class, "index"])->middleware("auth");
 
 // Authentication
 Route::get("/login", [DashboardAuthController::class, "index"])->name("login")->middleware("guest");
@@ -44,10 +48,6 @@ Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function ()
     Route::put("/{user:username}/demote", [DashboardUserPromoteController::class, "demote"])->middleware("admin");
 });
 
-/* Landing page */
-Route::resource('/complaints', ComplaintController::class)->only(["index", "show"])->middleware("auth");
-Route::get('/categories', [CategoryController::class, "index"])->middleware("auth");
-
 // Dashboard
 Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     // Dashboard
@@ -66,6 +66,9 @@ Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
     Route::resource("/categories", DashboardAdminCategoryController::class)->middleware("admin")->except(["show"]);
     // User
     Route::resource("/users", DashboardUserController::class)->middleware("admin")->except(["create"]);
+    // Website settings
+    Route::get("/website", [DashboardSettingController::class, "index"])->middleware("admin");
+    Route::put("/website", [DashboardSettingController::class, "update"])->middleware("admin");
 });
 
 // Responses data
