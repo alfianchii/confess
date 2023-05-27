@@ -6,7 +6,8 @@ export function simpleDatatable(
     perPageSelectData = [5, 10, 15, 20, 25],
     label = "data",
     isTooltip = false,
-    maxPagination = 3
+    maxPagination = 3,
+    isSearch = false
 ) {
     let dataTable = new simpleDatatables.DataTable(
         document.getElementById(`${table}`),
@@ -22,6 +23,21 @@ export function simpleDatatable(
             fixedHeight: true,
         }
     );
+
+    // Get datatable-input and changes its own value from url
+    if (isSearch) {
+        const searchInput = document.querySelector(".dataTable-input");
+        const urlParams = new URLSearchParams(window.location.search);
+        const values = urlParams.values();
+
+        for (const value of values) {
+            searchInput.value = value;
+
+            // Then click enter on search input
+            const event = new KeyboardEvent("keyup", { keyCode: 13 });
+            searchInput.dispatchEvent(event);
+        }
+    }
 
     // Move "per page dropdown" selector element out of label
     // to make it work with bootstrap 5. Add bs5 classes.

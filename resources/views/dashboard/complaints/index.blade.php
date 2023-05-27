@@ -125,7 +125,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5">
-                                        <p class="text-center mt-3">Tidak ada keluhan</p>
+                                        <p class="text-center mt-3">Tidak ada keluhan :(</p>
                                     </td>
                                 </tr>
                             @endforelse

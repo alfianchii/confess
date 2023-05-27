@@ -324,7 +324,7 @@
                                 <hr>
                             @empty
                                 <div class="alert alert-warning" role="alert">
-                                    <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                    <h4 class="alert-heading">Tidak ada tanggapan :(</h4>
                                     <p>Belum ada tanggapan dari pihak terkait.</p>
                                 </div>
                             @endforelse

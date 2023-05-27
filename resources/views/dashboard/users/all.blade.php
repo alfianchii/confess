@@ -138,7 +138,7 @@
                             @empty
                                 <tr>
                                     <td colspan="5">
-                                        <p class="text-center mt-3">Tidak ada pengguna</p>
+                                        <p class="text-center mt-3">Tidak ada pengguna :(</p>
                                     </td>
                                 </tr>
                             @endforelse

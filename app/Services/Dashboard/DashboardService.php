@@ -38,8 +38,8 @@ class DashboardService
             // Students
             $studentsCount = Student::all()->count();
 
-            // Responses
-            $responsesCount = Response::all()->count();
+            // Your responses
+            $yourResponsesCount = Response::with(["officer", "complaint"])->where('officer_nik', $user->nik)->count();
             // Recent responses
             $recentResponses = Response::with(['officer', "complaint"])->orderByDesc("created_at")->get()->slice(0, 3);
 
@@ -49,7 +49,7 @@ class DashboardService
                 "recentComplaints" => $recentComplaints,
                 "officersCount" => $officersCount,
                 "studentsCount" => $studentsCount,
-                "responsesCount" => $responsesCount,
+                "yourResponsesCount" => $yourResponsesCount,
                 "recentResponses" => $recentResponses,
             ]);
         } else if ($user->level === "student") {

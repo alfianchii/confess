@@ -32,88 +32,100 @@
                     <div class="col-12 col-lg-9">
                         <div class="row">
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="iconly-boldShow"></i>
+                                <a href="/dashboard#daftar-keluhan">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon purple mb-2">
+                                                        <i class="iconly-boldShow"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Keluhan
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $complaintsCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Keluhan
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $complaintsCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon blue mb-2">
-                                                    <i class="iconly-boldProfile"></i>
+                                <a href="/dashboard/users?status=officer">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon blue mb-2">
+                                                        <i class="iconly-boldProfile"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Pegawai
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $officersCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Pegawai
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $officersCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon green mb-2">
-                                                    <i class="iconly-boldAdd-User"></i>
+                                <a href="/dashboard/users?status=student">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon green mb-2">
+                                                        <i class="iconly-boldAdd-User"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Murid
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $studentsCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Murid
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $studentsCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon red mb-2">
-                                                    <i class="iconly-boldBookmark"></i>
+                                <a href="/dashboard/responses">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon red mb-2">
+                                                        <i class="iconly-boldBookmark"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Tanggapan
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $responsesCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Tanggapan
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $yourResponsesCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
@@ -152,7 +164,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="daftar-keluhan">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -215,7 +227,7 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="5">
-                                                            <p class="text-center mt-3">Tidak ada tanggapan</p>
+                                                            <p class="text-center mt-3">Tidak ada tanggapan :(</p>
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -279,7 +291,7 @@
                                 @empty
                                     <div class="recent-message d-flex px-4 py-3">
                                         <div class="alert alert-warning" role="alert">
-                                            <h4 class="alert-heading">Tidak ada keluhan</h4>
+                                            <h4 class="alert-heading">Tidak ada keluhan :(</h4>
                                         </div>
                                     </div>
                                 @endforelse
@@ -365,7 +377,7 @@
                                     </div>
                                 @empty
                                     <div class="alert alert-warning" role="alert">
-                                        <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                        <h4 class="alert-heading">Tidak ada tanggapan :(</h4>
                                         <p>Belum ada tanggapan dari pihak terkait.</p>
                                     </div>
                                 @endforelse
@@ -380,25 +392,28 @@
                     <div class="col-12 col-lg-9">
                         <div class="row">
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="iconly-boldShow"></i>
+                                <a href="/dashboard#daftar-keluhan">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon purple mb-2">
+                                                        <i class="iconly-boldShow"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Keluhan
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $complaintsCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Keluhan
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $complaintsCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
                                 <div class="card">
@@ -443,25 +458,28 @@
                                 </div>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon red mb-2">
-                                                    <i class="iconly-boldBookmark"></i>
+                                <a href="/dashboard/responses">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon red mb-2">
+                                                        <i class="iconly-boldBookmark"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Tanggapan
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $responsesCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Tanggapan
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $yourResponsesCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
@@ -485,7 +503,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="daftar-keluhan">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
@@ -550,7 +568,7 @@
                                                 @empty
                                                     <tr>
                                                         <td colspan="5">
-                                                            <p class="text-center mt-3">Tidak ada tanggapan</p>
+                                                            <p class="text-center mt-3">Tidak ada tanggapan :(</p>
                                                         </td>
                                                     </tr>
                                                 @endforelse
@@ -614,7 +632,7 @@
                                 @empty
                                     <div class="recent-message d-flex px-4 py-3">
                                         <div class="alert alert-warning" role="alert">
-                                            <h4 class="alert-heading">Tidak ada keluhan</h4>
+                                            <h4 class="alert-heading">Tidak ada keluhan :(</h4>
                                         </div>
                                     </div>
                                 @endforelse
@@ -688,7 +706,7 @@
                                     </div>
                                 @empty
                                     <div class="alert alert-warning" role="alert">
-                                        <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                        <h4 class="alert-heading">Tidak ada tanggapan :(</h4>
                                         <p>Belum ada tanggapan dari pihak terkait.</p>
                                     </div>
                                 @endforelse
@@ -703,46 +721,52 @@
                     <div class="col-12 col-lg-9">
                         <div class="row">
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon purple mb-2">
-                                                    <i class="iconly-boldShow"></i>
+                                <a href="/dashboard/complaints">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon purple mb-2">
+                                                        <i class="iconly-boldShow"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Keluhan
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $yourComplaintsCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Keluhan
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $yourComplaintsCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-4 py-4-5" id="tanggapan-student">
-                                        <div class="row">
-                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-                                                <div class="stats-icon red mb-2">
-                                                    <i class="iconly-boldBookmark"></i>
+                                <a href="/dashboard#recent-responses">
+                                    <div class="card">
+                                        <div class="card-body px-4 py-4-5" id="tanggapan-student">
+                                            <div class="row">
+                                                <div
+                                                    class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                                                    <div class="stats-icon red mb-2">
+                                                        <i class="iconly-boldBookmark"></i>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                                <h6 class="text-muted font-semibold">
-                                                    Tanggapan
-                                                </h6>
-                                                <h6 class="font-extrabold mb-0">
-                                                    {{ $responsesStudentCount }}
-                                                </h6>
+                                                <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                    <h6 class="text-muted font-semibold">
+                                                        Tanggapan
+                                                    </h6>
+                                                    <h6 class="font-extrabold mb-0">
+                                                        {{ $responsesStudentCount }}
+                                                    </h6>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </a>
                             </div>
                             <div class="d-none">
                             </div>
@@ -808,7 +832,7 @@
                                 @empty
                                     <div class="recent-message d-flex px-4 py-3">
                                         <div class="alert alert-warning" role="alert">
-                                            <h4 class="alert-heading">Tidak ada keluhan</h4>
+                                            <h4 class="alert-heading">Tidak ada keluhan :(</h4>
                                         </div>
                                     </div>
                                 @endforelse
@@ -820,7 +844,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12" id="recent-responses">
                         <div class="card">
                             <div class="card-header">
                                 <h3>Tanggapan Terbaru</h3>
@@ -871,7 +895,7 @@
                                     </a>
                                 @empty
                                     <div class="alert alert-warning" role="alert">
-                                        <h4 class="alert-heading">Tidak ada tanggapan</h4>
+                                        <h4 class="alert-heading">Tidak ada tanggapan :(</h4>
                                         <p>Belum ada tanggapan dari pihak terkait.</p>
                                     </div>
                                 @endforelse

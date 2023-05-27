@@ -201,7 +201,7 @@
                 </div>
             @else
                 <div class="my-5">
-                    <h3 class="text-center ">Tidak ada keluhan!</h3>
+                    <h3 class="text-center ">Tidak ada keluhan :(</h3>
                 </div>
             @endif
 
