@@ -720,7 +720,7 @@
                 <section class="row">
                     <div class="col-12 col-lg-9">
                         <div class="row">
-                            <div class="col-6 col-lg-3 col-md-6">
+                            <div class="col-6">
                                 <a href="/dashboard/complaints">
                                     <div class="card">
                                         <div class="card-body px-4 py-4-5">
@@ -744,7 +744,7 @@
                                     </div>
                                 </a>
                             </div>
-                            <div class="col-6 col-lg-3 col-md-6">
+                            <div class="col-6">
                                 <a href="/dashboard#recent-responses">
                                     <div class="card">
                                         <div class="card-body px-4 py-4-5" id="tanggapan-student">
