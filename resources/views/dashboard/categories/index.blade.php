@@ -32,7 +32,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Complaints
+                                Keluhan
                             </li>
                         </ol>
                     </nav>
@@ -66,7 +66,7 @@
                                     <td>
                                         <div class="d-flex">
                                             <div class="me-2">
-                                                <a data-bs-toggle="tooltip" data-bs-original-title="Update kategori."
+                                                <a data-bs-toggle="tooltip" data-bs-original-title="Sunting kategori."
                                                     href="/dashboard/categories/{{ $category->slug }}/edit"
                                                     class="btn btn-warning px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>

@@ -55,7 +55,7 @@
                                 <form action="/logout" method="post">
                                     @csrf
                                     <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-left me-1"></i>
-                                        Logout</button>
+                                        Keluar</button>
                                 </form>
                             </li>
                         </ul>
@@ -65,7 +65,7 @@
                 @guest
                     <li class="nav-item">
                         <a class="nav-link text-white {{ Request::is('login') ? 'border-bottom border-3 fw-bold' : '' }}"
-                            href="/login">Login</a>
+                            href="/login">Masuk</a>
                     </li>
                 @endguest
 

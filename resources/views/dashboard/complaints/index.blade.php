@@ -32,7 +32,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Complaints
+                                Keluhan
                             </li>
                         </ol>
                     </nav>
@@ -87,7 +87,7 @@
                                         <div class="d-flex">
                                             @if ($complaint->status == 2)
                                                 <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Detail dari keluhan kamu yang sudah selesai."
+                                                    data-bs-original-title="Rincian dari keluhan kamu yang sudah selesai."
                                                     href="/dashboard/complaints/{{ $complaint->slug }}"
                                                     class="btn btn-info px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>
@@ -95,7 +95,7 @@
                                             @elseif($complaint->status < 2)
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Lakukan editing terhadap keluhan kamu."
+                                                        data-bs-original-title="Lakukan penyuntingan terhadap keluhan kamu."
                                                         href="/dashboard/complaints/{{ $complaint->slug }}/edit"
                                                         class="btn btn-warning px-2 pt-2">
                                                         <span class="fa-fw fa-lg select-all fas"></span>
@@ -103,7 +103,7 @@
                                                 </div>
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Detail dari keluhan kamu."
+                                                        data-bs-original-title="Rincian dari keluhan kamu."
                                                         href="/dashboard/complaints/{{ $complaint->slug }}"
                                                         class="btn btn-info px-2 pt-2">
                                                         <span class="fa-fw fa-lg select-all fas"></span>

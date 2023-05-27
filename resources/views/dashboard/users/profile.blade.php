@@ -20,7 +20,7 @@
                             href="{{ $previousUrl }}" class="btn btn-secondary px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
-                        <a data-bs-toggle="tooltip" data-bs-original-title="Edit akun kamu."
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Sunting akun kamu."
                             href="/dashboard/user/account/setting" class="btn btn-warning px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas"></span>
                         </a>
@@ -29,24 +29,12 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            @can('admin')
-                                <li class="breadcrumb-item">
-                                    <a href="/dashboard">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="/dashboard/users">Users</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Profile
-                                </li>
-                            @else
-                                <li class="breadcrumb-item">
-                                    <a href="/dashboard">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Profile
-                                </li>
-                            @endcan
+                            <li class="breadcrumb-item">
+                                <a href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Akun
+                            </li>
                         </ol>
                     </nav>
                 </div>

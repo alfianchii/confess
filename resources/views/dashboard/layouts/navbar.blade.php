@@ -11,17 +11,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-lg-0" id="notif">
                 {{-- <li class="nav-item dropdown me-1">
-                <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    <i class="bi bi-envelope bi-sub fs-4"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                    <li>
-                        <h6 class="dropdown-header">Mail</h6>
-                    </li>
-                    <li><a class="dropdown-item" href="#">No new mail</a></li>
-                </ul>
-            </li> --}}
+                    <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        <i class="bi bi-envelope bi-sub fs-4"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                        <li>
+                            <h6 class="dropdown-header">Mail</h6>
+                        </li>
+                        <li><a class="dropdown-item" href="#">No new mail</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item dropdown me-3">
                     <a class="nav-link active dropdown-toggle text-gray-600" href="#" data-bs-toggle="dropdown"
                         data-bs-display="static" aria-expanded="false">
@@ -30,7 +30,7 @@
                     <ul class="dropdown-menu dropdown-menu-center dropdown-menu-md-end notification-dropdown"
                         aria-labelledby="dropdownMenuButton">
                         <li class="dropdown-header">
-                            <h6>Notifications</h6>
+                            <h6>Notifikasi</h6>
                         </li>
                         <li class="dropdown-item notification-item">
                             <a class="d-flex align-items-center" href="#">
@@ -39,10 +39,10 @@
                                 </div>
                                 <div class="notification-text ms-4">
                                     <p class="notification-title font-bold">
-                                        Successfully check out
+                                        Berhasil melakukan pembayaran
                                     </p>
                                     <p class="notification-subtitle font-thin text-sm">
-                                        Order ID #256
+                                        ID Pesanan #256
                                     </p>
                                 </div>
                             </a>
@@ -54,10 +54,10 @@
                                 </div>
                                 <div class="notification-text ms-4">
                                     <p class="notification-title font-bold">
-                                        Homework submitted
+                                        Pekerjaan rumah telah dikirim
                                     </p>
                                     <p class="notification-subtitle font-thin text-sm">
-                                        Algebra math homework
+                                        Matematika Aljabar
                                     </p>
                                 </div>
                             </a>
@@ -68,7 +68,7 @@
                             </p>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
             <div class="dropdown">
                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,17 +91,17 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                     style="min-width: 11rem">
                     <li>
-                        <h6 class="dropdown-header">Hello, {{ auth()->user()->username }}!</h6>
+                        <h6 class="dropdown-header">Halo, {{ auth()->user()->username }}!</h6>
                     </li>
                     <li>
                         <a class="dropdown-item @if (Request::is('dashboard/user/account/profile*')) active @endif"
-                            href="/dashboard/user/account/profile"><i class="icon-mid bi bi-person me-2"></i> My
-                            Profile</a>
+                            href="/dashboard/user/account/profile"><i class="icon-mid bi bi-person me-2"></i> Profil
+                            Saya</a>
                     </li>
                     <li>
                         <a class="dropdown-item @if (Request::is('dashboard/user/account/setting*')) active @endif"
                             href="/dashboard/user/account/setting"><i class="icon-mid bi bi-gear me-2"></i>
-                            Settings</a>
+                            Pengaturan Akun</a>
                     </li>
                     <li>
                         <a class="dropdown-item @if (Request::is('dashboard/user/account/password*')) active @endif"
@@ -115,7 +115,7 @@
                         <form action="/logout" method="post">
                             @csrf
                             <button type="submit" class="dropdown-item"><i
-                                    class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</button>
+                                    class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</button>
                         </form>
                     </li>
                 </ul>

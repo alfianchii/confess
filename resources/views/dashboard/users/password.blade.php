@@ -23,24 +23,15 @@
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
-                            @can('admin')
-                                <li class="breadcrumb-item">
-                                    <a href="/dashboard">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="/dashboard/users">Users</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Profile
-                                </li>
-                            @else
-                                <li class="breadcrumb-item">
-                                    <a href="/dashboard">Dashboard</a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    Profile
-                                </li>
-                            @endcan
+                            <li class="breadcrumb-item">
+                                <a href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/dashboard/user/account/profile">Akun</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Password
+                            </li>
                         </ol>
                     </nav>
                 </div>
@@ -60,7 +51,7 @@
             <div class="card mb-5">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h3 class="card-title">Pengguna</h3>
+                        <h3 class="card-title">Password</h3>
                     </div>
                 </div>
                 <div class="card-body">

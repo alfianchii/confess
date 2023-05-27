@@ -158,7 +158,7 @@
                                                     (Dashboard)</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
-                                                        placeholder='SMK NEGERI 4 TANGERANG' id="FOOTER_TEXT_DASHBOARD"
+                                                        placeholder='SMK Negeri 4 Tangerang' id="FOOTER_TEXT_DASHBOARD"
                                                         name="FOOTER_TEXT_DASHBOARD"
                                                         value="{{ old('FOOTER_TEXT_DASHBOARD', config('web_config')['FOOTER_TEXT_DASHBOARD']) }}" />
                                                     <div class="form-control-icon">

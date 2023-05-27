@@ -31,10 +31,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/users">Users</a>
+                                <a href="/dashboard/users">Pengguna</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Register
+                                Registrasi
                             </li>
                         </ol>
                     </nav>

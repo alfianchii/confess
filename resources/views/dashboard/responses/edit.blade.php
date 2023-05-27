@@ -10,9 +10,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>Edit Tanggapan</h2>
+                    <h2>Sunting Tanggapan</h2>
                     <p class="text-subtitle text-muted">
-                        Berikan pendapat kamu mengenai suatu keluhan.
+                        Lakukan penyuntingan terhadap suatu tanggapan.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -37,10 +37,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/responses">Responses</a>
+                                <a href="/dashboard/responses">Tanggapan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Edit
+                                Sunting
                             </li>
                         </ol>
                     </nav>

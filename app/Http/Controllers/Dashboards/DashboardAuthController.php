@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Dashboards;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardAuthController extends Controller
 {
+    protected $redirectTo = RouteServiceProvider::HOME;
+
     public function index()
     {
         return view("auth.login", ["title" => "Login"]);
@@ -24,10 +27,10 @@ class DashboardAuthController extends Controller
             $request->session()->regenerate();
 
             // return redirect()->intended('/dashboard')->with("success", "Login berhasil!");
-            return redirect()->intended('/dashboard');
+            return redirect()->intended($this->redirectTo)->with("success", "Login berhasil!");
         }
 
-        return redirect('/login')->with("error", 'Login gagal');
+        return redirect('/login')->with("error", 'Login gagal :(');
     }
 
     public function logout(Request $request)

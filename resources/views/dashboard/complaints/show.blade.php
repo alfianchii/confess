@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h2>Kronologi Kejadian</h2>
                     <p class="text-subtitle text-muted">
-                        Detail dari keluhan yang kamu alami.
+                        Rincian dari keluhan yang kamu alami.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -22,7 +22,7 @@
                             href="{{ $previousUrl }}" class="btn btn-secondary px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
-                        <a data-bs-toggle="tooltip" data-bs-original-title="Lakukan editing terhadap keluhan kamu."
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Lakukan penyuntingan terhadap keluhan kamu."
                             href="/dashboard/complaints/{{ $complaint->slug }}/edit" class="btn btn-warning px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas"></span>
                         </a>
@@ -40,10 +40,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/complaints">Complaints</a>
+                                <a href="/dashboard/complaints">Keluhan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Detail
+                                Rincian
                             </li>
                         </ol>
                     </nav>

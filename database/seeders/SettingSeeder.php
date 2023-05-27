@@ -24,7 +24,7 @@ class SettingSeeder extends Seeder
             ['key' => 'HERO_TEXT_HEADER', 'value' => 'Sistem Pengaduan Online SMKN 4 Kota Tangerang'],
             ['key' => 'HERO_TEXT_DESCRIPTION', 'value' => 'Sampaikan laporan, kritik, atau saran kamu di website ini~'],
             ['key' => 'FOOTER_IMAGE', 'value' => 'logo-smk-4.png'],
-            ['key' => 'FOOTER_TEXT_DASHBOARD', 'value' => 'SMK NEGERI 4 TANGERANG'],
+            ['key' => 'FOOTER_TEXT_DASHBOARD', 'value' => 'SMK Negeri 4 Tangerang'],
             ['key' => 'FOOTER_IMAGE_DASHBOARD', 'value' => 'smk.png'],
         ]);
     }

@@ -26,7 +26,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Responses
+                                Tanggapan
                             </li>
                         </ol>
                     </nav>
@@ -81,7 +81,7 @@
                                         <div class="d-flex">
                                             @if ($response->complaint->status == 2)
                                                 <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Detail dari keluhan siswa yang sudah selesai."
+                                                    data-bs-original-title="Rincian dari keluhan siswa yang sudah selesai."
                                                     href="/dashboard/responses/create/{{ $response->complaint->slug }}"
                                                     class="btn btn-info px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>
@@ -89,7 +89,7 @@
                                             @elseif($response->complaint->status < 2)
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Edit tanggapan yang kamu miliki."
+                                                        data-bs-original-title="Sunting tanggapan yang kamu miliki."
                                                         href="/dashboard/responses/{{ $response->id }}/edit"
                                                         class="btn btn-warning px-2 pt-2">
                                                         <span class="fa-fw fa-lg select-all fas"></span>
@@ -98,7 +98,7 @@
 
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Lihat detail dari tanggapan kamu."
+                                                        data-bs-original-title="Lihat rincian dari tanggapan kamu."
                                                         href="/dashboard/responses/{{ $response->id }}"
                                                         class="btn btn-info px-2 pt-2">
                                                         <span class="fa-fw fa-lg select-all fas"></span>

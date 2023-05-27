@@ -22,10 +22,12 @@
             </div>
             <div class="col-12">
                 @if (session()->has('success'))
-                    <div class="alert bg alert-dismissible show fade mt-4">
-                        {{ session('success') }}
-                        <button type="button" class="btn-close text-white" data-bs-dismiss="alert"
-                            aria-label="Close"></button>
+                    <div class="w-100 mx-auto px-5">
+                        <div class="alert bg alert-dismissible show fade mt-4">
+                            {{ session('success') }}
+                            <button type="button" class="btn-close text-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        </div>
                     </div>
                 @endif
                 <div class="container">
@@ -33,38 +35,38 @@
                     <div class="row alur-lapor mt-5 d-flex text-center align-content-start">
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/Edit Property.svg" alt="icon" width="32">
+                                <img src="{{ asset('images/icon/edit-property.svg') }}" alt="icon" width="32">
                             </div>
                             <h5 class="mt-2">Tulis Laporan</h5>
-                            <p class="d-md-block d-none">Laporkan keluhan atau aspirasi anda dengan jelas dan lengkap</p>
+                            <p class="d-md-block d-none">Tuliskan laporan kamu secara menyeluruh.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/In Progress.svg" alt="icon" width="36">
+                                <img src="{{ asset('images/icon/in-progress.svg') }}" alt="icon" width="36">
                             </div>
                             <h5 class="mt-2">Proses Verifikasi</h5>
-                            <p class="d-md-block d-none">Laporan Anda akan diverifikasi dan diteruskan </p>
+                            <p class="d-md-block d-none">Laporan kamu akan diverifikasi dan diteruskan.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/Messaging.svg" alt="icon" width="37">
+                                <img src="{{ asset('images/icon/messaging.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
-                            <p class="d-md-block d-none">Petugas akan memperlajari dan menindaklanjuti laporan Anda</p>
+                            <p class="d-md-block d-none">Petugas akan menindak-lanjuti laporan kamu.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/Chat Bubble.svg" alt="icon" width="37">
+                                <img src="{{ asset('images/icon/chat-bubble.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Dapat Tanggapan</h5>
-                            <p class="d-md-block d-none">Laporan anda akan di tanggapi oleh petugas</p>
+                            <p class="d-md-block d-none">Laporan kamu akan di tanggapi oleh petugas.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="../images/icon/Done.svg" alt="icon" width="37">
+                                <img src="{{ asset('images/icon/done.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Selesai</h5>
-                            <p class="d-md-block d-none">Laporan Anda akan terus ditindaklanjuti hingga terselesaikan</p>
+                            <p class="d-md-block d-none">Selamat, laporan kamu sudah terselesaikan!</p>
                         </div>
                     </div>
                 </div>
@@ -90,7 +92,7 @@
                 <div class="container">
                     <div class="row my-5">
                         <div class="col-12 mb-5">
-                            <h2 class="text-center">Keuntungan menggunakan {{ config('web_config')['WEB_TITLE'] }}</h2>
+                            <h2 class="text-center">Keuntungan Menggunakan {{ config('web_config')['WEB_TITLE'] }}</h2>
                         </div>
                         <div class="row card-keuntungan d-block d-md-flex justify-content-center text-center mx-auto">
                             <div class="col">
@@ -100,9 +102,10 @@
                                             <img src="../images/icon/privasi.svg" alt="icon" width="36"
                                                 class="icon-keuntungan">
                                         </div>
-                                        <h5 class="my-3">Privasi terjaga</h5>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, quasi totam
-                                            veniam voluptate excepturi mollitia.</p>
+                                        <h5 class="my-3">Privasi Terjaga</h5>
+                                        <p>Aplikasi ini didesain untuk menjaga kerahasiaan informasi pribadi kamu. Dengan
+                                            demikian, kamu dapat merasa tenang dan percaya diri saat menggunakan aplikasi
+                                            ini, karena privasi kamu menjadi prioritas utama.</p>
                                     </div>
                                 </div>
                             </div>
@@ -113,9 +116,10 @@
                                             <img src="../images/icon/keamanan.svg" alt="icon" width="35"
                                                 class="icon-keuntungan">
                                         </div>
-                                        <h5 class="my-3">Melapor dengan aman</h5>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, quasi totam
-                                            veniam voluptate excepturi mollitia.</p>
+                                        <h5 class="my-3">Melapor dengan Aman</h5>
+                                        <p>Confess menyediakan pengalaman melapor yang aman dan terjamin. kamu dapat
+                                            mengungkapkan berbagai permasalahan, pengalaman, atau pikiran tanpa khawatir
+                                            tentang kebocoran identitas kamu.</p>
                                     </div>
                                 </div>
                             </div>
@@ -126,9 +130,11 @@
                                             <img src="../images/icon/tanggap.svg" alt="icon" width="36"
                                                 class="icon-keuntungan">
                                         </div>
-                                        <h5 class="my-3">Laporan ditanggapi</h5>
-                                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt, quasi totam
-                                            veniam voluptate excepturi mollitia.</p>
+                                        <h5 class="my-3">Ditanggapi Secara Cepat</h5>
+                                        <p>Laporan yang kamu buat akan cepat ditanggapi. Dengan demikian, kamu dapat
+                                            merasa didengar dan
+                                            mendapatkan tanggapan yang relevan terhadap keluhan, saran, atau masukan yang
+                                            kamu berikan.</p>
                                     </div>
                                 </div>
                             </div>

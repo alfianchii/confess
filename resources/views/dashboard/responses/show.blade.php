@@ -14,7 +14,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h2>Tentang Tanggapan</h2>
                     <p class="text-subtitle text-muted">
-                        Detail dari tanggapan yang kamu berikan.
+                        Rincian dari tanggapan yang kamu berikan.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -23,7 +23,7 @@
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
                         @if ($response->complaint->status != 2)
-                            <a data-bs-toggle="tooltip" data-bs-original-title="Edit tanggapan milik kamu."
+                            <a data-bs-toggle="tooltip" data-bs-original-title="Sunting tanggapan milik kamu."
                                 href="/dashboard/responses/{{ $response->id }}/edit" class="btn btn-warning px-2 pt-2 me-1">
                                 <span class="fa-fw fa-lg select-all fas"></span>
                             </a>
@@ -43,10 +43,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/responses">Responses</a>
+                                <a href="/dashboard/responses">Tanggapan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Detail
+                                Rincian
                             </li>
                         </ol>
                     </nav>

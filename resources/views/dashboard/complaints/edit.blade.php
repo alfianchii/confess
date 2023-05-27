@@ -18,9 +18,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>Edit Keluhan</h2>
+                    <h2>Sunting Keluhan</h2>
                     <p class="text-subtitle text-muted">
-                        Ceritakan keluhan yang kamu miliki.
+                        Lakukan penyuntingan terhadap suatu keluhan.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -42,10 +42,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/complaints">Complaints</a>
+                                <a href="/dashboard/complaints">Keluhan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Edit
+                                Sunting
                             </li>
                         </ol>
                     </nav>

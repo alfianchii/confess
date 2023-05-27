@@ -63,7 +63,7 @@
                     <li class="sidebar-item {{ Request::is('dashboard/complaints*') ? 'active' : '' }}">
                         <a href="/dashboard/complaints" class="sidebar-link">
                             <i class="bi bi-chat-heart-fill"></i>
-                            <span>Complaints</span>
+                            <span>Keluhan</span>
                         </a>
                     </li>
                 @endcan
@@ -72,17 +72,17 @@
                     <li class="sidebar-item {{ Request::is('dashboard/responses*') ? 'active' : '' }}">
                         <a href="/dashboard/responses" class="sidebar-link">
                             <i class="bi bi-stack"></i>
-                            <span>Responses</span>
+                            <span>Tanggapan</span>
                         </a>
                     </li>
                 @endcannot
 
                 @can('admin')
-                    <li class="sidebar-title">Administrator</li>
+                    <li class="sidebar-title">Admin</li>
                     <li class="sidebar-item {{ Request::is('dashboard/categories*') ? 'active' : '' }}">
                         <a href="/dashboard/categories" class="sidebar-link">
                             <i class="bi bi-card-list"></i>
-                            <span>Categories</span>
+                            <span>Kategori</span>
                         </a>
                     </li>
 
@@ -90,34 +90,34 @@
                         class="sidebar-item has-sub {{ (Request::is('dashboard/users*') or Request::is('dashboard/user/register')) ? 'active' : '' }}">
                         <a href="#" class="sidebar-link">
                             <i class="bi bi-person-fill"></i>
-                            <span>User</span>
+                            <span>Pengguna</span>
                         </a>
                         <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
                             <li class="submenu-item {{ Request::is('dashboard/users*') ? 'active' : '' }}">
-                                <a href="/dashboard/users">All</a>
+                                <a href="/dashboard/users">Semua</a>
                             </li>
                             <li class="submenu-item {{ Request::is('dashboard/user/register*') ? 'active' : '' }}">
-                                <a href="/dashboard/user/register">Register</a>
+                                <a href="/dashboard/user/register">Registrasi</a>
                             </li>
                         </ul>
                     </li>
                 @endcan
 
-                <li class="sidebar-title">Setting</li>
+                <li class="sidebar-title">Pengaturan</li>
                 <li class="sidebar-item has-sub {{ Request::is('dashboard/user/account*') ? 'active' : '' }}">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-person"></i>
-                        <span>Account</span>
+                        <span>Akun</span>
                     </a>
                     <ul class="submenu {{ Request::is('dashboard/users*') ? 'active' : '' }}">
                         <li class="submenu-item {{ Request::is('dashboard/user/account/profile*') ? 'active' : '' }}">
-                            <a href="/dashboard/user/account/profile">Profile</a>
+                            <a href="/dashboard/user/account/profile">Profil</a>
                         </li>
                         <li class="submenu-item {{ Request::is('dashboard/user/account/setting*') ? 'active' : '' }}">
-                            <a href="/dashboard/user/account/setting">Setting</a>
+                            <a href="/dashboard/user/account/setting">Pengaturan</a>
                         </li>
                         <li class="submenu-item {{ Request::is('dashboard/user/account/password*') ? 'active' : '' }}">
-                            <a href="/dashboard/user/account/password">Change Password</a>
+                            <a href="/dashboard/user/account/password">Ganti Password</a>
                         </li>
                     </ul>
                 </li>

@@ -196,7 +196,7 @@
                                                             <div class="d-flex">
                                                                 @if ($complaint->status == 2)
                                                                     <a data-bs-toggle="tooltip"
-                                                                        data-bs-original-title="Detail dari keluhan milik {{ $complaint->student->user->name }}."
+                                                                        data-bs-original-title="Rincian dari keluhan milik {{ $complaint->student->user->name }}."
                                                                         href="/dashboard/responses/create/{{ $complaint->slug }}"
                                                                         class="btn btn-info px-2 pt-2">
                                                                         <span class="fa-fw fa-lg select-all fas"></span>
@@ -529,7 +529,7 @@
                                                             <div class="d-flex">
                                                                 @if ($complaint->status == 2)
                                                                     <a data-bs-toggle="tooltip"
-                                                                        data-bs-original-title="Detail dari keluhan milik {{ $complaint->student->user->name }}."
+                                                                        data-bs-original-title="Rincian dari keluhan milik {{ $complaint->student->user->name }}."
                                                                         href="/dashboard/responses/create/{{ $complaint->slug }}"
                                                                         class="btn btn-info px-2 pt-2">
                                                                         <span class="fa-fw fa-lg select-all fas"></span>

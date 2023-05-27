@@ -33,10 +33,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/categories">Categories</a>
+                                <a href="/dashboard/categories">Kategori</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Create
+                                Tambah
                             </li>
                         </ol>
                     </nav>

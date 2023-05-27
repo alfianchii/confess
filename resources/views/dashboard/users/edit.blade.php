@@ -12,9 +12,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>Edit Pengguna</h2>
+                    <h2>Sunting Pengguna</h2>
                     <p class="text-subtitle text-muted">
-                        Pengguna bisa melakukan sesuatu di {{ config('web_config')['WEB_TITLE'] }}.
+                        Lakukan penyuntingan terhadap seorang pengguna.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -38,10 +38,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/users">Users</a>
+                                <a href="/dashboard/users">Pengguna</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Edit
+                                Sunting
                             </li>
                         </ol>
                     </nav>

@@ -26,7 +26,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                User
+                                Pengguna
                             </li>
                         </ol>
                     </nav>
@@ -86,7 +86,7 @@
                                         <div class="d-flex">
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Edit pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                                    data-bs-original-title="Sunting pengguna {{ htmlspecialchars('@' . $user->username) }}."
                                                     href="/dashboard/users/{{ $user->username }}/edit"
                                                     class="btn btn-warning px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>
@@ -94,7 +94,7 @@
                                             </div>
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"
-                                                    data-bs-original-title="Detail dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                                    data-bs-original-title="Rincian dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
                                                     href="/dashboard/users/{{ $user->username }}"
                                                     class="btn btn-info px-2 pt-2">
                                                     <span class="fa-fw fa-lg select-all fas"></span>

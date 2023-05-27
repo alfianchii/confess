@@ -31,10 +31,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/responses">Responses</a>
+                                <a href="/dashboard/responses">Tanggapan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Create
+                                Tambah
                             </li>
                         </ol>
                     </nav>
@@ -286,7 +286,7 @@
                                                     <div class="btn-group" id="responses">
                                                         <div class="me-2">
                                                             <a data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Edit tanggapan milik kamu."
+                                                                data-bs-original-title="Sunting tanggapan milik kamu."
                                                                 href="/dashboard/responses/{{ $response->id }}/edit"
                                                                 class="btn btn-warning px-2 pt-2">
                                                                 <span class="fa-fw fa-lg select-all fas"></span>
@@ -295,7 +295,7 @@
 
                                                         <div class="me-2">
                                                             <a data-bs-toggle="tooltip"
-                                                                data-bs-original-title="Detail dari tanggapan yang kamu buat."
+                                                                data-bs-original-title="Rincian dari tanggapan yang kamu buat."
                                                                 href="/dashboard/responses/{{ $response->id }}"
                                                                 class="btn btn-info px-2 pt-2">
                                                                 <span class="fa-fw fa-lg select-all fas"></span>

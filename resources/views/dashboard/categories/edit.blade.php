@@ -14,9 +14,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>Edit Kategori</h2>
+                    <h2>Sunting Kategori</h2>
                     <p class="text-subtitle text-muted">
-                        Buatlah sebuah kategori untuk keluhan.
+                        Lakukan penyuntingan terhadap suatu kategori.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -38,10 +38,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/categories">Categories</a>
+                                <a href="/dashboard/categories">Kategori</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Create
+                                Sunting
                             </li>
                         </ol>
                     </nav>

@@ -10,7 +10,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>Detail Pengguna</h2>
+                    <h2>Rincian Pengguna</h2>
                     <p class="text-subtitle text-muted">
                         Keseluruhan data pengguna {{ htmlspecialchars('@' . $user->username) }}.
                     </p>
@@ -21,7 +21,7 @@
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                         </a>
                         <a data-bs-toggle="tooltip"
-                            data-bs-original-title="Edit pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                            data-bs-original-title="Sunting pengguna {{ htmlspecialchars('@' . $user->username) }}."
                             href="/dashboard/users/{{ $user->username }}/edit" class="btn btn-warning px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas"></span>
                         </a>
@@ -41,10 +41,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/users">Users</a>
+                                <a href="/dashboard/users">Pengguna</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Detail
+                                Rincian
                             </li>
                         </ol>
                     </nav>

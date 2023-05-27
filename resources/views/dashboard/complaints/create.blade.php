@@ -37,10 +37,10 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/complaints">Complaints</a>
+                                <a href="/dashboard/complaints">Keluhan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Create
+                                Tambah
                             </li>
                         </ol>
                     </nav>
