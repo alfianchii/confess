@@ -111,7 +111,7 @@ class DashboardResponseController extends Controller
         }
 
         return view("dashboard.responses.edit", [
-            "title" => "Edit Tanggapan",
+            "title" => "Sunting Tanggapan",
             "response" => $response,
             "complaint" => $response->complaint,
             "previousUrl" => $previousUrl,

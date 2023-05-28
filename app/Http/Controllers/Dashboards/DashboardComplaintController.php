@@ -23,7 +23,7 @@ class DashboardComplaintController extends Controller
         $complaints = Complaint::with(["student", "responses", "category"])->where('student_nik', auth()->user()->nik)->orderBy('created_at', "desc")->get();
 
         return view("dashboard.complaints.index", [
-            "title" => "Complaints",
+            "title" => "Keluhan",
             "complaints" => $complaints,
         ]);
     }
@@ -123,7 +123,7 @@ class DashboardComplaintController extends Controller
         }
 
         return view("dashboard.complaints.edit", [
-            "title" => "Edit",
+            "title" => "Sunting Keluhan",
             "complaint" => $complaint,
             "categories" => Category::all(),
             "previousUrl" => $previousUrl,

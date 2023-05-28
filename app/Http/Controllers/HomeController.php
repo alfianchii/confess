@@ -17,7 +17,7 @@ class HomeController extends Controller
         $complaintsCount = Complaint::count();
 
         return view('home', [
-            "title" => "Welcome!",
+            "title" => "Selamat Datang",
             "complaintsCount" => $complaintsCount,
         ]);
     }

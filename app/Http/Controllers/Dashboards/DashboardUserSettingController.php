@@ -20,7 +20,7 @@ class DashboardUserSettingController extends Controller
         $previousUrl = $request->headers->get('referer');
 
         return view("dashboard.users.profile", [
-            "title" => "Profile",
+            "title" => "Profil",
             "user" => Auth::user(),
             "previousUrl" => $previousUrl
         ]);
@@ -36,7 +36,7 @@ class DashboardUserSettingController extends Controller
         $previousUrl = $request->headers->get('referer');
 
         return view("dashboard.users.setting", [
-            "title" => "Setting",
+            "title" => "Pengaturan",
             "user" => Auth::user(),
             "previousUrl" => $previousUrl
         ]);
@@ -106,7 +106,7 @@ class DashboardUserSettingController extends Controller
             // Store original image
             $imageOriginalPath = $request->file('image')->store("user-images");
 
-            // Set path 
+            // Set path
             $userCredentials["image"] = $imageOriginalPath;
 
             // Open image using Intervention Image

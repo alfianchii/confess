@@ -16,7 +16,7 @@ class DashboardSettingController extends Controller
      */
     public function index(Request $request)
     {
-        $title = "Website Settings";
+        $title = "Pengaturan Website";
         $settings = Setting::all()->pluck("value", "key");
         $previousUrl = $request->headers->get('referer');
 

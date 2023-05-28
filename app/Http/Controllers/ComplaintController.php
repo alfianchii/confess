@@ -21,11 +21,13 @@ class ComplaintController extends Controller
         $category = Category::firstWhere("slug", request("category"))->name ?? '';
         $username = User::firstWhere("username", request("user"))->name ?? "";
 
-        $title = request("category") ? "in " . $category : '';
-        $title = request("user") ? "by " . $username : $title;
+        $title = request("category") ? "dengan " . $category : '';
+        $title = request("user") ? "oleh " . $username : $title;
+        $title = request("status") ? "dengan " . request("status") : $title;
+        $title = request("privacy") ? "dengan " . request("privacy") : $title;
 
         return view("complaints.index", [
-            "title" => "Complaints $title",
+            "title" => "Keluhan $title",
             "complaints" => $complaints,
         ]);
     }

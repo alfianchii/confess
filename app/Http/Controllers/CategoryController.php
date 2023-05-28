@@ -15,7 +15,7 @@ class CategoryController extends Controller
     public function index()
     {
         return view("categories.index", [
-            "title" => "Complaint Categories",
+            "title" => "Kategori Keluhan",
             "categories" => Category::all()->sortBy("name"),
         ]);
     }

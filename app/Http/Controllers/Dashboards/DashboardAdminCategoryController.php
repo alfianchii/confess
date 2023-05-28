@@ -21,7 +21,7 @@ class DashboardAdminCategoryController extends Controller
     public function index()
     {
         return view("dashboard.categories.index", [
-            "title" => "Categories",
+            "title" => "Kategori",
             "categories" => Category::all()->sortByDesc("created_at")
         ]);
     }
@@ -36,7 +36,7 @@ class DashboardAdminCategoryController extends Controller
         $previousUrl = $request->headers->get('referer');
 
         return view("dashboard.categories.create", [
-            "title" => "Categories",
+            "title" => "Kategori",
             "previousUrl" => $previousUrl
         ]);
     }
@@ -61,7 +61,7 @@ class DashboardAdminCategoryController extends Controller
             // Store original image
             $imageOriginalPath = $request->file('image')->store("category-images");
 
-            // Set path 
+            // Set path
             $credentials["image"] = $imageOriginalPath;
 
             // Open image using Intervention Image
@@ -130,7 +130,7 @@ class DashboardAdminCategoryController extends Controller
             // Store original image
             $imageOriginalPath = $request->file('image')->store("category-images");
 
-            // Set path 
+            // Set path
             $credentials["image"] = $imageOriginalPath;
 
             // Open image using Intervention Image

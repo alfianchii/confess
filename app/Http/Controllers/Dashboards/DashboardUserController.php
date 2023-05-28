@@ -38,7 +38,7 @@ class DashboardUserController extends Controller
         $previousUrl = $request->headers->get('referer');
 
         return view("dashboard.users.register", [
-            "title" => "Register",
+            "title" => "Registrasi",
             "previousUrl" => $previousUrl
         ]);
     }
@@ -75,7 +75,7 @@ class DashboardUserController extends Controller
             // Store original image
             $imageOriginalPath = $request->file('image')->store("user-images");
 
-            // Set path 
+            // Set path
             $credentials["image"] = $imageOriginalPath;
 
             // Open image using Intervention Image
@@ -126,7 +126,7 @@ class DashboardUserController extends Controller
         $previousUrl = $request->headers->get('referer');
 
         return view("dashboard.users.edit", [
-            "title" => "Edit " . $user->username,
+            "title" => "Sunting pengguna " . $user->username,
             "user" => $user,
             "previousUrl" => $previousUrl,
         ]);
@@ -175,7 +175,7 @@ class DashboardUserController extends Controller
             // Store original image
             $imageOriginalPath = $request->file('image')->store("user-images");
 
-            // Set path 
+            // Set path
             $credentials["image"] = $imageOriginalPath;
 
             // Open image using Intervention Image
