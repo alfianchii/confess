@@ -673,7 +673,7 @@
                                         <div class="col-md-2 d-flex align-items-start">
                                             @if ($response->officer->user->image)
                                                 <img width="200"
-                                                    src="{{ asset('storage/' . $response->officer->user->image) }}"
+                                                    src="{{ asset('images/' . $response->officer->user->image) ?? asset('storage/' . $response->officer->user->image) }}"
                                                     alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
