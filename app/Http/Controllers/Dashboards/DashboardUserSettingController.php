@@ -112,10 +112,10 @@ class DashboardUserSettingController extends Controller
             // Open image using Intervention Image
             $imageCrop = Image::make("storage/" . $imageOriginalPath);
 
-            // Crop the image to a square with a width of 300 pixels
+            // Crop the image to a square with a width of 1200 pixels
             $imageCrop->fit(1200, 1200, function ($constraint) {
                 $constraint->upsize();
-            }, "top");
+            }, "center");
 
             // Replace original image with cropped image
             Storage::put($imageOriginalPath, $imageCrop->stream());
