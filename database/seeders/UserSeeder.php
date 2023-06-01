@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
                 "email" => "alfianganteng@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => 'admin',
+                "image" => "user-images/muhammad-alfian.jpg",
                 "created_at" => now()
             ],
             [
@@ -36,6 +37,7 @@ class UserSeeder extends Seeder
                 "email" => "nanaa@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => 'admin',
+                "image" => null,
                 "created_at" => now()
             ],
             // Students
@@ -47,6 +49,7 @@ class UserSeeder extends Seeder
                 "email" => "surya.dev@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => "student",
+                "image" => "user-images/surya-nata.jpg",
                 "created_at" => now()
             ],
             [
@@ -57,6 +60,7 @@ class UserSeeder extends Seeder
                 "email" => "noval.yudis@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => "student",
+                "image" => null,
                 "created_at" => now()
             ],
             [
@@ -67,6 +71,7 @@ class UserSeeder extends Seeder
                 "email" => "pasyaa@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => "student",
+                "image" => null,
                 "created_at" => now()
             ],
             // Officers
@@ -78,6 +83,7 @@ class UserSeeder extends Seeder
                 "email" => "fauzyabdullah@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => "officer",
+                "image" => "user-images/fauzi-abdullah.jpg",
                 "created_at" => now()
             ],
             [
@@ -88,6 +94,7 @@ class UserSeeder extends Seeder
                 "email" => "shandi@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => "officer",
+                "image" => null,
                 "created_at" => now()
             ],
             [
@@ -98,6 +105,7 @@ class UserSeeder extends Seeder
                 "email" => "arif@gmail.com",
                 "password" => Hash::make("password"),
                 "level" => "officer",
+                "image" => null,
                 "created_at" => now()
             ]
         ]);

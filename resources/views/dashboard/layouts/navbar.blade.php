@@ -80,9 +80,10 @@
                         <div class="user-img d-flex align-items-center">
                             <div class="avatar avatar-md">
                                 @if (auth()->user()->image)
-                                    <img src="{{ asset('storage') . '/' . auth()->user()->image }}" />
+                                    <img src="{{ asset('images/' . auth()->user()->image) ?? asset('storage/' . auth()->user()->image) }}"
+                                        alt="User Avatar" />
                                 @else
-                                    <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
+                                    <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="User Avatar" />
                                 @endif
                             </div>
                         </div>

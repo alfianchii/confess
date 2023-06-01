@@ -58,8 +58,9 @@
                                     </td>
                                     <td>
                                         @if ($user->image)
-                                            <img class="rounded" width="100" src="{{ asset("storage/$user->image") }}"
-                                                alt="Foto">
+                                            <img class="rounded" width="100"
+                                                src="{{ asset("images/$user->image") ?? asset("storage/$user->image") }}"
+                                                alt="User Avatar">
                                         @else
                                             Tidak ada
                                         @endif

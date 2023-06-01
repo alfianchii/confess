@@ -52,7 +52,8 @@
                 <div class="card-body">
                     <div class="text-center mb-3">
                         @if ($user->image)
-                            <img width="150" class="rounded-circle" src="{{ asset("storage/$user->image") }}"
+                            <img width="150" class="rounded-circle"
+                                src="{{ asset("images/$user->image") ?? asset("storage/$user->image") }}"
                                 alt="{{ $user->username }}">
                         @else
                             @if ($user->gender == 'L')

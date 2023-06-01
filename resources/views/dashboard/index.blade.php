@@ -244,9 +244,10 @@
                                 <div class="text-center">
                                     <div class="avatar avatar-xl mb-3">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" />
+                                            <img src="{{ asset('images/' . auth()->user()->image) ?? asset('storage/' . auth()->user()->image) }}"
+                                                alt="User Avatar" />
                                         @else
-                                            <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
+                                            <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="User Avatar" />
                                         @endif
                                     </div>
                                     <div class="name">
@@ -268,15 +269,15 @@
                                         <div class="recent-message d-flex px-4 py-3">
                                             <div class="avatar avatar-lg">
                                                 @if ($complaint->student->user->image)
-                                                    <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
-                                                        alt="User avatar" />
+                                                    <img src="{{ asset('images/' . $complaint->student->user->image) ?? asset('storage/' . $complaint->student->user->image) }}"
+                                                        alt="User Avatar" />
                                                 @else
                                                     @if ($complaint->student->user->gender == 'L')
                                                         <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
-                                                            alt="User avatar" />
+                                                            alt="User Avatar" />
                                                     @else
                                                         <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
-                                                            alt="User avatar" />
+                                                            alt="User Avatar" />
                                                     @endif
                                                 @endif
                                             </div>
@@ -342,7 +343,7 @@
                                         <div class="col-md-2 d-flex align-items-start">
                                             @if ($response->officer->user->image)
                                                 <img width="200"
-                                                    src="{{ asset('storage/' . $response->officer->user->image) }}"
+                                                    src="{{ asset('images/' . $response->officer->user->image) ?? asset('storage/' . $response->officer->user->image) }}"
                                                     alt="User avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
@@ -585,9 +586,10 @@
                                 <div class="text-center">
                                     <div class="avatar avatar-xl mb-3">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" />
+                                            <img src="{{ asset('images/' . auth()->user()->image) ?? asset('storage/' . auth()->user()->image) }}"
+                                                alt="User Avatar" />
                                         @else
-                                            <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
+                                            <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="User Avatar" />
                                         @endif
                                     </div>
                                     <div class="name">
@@ -609,15 +611,15 @@
                                         <div class="recent-message d-flex px-4 py-3">
                                             <div class="avatar avatar-lg">
                                                 @if ($complaint->student->user->image)
-                                                    <img src="{{ asset('storage/' . $complaint->student->user->image) }}"
-                                                        alt="User avatar" />
+                                                    <img src="{{ asset('images/' . $complaint->student->user->image) ?? asset('storage/' . $complaint->student->user->image) }}"
+                                                        alt="User Avatar" />
                                                 @else
                                                     @if ($complaint->student->user->gender == 'L')
                                                         <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
-                                                            alt="User avatar" />
+                                                            alt="User Avatar" />
                                                     @else
                                                         <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
-                                                            alt="User avatar" />
+                                                            alt="User Avatar" />
                                                     @endif
                                                 @endif
                                             </div>
@@ -672,14 +674,14 @@
                                             @if ($response->officer->user->image)
                                                 <img width="200"
                                                     src="{{ asset('storage/' . $response->officer->user->image) }}"
-                                                    alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                    alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                             @else
                                                 @if ($response->officer->user->gender == 'L')
                                                     <img width="200" src="{{ asset('assets/static/images/faces/2.jpg') }}"
-                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                        alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                                 @else
                                                     <img width="200" src="{{ asset('assets/static/images/faces/5.jpg') }}"
-                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                        alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                                 @endif
                                             @endif
                                         </div>
@@ -799,9 +801,10 @@
                                 <div class="text-center">
                                     <div class="avatar avatar-xl mb-3">
                                         @if (auth()->user()->image)
-                                            <img src="{{ asset('storage/' . auth()->user()->image) }}" />
+                                            <img src="{{ asset('images/' . auth()->user()->image) ?? asset('storage/' . auth()->user()->image) }}"
+                                                alt="User Avatar" />
                                         @else
-                                            <img src="{{ asset('assets/static/images/faces/1.jpg') }}" />
+                                            <img src="{{ asset('assets/static/images/faces/1.jpg') }}" alt="User Avatar" />
                                         @endif
                                     </div>
                                     <div class="name">
@@ -857,17 +860,17 @@
                                             <div class="col-md-2 d-flex align-items-start">
                                                 @if ($response->officer->user->image)
                                                     <img width="200"
-                                                        src="{{ asset('storage/' . $response->officer->user->image) }}"
-                                                        alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                        src="{{ asset('images/' . $response->officer->user->image) ?? asset('storage/' . $response->officer->user->image) }}"
+                                                        alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                                 @else
                                                     @if ($response->officer->user->gender == 'L')
                                                         <img width="200"
                                                             src="{{ asset('assets/static/images/faces/2.jpg') }}"
-                                                            alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                            alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                                     @else
                                                         <img width="200"
                                                             src="{{ asset('assets/static/images/faces/5.jpg') }}"
-                                                            alt="User avatar" class="img-fluid rounded-circle mx-auto">
+                                                            alt="User Avatar" class="img-fluid rounded-circle mx-auto">
                                                     @endif
                                                 @endif
                                             </div>
