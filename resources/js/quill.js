@@ -32,7 +32,12 @@ export function quillTextEditor(
     });
 
     function updateBody() {
-        document.getElementById(body).value = quill.root.innerHTML;
+        // Quill body
+        const quillBody = document.getElementById(body);
+
+        // Validates if quill is empty
+        if (quill.getText().trim().length === 0) return (quillBody.value = "");
+        quillBody.value = quill.root.innerHTML;
     }
 
     quill.on("text-change", updateBody);
