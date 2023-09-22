@@ -5,7 +5,7 @@
                 <div class="logo">
                     <a href="/" class="d-flex align-items-center text-center justify-content-center">
                         {{-- If WEB_LOGO didn't contains "/" --}}
-                        @if (strpos(config('web_config')['WEB_LOGO'], '/') === false)
+                        @if (!strpos(config('web_config')['WEB_LOGO'], '/'))
                             <img class="w-100" src="{{ asset('images/' . config('web_config')['WEB_LOGO']) }}"
                                 alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
                         @else

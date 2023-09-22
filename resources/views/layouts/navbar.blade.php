@@ -3,7 +3,7 @@
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
             {{-- If WEB_LOGO_WHITE didn't contains "/" --}}
-            @if (strpos(config('web_config')['WEB_LOGO_WHITE'], '/') === false)
+            @if (!strpos(config('web_config')['WEB_LOGO_WHITE'], '/'))
                 <img src="{{ asset('images/' . config('web_config')['WEB_LOGO_WHITE']) }}"
                     alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
             @else

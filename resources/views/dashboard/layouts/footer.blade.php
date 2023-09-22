@@ -5,7 +5,7 @@
                 <p class="fs-5">Dikelola oleh</p>
                 <div class="d-flex align-items-center justify-content-center justify-content-md-start">
                     {{-- If FOOTER_IMAGE_DASHBOARD didn't contains "/" --}}
-                    @if (strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/') === false)
+                    @if (!strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/'))
                         <img src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
                             class="logo-smk4" alt="Footer Website" width="100%">
                     @else

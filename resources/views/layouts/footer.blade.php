@@ -5,7 +5,7 @@
                 <div class="col-12 col-sm-3 text-center text-sm-start text-white">
                     <p class="fs-5">Dikelola oleh</p>
                     {{-- If FOOTER_IMAGE didn't contains "/" --}}
-                    @if (strpos(config('web_config')['FOOTER_IMAGE'], '/') === false)
+                    @if (!strpos(config('web_config')['FOOTER_IMAGE'], '/'))
                         <img src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE']) }}" class="logo-smk"
                             alt="Footer Website" width="100%">
                     @else

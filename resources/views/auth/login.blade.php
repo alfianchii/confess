@@ -5,7 +5,7 @@
         <div class=" d-flex pt-3 pt-sm-0 align-items-center">
             <a href="/" class=" ms-3 ms-sm-5 me-auto  mb-2 mb-sm-5 logo-login">
                 {{-- If WEB_LOGO_WHITE didn't contains "/" --}}
-                @if (strpos(config('web_config')['WEB_LOGO_WHITE'], '/') === false)
+                @if (!strpos(config('web_config')['WEB_LOGO_WHITE'], '/'))
                     <img src="{{ asset('images/' . config('web_config')['WEB_LOGO_WHITE']) }}"
                         alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
                 @else

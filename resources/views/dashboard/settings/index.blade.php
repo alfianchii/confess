@@ -184,7 +184,7 @@
 
                                                     <!-- Image preview -->
                                                     {{-- If WEB_LOGO_WHITE didn't contains "/" --}}
-                                                    @if (strpos(config('web_config')['WEB_LOGO_WHITE'], '/') === false)
+                                                    @if (!strpos(config('web_config')['WEB_LOGO_WHITE'], '/'))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['WEB_LOGO_WHITE']) }}"
                                                             alt="Logo Website">
@@ -219,7 +219,7 @@
 
                                                     <!-- Image preview -->
                                                     {{-- If WEB_LOGO didn't contains "/" --}}
-                                                    @if (strpos(config('web_config')['WEB_LOGO'], '/') === false)
+                                                    @if (!strpos(config('web_config')['WEB_LOGO'], '/'))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['WEB_LOGO']) }}"
                                                             alt="Logo Website">
@@ -253,7 +253,7 @@
 
                                                     <!-- Image preview -->
                                                     {{-- If WEB_FAVICON didn't contains "/" --}}
-                                                    @if (strpos(config('web_config')['WEB_FAVICON'], '/') === false)
+                                                    @if (!strpos(config('web_config')['WEB_FAVICON'], '/'))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['WEB_FAVICON']) }}"
                                                             alt="Favicon Website">
@@ -288,7 +288,7 @@
 
                                                     <!-- Image preview -->
                                                     {{-- If FOOTER_IMAGE didn't contains "/" --}}
-                                                    @if (strpos(config('web_config')['FOOTER_IMAGE'], '/') === false)
+                                                    @if (!strpos(config('web_config')['FOOTER_IMAGE'], '/'))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE']) }}"
                                                             alt="Footer Website">
@@ -323,7 +323,7 @@
 
                                                     <!-- Image preview -->
                                                     {{-- If FOOTER_IMAGE_DASHBOARD didn't contains "/" --}}
-                                                    @if (strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/') === false)
+                                                    @if (!strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/'))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
                                                             alt="Footer Website">

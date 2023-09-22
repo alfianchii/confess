@@ -1,6 +1,6 @@
 {{-- Base links --}}
 {{-- If WEB_FAVICON didn't contains "/" --}}
-@if (strpos(config('web_config')['WEB_LOGO_WHITE'], '/') === false)
+@if (!strpos(config('web_config')['WEB_LOGO_WHITE'], '/'))
     <link rel="shortcut icon" href="{{ asset('images/' . config('web_config')['WEB_FAVICON']) }}" type="image/x-icon" />
 @else
     <link rel="shortcut icon" href="{{ asset('storage/' . config('web_config')['WEB_FAVICON']) }}" type="image/x-icon" />
