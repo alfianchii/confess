@@ -30,7 +30,7 @@ class DashboardSettingController extends Controller
      * @param  \App\Models\Setting  $setting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request)
     {
         $credentials = $request->validate([
             "WEB_TITLE" => ["required", "string", "max:30"],
