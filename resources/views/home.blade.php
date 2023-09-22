@@ -49,7 +49,7 @@
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="{{ asset('images/icon/messaging.svg') }}" alt="icon" width="37">
+                                <img src="{{ asset('images/icon/Messaging.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
                             <p class="d-md-block d-none">Petugas akan menindak-lanjuti laporan kamu.</p>
@@ -63,7 +63,7 @@
                         </div>
                         <div class="col">
                             <div class="ellipse">
-                                <img src="{{ asset('images/icon/done.svg') }}" alt="icon" width="37">
+                                <img src="{{ asset('images/icon/Done.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Selesai</h5>
                             <p class="d-md-block d-none">Selamat, laporan kamu sudah terselesaikan!</p>
