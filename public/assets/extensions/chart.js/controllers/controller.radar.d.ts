@@ -11,9 +11,7 @@ export default class RadarController extends DatasetController {
         label: any;
         value: string;
     };
-    parseObjectData(meta: any, data: any, start: any, count: any): {
-        r: unknown;
-    }[];
+    parseObjectData(meta: any, data: any, start: any, count: any): any[];
     update(mode: any): void;
 }
 import DatasetController from "../core/core.datasetController.js";

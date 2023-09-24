@@ -1,5 +1,13 @@
 import type { ChartArea } from '../types/index.js';
-import type { SplinePoint } from '../types/geometric.js';
+export interface SplinePoint {
+    x: number;
+    y: number;
+    skip?: boolean;
+    cp1x?: number;
+    cp1y?: number;
+    cp2x?: number;
+    cp2y?: number;
+}
 export declare function splineCurve(firstPoint: SplinePoint, middlePoint: SplinePoint, afterPoint: SplinePoint, t: number): {
     previous: SplinePoint;
     next: SplinePoint;

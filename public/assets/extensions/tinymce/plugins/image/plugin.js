@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 6.7.0 (2023-08-30)
+ * TinyMCE version 6.4.1 (2023-03-29)
  */
 
 (function () {
@@ -1456,16 +1456,6 @@
       });
     };
 
-    const onSetupEditable = editor => api => {
-      const nodeChanged = () => {
-        api.setEnabled(editor.selection.isEditable());
-      };
-      editor.on('NodeChange', nodeChanged);
-      nodeChanged();
-      return () => {
-        editor.off('NodeChange', nodeChanged);
-      };
-    };
     const register = editor => {
       editor.ui.registry.addToggleButton('image', {
         icon: 'image',
@@ -1473,21 +1463,15 @@
         onAction: Dialog(editor).open,
         onSetup: buttonApi => {
           buttonApi.setActive(isNonNullable(getSelectedImage(editor)));
-          const unbindSelectorChanged = editor.selection.selectorChangedWithUnbind('img:not([data-mce-object]):not([data-mce-placeholder]),figure.image', buttonApi.setActive).unbind;
-          const unbindEditable = onSetupEditable(editor)(buttonApi);
-          return () => {
-            unbindSelectorChanged();
-            unbindEditable();
-          };
+          return editor.selection.selectorChangedWithUnbind('img:not([data-mce-object]):not([data-mce-placeholder]),figure.image', buttonApi.setActive).unbind;
         }
       });
       editor.ui.registry.addMenuItem('image', {
         icon: 'image',
         text: 'Image...',
-        onAction: Dialog(editor).open,
-        onSetup: onSetupEditable(editor)
+        onAction: Dialog(editor).open
       });
-      editor.ui.registry.addContextMenu('image', { update: element => editor.selection.isEditable() && (isFigure(element) || isImage(element) && !isPlaceholderImage(element)) ? ['image'] : [] });
+      editor.ui.registry.addContextMenu('image', { update: element => isFigure(element) || isImage(element) && !isPlaceholderImage(element) ? ['image'] : [] });
     };
 
     var Plugin = () => {

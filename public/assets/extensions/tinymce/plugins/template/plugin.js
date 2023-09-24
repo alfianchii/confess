@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 6.7.0 (2023-08-30)
+ * TinyMCE version 6.4.1 (2023-03-29)
  */
 
 (function () {
@@ -351,7 +351,6 @@
 
     const getPreviewContent = (editor, html) => {
       var _a;
-      let previewHtml = parseAndSerialize(editor, html);
       if (html.indexOf('<html>') === -1) {
         let contentCssEntries = '';
         const contentStyle = (_a = getContentStyle(editor)) !== null && _a !== void 0 ? _a : '';
@@ -368,9 +367,9 @@
         const preventClicksOnLinksScript = '<script>' + 'document.addEventListener && document.addEventListener("click", function(e) {' + 'for (var elm = e.target; elm; elm = elm.parentNode) {' + 'if (elm.nodeName === "A" && !(' + isMetaKeyPressed + ')) {' + 'e.preventDefault();' + '}' + '}' + '}, false);' + '</script> ';
         const directionality = editor.getBody().dir;
         const dirAttr = directionality ? ' dir="' + encode(directionality) + '"' : '';
-        previewHtml = '<!DOCTYPE html>' + '<html>' + '<head>' + '<base href="' + encode(editor.documentBaseURI.getURI()) + '">' + contentCssEntries + preventClicksOnLinksScript + '</head>' + '<body class="' + encode(bodyClass) + '"' + dirAttr + '>' + previewHtml + '</body>' + '</html>';
+        html = '<!DOCTYPE html>' + '<html>' + '<head>' + '<base href="' + encode(editor.documentBaseURI.getURI()) + '">' + contentCssEntries + preventClicksOnLinksScript + '</head>' + '<body class="' + encode(bodyClass) + '"' + dirAttr + '>' + parseAndSerialize(editor, html) + '</body>' + '</html>';
       }
-      return replaceTemplateValues(previewHtml, getPreviewReplaceValues(editor));
+      return replaceTemplateValues(html, getPreviewReplaceValues(editor));
     };
     const open = (editor, templateList) => {
       const createTemplates = () => {
@@ -461,7 +460,7 @@
           const content = getPreviewContent(editor, previewHtml);
           const bodyItems = [
             {
-              type: 'listbox',
+              type: 'selectbox',
               name: 'template',
               label: 'Templates',
               items: selectBoxItems
@@ -527,28 +526,16 @@
       });
     };
 
-    const onSetupEditable = editor => api => {
-      const nodeChanged = () => {
-        api.setEnabled(editor.selection.isEditable());
-      };
-      editor.on('NodeChange', nodeChanged);
-      nodeChanged();
-      return () => {
-        editor.off('NodeChange', nodeChanged);
-      };
-    };
     const register = editor => {
       const onAction = () => editor.execCommand('mceTemplate');
       editor.ui.registry.addButton('template', {
         icon: 'template',
         tooltip: 'Insert template',
-        onSetup: onSetupEditable(editor),
         onAction
       });
       editor.ui.registry.addMenuItem('template', {
         icon: 'template',
         text: 'Insert template...',
-        onSetup: onSetupEditable(editor),
         onAction
       });
     };

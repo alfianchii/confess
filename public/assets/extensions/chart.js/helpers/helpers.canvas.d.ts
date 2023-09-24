@@ -1,75 +1,85 @@
-import type { Chart, Point, FontSpec, CanvasFontSpec, PointStyle, RenderTextOpts } from '../types/index.js';
-import type { TRBL, SplinePoint, RoundedRect, TRBLCorners } from '../types/geometric.js';
+/**
+ * Note: typedefs are auto-exported, so use a made-up `canvas` namespace where
+ * necessary to avoid duplicates with `export * from './helpers`; see
+ * https://github.com/microsoft/TypeScript/issues/46011
+ * @typedef { import('../core/core.controller.js').default } canvas.Chart
+ * @typedef { import('../types/index.js').Point } Point
+ */
+/**
+ * @namespace Chart.helpers.canvas
+ */
 /**
  * Converts the given font object into a CSS font string.
- * @param font - A font object.
- * @return The CSS font string. See https://developer.mozilla.org/en-US/docs/Web/CSS/font
+ * @param {object} font - A font object.
+ * @return {string|null} The CSS font string. See https://developer.mozilla.org/en-US/docs/Web/CSS/font
  * @private
  */
-export declare function toFontString(font: FontSpec): string;
+export function toFontString(font: object): string | null;
 /**
  * @private
  */
-export declare function _measureText(ctx: CanvasRenderingContext2D, data: Record<string, number>, gc: string[], longest: number, string: string): number;
-type Thing = string | undefined | null;
-type Things = (Thing | Thing[])[];
+export function _measureText(ctx: any, data: any, gc: any, longest: any, string: any): any;
 /**
  * @private
  */
-export declare function _longestText(ctx: CanvasRenderingContext2D, font: string, arrayOfThings: Things, cache?: {
-    data?: Record<string, number>;
-    garbageCollect?: string[];
-    font?: string;
-}): number;
+export function _longestText(ctx: any, font: any, arrayOfThings: any, cache: any): number;
 /**
  * Returns the aligned pixel value to avoid anti-aliasing blur
- * @param chart - The chart instance.
- * @param pixel - A pixel value.
- * @param width - The width of the element.
- * @returns The aligned pixel value.
+ * @param {canvas.Chart} chart - The chart instance.
+ * @param {number} pixel - A pixel value.
+ * @param {number} width - The width of the element.
+ * @returns {number} The aligned pixel value.
  * @private
  */
-export declare function _alignPixel(chart: Chart, pixel: number, width: number): number;
+export function _alignPixel(chart: canvas.Chart, pixel: number, width: number): number;
 /**
  * Clears the entire canvas.
+ * @param {HTMLCanvasElement} canvas
+ * @param {CanvasRenderingContext2D} [ctx]
  */
-export declare function clearCanvas(canvas: HTMLCanvasElement, ctx?: CanvasRenderingContext2D): void;
-export interface DrawPointOptions {
-    pointStyle: PointStyle;
-    rotation?: number;
-    radius: number;
-    borderWidth: number;
-}
-export declare function drawPoint(ctx: CanvasRenderingContext2D, options: DrawPointOptions, x: number, y: number): void;
-export declare function drawPointLegend(ctx: CanvasRenderingContext2D, options: DrawPointOptions, x: number, y: number, w: number): void;
+export function clearCanvas(canvas: HTMLCanvasElement, ctx?: CanvasRenderingContext2D): void;
+export function drawPoint(ctx: any, options: any, x: any, y: any): void;
+export function drawPointLegend(ctx: any, options: any, x: any, y: any, w: any): void;
 /**
  * Returns true if the point is inside the rectangle
- * @param point - The point to test
- * @param area - The rectangle
- * @param margin - allowed margin
+ * @param {Point} point - The point to test
+ * @param {object} area - The rectangle
+ * @param {number} [margin] - allowed margin
+ * @returns {boolean}
  * @private
  */
-export declare function _isPointInArea(point: Point, area: TRBL, margin?: number): boolean;
-export declare function clipArea(ctx: CanvasRenderingContext2D, area: TRBL): void;
-export declare function unclipArea(ctx: CanvasRenderingContext2D): void;
+export function _isPointInArea(point: Point, area: object, margin?: number): boolean;
+export function clipArea(ctx: any, area: any): void;
+export function unclipArea(ctx: any): void;
 /**
  * @private
  */
-export declare function _steppedLineTo(ctx: CanvasRenderingContext2D, previous: Point, target: Point, flip?: boolean, mode?: string): void;
+export function _steppedLineTo(ctx: any, previous: any, target: any, flip: any, mode: any): any;
 /**
  * @private
  */
-export declare function _bezierCurveTo(ctx: CanvasRenderingContext2D, previous: SplinePoint, target: SplinePoint, flip?: boolean): void;
+export function _bezierCurveTo(ctx: any, previous: any, target: any, flip: any): any;
 /**
  * Render text onto the canvas
  */
-export declare function renderText(ctx: CanvasRenderingContext2D, text: string | string[], x: number, y: number, font: CanvasFontSpec, opts?: RenderTextOpts): void;
+export function renderText(ctx: any, text: any, x: any, y: any, font: any, opts?: {}): void;
 /**
  * Add a path of a rectangle with rounded corners to the current sub-path
- * @param ctx - Context
- * @param rect - Bounding rect
+ * @param {CanvasRenderingContext2D} ctx Context
+ * @param {*} rect Bounding rect
  */
-export declare function addRoundedRectPath(ctx: CanvasRenderingContext2D, rect: RoundedRect & {
-    radius: TRBLCorners;
-}): void;
-export {};
+export function addRoundedRectPath(ctx: CanvasRenderingContext2D, rect: any): void;
+export namespace canvas {
+    /**
+     * Note: typedefs are auto-exported, so use a made-up `canvas` namespace where
+     * necessary to avoid duplicates with `export * from './helpers`; see
+     * https://github.com/microsoft/TypeScript/issues/46011
+     */
+    type Chart = import('../core/core.controller.js').default;
+}
+/**
+ * Note: typedefs are auto-exported, so use a made-up `canvas` namespace where
+ * necessary to avoid duplicates with `export * from './helpers`; see
+ * https://github.com/microsoft/TypeScript/issues/46011
+ */
+export type Point = import('../types/index.js').Point;

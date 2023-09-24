@@ -5,7 +5,7 @@
  */
 import type { AnyObject } from '../types/basic.js';
 import type { ChartOptions } from '../types/index.js';
-export type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
+export declare type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 export interface DateAdapter<T extends AnyObject = AnyObject> {
     readonly options: T;
     /**
