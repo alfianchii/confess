@@ -1,5 +1,5 @@
 /**
- * TinyMCE version 6.4.1 (2023-03-29)
+ * TinyMCE version 6.7.0 (2023-08-30)
  */
 
 (function () {
@@ -616,6 +616,7 @@
     const documentElement = element => SugarElement.fromDom(documentOrOwner(element).dom.documentElement);
     const defaultView = element => SugarElement.fromDom(documentOrOwner(element).dom.defaultView);
     const parent = element => Optional.from(element.dom.parentNode).map(SugarElement.fromDom);
+    const parentNode = element => parent(element);
     const parentElement = element => Optional.from(element.dom.parentElement).map(SugarElement.fromDom);
     const parents = (element, isRoot) => {
       const stop = isFunction(isRoot) ? isRoot : never;
@@ -785,7 +786,7 @@
       }
       return css;
     };
-    const isValidValue = (tag, property, value) => {
+    const isValidValue$1 = (tag, property, value) => {
       const element = SugarElement.fromTag(tag);
       set$8(element, property, value);
       const style = getRaw(element, property);
@@ -4689,28 +4690,52 @@
     };
 
     const descendOnce = (element, offset) => isText(element) ? point(element, offset) : descendOnce$1(element, offset);
+    const isSimRange = detail => detail.foffset !== undefined;
     const getAnchorSelection = (win, anchorInfo) => {
       const getSelection = anchorInfo.getSelection.getOrThunk(() => () => getExact(win));
       return getSelection().map(sel => {
-        const modStart = descendOnce(sel.start, sel.soffset);
-        const modFinish = descendOnce(sel.finish, sel.foffset);
-        return SimSelection.range(modStart.element, modStart.offset, modFinish.element, modFinish.offset);
+        if (isSimRange(sel)) {
+          const modStart = descendOnce(sel.start, sel.soffset);
+          const modFinish = descendOnce(sel.finish, sel.foffset);
+          return SimSelection.range(modStart.element, modStart.offset, modFinish.element, modFinish.offset);
+        } else {
+          return sel;
+        }
       });
     };
     const placement$1 = (component, anchorInfo, origin) => {
       const win = defaultView(anchorInfo.root).dom;
       const rootPoint = getRootPoint(component, origin, anchorInfo);
       const selectionBox = getAnchorSelection(win, anchorInfo).bind(sel => {
-        const optRect = getBounds$1(win, SimSelection.exactFromRange(sel)).orThunk(() => {
-          const x = SugarElement.fromText(zeroWidth);
-          before$1(sel.start, x);
-          const rect = getFirstRect(win, SimSelection.exact(x, 0, x, 1));
-          remove$5(x);
-          return rect;
-        });
-        return optRect.bind(rawRect => getBox(rawRect.left, rawRect.top, rawRect.width, rawRect.height));
+        if (isSimRange(sel)) {
+          const optRect = getBounds$1(win, SimSelection.exactFromRange(sel)).orThunk(() => {
+            const zeroWidth$1 = SugarElement.fromText(zeroWidth);
+            before$1(sel.start, zeroWidth$1);
+            const rect = getFirstRect(win, SimSelection.exact(zeroWidth$1, 0, zeroWidth$1, 1));
+            remove$5(zeroWidth$1);
+            return rect;
+          });
+          return optRect.bind(rawRect => {
+            return getBox(rawRect.left, rawRect.top, rawRect.width, rawRect.height);
+          });
+        } else {
+          const selectionRect = map$1(sel, cell => cell.dom.getBoundingClientRect());
+          const bounds = {
+            left: Math.min(selectionRect.firstCell.left, selectionRect.lastCell.left),
+            right: Math.max(selectionRect.firstCell.right, selectionRect.lastCell.right),
+            top: Math.min(selectionRect.firstCell.top, selectionRect.lastCell.top),
+            bottom: Math.max(selectionRect.firstCell.bottom, selectionRect.lastCell.bottom)
+          };
+          return getBox(bounds.left, bounds.top, bounds.right - bounds.left, bounds.bottom - bounds.top);
+        }
       });
-      const targetElement = getAnchorSelection(win, anchorInfo).bind(sel => isElement$1(sel.start) ? Optional.some(sel.start) : parentElement(sel.start));
+      const targetElement = getAnchorSelection(win, anchorInfo).bind(sel => {
+        if (isSimRange(sel)) {
+          return isElement$1(sel.start) ? Optional.some(sel.start) : parentElement(sel.start);
+        } else {
+          return Optional.some(sel.firstCell);
+        }
+      });
       const elem = targetElement.getOr(component.element);
       return calcNewAnchor(selectionBox, rootPoint, anchorInfo, origin, elem);
     };
@@ -6179,6 +6204,8 @@
         const navigate = tabbingConfig.cyclic ? cycleNext : tryNext;
         return go(component, simulatedEvent, tabbingConfig, navigate);
       };
+      const isFirstChild = elem => parentNode(elem).bind(firstChild).exists(child => eq(child, elem));
+      const goFromPseudoTabstop = (component, simulatedEvent, tabbingConfig) => findCurrent(component, tabbingConfig).filter(elem => !tabbingConfig.useTabstopAt(elem)).bind(elem => (isFirstChild(elem) ? goBackwards : goForwards)(component, simulatedEvent, tabbingConfig));
       const execute = (component, simulatedEvent, tabbingConfig) => tabbingConfig.onEnter.bind(f => f(component, simulatedEvent));
       const exit = (component, simulatedEvent, tabbingConfig) => tabbingConfig.onEscape.bind(f => f(component, simulatedEvent));
       const getKeydownRules = constant$1([
@@ -6192,7 +6219,10 @@
           inSet(ENTER)
         ]), execute)
       ]);
-      const getKeyupRules = constant$1([rule(inSet(ESCAPE), exit)]);
+      const getKeyupRules = constant$1([
+        rule(inSet(ESCAPE), exit),
+        rule(inSet(TAB), goFromPseudoTabstop)
+      ]);
       return typical(schema, NoState.init, getKeydownRules, getKeyupRules, () => Optional.some(focusIn));
     };
 
@@ -8179,7 +8209,7 @@
           ]
         },
         components: [render$3('close', {
-            tag: 'div',
+            tag: 'span',
             classes: ['tox-icon'],
             attributes: { 'aria-label': detail.translationProvider('Close') }
           }, detail.iconProvider)],
@@ -8534,6 +8564,10 @@
         default: !global$5.deviceType.isTouch()
       });
       registerOption('sidebar_show', { processor: 'string' });
+      registerOption('help_accessibility', {
+        processor: 'boolean',
+        default: editor.hasPlugin('help')
+      });
     };
     const isReadOnly = option$2('readonly');
     const getHeightOption = option$2('height');
@@ -8571,6 +8605,7 @@
     const getPasteAsText = option$2('paste_as_text');
     const getSidebarShow = option$2('sidebar_show');
     const promotionEnabled = option$2('promotion');
+    const useHelpAccessibility = option$2('help_accessibility');
     const isSkinDisabled = editor => editor.options.get('skin') === false;
     const isMenubarEnabled = editor => editor.options.get('menubar') !== false;
     const getSkinUrl = editor => {
@@ -8689,7 +8724,8 @@
         useBranding: useBranding,
         getResize: getResize,
         getPasteAsText: getPasteAsText,
-        getSidebarShow: getSidebarShow
+        getSidebarShow: getSidebarShow,
+        useHelpAccessibility: useHelpAccessibility
     });
 
     const autocompleteSelector = '[data-mce-autocompleter]';
@@ -9909,7 +9945,12 @@
       };
     };
     const renderItemDomStructure = ariaLabel => {
-      const domTitle = ariaLabel.map(label => ({ attributes: { title: global$8.translate(label) } })).getOr({});
+      const domTitle = ariaLabel.map(label => ({
+        attributes: {
+          title: global$8.translate(label),
+          id: generate$6('menu-item')
+        }
+      })).getOr({});
       return {
         tag: 'div',
         classes: [
@@ -10259,6 +10300,54 @@
       editor.dispatch('ToggleToolbarDrawer', { state });
     };
 
+    const composeUnbinders = (f, g) => () => {
+      f();
+      g();
+    };
+    const onSetupEditableToggle = editor => onSetupEvent(editor, 'NodeChange', api => {
+      api.setEnabled(editor.selection.isEditable());
+    });
+    const onSetupFormatToggle = (editor, name) => api => {
+      const boundFormatChangeCallback = unbindable();
+      const init = () => {
+        api.setActive(editor.formatter.match(name));
+        const binding = editor.formatter.formatChanged(name, api.setActive);
+        boundFormatChangeCallback.set(binding);
+      };
+      editor.initialized ? init() : editor.once('init', init);
+      return () => {
+        editor.off('init', init);
+        boundFormatChangeCallback.clear();
+      };
+    };
+    const onSetupStateToggle = (editor, name) => api => {
+      const unbindEditableToogle = onSetupEditableToggle(editor)(api);
+      const unbindFormatToggle = onSetupFormatToggle(editor, name)(api);
+      return () => {
+        unbindEditableToogle();
+        unbindFormatToggle();
+      };
+    };
+    const onSetupEvent = (editor, event, f) => api => {
+      const handleEvent = () => f(api);
+      const init = () => {
+        f(api);
+        editor.on(event, handleEvent);
+      };
+      editor.initialized ? init() : editor.once('init', init);
+      return () => {
+        editor.off('init', init);
+        editor.off(event, handleEvent);
+      };
+    };
+    const onActionToggleFormat$1 = editor => rawItem => () => {
+      editor.undoManager.transact(() => {
+        editor.focus();
+        editor.execCommand('mceToggleFormat', false, rawItem.format);
+      });
+    };
+    const onActionExecCommand = (editor, command) => () => editor.execCommand(command);
+
     var global$4 = tinymce.util.Tools.resolve('tinymce.util.LocalStorage');
 
     const cacheStorage = {};
@@ -10355,13 +10444,7 @@
 
     const foregroundId = 'forecolor';
     const backgroundId = 'hilitecolor';
-    const defaultCols = 5;
-    const calcCols = colors => Math.max(defaultCols, Math.ceil(Math.sqrt(colors)));
-    const calcColsOption = (editor, numColors) => {
-      const calculatedCols = calcCols(numColors);
-      const fallbackCols = option$1('color_cols')(editor);
-      return defaultCols === calculatedCols ? fallbackCols : calculatedCols;
-    };
+    const fallbackCols = 5;
     const mapColors = colorMap => {
       const colors = [];
       for (let i = 0; i < colorMap.length; i += 2) {
@@ -10388,6 +10471,19 @@
           return {
             valid: false,
             message: 'Must be an array of strings.'
+          };
+        }
+      };
+      const colorColsProcessor = value => {
+        if (isNumber(value) && value > 0) {
+          return {
+            value,
+            valid: true
+          };
+        } else {
+          return {
+            valid: false,
+            message: 'Must be a positive number.'
           };
         }
       };
@@ -10443,16 +10539,16 @@
       registerOption('color_map_background', { processor: colorProcessor });
       registerOption('color_map_foreground', { processor: colorProcessor });
       registerOption('color_cols', {
-        processor: 'number',
-        default: calcCols(getColors$2(editor, 'default').length)
+        processor: colorColsProcessor,
+        default: calcCols(editor)
       });
       registerOption('color_cols_foreground', {
-        processor: 'number',
-        default: calcColsOption(editor, getColors$2(editor, foregroundId).length)
+        processor: colorColsProcessor,
+        default: defaultCols(editor, foregroundId)
       });
       registerOption('color_cols_background', {
-        processor: 'number',
-        default: calcColsOption(editor, getColors$2(editor, backgroundId).length)
+        processor: colorColsProcessor,
+        default: defaultCols(editor, backgroundId)
       });
       registerOption('custom_colors', {
         processor: 'boolean',
@@ -10467,20 +10563,6 @@
         default: fallbackColor
       });
     };
-    const colorColsOption = (editor, id) => {
-      if (id === foregroundId) {
-        return option$1('color_cols_foreground')(editor);
-      } else if (id === backgroundId) {
-        return option$1('color_cols_background')(editor);
-      } else {
-        return option$1('color_cols')(editor);
-      }
-    };
-    const getColorCols$1 = (editor, id) => {
-      const colorCols = colorColsOption(editor, id);
-      return colorCols > 0 ? colorCols : defaultCols;
-    };
-    const hasCustomColors$1 = option$1('custom_colors');
     const getColors$2 = (editor, id) => {
       if (id === foregroundId && editor.options.isSet('color_map_foreground')) {
         return option$1('color_map_foreground')(editor);
@@ -10490,6 +10572,29 @@
         return option$1('color_map')(editor);
       }
     };
+    const calcCols = (editor, id = 'default') => Math.max(fallbackCols, Math.ceil(Math.sqrt(getColors$2(editor, id).length)));
+    const defaultCols = (editor, id) => {
+      const defaultCols = option$1('color_cols')(editor);
+      const calculatedCols = calcCols(editor, id);
+      if (defaultCols === calcCols(editor)) {
+        return calculatedCols;
+      } else {
+        return defaultCols;
+      }
+    };
+    const getColorCols$1 = (editor, id = 'default') => {
+      const getCols = () => {
+        if (id === foregroundId) {
+          return option$1('color_cols_foreground')(editor);
+        } else if (id === backgroundId) {
+          return option$1('color_cols_background')(editor);
+        } else {
+          return option$1('color_cols')(editor);
+        }
+      };
+      return Math.round(getCols());
+    };
+    const hasCustomColors$1 = option$1('custom_colors');
     const getDefaultForegroundColor = option$1('color_default_foreground');
     const getDefaultBackgroundColor = option$1('color_default_background');
 
@@ -10609,9 +10714,9 @@
             }
           };
           editor.on('TextColorChange', handler);
-          return () => {
+          return composeUnbinders(onSetupEditableToggle(editor)(splitButtonApi), () => {
             editor.off('TextColorChange', handler);
-          };
+          });
         }
       });
     };
@@ -10621,7 +10726,7 @@
         icon: name === 'forecolor' ? 'text-color' : 'highlight-bg-color',
         onSetup: api => {
           setIconColor(api, name, lastColor.get());
-          return noop;
+          return onSetupEditableToggle(editor)(api);
         },
         getSubmenuItems: () => [{
             type: 'fancymenuitem',
@@ -10805,7 +10910,8 @@
 
     const cellOverEvent = generate$6('cell-over');
     const cellExecuteEvent = generate$6('cell-execute');
-    const makeCell = (row, col, labelId) => {
+    const makeAnnouncementText = backstage => (row, col) => backstage.shared.providers.translate(`${ col } columns, ${ row } rows`);
+    const makeCell = (row, col, label) => {
       const emitCellOver = c => emitWith(c, cellOverEvent, {
         row,
         col
@@ -10823,7 +10929,7 @@
           tag: 'div',
           attributes: {
             role: 'button',
-            ['aria-labelledby']: labelId
+            ['aria-label']: label
           }
         },
         behaviours: derive$1([
@@ -10841,12 +10947,13 @@
         ])
       });
     };
-    const makeCells = (labelId, numRows, numCols) => {
+    const makeCells = (getCellLabel, numRows, numCols) => {
       const cells = [];
       for (let i = 0; i < numRows; i++) {
         const row = [];
         for (let j = 0; j < numCols; j++) {
-          row.push(makeCell(i, j, labelId));
+          const label = getCellLabel(i + 1, j + 1);
+          row.push(makeCell(i, j, label));
         }
         cells.push(row);
       }
@@ -10861,17 +10968,16 @@
     };
     const makeComponents = cells => bind$3(cells, cellRow => map$2(cellRow, premade));
     const makeLabelText = (row, col) => text$2(`${ col }x${ row }`);
-    const renderInsertTableMenuItem = spec => {
+    const renderInsertTableMenuItem = (spec, backstage) => {
       const numRows = 10;
       const numColumns = 10;
-      const sizeLabelId = generate$6('size-label');
-      const cells = makeCells(sizeLabelId, numRows, numColumns);
+      const getCellLabel = makeAnnouncementText(backstage);
+      const cells = makeCells(getCellLabel, numRows, numColumns);
       const emptyLabelText = makeLabelText(0, 0);
       const memLabel = record({
         dom: {
           tag: 'span',
-          classes: ['tox-insert-table-picker__label'],
-          attributes: { id: sizeLabelId }
+          classes: ['tox-insert-table-picker__label']
         },
         components: [emptyLabelText],
         behaviours: derive$1([Replacing.config({})])
@@ -10934,7 +11040,7 @@
         isEnabled: () => !Disabling.isDisabled(component),
         setEnabled: state => Disabling.set(component, !state),
         setIconFill: (id, value) => {
-          descendant(component.element, `svg path[id="${ id }"], rect[id="${ id }"]`).each(underlinePath => {
+          descendant(component.element, `svg path[class="${ id }"], rect[class="${ id }"]`).each(underlinePath => {
             set$9(underlinePath, 'fill', value);
           });
         }
@@ -11796,18 +11902,22 @@
 
     const nonScrollingOverflows = [
       'visible',
-      'hidden'
+      'hidden',
+      'clip'
     ];
+    const isScrollingOverflowValue = value => trim$1(value).length > 0 && !contains$2(nonScrollingOverflows, value);
     const isScroller = elem => {
       if (isHTMLElement(elem)) {
-        const overflow = get$e(elem, 'overflow');
-        return trim$1(overflow).length > 0 && !contains$2(nonScrollingOverflows, overflow);
+        const overflowX = get$e(elem, 'overflow-x');
+        const overflowY = get$e(elem, 'overflow-y');
+        return isScrollingOverflowValue(overflowX) || isScrollingOverflowValue(overflowY);
       } else {
         return false;
       }
     };
-    const detect = poupSinkElem => {
-      const scrollers = ancestors(poupSinkElem, isScroller);
+    const detect = popupSinkElem => {
+      const ancestorsScrollers = ancestors(popupSinkElem, isScroller);
+      const scrollers = ancestorsScrollers.length === 0 ? getShadowRoot(popupSinkElem).map(getShadowHost).map(x => ancestors(x, isScroller)).getOr([]) : ancestorsScrollers;
       return head(scrollers).map(element => ({
         element,
         others: scrollers.slice(1)
@@ -14240,7 +14350,6 @@
       }
     });
     const withElement = (initialValue, getter, setter) => withComp(initialValue, c => getter(c.element), (c, v) => setter(c.element, v));
-    const domValue = optInitialValue => withElement(optInitialValue, get$6, set$5);
     const domHtml = optInitialValue => withElement(optInitialValue, get$9, set$6);
     const memory = initialValue => Representing.config({
       store: {
@@ -14248,14 +14357,6 @@
         initialValue
       }
     });
-    const RepresentingConfigs = {
-      memento,
-      withElement,
-      withComp,
-      domValue,
-      domHtml,
-      memory
-    };
 
     const english = {
       'colorcustom.rgb.red.label': 'R',
@@ -14301,7 +14402,7 @@
         dom: { tag: 'div' },
         components: [memPicker.asSpec()],
         behaviours: derive$1([
-          RepresentingConfigs.withComp(initialData, comp => {
+          withComp(initialData, comp => {
             const picker = memPicker.get(comp);
             const optRgbForm = Composing.getCurrent(picker);
             const optHex = optRgbForm.bind(rgbForm => {
@@ -14352,7 +14453,7 @@
                 });
               });
             })]),
-          RepresentingConfigs.withComp(Optional.none(), () => editorApi.get().fold(() => initialValue.get().getOr(''), ed => ed.getValue()), (component, value) => {
+          withComp(Optional.none(), () => editorApi.get().fold(() => initialValue.get().getOr(''), ed => ed.getValue()), (component, value) => {
             editorApi.get().fold(() => initialValue.set(value), ed => ed.setValue(value));
           }),
           ComposingConfigs.self()
@@ -14415,7 +14516,7 @@
           classes: ['tox-dropzone-container']
         },
         behaviours: derive$1([
-          RepresentingConfigs.memory(initialData.getOr([])),
+          memory(initialData.getOr([])),
           ComposingConfigs.self(),
           Disabling.config({}),
           Toggling.config({
@@ -14492,6 +14593,74 @@
       components: map$2(spec.items, backstage.interpreter)
     });
 
+    const adaptable = (fn, rate) => {
+      let timer = null;
+      let args = null;
+      const cancel = () => {
+        if (!isNull(timer)) {
+          clearTimeout(timer);
+          timer = null;
+          args = null;
+        }
+      };
+      const throttle = (...newArgs) => {
+        args = newArgs;
+        if (isNull(timer)) {
+          timer = setTimeout(() => {
+            const tempArgs = args;
+            timer = null;
+            args = null;
+            fn.apply(null, tempArgs);
+          }, rate);
+        }
+      };
+      return {
+        cancel,
+        throttle
+      };
+    };
+    const first = (fn, rate) => {
+      let timer = null;
+      const cancel = () => {
+        if (!isNull(timer)) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      };
+      const throttle = (...args) => {
+        if (isNull(timer)) {
+          timer = setTimeout(() => {
+            timer = null;
+            fn.apply(null, args);
+          }, rate);
+        }
+      };
+      return {
+        cancel,
+        throttle
+      };
+    };
+    const last = (fn, rate) => {
+      let timer = null;
+      const cancel = () => {
+        if (!isNull(timer)) {
+          clearTimeout(timer);
+          timer = null;
+        }
+      };
+      const throttle = (...args) => {
+        cancel();
+        timer = setTimeout(() => {
+          timer = null;
+          fn.apply(null, args);
+        }, rate);
+      };
+      return {
+        cancel,
+        throttle
+      };
+    };
+
     const beforeObject = generate$6('alloy-fake-before-tabstop');
     const afterObject = generate$6('alloy-fake-after-tabstop');
     const craftWithClasses = classes => {
@@ -14512,11 +14681,14 @@
         ])
       };
     };
-    const craft = spec => {
+    const craft = (containerClasses, spec) => {
       return {
         dom: {
           tag: 'div',
-          classes: ['tox-navobj']
+          classes: [
+            'tox-navobj',
+            ...containerClasses.getOr([])
+          ]
         },
         components: [
           craftWithClasses([beforeObject]),
@@ -14549,43 +14721,112 @@
       ].join(','), never);
     };
 
-    const getDynamicSource = initialData => {
+    const dialogChannel = generate$6('update-dialog');
+    const titleChannel = generate$6('update-title');
+    const bodyChannel = generate$6('update-body');
+    const footerChannel = generate$6('update-footer');
+    const bodySendMessageChannel = generate$6('body-send-message');
+    const dialogFocusShiftedChannel = generate$6('dialog-focus-shifted');
+
+    const browser = detect$2().browser;
+    const isSafari = browser.isSafari();
+    const isFirefox = browser.isFirefox();
+    const isSafariOrFirefox = isSafari || isFirefox;
+    const isChromium = browser.isChromium();
+    const isElementScrollAtBottom = ({scrollTop, scrollHeight, clientHeight}) => Math.ceil(scrollTop) + clientHeight >= scrollHeight;
+    const scrollToY = (win, y) => win.scrollTo(0, y === 'bottom' ? 99999999 : y);
+    const getScrollingElement = (doc, html) => {
+      const body = doc.body;
+      return Optional.from(!/^<!DOCTYPE (html|HTML)/.test(html) && (!isChromium && !isSafari || isNonNullable(body) && (body.scrollTop !== 0 || Math.abs(body.scrollHeight - body.clientHeight) > 1)) ? body : doc.documentElement);
+    };
+    const writeValue = (iframeElement, html, fallbackFn) => {
+      const iframe = iframeElement.dom;
+      Optional.from(iframe.contentDocument).fold(fallbackFn, doc => {
+        let lastScrollTop = 0;
+        const isScrollAtBottom = getScrollingElement(doc, html).map(el => {
+          lastScrollTop = el.scrollTop;
+          return el;
+        }).forall(isElementScrollAtBottom);
+        const scrollAfterWrite = () => {
+          const win = iframe.contentWindow;
+          if (isNonNullable(win)) {
+            if (isScrollAtBottom) {
+              scrollToY(win, 'bottom');
+            } else if (!isScrollAtBottom && isSafariOrFirefox && lastScrollTop !== 0) {
+              scrollToY(win, lastScrollTop);
+            }
+          }
+        };
+        if (isSafari) {
+          iframe.addEventListener('load', scrollAfterWrite, { once: true });
+        }
+        doc.open();
+        doc.write(html);
+        doc.close();
+        if (!isSafari) {
+          scrollAfterWrite();
+        }
+      });
+    };
+    const throttleInterval = someIf(isSafariOrFirefox, isSafari ? 500 : 200);
+    const writeValueThrottler = throttleInterval.map(interval => adaptable(writeValue, interval));
+    const getDynamicSource = (initialData, stream) => {
       const cachedValue = Cell(initialData.getOr(''));
       return {
         getValue: _frameComponent => cachedValue.get(),
         setValue: (frameComponent, html) => {
           if (cachedValue.get() !== html) {
-            set$9(frameComponent.element, 'srcdoc', html);
+            const iframeElement = frameComponent.element;
+            const setSrcdocValue = () => set$9(iframeElement, 'srcdoc', html);
+            if (stream) {
+              writeValueThrottler.fold(constant$1(writeValue), throttler => throttler.throttle)(iframeElement, html, setSrcdocValue);
+            } else {
+              setSrcdocValue();
+            }
           }
           cachedValue.set(html);
         }
       };
     };
     const renderIFrame = (spec, providersBackstage, initialData) => {
-      const isSandbox = spec.sandboxed;
-      const isTransparent = spec.transparent;
       const baseClass = 'tox-dialog__iframe';
+      const opaqueClass = spec.transparent ? [] : [`${ baseClass }--opaque`];
+      const containerBorderedClass = spec.border ? [`tox-navobj-bordered`] : [];
       const attributes = {
         ...spec.label.map(title => ({ title })).getOr({}),
         ...initialData.map(html => ({ srcdoc: html })).getOr({}),
-        ...isSandbox ? { sandbox: 'allow-scripts allow-same-origin' } : {}
+        ...spec.sandboxed ? { sandbox: 'allow-scripts allow-same-origin' } : {}
       };
-      const sourcing = getDynamicSource(initialData);
+      const sourcing = getDynamicSource(initialData, spec.streamContent);
       const pLabel = spec.label.map(label => renderLabel$3(label, providersBackstage));
-      const factory = newSpec => craft({
+      const factory = newSpec => craft(Optional.from(containerBorderedClass), {
         uid: newSpec.uid,
         dom: {
           tag: 'iframe',
           attributes,
-          classes: isTransparent ? [baseClass] : [
+          classes: [
             baseClass,
-            `${ baseClass }--opaque`
+            ...opaqueClass
           ]
         },
         behaviours: derive$1([
           Tabstopping.config({}),
           Focusing.config({}),
-          RepresentingConfigs.withComp(initialData, sourcing.getValue, sourcing.setValue)
+          withComp(initialData, sourcing.getValue, sourcing.setValue),
+          Receiving.config({
+            channels: {
+              [dialogFocusShiftedChannel]: {
+                onReceive: (comp, message) => {
+                  message.newFocus.each(newFocus => {
+                    parentElement(comp.element).each(parent => {
+                      const f = eq(comp.element, newFocus) ? add$2 : remove$2;
+                      f(parent, 'tox-navobj-bordered-focus');
+                    });
+                  });
+                }
+              }
+            }
+          })
         ])
       });
       const pField = FormField.parts.field({ factory: { sketch: factory } });
@@ -14698,16 +14939,23 @@
         components: [memContainer.asSpec()],
         behaviours: derive$1([
           ComposingConfigs.self(),
-          RepresentingConfigs.withComp(fakeValidatedData, () => cachedData.get(), setValue)
+          withComp(fakeValidatedData, () => cachedData.get(), setValue)
         ])
       };
     };
 
     const renderLabel$2 = (spec, backstageShared) => {
+      const baseClass = 'tox-label';
+      const centerClass = spec.align === 'center' ? [`${ baseClass }--center`] : [];
+      const endClass = spec.align === 'end' ? [`${ baseClass }--end`] : [];
       const label = {
         dom: {
           tag: 'label',
-          classes: ['tox-label']
+          classes: [
+            baseClass,
+            ...centerClass,
+            ...endClass
+          ]
         },
         components: [text$2(backstageShared.providers.translate(spec.label))]
       };
@@ -14724,7 +14972,7 @@
         behaviours: derive$1([
           ComposingConfigs.self(),
           Replacing.config({}),
-          RepresentingConfigs.domHtml(Optional.none()),
+          domHtml(Optional.none()),
           Keying.config({ mode: 'acyclic' })
         ])
       };
@@ -14895,6 +15143,13 @@
             onDehighlightItem: updateAriaOnDehighlight
           }
         },
+        getAnchorOverrides: () => {
+          return {
+            maxHeightFunction: (element, available) => {
+              anchored()(element, available - 10);
+            }
+          };
+        },
         fetch: comp => Future.nu(curry(spec.fetch, comp))
       }));
       return memDropdown.asSpec();
@@ -15050,7 +15305,7 @@
             classes: [],
             dropdownBehaviours: [
               Tabstopping.config({}),
-              RepresentingConfigs.withComp(initialItem.map(item => item.value), comp => get$f(comp.element, dataAttribute), (comp, data) => {
+              withComp(initialItem.map(item => item.value), comp => get$f(comp.element, dataAttribute), (comp, data) => {
                 findItemByValue(spec.items, data).each(item => {
                   set$9(comp.element, dataAttribute, item.value);
                   emitWith(comp, updateMenuText, { text: item.text });
@@ -15122,9 +15377,12 @@
                 return get$6(select.element);
               },
               setValue: (select, newValue) => {
+                const firstOption = head(detail.options);
                 const found = find$5(detail.options, opt => opt.value === newValue);
                 if (found.isSome()) {
                   set$5(select.element, newValue);
+                } else if (select.element.dom.selectedIndex === -1 && newValue === '') {
+                  firstOption.each(value => set$5(select.element, value.value));
                 }
               },
               ...initialValues
@@ -16001,7 +16259,7 @@
       components: [text$2(text)]
     });
     const leafLabelEventsId = generate$6('leaf-label-event-id');
-    const renderLeafLabel = ({leaf, onLeafAction, visible, treeId, backstage}) => {
+    const renderLeafLabel = ({leaf, onLeafAction, visible, treeId, selectedId, backstage}) => {
       const internalMenuButton = leaf.menu.map(btn => renderMenuButton(btn, 'tox-mbtn', backstage, Optional.none(), visible));
       const components = [renderLabel(leaf.title)];
       internalMenuButton.each(btn => components.push(btn));
@@ -16041,7 +16299,14 @@
               }
             }
           }),
-          config(leafLabelEventsId, [run$1(keydown(), (comp, se) => {
+          config(leafLabelEventsId, [
+            runOnAttached((comp, _se) => {
+              selectedId.each(id => {
+                const toggle = id === leaf.id ? Toggling.on : Toggling.off;
+                toggle(comp);
+              });
+            }),
+            run$1(keydown(), (comp, se) => {
               const isLeftArrowKey = se.event.raw.code === 'ArrowLeft';
               const isRightArrowKey = se.event.raw.code === 'ArrowRight';
               if (isLeftArrowKey) {
@@ -16056,7 +16321,8 @@
               } else if (isRightArrowKey) {
                 se.stop();
               }
-            })])
+            })
+          ])
         ])
       });
     };
@@ -16085,9 +16351,16 @@
       internalMenuButton.each(btn => {
         components.push(btn);
       });
-      const expandChildren = button => {
+      const toggleExpandChildren = button => {
         ancestor(button.element, '.tox-tree--directory').each(directoryEle => {
-          button.getSystem().getByDom(directoryEle).each(directoryComp => Toggling.toggle(directoryComp));
+          button.getSystem().getByDom(directoryEle).each(directoryComp => {
+            const willExpand = !Toggling.isOn(directoryComp);
+            Toggling.toggle(directoryComp);
+            emitWith(button, 'expand-tree-node', {
+              expanded: willExpand,
+              node: directory.id
+            });
+          });
         });
       };
       return Button.sketch({
@@ -16099,7 +16372,7 @@
           ].concat(visible ? ['tox-tree--directory__label--visible'] : [])
         },
         components,
-        action: expandChildren,
+        action: toggleExpandChildren,
         eventOrder: {
           [keydown()]: [
             directoryLabelEventsId,
@@ -16118,7 +16391,7 @@
                 ancestor(comp.element, '.tox-tree--directory').each(directoryEle => {
                   comp.getSystem().getByDom(directoryEle).each(directoryComp => {
                     if (!Toggling.isOn(directoryComp) && isRightArrowKey || Toggling.isOn(directoryComp) && isLeftArrowKey) {
-                      expandChildren(comp);
+                      toggleExpandChildren(comp);
                       se.stop();
                     } else if (isLeftArrowKey && !Toggling.isOn(directoryComp)) {
                       ancestor(directoryComp.element, '.tox-tree--directory').each(parentDirElement => {
@@ -16135,7 +16408,7 @@
         ])
       });
     };
-    const renderDirectoryChildren = ({children, onLeafAction, visible, treeId, backstage}) => {
+    const renderDirectoryChildren = ({children, onLeafAction, visible, treeId, expandedIds, selectedId, backstage}) => {
       return {
         dom: {
           tag: 'div',
@@ -16144,12 +16417,15 @@
         components: children.map(item => {
           return item.type === 'leaf' ? renderLeafLabel({
             leaf: item,
+            selectedId,
             onLeafAction,
             visible,
             treeId,
             backstage
           }) : renderDirectory({
             directory: item,
+            expandedIds,
+            selectedId,
             onLeafAction,
             labelTabstopping: visible,
             treeId,
@@ -16162,29 +16438,36 @@
             closedClass: 'tox-tree--directory__children--closed',
             openClass: 'tox-tree--directory__children--open',
             growingClass: 'tox-tree--directory__children--growing',
-            shrinkingClass: 'tox-tree--directory__children--shrinking'
+            shrinkingClass: 'tox-tree--directory__children--shrinking',
+            expanded: visible
           }),
           Replacing.config({})
         ])
       };
     };
-    const renderDirectory = ({directory, onLeafAction, labelTabstopping, treeId, backstage}) => {
+    const directoryEventsId = generate$6('directory-event-id');
+    const renderDirectory = ({directory, onLeafAction, labelTabstopping, treeId, backstage, expandedIds, selectedId}) => {
       const {children} = directory;
+      const expandedIdsCell = Cell(expandedIds);
       const computedChildrenComponents = visible => children.map(item => {
         return item.type === 'leaf' ? renderLeafLabel({
           leaf: item,
+          selectedId,
           onLeafAction,
           visible,
           treeId,
           backstage
         }) : renderDirectory({
           directory: item,
+          expandedIds: expandedIdsCell.get(),
+          selectedId,
           onLeafAction,
           labelTabstopping: visible,
           treeId,
           backstage
         });
       });
+      const childrenVisible = expandedIds.includes(directory.id);
       return {
         dom: {
           tag: 'div',
@@ -16200,13 +16483,28 @@
           }),
           renderDirectoryChildren({
             children,
+            expandedIds,
+            selectedId,
             onLeafAction,
-            visible: false,
+            visible: childrenVisible,
             treeId,
             backstage
           })
         ],
-        behaviours: derive$1([Toggling.config({
+        behaviours: derive$1([
+          config(directoryEventsId, [
+            runOnAttached((comp, _se) => {
+              Toggling.set(comp, childrenVisible);
+            }),
+            run$1('expand-tree-node', (_cmp, se) => {
+              const {expanded, node} = se.event;
+              expandedIdsCell.set(expanded ? [
+                ...expandedIdsCell.get(),
+                node
+              ] : expandedIdsCell.get().filter(id => id !== node));
+            })
+          ]),
+          Toggling.config({
             ...directory.children.length > 0 ? { aria: { mode: 'expanded' } } : {},
             toggleClass: 'tox-tree--directory--expanded',
             onToggled: (comp, childrenVisible) => {
@@ -16219,22 +16517,31 @@
               }
               Replacing.set(childrenComp, newChildren);
             }
-          })])
+          })
+        ])
       };
     };
+    const treeEventsId = generate$6('tree-event-id');
     const renderTree = (spec, backstage) => {
       const onLeafAction = spec.onLeafAction.getOr(noop);
+      const onToggleExpand = spec.onToggleExpand.getOr(noop);
+      const defaultExpandedIds = spec.defaultExpandedIds;
+      const expandedIds = Cell(defaultExpandedIds);
+      const selectedIdCell = Cell(spec.defaultSelectedId);
       const treeId = generate$6('tree-id');
-      const children = spec.items.map(item => {
+      const children = (selectedId, expandedIds) => spec.items.map(item => {
         return item.type === 'leaf' ? renderLeafLabel({
           leaf: item,
+          selectedId,
           onLeafAction,
           visible: true,
           treeId,
           backstage
         }) : renderDirectory({
           directory: item,
+          selectedId,
           onLeafAction,
+          expandedIds,
           labelTabstopping: true,
           treeId,
           backstage
@@ -16246,12 +16553,36 @@
           classes: ['tox-tree'],
           attributes: { role: 'tree' }
         },
-        components: children,
-        behaviours: derive$1([Keying.config({
+        components: children(selectedIdCell.get(), expandedIds.get()),
+        behaviours: derive$1([
+          Keying.config({
             mode: 'flow',
             selector: '.tox-tree--leaf__label--visible, .tox-tree--directory__label--visible',
             cycles: false
-          })])
+          }),
+          config(treeEventsId, [run$1('expand-tree-node', (_cmp, se) => {
+              const {expanded, node} = se.event;
+              expandedIds.set(expanded ? [
+                ...expandedIds.get(),
+                node
+              ] : expandedIds.get().filter(id => id !== node));
+              onToggleExpand(expandedIds.get(), {
+                expanded,
+                node
+              });
+            })]),
+          Receiving.config({
+            channels: {
+              [`update-active-item-${ treeId }`]: {
+                onReceive: (comp, message) => {
+                  selectedIdCell.set(Optional.some(message.value));
+                  Replacing.set(comp, children(Optional.some(message.value), expandedIds.get()));
+                }
+              }
+            }
+          }),
+          Replacing.config({})
+        ])
       };
     };
 
@@ -16268,48 +16599,6 @@
         __proto__: null,
         events: events$5
     });
-
-    const first = (fn, rate) => {
-      let timer = null;
-      const cancel = () => {
-        if (!isNull(timer)) {
-          clearTimeout(timer);
-          timer = null;
-        }
-      };
-      const throttle = (...args) => {
-        if (isNull(timer)) {
-          timer = setTimeout(() => {
-            timer = null;
-            fn.apply(null, args);
-          }, rate);
-        }
-      };
-      return {
-        cancel,
-        throttle
-      };
-    };
-    const last = (fn, rate) => {
-      let timer = null;
-      const cancel = () => {
-        if (!isNull(timer)) {
-          clearTimeout(timer);
-          timer = null;
-        }
-      };
-      const throttle = (...args) => {
-        cancel();
-        timer = setTimeout(() => {
-          timer = null;
-          fn.apply(null, args);
-        }, rate);
-      };
-      return {
-        cancel,
-        throttle
-      };
-    };
 
     const throttle = _config => {
       const state = Cell(null);
@@ -16536,7 +16825,10 @@
             sandbox: hotspot => {
               return makeSandbox$1(detail, hotspot, {
                 onOpen: () => Toggling.on(hotspot),
-                onClose: () => Toggling.off(hotspot)
+                onClose: () => {
+                  detail.lazyTypeaheadComp.get().each(input => remove$7(input.element, 'aria-activedescendant'));
+                  Toggling.off(hotspot);
+                }
               });
             }
           }
@@ -16641,6 +16933,7 @@
                   if (detail.model.populateFromBrowse) {
                     setValueFromItem(detail.model, input, item);
                   }
+                  getOpt(item.element, 'id').each(id => set$9(input.element, 'aria-activedescendant', id));
                 });
               } else {
                 detail.lazyTypeaheadComp.get().each(input => {
@@ -16859,8 +17152,8 @@
     const isNormalFooterButtonSpec = (spec, buttonType) => buttonType === 'custom' || buttonType === 'cancel' || buttonType === 'submit';
     const isToggleButtonSpec = (spec, buttonType) => buttonType === 'togglebutton';
     const renderToggleButton = (spec, providers) => {
-      var _a, _b, _c;
-      const optMemIcon = Optional.from(spec.icon).map(memIcon => renderReplaceableIconFromPack(memIcon, providers.icons)).map(record);
+      var _a, _b;
+      const optMemIcon = spec.icon.map(memIcon => renderReplaceableIconFromPack(memIcon, providers.icons)).map(record);
       const action = comp => {
         emitWith(comp, formActionEvent, {
           name: spec.name,
@@ -16873,13 +17166,12 @@
           }
         });
       };
+      const buttonType = spec.buttonType.getOr(!spec.primary ? 'secondary' : 'primary');
       const buttonSpec = {
         ...spec,
         name: (_a = spec.name) !== null && _a !== void 0 ? _a : '',
-        primary: spec.buttonType === 'primary',
-        buttonType: Optional.from(spec.buttonType),
+        primary: buttonType === 'primary',
         tooltip: Optional.from(spec.tooltip),
-        icon: Optional.from(spec.name),
         enabled: (_b = spec.enabled) !== null && _b !== void 0 ? _b : false,
         borderless: false
       };
@@ -16887,24 +17179,24 @@
         'aria-label': providers.translate(tooltip),
         'title': providers.translate(tooltip)
       })).getOr({});
-      const buttonTypeClasses = calculateClassesFromButtonType((_c = spec.buttonType) !== null && _c !== void 0 ? _c : 'secondary');
-      const showIconAndText = !!spec.icon && !!spec.text;
+      const buttonTypeClasses = calculateClassesFromButtonType(buttonType !== null && buttonType !== void 0 ? buttonType : 'secondary');
+      const showIconAndText = spec.icon.isSome() && spec.text.isSome();
       const dom = {
         tag: 'button',
         classes: [
-          ...buttonTypeClasses.concat(['tox-button--icon']),
+          ...buttonTypeClasses.concat(spec.icon.isSome() ? ['tox-button--icon'] : []),
           ...spec.active ? ['tox-button--enabled'] : [],
           ...showIconAndText ? ['tox-button--icon-and-text'] : []
         ],
         attributes: tooltipAttributes
       };
       const extraBehaviours = [];
-      const translatedText = providers.translate(spec.text);
+      const translatedText = providers.translate(spec.text.getOr(''));
       const translatedTextComponed = text$2(translatedText);
       const iconComp = componentRenderPipeline([optMemIcon.map(memIcon => memIcon.asSpec())]);
       const components = [
         ...iconComp,
-        ...showIconAndText ? [translatedTextComponed] : []
+        ...spec.text.isSome() ? [translatedTextComponed] : []
       ];
       const iconButtonSpec = renderCommonSpec(buttonSpec, Optional.some(action), extraBehaviours, dom, components, providers);
       return Button.sketch(iconButtonSpec);
@@ -16933,13 +17225,7 @@
         };
         return renderButton$1(buttonSpec, action, backstage.shared.providers, []);
       } else if (isToggleButtonSpec(spec, buttonType)) {
-        const buttonSpec = {
-          ...spec,
-          tooltip: spec.tooltip,
-          text: spec.text.getOrUndefined(),
-          buttonType: spec.buttonType.getOrUndefined()
-        };
-        return renderToggleButton(buttonSpec, backstage.shared.providers);
+        return renderToggleButton(spec, backstage.shared.providers);
       } else {
         console.error('Unknown footer button type: ', buttonType);
         throw new Error('Unknown footer button type');
@@ -16950,7 +17236,7 @@
       return renderFormField(Optional.none(), FormField.parts.field({
         factory: Button,
         ...renderButtonSpec(spec, Optional.some(action), providersBackstage, [
-          RepresentingConfigs.memory(''),
+          memory(''),
           ComposingConfigs.self()
         ])
       }));
@@ -16996,8 +17282,9 @@
     };
 
     const getItems = (fileType, input, urlBackstage) => {
+      var _a, _b;
       const urlInputValue = Representing.getValue(input);
-      const term = urlInputValue.meta.text !== undefined ? urlInputValue.meta.text : urlInputValue.value;
+      const term = (_b = (_a = urlInputValue === null || urlInputValue === void 0 ? void 0 : urlInputValue.meta) === null || _a === void 0 ? void 0 : _a.text) !== null && _b !== void 0 ? _b : urlInputValue.value;
       const info = urlBackstage.getLinkInformation();
       return info.fold(() => [], linkInfo => {
         const history = filterByQuery(term, historyTargets(urlBackstage.getHistory(fileType)));
@@ -17215,51 +17502,53 @@
       });
     };
 
-    const renderAlertBanner = (spec, providersBackstage) => Container.sketch({
-      dom: {
-        tag: 'div',
-        attributes: { role: 'alert' },
-        classes: [
-          'tox-notification',
-          'tox-notification--in',
-          `tox-notification--${ spec.level }`
-        ]
-      },
-      components: [
-        {
-          dom: {
-            tag: 'div',
-            classes: ['tox-notification__icon']
-          },
-          components: [Button.sketch({
-              dom: {
-                tag: 'button',
-                classes: [
-                  'tox-button',
-                  'tox-button--naked',
-                  'tox-button--icon'
-                ],
-                innerHtml: get$2(spec.icon, providersBackstage.icons),
-                attributes: { title: providersBackstage.translate(spec.iconTooltip) }
-              },
-              action: comp => {
-                emitWith(comp, formActionEvent, {
+    const renderAlertBanner = (spec, providersBackstage) => {
+      const icon = get$2(spec.icon, providersBackstage.icons);
+      return Container.sketch({
+        dom: {
+          tag: 'div',
+          attributes: { role: 'alert' },
+          classes: [
+            'tox-notification',
+            'tox-notification--in',
+            `tox-notification--${ spec.level }`
+          ]
+        },
+        components: [
+          {
+            dom: {
+              tag: 'div',
+              classes: ['tox-notification__icon'],
+              innerHtml: !spec.url ? icon : undefined
+            },
+            components: spec.url ? [Button.sketch({
+                dom: {
+                  tag: 'button',
+                  classes: [
+                    'tox-button',
+                    'tox-button--naked',
+                    'tox-button--icon'
+                  ],
+                  innerHtml: icon,
+                  attributes: { title: providersBackstage.translate(spec.iconTooltip) }
+                },
+                action: comp => emitWith(comp, formActionEvent, {
                   name: 'alert-banner',
                   value: spec.url
-                });
-              },
-              buttonBehaviours: derive$1([addFocusableBehaviour()])
-            })]
-        },
-        {
-          dom: {
-            tag: 'div',
-            classes: ['tox-notification__body'],
-            innerHtml: providersBackstage.translate(spec.text)
+                }),
+                buttonBehaviours: derive$1([addFocusableBehaviour()])
+              })] : undefined
+          },
+          {
+            dom: {
+              tag: 'div',
+              classes: ['tox-notification__body'],
+              innerHtml: providersBackstage.translate(spec.text)
+            }
           }
-        }
-      ]
-    });
+        ]
+      });
+    };
 
     const set$1 = (element, status) => {
       element.dom.checked = status;
@@ -17280,10 +17569,18 @@
         },
         behaviours: derive$1([
           ComposingConfigs.self(),
-          Disabling.config({ disabled: () => !spec.enabled || providerBackstage.isDisabled() }),
+          Disabling.config({
+            disabled: () => !spec.enabled || providerBackstage.isDisabled(),
+            onDisabled: component => {
+              parentElement(component.element).each(element => add$2(element, 'tox-checkbox--disabled'));
+            },
+            onEnabled: component => {
+              parentElement(component.element).each(element => remove$2(element, 'tox-checkbox--disabled'));
+            }
+          }),
           Tabstopping.config({}),
           Focusing.config({}),
-          RepresentingConfigs.withElement(initialData, get$1, set$1),
+          withElement(initialData, get$1, set$1),
           Keying.config({
             mode: 'special',
             onEnter: toggleCheckboxHandler,
@@ -17334,16 +17631,7 @@
           pLabel
         ],
         fieldBehaviours: derive$1([
-          Disabling.config({
-            disabled: () => !spec.enabled || providerBackstage.isDisabled(),
-            disableClass: 'tox-checkbox--disabled',
-            onDisabled: comp => {
-              FormField.getField(comp).each(Disabling.disable);
-            },
-            onEnabled: comp => {
-              FormField.getField(comp).each(Disabling.enable);
-            }
-          }),
+          Disabling.config({ disabled: () => !spec.enabled || providerBackstage.isDisabled() }),
           receivingConfig()
         ])
       });
@@ -17541,6 +17829,42 @@
       });
       return () => lazyUseEditableAreaAnchor() ? editableAreaAnchor() : standardAnchor();
     };
+    const getInlineBottomDialogAnchor = (inline, contentAreaElement, lazyBottomAnchorBar, lazyUseEditableAreaAnchor) => {
+      const bubbleSize = 12;
+      const overrides = { maxHeightFunction: expandable$1() };
+      const editableAreaAnchor = () => ({
+        type: 'node',
+        root: getContentContainer(getRootNode(contentAreaElement())),
+        node: Optional.from(contentAreaElement()),
+        bubble: nu$5(bubbleSize, bubbleSize, bubbleAlignments$2),
+        layouts: {
+          onRtl: () => [north],
+          onLtr: () => [north]
+        },
+        overrides
+      });
+      const standardAnchor = () => inline ? {
+        type: 'node',
+        root: getContentContainer(getRootNode(contentAreaElement())),
+        node: Optional.from(contentAreaElement()),
+        bubble: nu$5(0, -getOuter$2(contentAreaElement()), bubbleAlignments$2),
+        layouts: {
+          onRtl: () => [north$2],
+          onLtr: () => [north$2]
+        },
+        overrides
+      } : {
+        type: 'hotspot',
+        hotspot: lazyBottomAnchorBar(),
+        bubble: nu$5(0, 0, bubbleAlignments$2),
+        layouts: {
+          onRtl: () => [north$2],
+          onLtr: () => [north$2]
+        },
+        overrides
+      };
+      return () => lazyUseEditableAreaAnchor() ? editableAreaAnchor() : standardAnchor();
+    };
     const getBannerAnchor = (contentAreaElement, lazyAnchorbar, lazyUseEditableAreaAnchor) => {
       const editableAreaAnchor = () => ({
         type: 'node',
@@ -17566,6 +17890,16 @@
       root: bodyElement(),
       getSelection: () => {
         const rng = editor.selection.getRng();
+        const selectedCells = editor.model.table.getSelectedCells();
+        if (selectedCells.length > 1) {
+          const firstCell = selectedCells[0];
+          const lastCell = selectedCells[selectedCells.length - 1];
+          const selectionTableCellRange = {
+            firstCell: SugarElement.fromDom(firstCell),
+            lastCell: SugarElement.fromDom(lastCell)
+          };
+          return Optional.some(selectionTableCellRange);
+        }
         return Optional.some(SimSelection.range(SugarElement.fromDom(rng.startContainer), rng.startOffset, SugarElement.fromDom(rng.endContainer), rng.endOffset));
       }
     });
@@ -17574,13 +17908,14 @@
       root: bodyElement(),
       node: element
     });
-    const getAnchors = (editor, lazyAnchorbar, isToolbarTop) => {
+    const getAnchors = (editor, lazyAnchorbar, lazyBottomAnchorBar, isToolbarTop) => {
       const useFixedToolbarContainer = useFixedContainer(editor);
       const bodyElement = () => SugarElement.fromDom(editor.getBody());
       const contentAreaElement = () => SugarElement.fromDom(editor.getContentAreaContainer());
       const lazyUseEditableAreaAnchor = () => useFixedToolbarContainer || !isToolbarTop();
       return {
         inlineDialog: getInlineDialogAnchor(contentAreaElement, lazyAnchorbar, lazyUseEditableAreaAnchor),
+        inlineBottomDialog: getInlineBottomDialogAnchor(editor.inline, contentAreaElement, lazyBottomAnchorBar, lazyUseEditableAreaAnchor),
         banner: getBannerAnchor(contentAreaElement, lazyAnchorbar, lazyUseEditableAreaAnchor),
         cursor: getCursorAnchor(editor, bodyElement),
         node: getNodeAnchor$1(bodyElement)
@@ -18060,7 +18395,7 @@
       getUrlPicker: filetype => getUrlPicker(editor, filetype)
     });
 
-    const init$6 = (lazySinks, editor, lazyAnchorbar) => {
+    const init$6 = (lazySinks, editor, lazyAnchorbar, lazyBottomAnchorBar) => {
       const contextMenuState = Cell(false);
       const toolbar = HeaderBackstage(editor);
       const providers = {
@@ -18079,7 +18414,7 @@
       const commonBackstage = {
         shared: {
           providers,
-          anchors: getAnchors(editor, lazyAnchorbar, toolbar.isPositionedAtTop),
+          anchors: getAnchors(editor, lazyAnchorbar, lazyBottomAnchorBar, toolbar.isPositionedAtTop),
           header: toolbar
         },
         urlinput,
@@ -18320,7 +18655,10 @@
         dom: detail.dom,
         components: extra.components,
         behaviours: augment(detail.toolbarBehaviours, extra.behaviours),
-        apis: { setGroups },
+        apis: {
+          setGroups,
+          refresh: noop
+        },
         domModification: { attributes: { role: 'group' } }
       };
     };
@@ -18881,7 +19219,8 @@
                   return bounds(box.x, topBound, box.width, boxHeight);
                 }, scrollEnv => {
                   const constrainedBounds = constrain(box, getBoundsFrom(scrollEnv));
-                  return bounds(constrainedBounds.x, constrainedBounds.y, constrainedBounds.width, constrainedBounds.height - headerHeight);
+                  const constrainedBoundsY = isDockedMode(comp, 'top') ? constrainedBounds.y : constrainedBounds.y + headerHeight;
+                  return bounds(constrainedBounds.x, constrainedBoundsY, constrainedBounds.width, constrainedBounds.height - headerHeight);
                 });
               });
             },
@@ -19426,11 +19765,13 @@
       }
       state.clear();
     };
+    const isBlocked = (component, blockingConfig, blockingState) => blockingState.isBlocked();
 
     var BlockingApis = /*#__PURE__*/Object.freeze({
         __proto__: null,
         block: block,
-        unblock: unblock
+        unblock: unblock,
+        isBlocked: isBlocked
     });
 
     var BlockingSchema = [
@@ -20262,7 +20603,7 @@
             name: 'more',
             icon: Optional.some('more-drawer'),
             enabled: true,
-            tooltip: Optional.some('More...'),
+            tooltip: Optional.some('Reveal or hide additional toolbar items'),
             primary: false,
             buttonType: Optional.none(),
             borderless: false
@@ -20789,7 +21130,6 @@
             remove$6(element, 'display');
             remove$7(element, 'aria-hidden');
           });
-          apis.refreshToolbar(comp);
         }
       };
       return {
@@ -21017,7 +21357,7 @@
       },
       insert: {
         title: 'Insert',
-        items: 'image link media addcomment pageembed template inserttemplate codesample inserttable | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents footnotes | mergetags | insertdatetime'
+        items: 'image link media addcomment pageembed template inserttemplate codesample inserttable accordion | charmap emoticons hr | pagebreak nonbreaking anchor tableofcontents footnotes | mergetags | insertdatetime'
       },
       format: {
         title: 'Format',
@@ -21025,7 +21365,7 @@
       },
       tools: {
         title: 'Tools',
-        items: 'spellchecker spellcheckerlanguage | autocorrect capitalization | a11ycheck code typography wordcount addtemplate'
+        items: 'aidialog aishortcuts | spellchecker spellcheckerlanguage | autocorrect capitalization | a11ycheck code typography wordcount addtemplate'
       },
       table: {
         title: 'Table',
@@ -21136,39 +21476,6 @@
     const iframe = curry(loadSkin, false);
     const inline = curry(loadSkin, true);
 
-    const onSetupFormatToggle = (editor, name) => api => {
-      const boundCallback = unbindable();
-      const init = () => {
-        api.setActive(editor.formatter.match(name));
-        const binding = editor.formatter.formatChanged(name, api.setActive);
-        boundCallback.set(binding);
-      };
-      editor.initialized ? init() : editor.once('init', init);
-      return () => {
-        editor.off('init', init);
-        boundCallback.clear();
-      };
-    };
-    const onSetupEvent = (editor, event, f) => api => {
-      const handleEvent = () => f(api);
-      const init = () => {
-        f(api);
-        editor.on(event, handleEvent);
-      };
-      editor.initialized ? init() : editor.once('init', init);
-      return () => {
-        editor.off('init', init);
-        editor.off(event, handleEvent);
-      };
-    };
-    const onActionToggleFormat$1 = editor => rawItem => () => {
-      editor.undoManager.transact(() => {
-        editor.focus();
-        editor.execCommand('mceToggleFormat', false, rawItem.format);
-      });
-    };
-    const onActionExecCommand = (editor, command) => () => editor.execCommand(command);
-
     const generateSelectItems = (_editor, backstage, spec) => {
       const generateItem = (rawItem, response, invalid, value) => {
         const translatedText = backstage.shared.providers.translate(rawItem.title);
@@ -21242,6 +21549,7 @@
       const onSetup = onSetupEvent(editor, 'NodeChange', api => {
         const comp = api.getComponent();
         spec.updateText(comp);
+        Disabling.set(api.getComponent(), !editor.selection.isEditable());
       });
       return renderCommonDropdown({
         text: spec.icon.isSome() ? Optional.none() : spec.text,
@@ -21351,6 +21659,7 @@
       const menuItems = createMenuItems(editor, backstage, getSpec$4(editor));
       editor.ui.registry.addNestedMenuItem('align', {
         text: backstage.shared.providers.translate('Align'),
+        onSetup: onSetupEditableToggle(editor),
         getSubmenuItems: () => menuItems.items.validateItems(menuItems.getStyleItems())
       });
     };
@@ -21403,6 +21712,7 @@
       const menuItems = createMenuItems(editor, backstage, getSpec$3(editor));
       editor.ui.registry.addNestedMenuItem('blocks', {
         text: 'Blocks',
+        onSetup: onSetupEditableToggle(editor),
         getSubmenuItems: () => menuItems.items.validateItems(menuItems.getStyleItems())
       });
     };
@@ -21486,25 +21796,9 @@
       const menuItems = createMenuItems(editor, backstage, getSpec$2(editor));
       editor.ui.registry.addNestedMenuItem('fontfamily', {
         text: backstage.shared.providers.translate('Fonts'),
+        onSetup: onSetupEditableToggle(editor),
         getSubmenuItems: () => menuItems.items.validateItems(menuItems.getStyleItems())
       });
-    };
-
-    const Keys = {
-      tab: constant$1(9),
-      escape: constant$1(27),
-      enter: constant$1(13),
-      backspace: constant$1(8),
-      delete: constant$1(46),
-      left: constant$1(37),
-      up: constant$1(38),
-      right: constant$1(39),
-      down: constant$1(40),
-      space: constant$1(32),
-      home: constant$1(36),
-      end: constant$1(35),
-      pageUp: constant$1(33),
-      pageDown: constant$1(34)
     };
 
     const units = {
@@ -21571,35 +21865,44 @@
     };
     const normalise = (input, accepted) => parse(input, accepted).map(({value, unit}) => value + unit);
 
+    const Keys = {
+      tab: constant$1(9),
+      escape: constant$1(27),
+      enter: constant$1(13),
+      backspace: constant$1(8),
+      delete: constant$1(46),
+      left: constant$1(37),
+      up: constant$1(38),
+      right: constant$1(39),
+      down: constant$1(40),
+      space: constant$1(32),
+      home: constant$1(36),
+      end: constant$1(35),
+      pageUp: constant$1(33),
+      pageDown: constant$1(34)
+    };
+
     const createBespokeNumberInput = (editor, backstage, spec) => {
       let currentComp = Optional.none();
       const getValueFromCurrentComp = comp => comp.map(alloyComp => Representing.getValue(alloyComp)).getOr('');
-      const onSetup = onSetupEvent(editor, 'NodeChange', api => {
+      const onSetup = onSetupEvent(editor, 'NodeChange SwitchMode', api => {
         const comp = api.getComponent();
         currentComp = Optional.some(comp);
         spec.updateInputValue(comp);
+        Disabling.set(comp, !editor.selection.isEditable());
       });
       const getApi = comp => ({ getComponent: constant$1(comp) });
       const editorOffCell = Cell(noop);
       const customEvents = generate$6('custom-number-input-events');
-      const isValidValue = value => value >= 0;
       const changeValue = (f, fromInput, focusBack) => {
         const text = getValueFromCurrentComp(currentComp);
-        const parsedText = parse(text, [
-          'unsupportedLength',
-          'empty'
-        ]);
-        const value = parsedText.map(res => res.value).getOr(0);
-        const defaultUnit = getFontSizeInputDefaultUnit(editor);
-        const unit = parsedText.map(res => res.unit).filter(u => u !== '').getOr(defaultUnit);
-        const newValue = f(value, spec.getConfigFromUnit(unit).step);
-        const newValueWithUnit = `${ isValidValue(newValue) ? newValue : value }${ unit }`;
-        const lenghtDelta = `${ value }${ unit }`.length - `${ newValueWithUnit }`.length;
+        const newValue = spec.getNewValue(text, f);
+        const lenghtDelta = text.length - `${ newValue }`.length;
         const oldStart = currentComp.map(comp => comp.element.dom.selectionStart - lenghtDelta);
         const oldEnd = currentComp.map(comp => comp.element.dom.selectionEnd - lenghtDelta);
-        spec.onAction(newValueWithUnit, focusBack);
+        spec.onAction(newValue, focusBack);
         currentComp.each(comp => {
-          Representing.setValue(comp, newValueWithUnit);
+          Representing.setValue(comp, newValue);
           if (fromInput) {
             oldStart.each(oldStart => comp.element.dom.selectionStart = oldStart);
             oldEnd.each(oldEnd => comp.element.dom.selectionEnd = oldEnd);
@@ -21623,7 +21926,14 @@
       const makeStepperButton = (action, title, tooltip, classes) => {
         const translatedTooltip = backstage.shared.providers.translate(tooltip);
         const altExecuting = generate$6('altExecuting');
-        const onClick = () => action(true);
+        const onSetup = onSetupEvent(editor, 'NodeChange SwitchMode', api => {
+          Disabling.set(api.getComponent(), !editor.selection.isEditable());
+        });
+        const onClick = comp => {
+          if (!Disabling.isDisabled(comp)) {
+            action(true);
+          }
+        };
         return Button.sketch({
           dom: {
             tag: 'button',
@@ -21634,15 +21944,25 @@
             classes: classes.concat(title)
           },
           components: [renderIconFromPack$1(title, backstage.shared.providers.icons)],
-          buttonBehaviours: derive$1([config(altExecuting, [
-              run$1(keydown(), (_comp, se) => {
+          buttonBehaviours: derive$1([
+            Disabling.config({}),
+            config(altExecuting, [
+              onControlAttached({
+                onSetup,
+                getApi
+              }, editorOffCell),
+              onControlDetached({ getApi }, editorOffCell),
+              run$1(keydown(), (comp, se) => {
                 if (se.event.raw.keyCode === Keys.space() || se.event.raw.keyCode === Keys.enter()) {
-                  action(false);
+                  if (!Disabling.isDisabled(comp)) {
+                    action(false);
+                  }
                 }
               }),
               run$1(click(), onClick),
               run$1(touchend(), onClick)
-            ])]),
+            ])
+          ]),
           eventOrder: {
             [keydown()]: [
               altExecuting,
@@ -21671,6 +21991,7 @@
         },
         components: [Input.sketch({
             inputBehaviours: derive$1([
+              Disabling.config({}),
               config(customEvents, [
                 onControlAttached({
                   onSetup,
@@ -21859,12 +22180,32 @@
       };
       return (_a = configs[unit]) !== null && _a !== void 0 ? _a : baseConfig;
     };
+    const defaultValue = 16;
+    const isValidValue = value => value >= 0;
     const getNumberInputSpec = editor => {
-      const updateInputValue = comp => emitWith(comp, updateMenuText, { text: editor.queryCommandValue('FontSize') });
+      const getCurrentValue = () => editor.queryCommandValue('FontSize');
+      const updateInputValue = comp => emitWith(comp, updateMenuText, { text: getCurrentValue() });
       return {
         updateInputValue,
-        getConfigFromUnit,
-        onAction: (format, focusBack) => editor.execCommand('FontSize', false, format, { skip_focus: !focusBack })
+        onAction: (format, focusBack) => editor.execCommand('FontSize', false, format, { skip_focus: !focusBack }),
+        getNewValue: (text, updateFunction) => {
+          parse(text, [
+            'unsupportedLength',
+            'empty'
+          ]);
+          const parsedText = parse(text, [
+            'unsupportedLength',
+            'empty'
+          ]).or(parse(getCurrentValue(), [
+            'unsupportedLength',
+            'empty'
+          ]));
+          const value = parsedText.map(res => res.value).getOr(defaultValue);
+          const defaultUnit = getFontSizeInputDefaultUnit(editor);
+          const unit = parsedText.map(res => res.unit).filter(u => u !== '').getOr(defaultUnit);
+          const newValue = updateFunction(value, getConfigFromUnit(unit).step);
+          return `${ isValidValue(newValue) ? newValue : value }${ unit }`;
+        }
       };
     };
     const createFontSizeInputButton = (editor, backstage) => createBespokeNumberInput(editor, backstage, getNumberInputSpec(editor));
@@ -21872,6 +22213,7 @@
       const menuItems = createMenuItems(editor, backstage, getSpec$1(editor));
       editor.ui.registry.addNestedMenuItem('fontsize', {
         text: 'Font sizes',
+        onSetup: onSetupEditableToggle(editor),
         getSubmenuItems: () => menuItems.items.validateItems(menuItems.getStyleItems())
       });
     };
@@ -21933,6 +22275,7 @@
       const menuItems = createMenuItems(editor, backstage, getSpec(editor, dataset));
       editor.ui.registry.addNestedMenuItem('styles', {
         text: 'Formats',
+        onSetup: onSetupEditableToggle(editor),
         getSubmenuItems: () => menuItems.items.validateItems(menuItems.getStyleItems())
       });
     };
@@ -22294,7 +22637,7 @@
         isEnabled: () => !Disabling.isDisabled(comp),
         setEnabled: state => Disabling.set(comp, !state),
         setIconFill: (id, value) => {
-          descendant(comp.element, `svg path[id="${ id }"], rect[id="${ id }"]`).each(underlinePath => {
+          descendant(comp.element, `svg path[class="${ id }"], rect[class="${ id }"]`).each(underlinePath => {
             set$9(underlinePath, 'fill', value);
           });
         },
@@ -22385,6 +22728,13 @@
         ]
       },
       {
+        name: 'ai',
+        items: [
+          'aidialog',
+          'aishortcuts'
+        ]
+      },
+      {
         name: 'styles',
         items: ['styles']
       },
@@ -22427,7 +22777,7 @@
     const types = {
       button: renderFromBridge(createToolbarButton, (s, backstage) => renderToolbarButton(s, backstage.shared.providers)),
       togglebutton: renderFromBridge(createToggleButton, (s, backstage) => renderToolbarToggleButton(s, backstage.shared.providers)),
-      menubutton: renderFromBridge(createMenuButton, (s, backstage) => renderMenuButton(s, 'tox-tbtn', backstage, Optional.none())),
+      menubutton: renderFromBridge(createMenuButton, (s, backstage) => renderMenuButton(s, 'tox-tbtn', backstage, Optional.none(), false)),
       splitbutton: renderFromBridge(createSplitButton, (s, backstage) => renderSplitButton(s, backstage.shared)),
       grouptoolbarbutton: renderFromBridge(createGroupToolbarButton, (s, backstage, editor) => {
         const buttons = editor.ui.registry.getAll().buttons;
@@ -22631,6 +22981,7 @@
           if (isNull(OuterContainer.whichView(outerContainer))) {
             editor.focus();
             editor.nodeChanged();
+            OuterContainer.refreshToolbar(outerContainer);
           }
         }
       });
@@ -23790,12 +24141,13 @@
           tooltip: item.text,
           icon: item.icon,
           onAction: onActionExecCommand(editor, item.cmd),
-          onSetup: onSetupFormatToggle(editor, item.name)
+          onSetup: onSetupStateToggle(editor, item.name)
         });
       });
       editor.ui.registry.addButton('alignnone', {
         tooltip: 'No alignment',
         icon: 'align-none',
+        onSetup: onSetupEditableToggle(editor),
         onAction: onActionExecCommand(editor, 'JustifyNone')
       });
     };
@@ -23839,7 +24191,7 @@
         onSetup: spec.onMenuSetup
       });
     };
-    const lineHeightSpec = {
+    const lineHeightSpec = editor => ({
       name: 'lineheight',
       text: 'Line height',
       icon: 'line-height',
@@ -23852,8 +24204,10 @@
       display: identity,
       watcher: (editor, value, callback) => editor.formatter.formatChanged('lineheight', callback, false, { value }).unbind,
       getCurrent: editor => Optional.from(editor.queryCommandValue('LineHeight')),
-      setCurrent: (editor, value) => editor.execCommand('LineHeight', false, value)
-    };
+      setCurrent: (editor, value) => editor.execCommand('LineHeight', false, value),
+      onToolbarSetup: onSetupEditableToggle(editor),
+      onMenuSetup: onSetupEditableToggle(editor)
+    });
     const languageSpec = editor => {
       const settingsOpt = Optional.from(getContentLanguages(editor));
       return settingsOpt.map(settings => ({
@@ -23889,12 +24243,13 @@
           const unbinder = unbindable();
           api.setActive(editor.formatter.match('lang', {}, undefined, true));
           unbinder.set(editor.formatter.formatChanged('lang', api.setActive, true));
-          return unbinder.clear;
-        }
+          return composeUnbinders(unbinder.clear, onSetupEditableToggle(editor)(api));
+        },
+        onMenuSetup: onSetupEditableToggle(editor)
       }));
     };
     const register$7 = editor => {
-      registerController(editor, lineHeightSpec);
+      registerController(editor, lineHeightSpec(editor));
       languageSpec(editor).each(spec => registerController(editor, spec));
     };
 
@@ -23907,7 +24262,7 @@
     };
 
     const onSetupOutdentState = editor => onSetupEvent(editor, 'NodeChange', api => {
-      api.setEnabled(editor.queryCommandState('outdent'));
+      api.setEnabled(editor.queryCommandState('outdent') && editor.selection.isEditable());
     });
     const registerButtons$2 = editor => {
       editor.ui.registry.addButton('outdent', {
@@ -23919,6 +24274,7 @@
       editor.ui.registry.addButton('indent', {
         tooltip: 'Increase indent',
         icon: 'indent',
+        onSetup: onSetupEditableToggle(editor),
         onAction: onActionExecCommand(editor, 'indent')
       });
     };
@@ -23933,7 +24289,7 @@
         api.setActive(e.state);
       };
       editor.on('PastePlainTextToggle', pastePlainTextToggleHandler);
-      return () => editor.off('PastePlainTextToggle', pastePlainTextToggleHandler);
+      return composeUnbinders(() => editor.off('PastePlainTextToggle', pastePlainTextToggleHandler), onSetupEditableToggle(editor)(api));
     };
     const register$4 = editor => {
       const pasteAsText = Cell(getPasteAsText(editor));
@@ -23992,7 +24348,7 @@
         editor.ui.registry.addToggleButton(btn.name, {
           tooltip: btn.text,
           icon: btn.icon,
-          onSetup: onSetupFormatToggle(editor, btn.name),
+          onSetup: onSetupStateToggle(editor, btn.name),
           onAction: onActionToggleFormat(editor, btn.name)
         });
       });
@@ -24001,7 +24357,7 @@
         editor.ui.registry.addToggleButton(name, {
           text: name.toUpperCase(),
           tooltip: 'Heading ' + i,
-          onSetup: onSetupFormatToggle(editor, name),
+          onSetup: onSetupStateToggle(editor, name),
           onAction: onActionToggleFormat(editor, name)
         });
       }
@@ -24009,22 +24365,10 @@
     const registerCommandButtons = editor => {
       global$1.each([
         {
-          name: 'cut',
-          text: 'Cut',
-          action: 'Cut',
-          icon: 'cut'
-        },
-        {
           name: 'copy',
           text: 'Copy',
           action: 'Copy',
           icon: 'copy'
-        },
-        {
-          name: 'paste',
-          text: 'Paste',
-          action: 'Paste',
-          icon: 'paste'
         },
         {
           name: 'help',
@@ -24045,6 +24389,32 @@
           icon: 'new-document'
         },
         {
+          name: 'print',
+          text: 'Print',
+          action: 'mcePrint',
+          icon: 'print'
+        }
+      ], btn => {
+        editor.ui.registry.addButton(btn.name, {
+          tooltip: btn.text,
+          icon: btn.icon,
+          onAction: onActionExecCommand(editor, btn.action)
+        });
+      });
+      global$1.each([
+        {
+          name: 'cut',
+          text: 'Cut',
+          action: 'Cut',
+          icon: 'cut'
+        },
+        {
+          name: 'paste',
+          text: 'Paste',
+          action: 'Paste',
+          icon: 'paste'
+        },
+        {
           name: 'removeformat',
           text: 'Clear formatting',
           action: 'RemoveFormat',
@@ -24057,12 +24427,6 @@
           icon: 'remove'
         },
         {
-          name: 'print',
-          text: 'Print',
-          action: 'mcePrint',
-          icon: 'print'
-        },
-        {
           name: 'hr',
           text: 'Horizontal line',
           action: 'InsertHorizontalRule',
@@ -24072,6 +24436,7 @@
         editor.ui.registry.addButton(btn.name, {
           tooltip: btn.text,
           icon: btn.icon,
+          onSetup: onSetupEditableToggle(editor),
           onAction: onActionExecCommand(editor, btn.action)
         });
       });
@@ -24087,7 +24452,7 @@
           tooltip: btn.text,
           icon: btn.icon,
           onAction: onActionExecCommand(editor, btn.action),
-          onSetup: onSetupFormatToggle(editor, btn.name)
+          onSetup: onSetupStateToggle(editor, btn.name)
         });
       });
     };
@@ -24097,6 +24462,42 @@
       registerCommandToggleButtons(editor);
     };
     const registerMenuItems$2 = editor => {
+      global$1.each([
+        {
+          name: 'newdocument',
+          text: 'New document',
+          action: 'mceNewDocument',
+          icon: 'new-document'
+        },
+        {
+          name: 'copy',
+          text: 'Copy',
+          action: 'Copy',
+          icon: 'copy',
+          shortcut: 'Meta+C'
+        },
+        {
+          name: 'selectall',
+          text: 'Select all',
+          action: 'SelectAll',
+          icon: 'select-all',
+          shortcut: 'Meta+A'
+        },
+        {
+          name: 'print',
+          text: 'Print...',
+          action: 'mcePrint',
+          icon: 'print',
+          shortcut: 'Meta+P'
+        }
+      ], menuitem => {
+        editor.ui.registry.addMenuItem(menuitem.name, {
+          text: menuitem.text,
+          icon: menuitem.icon,
+          shortcut: menuitem.shortcut,
+          onAction: onActionExecCommand(editor, menuitem.action)
+        });
+      });
       global$1.each([
         {
           name: 'bold',
@@ -24144,12 +24545,6 @@
           icon: 'remove-formatting'
         },
         {
-          name: 'newdocument',
-          text: 'New document',
-          action: 'mceNewDocument',
-          icon: 'new-document'
-        },
-        {
           name: 'cut',
           text: 'Cut',
           action: 'Cut',
@@ -24157,32 +24552,11 @@
           shortcut: 'Meta+X'
         },
         {
-          name: 'copy',
-          text: 'Copy',
-          action: 'Copy',
-          icon: 'copy',
-          shortcut: 'Meta+C'
-        },
-        {
           name: 'paste',
           text: 'Paste',
           action: 'Paste',
           icon: 'paste',
           shortcut: 'Meta+V'
-        },
-        {
-          name: 'selectall',
-          text: 'Select all',
-          action: 'SelectAll',
-          icon: 'select-all',
-          shortcut: 'Meta+A'
-        },
-        {
-          name: 'print',
-          text: 'Print...',
-          action: 'mcePrint',
-          icon: 'print',
-          shortcut: 'Meta+P'
         },
         {
           name: 'hr',
@@ -24195,12 +24569,14 @@
           text: menuitem.text,
           icon: menuitem.icon,
           shortcut: menuitem.shortcut,
+          onSetup: onSetupEditableToggle(editor),
           onAction: onActionExecCommand(editor, menuitem.action)
         });
       });
       editor.ui.registry.addMenuItem('codeformat', {
         text: 'Code',
         icon: 'sourcecode',
+        onSetup: onSetupEditableToggle(editor),
         onAction: onActionToggleFormat(editor, 'code')
       });
     };
@@ -24590,9 +24966,9 @@
       const sections = foldl(menuConfig, (acc, name) => {
         return get$g(contextMenus, name.toLowerCase()).map(menu => {
           const items = menu.update(selectedElement);
-          if (isString(items)) {
+          if (isString(items) && isNotEmpty(trim$1(items))) {
             return addContextMenuGroup(acc, items.split(' '));
-          } else if (items.length > 0) {
+          } else if (isArray(items) && items.length > 0) {
             const allItems = map$2(items, makeContextItem);
             return addContextMenuGroup(acc, allItems);
           } else {
@@ -25456,10 +25832,14 @@
       if (resizeType === ResizeTypes.None) {
         return Optional.none();
       }
+      const resizeLabel = resizeType === ResizeTypes.Both ? 'Press the arrow keys to resize the editor.' : 'Press the Up and Down arrow keys to resize the editor.';
       return Optional.some(render$3('resize-handle', {
         tag: 'div',
         classes: ['tox-statusbar__resize-handle'],
-        attributes: { title: providersBackstage.translate('Resize') },
+        attributes: {
+          'title': providersBackstage.translate('Resize'),
+          'aria-label': providersBackstage.translate(resizeLabel)
+        },
         behaviours: [
           Dragging.config({
             mode: 'mouse',
@@ -25565,22 +25945,83 @@
             }]
         };
       };
-      const getTextComponents = () => {
+      const renderHelpAccessibility = () => {
+        const shortcutText = convertText('Alt+0');
+        const text = `Press {0} for help`;
+        return {
+          dom: {
+            tag: 'div',
+            classes: ['tox-statusbar__help-text']
+          },
+          components: [text$2(global$8.translate([
+              text,
+              shortcutText
+            ]))]
+        };
+      };
+      const renderRightContainer = () => {
         const components = [];
-        if (useElementPath(editor)) {
-          components.push(renderElementPath(editor, {}, providersBackstage));
-        }
         if (editor.hasPlugin('wordcount')) {
           components.push(renderWordCount(editor, providersBackstage));
         }
         if (useBranding(editor)) {
           components.push(renderBranding());
         }
+        return {
+          dom: {
+            tag: 'div',
+            classes: ['tox-statusbar__right-container']
+          },
+          components
+        };
+      };
+      const getTextComponents = () => {
+        const components = [];
+        const shouldRenderHelp = useHelpAccessibility(editor);
+        const shouldRenderElementPath = useElementPath(editor);
+        const shouldRenderRightContainer = useBranding(editor) || editor.hasPlugin('wordcount');
+        const getTextComponentClasses = () => {
+          const flexStart = 'tox-statusbar__text-container--flex-start';
+          const flexEnd = 'tox-statusbar__text-container--flex-end';
+          const spaceAround = 'tox-statusbar__text-container--space-around';
+          if (shouldRenderHelp) {
+            const container3Columns = 'tox-statusbar__text-container-3-cols';
+            if (!shouldRenderRightContainer && !shouldRenderElementPath) {
+              return [
+                container3Columns,
+                spaceAround
+              ];
+            }
+            if (shouldRenderRightContainer && !shouldRenderElementPath) {
+              return [
+                container3Columns,
+                flexEnd
+              ];
+            }
+            return [
+              container3Columns,
+              flexStart
+            ];
+          }
+          return [shouldRenderRightContainer && !shouldRenderElementPath ? flexEnd : flexStart];
+        };
+        if (shouldRenderElementPath) {
+          components.push(renderElementPath(editor, {}, providersBackstage));
+        }
+        if (shouldRenderHelp) {
+          components.push(renderHelpAccessibility());
+        }
+        if (shouldRenderRightContainer) {
+          components.push(renderRightContainer());
+        }
         if (components.length > 0) {
           return [{
               dom: {
                 tag: 'div',
-                classes: ['tox-statusbar__text-container']
+                classes: [
+                  'tox-statusbar__text-container',
+                  ...getTextComponentClasses()
+                ]
               },
               components
             }];
@@ -25622,16 +26063,23 @@
           classes: ['tox-anchorbar']
         }
       });
+      const memBottomAnchorBar = record({
+        dom: {
+          tag: 'div',
+          classes: ['tox-bottom-anchorbar']
+        }
+      });
       const lazyHeader = () => lazyUiRefs.mainUi.get().map(ui => ui.outerContainer).bind(OuterContainer.getHeader);
       const lazyDialogSinkResult = () => Result.fromOption(lazyUiRefs.dialogUi.get().map(ui => ui.sink), 'UI has not been rendered');
       const lazyPopupSinkResult = () => Result.fromOption(lazyUiRefs.popupUi.get().map(ui => ui.sink), '(popup) UI has not been rendered');
       const lazyAnchorBar = lazyUiRefs.lazyGetInOuterOrDie('anchor bar', memAnchorBar.getOpt);
+      const lazyBottomAnchorBar = lazyUiRefs.lazyGetInOuterOrDie('bottom anchor bar', memBottomAnchorBar.getOpt);
       const lazyToolbar = lazyUiRefs.lazyGetInOuterOrDie('toolbar', OuterContainer.getToolbar);
       const lazyThrobber = lazyUiRefs.lazyGetInOuterOrDie('throbber', OuterContainer.getThrobber);
       const backstages = init$6({
         popup: lazyPopupSinkResult,
         dialog: lazyDialogSinkResult
-      }, editor, lazyAnchorBar);
+      }, editor, lazyAnchorBar, lazyBottomAnchorBar);
       const makeHeaderPart = () => {
         const verticalDirAttributes = { attributes: { [Attribute]: isToolbarBottom ? AttributeValue.BottomToTop : AttributeValue.TopToBottom } };
         const partMenubar = OuterContainer.parts.menubar({
@@ -25814,7 +26262,10 @@
         const editorContainer = OuterContainer.parts.editorContainer({
           components: flatten([
             editorComponents,
-            isInline ? [] : statusbar.toArray()
+            isInline ? [] : [
+              memBottomAnchorBar.asSpec(),
+              ...statusbar.toArray()
+            ]
           ])
         });
         const isHidden = isDistractionFree(editor);
@@ -25864,10 +26315,10 @@
         const parsedHeight = numToPx(getHeightWithFallback(editor));
         const parsedWidth = numToPx(getWidthWithFallback(editor));
         if (!editor.inline) {
-          if (isValidValue('div', 'width', parsedWidth)) {
+          if (isValidValue$1('div', 'width', parsedWidth)) {
             set$8(outerContainer.element, 'width', parsedWidth);
           }
-          if (isValidValue('div', 'height', parsedHeight)) {
+          if (isValidValue$1('div', 'height', parsedHeight)) {
             set$8(outerContainer.element, 'height', parsedHeight);
           } else {
             set$8(outerContainer.element, 'height', '400px');
@@ -25955,15 +26406,6 @@
         },
         renderUI
       };
-    };
-
-    const describedBy = (describedElement, describeElement) => {
-      const describeId = Optional.from(get$f(describedElement, 'id')).fold(() => {
-        const id = generate$6('dialog-describe');
-        set$9(describeElement, 'id', id);
-        return id;
-      }, identity);
-      set$9(describedElement, 'aria-describedby', describeId);
     };
 
     const labelledBy = (labelledElement, labelElement) => {
@@ -26059,7 +26501,7 @@
           behaviours: derive$1([
             Focusing.config({}),
             config('dialog-blocker-events', [runOnSource(focusin(), () => {
-                Keying.focusIn(dialog);
+                Blocking.isBlocked(dialog) ? noop() : Keying.focusIn(dialog);
               })])
           ])
         });
@@ -26075,7 +26517,7 @@
         });
       };
       const getDialogBody = dialog => getPartOrDie(dialog, detail, 'body');
-      const getDialogFooter = dialog => getPartOrDie(dialog, detail, 'footer');
+      const getDialogFooter = dialog => getPart(dialog, detail, 'footer');
       const setBusy = (dialog, getBusySpec) => {
         Blocking.block(dialog, getBusySpec);
       };
@@ -26118,7 +26560,6 @@
           Blocking.config({ getRoot: dialogComp.get }),
           config(modalEventsId, [runOnAttached(c => {
               labelledBy(c.element, getPartOrDie(c, detail, 'title').element);
-              describedBy(c.element, getPartOrDie(c, detail, 'body').element);
             })])
         ])
       };
@@ -26190,7 +26631,7 @@
       ...baseFooterButtonFields,
       requiredStringEnum('type', ['togglebutton']),
       requiredString('tooltip'),
-      icon,
+      optionalIcon,
       optionalText,
       defaultedBoolean('active', false)
     ];
@@ -26300,7 +26741,9 @@
     const htmlPanelSchema = objOf(htmlPanelFields);
 
     const iframeFields = formComponentWithLabelFields.concat([
+      defaultedBoolean('border', false),
       defaultedBoolean('sandboxed', true),
+      defaultedBoolean('streamContent', false),
       defaultedBoolean('transparent', true)
     ]);
     const iframeSchema = objOf(iframeFields);
@@ -26326,7 +26769,12 @@
     const createLabelFields = itemsField => [
       type,
       label,
-      itemsField
+      itemsField,
+      defaultedStringEnum('align', 'start', [
+        'start',
+        'center',
+        'end'
+      ])
     ];
 
     const listBoxSingleItemFields = [
@@ -26417,7 +26865,10 @@
     const treeFields = [
       type,
       requiredArrayOf('items', treeItemSchema),
-      optionFunction('onLeafAction')
+      optionFunction('onLeafAction'),
+      optionFunction('onToggleExpand'),
+      defaultedArrayOf('defaultExpandedIds', [], string),
+      optionString('defaultSelectedId')
     ];
     const treeSchema = objOf(treeFields);
 
@@ -26489,7 +26940,7 @@
         tabpanel: tabPanelSchema
       })),
       defaultedString('size', 'normal'),
-      requiredArrayOf('buttons', dialogButtonSchema),
+      defaultedArrayOf('buttons', [], dialogButtonSchema),
       defaulted('initialData', {}),
       defaultedFunction('onAction', noop),
       defaultedFunction('onChange', noop),
@@ -26696,12 +27147,15 @@
             useTabstopAt: not(isPseudoStop)
           }),
           ComposingConfigs.memento(memForm),
-          RepresentingConfigs.memento(memForm, {
+          memento(memForm, {
             postprocess: formValue => toValidValues(formValue).fold(err => {
               console.error(err);
               return {};
             }, identity)
-          })
+          }),
+          config('dialog-body-panel', [run$1(focusin(), (comp, se) => {
+              comp.getSystem().broadcastOn([dialogFocusShiftedChannel], { newFocus: Optional.some(se.event.target) });
+            })])
         ])
       };
     };
@@ -27156,7 +27610,7 @@
           config('tabpanel', tabMode.extraEvents),
           Keying.config({ mode: 'acyclic' }),
           Composing.config({ find: comp => head(TabSection.getViewItems(comp)) }),
-          RepresentingConfigs.withComp(Optional.none(), tsection => {
+          withComp(Optional.none(), tsection => {
             tsection.getSystem().broadcastOn([SendDataToSectionChannel], {});
             return storedValue.get();
           }, (tsection, value) => {
@@ -27166,12 +27620,6 @@
         ])
       });
     };
-
-    const dialogChannel = generate$6('update-dialog');
-    const titleChannel = generate$6('update-title');
-    const bodyChannel = generate$6('update-body');
-    const footerChannel = generate$6('update-footer');
-    const bodySendMessageChannel = generate$6('body-send-message');
 
     const renderBody = (spec, dialogId, contentId, backstage, ariaAttrs) => {
       const renderComponents = incoming => {
@@ -27224,7 +27672,7 @@
               tag: 'div',
               classes: ['tox-dialog__body-iframe']
             },
-            components: [craft({
+            components: [craft(Optional.none(), {
                 dom: {
                   tag: 'iframe',
                   attributes: { src: spec.url }
@@ -28923,9 +29371,14 @@
         dragBlockClass: blockerClass,
         modalBehaviours: derive$1([
           Focusing.config({}),
-          config('dialog-events', spec.dialogEvents.concat([runOnSource(focusin(), (comp, _se) => {
-              Keying.focusIn(comp);
-            })])),
+          config('dialog-events', spec.dialogEvents.concat([
+            runOnSource(focusin(), (comp, _se) => {
+              Blocking.isBlocked(comp) ? noop() : Keying.focusIn(comp);
+            }),
+            run$1(focusShifted(), (comp, se) => {
+              comp.getSystem().broadcastOn([dialogFocusShiftedChannel], { newFocus: se.event.newFocus });
+            })
+          ])),
           config('scroll-lock', [
             runOnAttached(() => {
               add$2(body(), scrollLockClass);
@@ -28969,7 +29422,7 @@
       },
       buttonBehaviours: derive$1([Tabstopping.config({})]),
       components: [render$3('close', {
-          tag: 'div',
+          tag: 'span',
           classes: ['tox-icon']
         }, providersBackstage.icons)],
       action: comp => {
@@ -29028,7 +29481,7 @@
       title: backstage.shared.providers.translate(title),
       draggable: backstage.dialog.isDraggableModal()
     }, dialogId, backstage.shared.providers);
-    const getBusySpec = (message, bs, providers) => ({
+    const getBusySpec = (message, bs, providers, headerHeight) => ({
       dom: {
         tag: 'div',
         classes: ['tox-dialog__busy-spinner'],
@@ -29037,7 +29490,7 @@
           left: '0px',
           right: '0px',
           bottom: '0px',
-          top: '0px',
+          top: `${ headerHeight.getOr(0) }px`,
           position: 'absolute'
         }
       },
@@ -29047,7 +29500,8 @@
     const getEventExtras = (lazyDialog, providers, extra) => ({
       onClose: () => extra.closeWindow(),
       onBlock: blockEvent => {
-        ModalDialog.setBusy(lazyDialog(), (_comp, bs) => getBusySpec(blockEvent.message, bs, providers));
+        const headerHeight = descendant(lazyDialog().element, '.tox-dialog__header').map(header => get$d(header));
+        ModalDialog.setBusy(lazyDialog(), (_comp, bs) => getBusySpec(blockEvent.message, bs, providers, headerHeight));
       },
       onUnblock: () => {
         ModalDialog.setIdle(lazyDialog());
@@ -29065,7 +29519,7 @@
             updateState,
             initialData
           }),
-          RepresentingConfigs.memory({}),
+          memory({}),
           ...spec.extraBehaviours
         ],
         onEscape: comp => {
@@ -29173,7 +29627,7 @@
           spec.onChange(api, { name: event.name });
         }),
         fireApiEvent(formActionEvent, (api, spec, event, component) => {
-          const focusIn = () => Keying.focusIn(component);
+          const focusIn = () => component.getSystem().isConnected() ? Keying.focusIn(component) : undefined;
           const isDisabled = focused => has$1(focused, 'disabled') || getOpt(focused, 'aria-disabled').exists(val => val === 'true');
           const rootNode = getRootNode(component.element);
           const current = active$1(rootNode);
@@ -29202,10 +29656,6 @@
           Representing.setValue(component, api.getData());
         })
       ];
-    };
-    const SilverDialogEvents = {
-      initUrlDialog,
-      initDialog
     };
 
     const makeButton = (button, backstage) => renderFooterButton(button, button.type, backstage);
@@ -29263,7 +29713,7 @@
         const form = Composing.getCurrent(access.getFormWrapper()).getOr(access.getFormWrapper());
         return Form.getField(form, name).orThunk(() => {
           const footer = access.getFooter();
-          const footerState = Reflecting.getState(footer).get();
+          const footerState = footer.bind(f => Reflecting.getState(f).get());
           return footerState.bind(f => f.lookupByName(name));
         });
       } else {
@@ -29390,14 +29840,14 @@
       }, dialogId, backstage);
       const storedMenuButtons = mapMenuButtons(internalDialog.buttons);
       const objOfCells = extractCellsToObject(storedMenuButtons);
-      const footer = renderModalFooter({ buttons: storedMenuButtons }, dialogId, backstage);
-      const dialogEvents = SilverDialogEvents.initDialog(() => instanceApi, getEventExtras(() => dialog, backstage.shared.providers, extra), backstage.shared.getSink);
+      const footer = someIf(storedMenuButtons.length !== 0, renderModalFooter({ buttons: storedMenuButtons }, dialogId, backstage));
+      const dialogEvents = initDialog(() => instanceApi, getEventExtras(() => dialog, backstage.shared.providers, extra), backstage.shared.getSink);
       const dialogSize = getDialogSizeClasses(internalDialog.size);
       const spec = {
         id: dialogId,
         header,
         body,
-        footer: Optional.some(footer),
+        footer,
         extraClasses: dialogSize,
         extraBehaviours: [],
         extraStyles: {}
@@ -29435,11 +29885,20 @@
       };
     };
 
-    const renderInlineDialog = (dialogInit, extra, backstage, ariaAttrs) => {
+    const getInlineDialogSizeClass = size => {
+      switch (size) {
+      case 'medium':
+        return Optional.some('tox-dialog--width-md');
+      default:
+        return Optional.none();
+      }
+    };
+    const renderInlineDialog = (dialogInit, extra, backstage, ariaAttrs = false) => {
       const dialogId = generate$6('dialog');
       const dialogLabelId = generate$6('dialog-label');
       const dialogContentId = generate$6('dialog-content');
       const internalDialog = dialogInit.internalDialog;
+      const dialogSize = getInlineDialogSizeClass(internalDialog.size);
       const updateState = (_comp, incoming) => Optional.some(incoming);
       const memHeader = record(renderInlineHeader({
         title: internalDialog.title,
@@ -29451,10 +29910,13 @@
       }, dialogId, dialogContentId, backstage, ariaAttrs));
       const storagedMenuButtons = mapMenuButtons(internalDialog.buttons);
       const objOfCells = extractCellsToObject(storagedMenuButtons);
-      const memFooter = record(renderInlineFooter({ buttons: storagedMenuButtons }, dialogId, backstage));
-      const dialogEvents = SilverDialogEvents.initDialog(() => instanceApi, {
+      const optMemFooter = someIf(storagedMenuButtons.length !== 0, record(renderInlineFooter({ buttons: storagedMenuButtons }, dialogId, backstage)));
+      const dialogEvents = initDialog(() => instanceApi, {
         onBlock: event => {
-          Blocking.block(dialog, (_comp, bs) => getBusySpec(event.message, bs, backstage.shared.providers));
+          Blocking.block(dialog, (_comp, bs) => {
+            const headerHeight = memHeader.getOpt(dialog).map(dialog => get$d(dialog.element));
+            return getBusySpec(event.message, bs, backstage.shared.providers, headerHeight);
+          });
         },
         onUnblock: () => {
           Blocking.unblock(dialog);
@@ -29467,12 +29929,12 @@
           tag: 'div',
           classes: [
             'tox-dialog',
-            inlineClass
+            inlineClass,
+            ...dialogSize.toArray()
           ],
           attributes: {
             role: 'dialog',
-            ['aria-labelledby']: dialogLabelId,
-            ['aria-describedby']: dialogContentId
+            ['aria-labelledby']: dialogLabelId
           }
         },
         eventOrder: {
@@ -29502,17 +29964,22 @@
             initialData: dialogInit
           }),
           Focusing.config({}),
-          config('execute-on-form', dialogEvents.concat([runOnSource(focusin(), (comp, _se) => {
+          config('execute-on-form', dialogEvents.concat([
+            runOnSource(focusin(), (comp, _se) => {
               Keying.focusIn(comp);
-            })])),
+            }),
+            run$1(focusShifted(), (comp, se) => {
+              comp.getSystem().broadcastOn([dialogFocusShiftedChannel], { newFocus: se.event.newFocus });
+            })
+          ])),
           Blocking.config({ getRoot: () => Optional.some(dialog) }),
           Replacing.config({}),
-          RepresentingConfigs.memory({})
+          memory({})
         ]),
         components: [
           memHeader.asSpec(),
           memBody.asSpec(),
-          memFooter.asSpec()
+          ...optMemFooter.map(memFooter => memFooter.asSpec()).toArray()
         ]
       });
       const toggleFullscreen = () => {
@@ -29529,7 +29996,7 @@
       const instanceApi = getDialogApi({
         getId: constant$1(dialogId),
         getRoot: constant$1(dialog),
-        getFooter: () => memFooter.get(dialog),
+        getFooter: () => optMemFooter.map(memFooter => memFooter.get(dialog)),
         getBody: () => memBody.get(dialog),
         getFormWrapper: () => {
           const body = memBody.get(dialog);
@@ -29626,7 +30093,7 @@
           return Optional.some(renderModalFooter({ buttons }, dialogId, backstage));
         }
       });
-      const dialogEvents = SilverDialogEvents.initUrlDialog(() => instanceApi, getEventExtras(() => dialog, backstage.shared.providers, extra));
+      const dialogEvents = initUrlDialog(() => instanceApi, getEventExtras(() => dialog, backstage.shared.providers, extra));
       const styles = {
         ...internalDialog.height.fold(() => ({}), height => ({
           'height': height + 'px',
@@ -29818,13 +30285,16 @@
       const alertDialog = setup$2(extras.backstages.dialog);
       const confirmDialog = setup$1(extras.backstages.dialog);
       const open = (config, params, closeWindow) => {
-        if (params !== undefined && params.inline === 'toolbar') {
-          return openInlineDialog(config, extras.backstages.popup.shared.anchors.inlineDialog(), closeWindow, params.ariaAttrs);
-        } else if (params !== undefined && params.inline === 'cursor') {
-          return openInlineDialog(config, extras.backstages.popup.shared.anchors.cursor(), closeWindow, params.ariaAttrs);
-        } else {
-          return openModalDialog(config, closeWindow);
+        if (!isUndefined(params)) {
+          if (params.inline === 'toolbar') {
+            return openInlineDialog(config, extras.backstages.popup.shared.anchors.inlineDialog(), closeWindow, params);
+          } else if (params.inline === 'bottom') {
+            return openBottomInlineDialog(config, extras.backstages.popup.shared.anchors.inlineBottomDialog(), closeWindow, params);
+          } else if (params.inline === 'cursor') {
+            return openInlineDialog(config, extras.backstages.popup.shared.anchors.cursor(), closeWindow, params);
+          }
         }
+        return openModalDialog(config, closeWindow);
       };
       const openUrl = (config, closeWindow) => openModalUrlDialog(config, closeWindow);
       const openModalUrlDialog = (config, closeWindow) => {
@@ -29861,7 +30331,7 @@
         };
         return DialogManager.open(factory, config);
       };
-      const openInlineDialog = (config$1, anchor, closeWindow, ariaAttrs = false) => {
+      const openInlineDialog = (config$1, anchor, closeWindow, windowParams) => {
         const factory = (contents, internalInitialData, dataValidator) => {
           const initialData = validateData(internalInitialData, dataValidator);
           const inlineDialog = value$2();
@@ -29883,14 +30353,14 @@
               inlineDialog.clear();
               closeWindow(dialogUi.instanceApi);
             }
-          }, extras.backstages.popup, ariaAttrs);
+          }, extras.backstages.popup, windowParams.ariaAttrs);
           const inlineDialogComp = build$1(InlineView.sketch({
             lazySink: extras.backstages.popup.shared.getSink,
             dom: {
               tag: 'div',
               classes: []
             },
-            fireDismissalEventInstead: {},
+            fireDismissalEventInstead: windowParams.persistent ? { event: 'doNotDismissYet' } : {},
             ...isToolbarLocationTop ? {} : { fireRepositionEventInstead: {} },
             inlineBehaviours: derive$1([
               config('window-manager-inline-events', [run$1(dismissRequested(), (_comp, _se) => {
@@ -29911,6 +30381,92 @@
             Docking.refresh(inlineDialogComp);
             editor.on('ResizeEditor', refreshDocking);
           }
+          dialogUi.instanceApi.setData(initialData);
+          Keying.focusIn(dialogUi.dialog);
+          return dialogUi.instanceApi;
+        };
+        return DialogManager.open(factory, config$1);
+      };
+      const openBottomInlineDialog = (config$1, anchor, closeWindow, windowParams) => {
+        const factory = (contents, internalInitialData, dataValidator) => {
+          const initialData = validateData(internalInitialData, dataValidator);
+          const inlineDialog = value$2();
+          const isToolbarLocationTop = extras.backstages.popup.shared.header.isPositionedAtTop();
+          const dialogInit = {
+            dataValidator,
+            initialData,
+            internalDialog: contents
+          };
+          const refreshDocking = () => inlineDialog.on(dialog => {
+            InlineView.reposition(dialog);
+            Docking.refresh(dialog);
+          });
+          const dialogUi = renderInlineDialog(dialogInit, {
+            redial: DialogManager.redial,
+            closeWindow: () => {
+              inlineDialog.on(InlineView.hide);
+              editor.off('ResizeEditor ScrollWindow ElementScroll', refreshDocking);
+              inlineDialog.clear();
+              closeWindow(dialogUi.instanceApi);
+            }
+          }, extras.backstages.popup, windowParams.ariaAttrs);
+          const inlineDialogComp = build$1(InlineView.sketch({
+            lazySink: extras.backstages.popup.shared.getSink,
+            dom: {
+              tag: 'div',
+              classes: []
+            },
+            fireDismissalEventInstead: windowParams.persistent ? { event: 'doNotDismissYet' } : {},
+            ...isToolbarLocationTop ? {} : { fireRepositionEventInstead: {} },
+            inlineBehaviours: derive$1([
+              config('window-manager-inline-events', [run$1(dismissRequested(), (_comp, _se) => {
+                  emit(dialogUi.dialog, formCancelEvent);
+                })]),
+              Docking.config({
+                contextual: {
+                  lazyContext: () => Optional.some(box$1(SugarElement.fromDom(editor.getContentAreaContainer()))),
+                  fadeInClass: 'tox-dialog-dock-fadein',
+                  fadeOutClass: 'tox-dialog-dock-fadeout',
+                  transitionClass: 'tox-dialog-dock-transition'
+                },
+                modes: [
+                  'top',
+                  'bottom'
+                ],
+                lazyViewport: comp => {
+                  const optScrollingContext = detectWhenSplitUiMode(editor, comp.element);
+                  return optScrollingContext.map(sc => {
+                    const combinedBounds = getBoundsFrom(sc);
+                    return {
+                      bounds: combinedBounds,
+                      optScrollEnv: Optional.some({
+                        currentScrollTop: sc.element.dom.scrollTop,
+                        scrollElmTop: absolute$3(sc.element).top
+                      })
+                    };
+                  }).getOrThunk(() => ({
+                    bounds: win(),
+                    optScrollEnv: Optional.none()
+                  }));
+                }
+              })
+            ]),
+            isExtraPart: (_comp, target) => isAlertOrConfirmDialog(target)
+          }));
+          inlineDialog.set(inlineDialogComp);
+          const getInlineDialogBounds = () => {
+            return extras.backstages.popup.shared.getSink().toOptional().bind(s => {
+              const optScrollingContext = detectWhenSplitUiMode(editor, s.element);
+              const margin = 15;
+              const bounds$1 = optScrollingContext.map(sc => getBoundsFrom(sc)).getOr(win());
+              const contentAreaContainer = box$1(SugarElement.fromDom(editor.getContentAreaContainer()));
+              const constrainedBounds = constrain(contentAreaContainer, bounds$1);
+              return Optional.some(bounds(constrainedBounds.x, constrainedBounds.y, constrainedBounds.width, constrainedBounds.height - margin));
+            });
+          };
+          InlineView.showWithinBounds(inlineDialogComp, premade(dialogUi.dialog), { anchor }, getInlineDialogBounds);
+          Docking.refresh(inlineDialogComp);
+          editor.on('ResizeEditor ScrollWindow ElementScroll', refreshDocking);
           dialogUi.instanceApi.setData(initialData);
           Keying.focusIn(dialogUi.dialog);
           return dialogUi.instanceApi;

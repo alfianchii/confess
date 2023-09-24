@@ -119,6 +119,7 @@ class Sidebar {
   onResize() {
     if (isDesktop(window)) {
       this.sidebarEL.classList.add("active")
+      this.sidebarEL.classList.remove("inactive")
     } else {
       this.sidebarEL.classList.remove("active")
     }
@@ -155,7 +156,6 @@ class Sidebar {
    */
   hide() {
     this.sidebarEL.classList.remove("active")
-    this.sidebarEL.classList.add("inactive")
     this.deleteBackdrop()
     this.toggleOverflowBody()
   }

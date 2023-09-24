@@ -28,7 +28,7 @@
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ Request::is('complaints') ? 'border-bottom border-3 fw-bold' : '' }}"
+                        <a class="nav-link text-white {{ Request::is('complaints*') ? 'border-bottom border-3 fw-bold' : '' }}"
                             href="/complaints">Keluhan</a>
                     </li>
                     <li class="nav-item">

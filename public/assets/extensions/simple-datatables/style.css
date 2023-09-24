@@ -101,7 +101,8 @@
 .dataTable-table > tfoot > tr > th,
 .dataTable-table > thead > tr > td,
 .dataTable-table > thead > tr > th {
-	vertical-align: middle;
+	vertical-align: top;
+	padding: 8px 10px;
 }
 
 .dataTable-table > thead > tr > th {

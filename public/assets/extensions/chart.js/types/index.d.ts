@@ -10,9 +10,7 @@ import {Color} from './color.js';
 import Element from '../core/core.element.js';
 import {ChartArea, Padding, Point} from './geometric.js';
 import {LayoutItem, LayoutPosition} from './layout.js';
-import {RenderTextOpts} from './helpers/helpers.canvas.js';
-import {CanvasFontSpec} from '../helpers/helpers.options.js';
-import type {ColorsPluginOptions} from '../plugins/plugin.colors.js';
+import {ColorsPluginOptions} from '../plugins/plugin.colors.js';
 
 export {EasingFunction} from '../helpers/helpers.easing.js';
 export {default as ArcElement, ArcProps} from '../elements/element.arc.js';
@@ -548,6 +546,8 @@ export declare class Chart<
 
   isPluginEnabled(pluginId: string): boolean;
 
+  getContext(): { chart: Chart, type: string };
+
   static readonly defaults: Defaults;
   static readonly overrides: Overrides;
   static readonly version: string;
@@ -815,6 +815,12 @@ export declare const layouts: {
 
 export interface Plugin<TType extends ChartType = ChartType, O = AnyObject> extends ExtendedPlugin<TType, O> {
   id: string;
+
+  /**
+   * The events option defines the browser events that the plugin should listen.
+   * @default ['mousemove', 'mouseout', 'click', 'touchstart', 'touchmove']
+   */
+  events?: (keyof HTMLElementEventMap)[]
 
   /**
    * @desc Called when plugin is installed for this chart instance. This hook is also invoked for disabled plugins (options === false).
@@ -1161,15 +1167,40 @@ export interface CoreScaleOptions {
    */
   alignToPixels: boolean;
   /**
+   * Background color of the scale area.
+   */
+  backgroundColor: Color;
+  /**
    * Reverse the scale.
    * @default false
    */
   reverse: boolean;
   /**
+   * Clip the dataset drawing against the size of the scale instead of chart area.
+   * @default true
+   */
+  clip: boolean;
+  /**
    * The weight used to sort the axis. Higher weights are further away from the chart area.
    * @default true
    */
   weight: number;
+  /**
+   * User defined minimum value for the scale, overrides minimum value from data.
+   */
+  min: unknown;
+  /**
+   * User defined maximum value for the scale, overrides maximum value from data.
+   */
+  max: unknown;
+  /**
+   * Adjustment used when calculating the maximum data value.
+   */
+  suggestedMin: unknown;
+  /**
+   * Adjustment used when calculating the minimum data value.
+   */
+  suggestedMax: unknown;
   /**
    * Callback called before the update process starts.
    */
@@ -1310,7 +1341,7 @@ export interface Scale<O extends CoreScaleOptions = CoreScaleOptions> extends El
   getBasePixel(): number;
 
   init(options: O): void;
-  parse(raw: unknown, index: number): unknown;
+  parse(raw: unknown, index?: number): unknown;
   getUserBounds(): { min: number; max: number; minDefined: boolean; maxDefined: boolean };
   getMinMax(canStack: boolean): { min: number; max: number };
   getTicks(): Tick[];
@@ -1357,6 +1388,102 @@ export interface ScriptableScalePointLabelContext {
   index: number;
   label: string;
   type: string;
+}
+
+export interface RenderTextOpts {
+  /**
+   * The fill color of the text. If unset, the existing
+   * fillStyle property of the canvas is unchanged.
+   */
+  color?: Color;
+
+  /**
+   * The width of the strikethrough / underline
+   * @default 2
+   */
+  decorationWidth?: number;
+
+  /**
+   * The max width of the text in pixels
+   */
+  maxWidth?: number;
+
+  /**
+   * A rotation to be applied to the canvas
+   * This is applied after the translation is applied
+   */
+  rotation?: number;
+
+  /**
+   * Apply a strikethrough effect to the text
+   */
+  strikethrough?: boolean;
+
+  /**
+   * The color of the text stroke. If unset, the existing
+   * strokeStyle property of the context is unchanged
+   */
+  strokeColor?: Color;
+
+  /**
+   * The text stroke width. If unset, the existing
+   * lineWidth property of the context is unchanged
+   */
+  strokeWidth?: number;
+
+  /**
+   * The text alignment to use. If unset, the existing
+   * textAlign property of the context is unchanged
+   */
+  textAlign?: CanvasTextAlign;
+
+  /**
+   * The text baseline to use. If unset, the existing
+   * textBaseline property of the context is unchanged
+   */
+  textBaseline?: CanvasTextBaseline;
+
+  /**
+   * If specified, a translation to apply to the context
+   */
+  translation?: [number, number];
+
+  /**
+   * Underline the text
+   */
+  underline?: boolean;
+
+  /**
+   * Dimensions for drawing the label backdrop
+   */
+  backdrop?: BackdropOptions;
+}
+
+export interface BackdropOptions {
+  /**
+   * Left position of backdrop as pixel
+   */
+  left: number;
+
+  /**
+   * Top position of backdrop as pixel
+   */
+  top: number;
+
+  /**
+   * Width of backdrop in pixels
+   */
+  width: number;
+
+  /**
+   * Height of backdrop in pixels
+   */
+  height: number;
+
+  /**
+   * Color of label backdrops.
+   */
+  color: Scriptable<Color, ScriptableScaleContext>;
 }
 
 export interface LabelItem {
@@ -1501,7 +1628,7 @@ export interface CoreChartOptions<TType extends ChartType> extends ParsingOption
    */
   responsive: boolean;
   /**
-   * Maintain the original canvas aspect ratio (width / height) when resizing.
+   * Maintain the original canvas aspect ratio (width / height) when resizing. For this option to work properly the chart must be in its own dedicated container.
    * @default true
    */
   maintainAspectRatio: boolean;
@@ -1658,6 +1785,10 @@ export interface FontSpec {
   lineHeight: number | string;
 }
 
+export interface CanvasFontSpec extends FontSpec {
+  string: string;
+}
+
 export type TextAlign = 'left' | 'center' | 'right';
 export type Align = 'start' | 'center' | 'end';
 
@@ -1700,7 +1831,16 @@ export interface ArcOptions extends CommonElementOptions {
    * Arc stroke alignment.
    */
   borderAlign: 'center' | 'inner';
-
+  /**
+   * Line dash. See MDN.
+   * @default []
+   */
+  borderDash: number[];
+  /**
+   * Line dash offset. See MDN.
+   * @default 0.0
+   */
+  borderDashOffset: number;
   /**
    * Line join style. See MDN. Default is 'round' when `borderAlign` is 'inner', else 'bevel'.
    */
@@ -1730,6 +1870,8 @@ export interface ArcOptions extends CommonElementOptions {
 }
 
 export interface ArcHoverOptions extends CommonHoverOptions {
+  hoverBorderDash: number[];
+  hoverBorderDashOffset: number;
   hoverOffset: number;
 }
 
@@ -2079,7 +2221,7 @@ export type DecimationOptions = LttbDecimationOptions | MinMaxDecimationOptions;
 
 export declare const Filler: Plugin;
 export interface FillerOptions {
-  drawTime: 'beforeDatasetDraw' | 'beforeDatasetsDraw';
+  drawTime: 'beforeDraw' | 'beforeDatasetDraw' | 'beforeDatasetsDraw';
   propagate: boolean;
 }
 
@@ -2282,6 +2424,10 @@ export interface LegendOptions<TType extends ChartType> {
      * @default 10
      */
     padding: number;
+    /**
+     * If usePointStyle is true, the width of the point style used for the legend.
+     */
+    pointStyleWidth: number;
     /**
      * Generates legend items for each thing in the legend. Default implementation returns the text + styling for the color box. See Legend Item for details.
      */
@@ -2850,7 +2996,7 @@ export interface GridLineOptions {
   /**
    * @default []
    */
-  tickBorderDash: number[];
+  tickBorderDash: Scriptable<number[], ScriptableScaleContext>;
   /**
    * @default 0
    */
@@ -3187,6 +3333,61 @@ export declare const LogarithmicScale: ChartComponent & {
   new <O extends LogarithmicScaleOptions = LogarithmicScaleOptions>(cfg: AnyObject): LogarithmicScale<O>;
 };
 
+export type TimeScaleTimeOptions = {
+  /**
+   * Custom parser for dates.
+   */
+  parser: string | ((v: unknown) => number);
+  /**
+   * If defined, dates will be rounded to the start of this unit. See Time Units below for the allowed units.
+   */
+  round: false | TimeUnit;
+  /**
+   * If boolean and true and the unit is set to 'week', then the first day of the week will be Monday. Otherwise, it will be Sunday.
+   * If `number`, the index of the first day of the week (0 - Sunday, 6 - Saturday).
+   * @default false
+   */
+  isoWeekday: boolean | number;
+  /**
+   * Sets how different time units are displayed.
+   */
+  displayFormats: {
+    [key: string]: string;
+  };
+  /**
+   * The format string to use for the tooltip.
+   */
+  tooltipFormat: string;
+  /**
+   * If defined, will force the unit to be a certain type. See Time Units section below for details.
+   * @default false
+   */
+  unit: false | TimeUnit;
+  /**
+   * The minimum display format to be used for a time unit.
+   * @default 'millisecond'
+   */
+  minUnit: TimeUnit;
+};
+
+export type TimeScaleTickOptions = {
+  /**
+   * Ticks generation input values:
+   * - 'auto': generates "optimal" ticks based on scale size and time options.
+   * - 'data': generates ticks from data (including labels from data `{t|x|y}` objects).
+   * - 'labels': generates ticks from user given `data.labels` values ONLY.
+   * @see https://github.com/chartjs/Chart.js/pull/4507
+   * @since 2.7.0
+   * @default 'auto'
+   */
+  source: 'labels' | 'auto' | 'data';
+  /**
+   * The number of units between grid lines.
+   * @default 1
+   */
+  stepSize: number;
+};
+
 export type TimeScaleOptions = Omit<CartesianScaleOptions, 'min' | 'max'> & {
   min: string | number;
   max: string | number;
@@ -3215,60 +3416,9 @@ export type TimeScaleOptions = Omit<CartesianScaleOptions, 'min' | 'max'> & {
     date: unknown;
   };
 
-  time: {
-    /**
-     * Custom parser for dates.
-     */
-    parser: string | ((v: unknown) => number);
-    /**
-     * If defined, dates will be rounded to the start of this unit. See Time Units below for the allowed units.
-     */
-    round: false | TimeUnit;
-    /**
-     * If boolean and true and the unit is set to 'week', then the first day of the week will be Monday. Otherwise, it will be Sunday.
-     * If `number`, the index of the first day of the week (0 - Sunday, 6 - Saturday).
-     * @default false
-     */
-    isoWeekday: boolean | number;
-    /**
-     * Sets how different time units are displayed.
-     */
-    displayFormats: {
-      [key: string]: string;
-    };
-    /**
-     * The format string to use for the tooltip.
-     */
-    tooltipFormat: string;
-    /**
-     * If defined, will force the unit to be a certain type. See Time Units section below for details.
-     * @default false
-     */
-    unit: false | TimeUnit;
-    /**
-     * The minimum display format to be used for a time unit.
-     * @default 'millisecond'
-     */
-    minUnit: TimeUnit;
-  };
+  time: TimeScaleTimeOptions;
 
-  ticks: {
-    /**
-     * Ticks generation input values:
-     * - 'auto': generates "optimal" ticks based on scale size and time options.
-     * - 'data': generates ticks from data (including labels from data `{t|x|y}` objects).
-     * - 'labels': generates ticks from user given `data.labels` values ONLY.
-     * @see https://github.com/chartjs/Chart.js/pull/4507
-     * @since 2.7.0
-     * @default 'auto'
-     */
-    source: 'labels' | 'auto' | 'data';
-    /**
-     * The number of units between grid lines.
-     * @default 1
-     */
-    stepSize: number;
-  };
+  ticks: TimeScaleTickOptions;
 };
 
 export interface TimeScale<O extends TimeScaleOptions = TimeScaleOptions> extends Scale<O> {
@@ -3318,8 +3468,6 @@ export type RadialTickOptions = TickOptions & {
 }
 
 export type RadialLinearScaleOptions = CoreScaleOptions & {
-  backgroundColor: Color;
-
   animate: boolean;
 
   startAngle: number;
@@ -3389,10 +3537,10 @@ export type RadialLinearScaleOptions = CoreScaleOptions & {
     borderRadius: Scriptable<number | BorderRadius, ScriptableScalePointLabelContext>;
 
     /**
-     * if true, point labels are shown.
+     * if true, point labels are shown. When `display: 'auto'`, the label is hidden if it overlaps with another label.
      * @default true
      */
-    display: boolean;
+    display: boolean | 'auto';
     /**
      * Color of label
      * @see Defaults.color
@@ -3644,6 +3792,8 @@ export interface ChartData<
   TLabel = unknown
 > {
   labels?: TLabel[];
+  xLabels?: TLabel[];
+  yLabels?: TLabel[];
   datasets: ChartDataset<TType, TData>[];
 }
 
@@ -3653,6 +3803,8 @@ export interface ChartDataCustomTypesPerDataset<
   TLabel = unknown
 > {
   labels?: TLabel[];
+  xLabels?: TLabel[];
+  yLabels?: TLabel[];
   datasets: ChartDatasetCustomTypesPerDataset<TType, TData>[];
 }
 
