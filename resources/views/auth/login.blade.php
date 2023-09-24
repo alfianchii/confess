@@ -55,21 +55,20 @@
                             <input type="password" class="form-control p-2 mt-1 @error('password') is-invalid @enderror"
                                 id="password" name="password" />
                             <button type="button" class="btn bg-transparent show-password" id="show-btn"
-                                data-bs-toggle="tooltip" data-bs-title="Tampilkan / Sembunyikan password">
+                                data-bs-toggle="tooltip" data-bs-title="Tampilkan/sembunyikan password.">
                                 <i class="bi bi-eye-slash-fill"></i>
                             </button>
                         </div>
                         @error('password')
-                            <div class="invalid-feedback">
+                            <div class="invalid-feedback d-block">
                                 {{ $message }}
                             </div>
                         @enderror
                         <div class="text-end mt-3">
                             <a href="# " class="form-text">Lupa password?</a>
                         </div>
-
                     </div>
-                    <div class="text-start mt-5">
+                    <div class="text-start mt-3">
                         <button type="submit" class="w-100 btn-color btn text-white p-2">Masuk</button>
                     </div>
                 </form>
