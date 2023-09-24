@@ -50,8 +50,15 @@
         </div>
         <div class="sidebar-menu">
             <ul class="menu">
-                <li class="sidebar-title">Menu</li>
+                <li class="sidebar-title">Beranda</li>
+                <li class="sidebar-item">
+                    <a href="/" class="sidebar-link">
+                        <i class="bi bi-arrow-90deg-left"></i>
+                        <span>Kembali ke Beranda</span>
+                    </a>
+                </li>
 
+                <li class="sidebar-title">Menu</li>
                 <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
                     <a href="/dashboard" class="sidebar-link">
                         <i class="bi bi-grid-fill"></i>
@@ -116,7 +123,8 @@
                         <li class="submenu-item {{ Request::is('dashboard/user/account/setting*') ? 'active' : '' }}">
                             <a href="/dashboard/user/account/setting">Pengaturan</a>
                         </li>
-                        <li class="submenu-item {{ Request::is('dashboard/user/account/password*') ? 'active' : '' }}">
+                        <li
+                            class="submenu-item {{ Request::is('dashboard/user/account/password*') ? 'active' : '' }}">
                             <a href="/dashboard/user/account/password">Ganti Password</a>
                         </li>
                     </ul>
