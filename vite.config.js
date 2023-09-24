@@ -24,5 +24,10 @@ const resourceFiles = (dirPath, filesArray = []) => {
 const files = resourceFiles(root);
 
 export default defineConfig({
-    plugins: [laravel(files)],
+    plugins: [
+        laravel({
+            input: files,
+            refresh: true,
+        }),
+    ],
 });
