@@ -6,15 +6,15 @@ import { resolve } from "path";
 const root = resolve(__dirname, "resources");
 
 const resourceFiles = (dirPath, filesArray = []) => {
-    const files = fs.readdirSync(dirPath);
+    const paths = fs.readdirSync(dirPath);
 
-    for (const file of files) {
-        if (file !== "views") {
-            const filePath = resolve(dirPath, file);
-            const fileStat = fs.statSync(filePath);
-            fileStat.isDirectory()
-                ? resourceFiles(filePath, filesArray)
-                : filesArray.push(filePath);
+    for (const path of paths) {
+        if (path !== "views") {
+            const basePath = resolve(dirPath, path);
+            const pathStat = fs.statSync(basePath);
+            pathStat.isDirectory()
+                ? resourceFiles(basePath, filesArray)
+                : filesArray.push(basePath);
         }
     }
 
