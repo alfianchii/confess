@@ -1,12 +1,14 @@
 {
     "name": "confess",
-    "description": "Aplikasi Pengaduan Sekolah",
+    "version": "1.0.0",
+    "description": "A website for student complaint reporting built with Laravel 9",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "watch": "vite build --watch"
     },
     "author": "alfianchii",
+    "license": "MIT",
     "keywords": [
         "application",
         "laravel",
