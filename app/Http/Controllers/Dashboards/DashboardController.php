@@ -29,9 +29,9 @@ class DashboardController extends Controller
         return view("dashboard.index", $response);
     }
 
-    public function chartData()
+    public function chartData(Request $request)
     {
         // Return the chart data (JSON response)
-        return $this->chartService->responses(auth()->user());
+        return $this->chartService->responses(auth()->user(), $request->json()->all());
     }
 }

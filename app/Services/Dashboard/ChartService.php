@@ -3,6 +3,7 @@
 namespace App\Services\Dashboard;
 
 use App\Models\{Response, Complaint};
+use Illuminate\Support\Facades\Validator;
 
 class ChartService
 {
@@ -26,8 +27,34 @@ class ChartService
         return Complaint::allComplaintAxises();
     }
 
-    public function responses($user)
+    public function responses($user, $body)
     {
+        // ---------------------------------
+        // Fetching validations
+        $validator = Validator::make($body, [
+            "username" => ["required", "min:3"],
+            "email" => ["required", "email:rfc,dns"],
+        ]);
+
+        if ($validator->fails()) return response()->json([
+            "message" => "Some credentials were missing!",
+            "error" => "Unprocessable Entity",
+        ], 422);
+
+        $credentials = $validator->validate();
+
+        $userAuth = [
+            "username" => auth()->user()->username,
+            "email" => auth()->user()->email,
+        ];
+
+        foreach ($userAuth as $item => $value) {
+            if ($credentials[$item] !== $value) return response()->json([
+                "message" => "You are unauthorized!",
+                "error" => "Forbidden",
+            ], 403);
+        }
+
         // Response
         $responseAxises = $this->yourResponseAxises();
         $allResponseAxises = $this->allResponseAxises();

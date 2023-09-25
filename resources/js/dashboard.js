@@ -1,10 +1,13 @@
+const user = window.userData;
+
 fetch(`/dashboard/chart-data`, {
-    method: "GET",
+    method: "POST",
     headers: {
         "X-CSRF-TOKEN": document
             .querySelector('meta[name="csrf-token"]')
             .getAttribute("content"),
     },
+    body: JSON.stringify(user),
 })
     .then(async (result) => {
         const body = await result.json();
@@ -155,19 +158,19 @@ fetch(`/dashboard/chart-data`, {
             // Instance chart
             var chartComplaintAndResponse = new ApexCharts(
                 document.getElementById("chart-complaint"),
-                optionsComplaintAndResponse
+                optionsComplaintAndResponse,
             );
             var chartYourResponses = new ApexCharts(
                 document.querySelector("#chart-your-responses"),
-                optionsYourResponse
+                optionsYourResponse,
             );
             var chartAllResponsesGender = new ApexCharts(
                 document.getElementById("chart-response-genders"),
-                optionsAllResponsesGender
+                optionsAllResponsesGender,
             );
             var chartAllComplaintsGender = new ApexCharts(
                 document.getElementById("chart-complaint-genders"),
-                optionsAllComplaintsGender
+                optionsAllComplaintsGender,
             );
 
             // Render
@@ -246,11 +249,11 @@ fetch(`/dashboard/chart-data`, {
             // Instance chart
             var chartYourResponses = new ApexCharts(
                 document.querySelector("#chart-your-responses"),
-                optionsYourResponses
+                optionsYourResponses,
             );
             var chartAllResponsesGender = new ApexCharts(
                 document.getElementById("chart-response-genders"),
-                optionsAllResponsesGender
+                optionsAllResponsesGender,
             );
 
             // Render
@@ -304,7 +307,7 @@ fetch(`/dashboard/chart-data`, {
             // Instance chart
             var chartYourComplaints = new ApexCharts(
                 document.querySelector("#chart-your-complaints"),
-                optionsYourComplaints
+                optionsYourComplaints,
             );
 
             // Render

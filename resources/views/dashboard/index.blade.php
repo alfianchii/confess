@@ -912,6 +912,14 @@
 @endsection
 
 @section('scripts')
+    {{-- User's credentials --}}
+    <script>
+        window.userData = @json([
+            'username' => auth()->user()->username,
+            'email' => auth()->user()->email,
+        ]);
+    </script>
+
     <!-- Need: Apexcharts -->
     <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     {{-- Dashboard --}}
