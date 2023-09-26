@@ -18,65 +18,6 @@
             <div class="row">
                 @forelse($categories as $category)
                     <div class="col-md-4 mb-3">
-                        {{-- <div class="card">
-                            <div class="position-absolute px-3 py-2 bg-nav">
-                                <a class="text-white" href="/complaints?category={{ $category->slug }}">
-                                    {{ $category->name }}
-                                </a>
-                            </div>
-
-                            @if ($category->image)
-                                <img class="img-fluid rounded" src="{{ asset("storage/$category->image") }}"
-                                    alt="{{ $category->name }}">
-                            @else
-                                <img class="img-fluid rounded" src="{{ asset('images/no-image-2.jpg') }}"
-                                    alt="{{ $category->name }}">
-                            @endif
-
-                            <div class="card-body">
-                                <h5 class="card-title d-inline-block">TEST</h5>
-
-                                <hr>
-
-                                <p class="card-text">test</p>
-
-                                <div class="mt-4">
-                                    <a class="btn btn-color text-white" href="/complaints/{{ $category->slug }}">
-                                        Selengkapnya ...
-                                    </a>
-                                </div>
-                            </div>
-                        </div> --}}
-
-                        {{-- <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <h4 class="card-title">{{ $category->title }}</h4>
-                                    <p class="card-text">
-                                        {{ $category->description }}
-                                    </p>
-                                </div>
-                                <img class="img-fluid w-100" src="{{ asset('assets/compiled/jpg/banana.jpg') }}"
-                                    alt="Card image cap">
-                            </div>
-                            <div class="card-footer d-flex justify-content-between">
-                                <button class="btn btn-light-primary">Cari ...</button>
-                            </div>
-                        </div> --}}
-
-                        {{-- <div class="card">
-                            <div class="card-content">
-                                <div class="card-body">
-                                    <h4 class="card-title">{{ $category->name }}</h4>
-                                    <div class="card-text mb-0">
-                                        {!! $category->description !!}
-                                    </div>
-                                </div>
-                                <img class="card-img-bottom img-fluid" src="{{ asset('assets/compiled/jpg/water.jpg') }}"
-                                    alt="Card image cap" style="height: 20rem; object-fit: cover;">
-                            </div>
-                        </div> --}}
-
                         <div class="card">
                             <div class="card-content">
                                 @if ($category->image)
