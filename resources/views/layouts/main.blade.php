@@ -11,7 +11,7 @@
 
     <style>
         body {
-            font-family: 'Nunito', sans-serif;
+            font-family: 'Inter', sans-serif;
         }
     </style>
 </head>
@@ -22,7 +22,6 @@
     <div id="app">
         @include('layouts.navbar')
 
-        {{-- <div id="main" class="m-0 py-0"> --}}
         @yield('content')
 
         @include('layouts.footer')
