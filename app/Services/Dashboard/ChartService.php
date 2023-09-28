@@ -33,7 +33,7 @@ class ChartService
         // Fetching validations
         $validator = Validator::make($body, [
             "username" => ["required", "min:3"],
-            "email" => ["required", "email:rfc,dns"],
+            "email" => ["required", "email"],
         ]);
 
         if ($validator->fails()) return response()->json([
