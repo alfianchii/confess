@@ -86,7 +86,7 @@
                                                 <label for="title" class="form-label">Judul</label>
                                                 <div class="position-relative">
                                                     <input autofocus type="text" class="form-control py-2"
-                                                        placeholder="Judul pengakuan" id="title" name="title"
+                                                        placeholder="Saya dipalak ..." id="title" name="title"
                                                         value="{{ old('title') ?? $confession->title }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-card-heading py-2"></i>
@@ -103,8 +103,8 @@
                                                 class="form-group has-icon-left mandatory @error('slug'){{ 'is-invalid' }}@enderror">
                                                 <label for="slug" class="form-label">Slug</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control py-2" placeholder="Sluggable"
-                                                        id="slug" name="slug"
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder="e.g. saya-dipalak" id="slug" name="slug"
                                                         value="{{ old('slug') ?? $confession->slug }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-pencil py-2"></i>
@@ -122,7 +122,7 @@
                                                 <label for="date" class="form-label">Date</label>
                                                 <div class="position-relative">
                                                     <input type="date" class="form-control py-2"
-                                                        placeholder="Judul pengakuan" id="date" name="date"
+                                                        placeholder="e.g. Saya dipalak ..." id="date" name="date"
                                                         value="{{ old('date') ?? $confession->date }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-calendar-day py-2"></i>
