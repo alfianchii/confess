@@ -50,6 +50,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Date</th>
                                 <th>Username</th>
                                 <th>Attempt Result</th>
                                 <th>Operating System</th>
@@ -62,6 +63,7 @@
                             @forelse ($historyLogins as $login)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $login->created_at->format('j F Y, \a\t H.i') }}</td>
                                     <td>{{ $login->username }}</td>
                                     <td>{{ $login->attempt_result }}</td>
                                     <td>{{ $login->operating_system }}</td>
@@ -71,7 +73,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <p class="text-center mt-3">Tidak ada riwayat log-in :(</p>
                                     </td>
                                 </tr>

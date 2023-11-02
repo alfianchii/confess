@@ -546,7 +546,7 @@ class UserService extends Service
   public function adminHistoryLogins()
   {
     // Data processing
-    $historyLogins = HistoryLogin::with("user")->latest()->get();
+    $historyLogins = HistoryLogin::latest()->get();
 
     // Passing out a view
     $viewVariables = [
