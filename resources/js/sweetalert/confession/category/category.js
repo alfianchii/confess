@@ -14,7 +14,7 @@ document.documentElement.addEventListener("click", function (event) {
             data: { unique },
             event: {
                 noun: "kategori pengakuan",
-                verb: "hapus",
+                verb: "menonaktifkan",
                 method: "DELETE",
             },
             uri: {
@@ -50,8 +50,8 @@ document.documentElement.addEventListener("click", function (event) {
         handleClick({
             data: { unique },
             event: {
-                noun: "foto kategori pengakuan",
-                verb: "activate",
+                noun: "kategori pengakuan",
+                verb: "mengaktivasi",
                 method: "PUT",
             },
             uri: {

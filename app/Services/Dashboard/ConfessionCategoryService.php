@@ -123,7 +123,7 @@ class ConfessionCategoryService extends Service
   {
     // Data processing
     $confessionCategory = MasterConfessionCategory::where("slug", $slug)->first();
-    if (!$confessionCategory) $this->responseJsonMessage("The data you are looking not found.", 404);;
+    if (!$confessionCategory) $this->responseJsonMessage("The data you are looking not found.", 404);
 
     // Roles checking
     $roleName = $userRole->role_name;
@@ -184,7 +184,7 @@ class ConfessionCategoryService extends Service
     try {
       MasterConfessionCategory::create($credentials);
     } catch (\Exception $e) {
-      return redirect('/dashboard/confessions/confession-categories')->withErrors('Kategori pengakuan gagal dibuat.');
+      return redirect('/dashboard/confessions/confession-categories')->withErrors($e->getMessage());
     }
 
     // Success
@@ -220,14 +220,12 @@ class ConfessionCategoryService extends Service
       // Validations
       $this->isActiveData($confessionCategory->flag_active);
       // Restrict if there are confessions
-      if ($confessionCategory->confessions()->count() > 0) throw new \Exception("Kategori pengakuan tidak dapat dihapus karena terdapat pengakuan yang menggunakan kategori ini.");
+      if ($confessionCategory->confessions()->count() > 0) throw new \Exception("Pengakuan dalam kategori ini mencegah penghapusan kategori.");
       // Destroy the response
       if (!MasterConfessionCategory::destroy($confessionCategory->id_confession_category)) throw new \Exception("Error deleting confession's category.");
       // Non-active data and updated by
       $confessionCategory->refresh();
       $confessionCategory->update(["updated_by" => $user->id_user, "flag_active" => "N", "deleted_at" => null]);
-      // Destroy the image if exists
-      if ($confessionCategory->image) Storage::delete($confessionCategory->image);
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
@@ -236,7 +234,7 @@ class ConfessionCategoryService extends Service
     }
 
     // Success
-    return $this->responseJsonMessage("Kategori pengakuan telah dihapus!");
+    return $this->responseJsonMessage("Kategori pengakuan $confessionCategory->category_name telah dinonaktifkan!");
   }
   // Destroy image
   private function adminDestroyImage(User $user, $confessionCategory)
@@ -246,10 +244,8 @@ class ConfessionCategoryService extends Service
       // Validations
       $this->isActiveData($confessionCategory->flag_active);
       // Destroy the image if exists
-      if ($confessionCategory->image) {
-        Storage::delete($confessionCategory->image);
-        $confessionCategory->update(["updated_by" => $user->id_user, "image" => null]);
-      }
+      if ($confessionCategory->image) Storage::delete($confessionCategory->image);
+      $confessionCategory->update(["updated_by" => $user->id_user, "image" => null]);
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
@@ -277,7 +273,7 @@ class ConfessionCategoryService extends Service
     }
 
     // Success
-    return $this->responseJsonMessage("Kategori pengakuan telah diaktifkan!");
+    return $this->responseJsonMessage("Kategori pengakuan telah diaktivasi!");
   }
   // Check slug
   public function adminCheckSlug($data)

@@ -106,8 +106,8 @@
                                                 </div>
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Hapus kategori pengakuan." href="#"
-                                                        class="btn btn-danger px-2 pt-2"
+                                                        data-bs-original-title="Nonaktifkan kategori pengakuan."
+                                                        href="#" class="btn btn-danger px-2 pt-2"
                                                         data-confirm-confession-category-destroy="true"
                                                         data-unique="{{ base64_encode($category->slug) }}">
                                                         <span data-confirm-confession-category-destroy="true"
@@ -133,7 +133,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <p class="text-center mt-3">Tidak ada kategori pengakuan :(</p>
                                     </td>
                                 </tr>

@@ -374,12 +374,12 @@ class ConfessionService extends Service
     // Validates
     $credentials = Validator::make($data, $this->rules, $this->messages)->validate();
     $credentials = $this->file(null, $credentials, "image", "confession/images");
-    $credentials["id_confession_category"] = MasterConfessionCategory::where('slug', $credentials["id_confession_category"])->active()->value('id_confession_category');
     $credentials["id_user"] = $user->id_user;
     $credentials["excerpt"] = Str::limit(strip_tags($credentials["body"]), 50, ' ...');
     $credentials["status"] = "unprocess";
 
     try {
+      $credentials["id_confession_category"] = $this->getActiveConfessionCategoryId($credentials["id_confession_category"]);
       $confession = RecConfession::create($credentials);
       $response = '<p>' . $user['full_name'] .  ' made a confession.' . '</p>';
       HistoryConfessionResponse::setResponse($user, $confession, $response, $confession->status, "Y");

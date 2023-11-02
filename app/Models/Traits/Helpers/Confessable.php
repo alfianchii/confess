@@ -2,7 +2,7 @@
 
 namespace App\Models\Traits\Helpers;
 
-use App\Models\{User, RecConfession};
+use App\Models\{User, RecConfession, MasterConfessionCategory};
 
 trait Confessable
 {
@@ -17,5 +17,11 @@ trait Confessable
   public function isNotAssignedToYou(User $user, RecConfession $confession, $message = "Pengakuan ini sudah ditugaskan ke kamu.")
   {
     if ($confession->assigned_to === $user->id_user) throw new \Exception($message);
+  }
+  public function getActiveConfessionCategoryId($slug)
+  {
+    $confessionCategory = MasterConfessionCategory::where('slug', $slug)->active()->value('id_confession_category');
+    if (!$confessionCategory) throw new \Exception("Kategori pengakuan tidak ada.");
+    return $confessionCategory;
   }
 }

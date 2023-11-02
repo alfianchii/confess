@@ -40,7 +40,7 @@
                             Kembali
                         </a>
 
-                        <a data-bs-toggle="tooltip" data-bs-original-title="Hapus kategori pengakuan." href="#"
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Nonaktifkan kategori pengakuan." href="#"
                             class="btn btn-danger px-2 pt-2" data-confirm-confession-category-destroy="true"
                             data-unique="{{ base64_encode($confessionCategory->slug) }}">
                             <span data-confirm-confession-category-destroy="true"
