@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DTStudentsSeeder::class);
         $this->call(DTOfficersSeeder::class);
         $this->call(MasterConfessionCategorySeeder::class);
-        // $this->call(RecConfessionSeeder::class);
-        // $this->call(HistoryConfessionResponseSeeder::class);
-        // $this->call(RecConfessionCommentSeeder::class);
+        $this->call(RecConfessionSeeder::class);
+        $this->call(HistoryConfessionResponseSeeder::class);
+        $this->call(RecConfessionCommentSeeder::class);
         $this->call(HistoryLoginSeeder::class);
         $this->call(SettingWebsiteSeeder::class);
     }
