@@ -26,7 +26,7 @@ class RecConfessionCommentFactory extends Factory
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
             "privacy" => $this->faker->randomElement(["anonymous", "public"]),
-            "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "+" . self::getTotalDays() . " days"),
+            "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "now"),
         ];
     }
 }

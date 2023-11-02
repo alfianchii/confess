@@ -30,7 +30,7 @@ class RecConfessionFactory extends Factory
             "place" => $this->faker->randomElement(["out", "in"]),
             "status" => $this->faker->randomElement(["process"]),
             "privacy" => $this->faker->randomElement(["anonymous", "public"]),
-            "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "+" . self::getTotalDays() . " days"),
+            "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "now"),
             "id_confession_category" => mt_rand(1, 11),
             "id_user" => $this->faker->randomElement([3, 4, 5]),
             "assigned_to" => $this->faker->randomElement([6, 7, 8, 9, 10]),

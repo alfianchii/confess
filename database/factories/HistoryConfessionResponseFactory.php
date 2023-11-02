@@ -25,7 +25,7 @@ class HistoryConfessionResponseFactory extends Factory
                 ->implode(""),
             "confession_status" => $this->faker->randomElement(["process"]),
             "id_user" => $this->faker->randomElement([6, 7, 8, 9, 10]),
-            "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "+" . self::getTotalDays() . " days"),
+            "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "now"),
             "system_response" => "N",
             "id_confession" => mt_rand(1, 200),
         ];
