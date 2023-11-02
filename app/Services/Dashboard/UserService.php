@@ -344,8 +344,8 @@ class UserService extends Service
   {
     // Passing out a view
     $viewVariables = [
-      "title" => "$theUser->username",
-      "user" => $theUser,
+      "title" => "Pengguna $theUser->username",
+      "theUser" => $theUser,
     ];
     return view("pages.dashboard.actors.admin.users.show", $viewVariables);
   }

@@ -17,7 +17,7 @@
                 <div class="col-12 col-md-6 order-md-1 order-last">
                     <h2>Profil</h2>
                     <p class="text-subtitle text-muted">
-                        Keseluruhan data akun yang kamu miliki.
+                        Keseluruhan data dari akun {{ $theUser->full_name }}.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -28,31 +28,39 @@
                             Kembali
                         </a>
                         {{-- --------------------------------- Rules --}}
-                        @if ($user->userRole->role->role_name !== 'admin')
+                        @if ($theUser->userRole->role->role_name !== 'admin')
                             <a data-bs-toggle="tooltip"
-                                data-bs-original-title="Sunting pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                                href="/dashboard/users/details/{{ $user->username }}/edit"
+                                data-bs-original-title="Sunting pengguna {{ htmlspecialchars('@' . $theUser->username) }}."
+                                href="/dashboard/users/details/{{ $theUser->username }}/edit"
                                 class="btn btn-warning px-2 pt-2 me-1">
                                 <span class="fa-fw fa-lg select-all fas"></span>
                             </a>
-                            @if ($user->flag_active === 'Y')
+                            @if ($theUser->flag_active === 'Y')
                                 <a data-bs-toggle="tooltip"
-                                    data-bs-original-title="Non-aktifkan pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                    data-bs-original-title="Non-aktifkan pengguna {{ htmlspecialchars('@' . $theUser->username) }}."
                                     class="btn btn-danger px-2 pt-2 me-1" data-confirm-user-destroy="true"
-                                    data-unique="{{ base64_encode($user->id_user) }}">
-                                    <span data-confirm-user-destroy="true" data-unique="{{ base64_encode($user->id_user) }}"
+                                    data-unique="{{ base64_encode($theUser->id_user) }}">
+                                    <span data-confirm-user-destroy="true"
+                                        data-unique="{{ base64_encode($theUser->id_user) }}"
                                         class="fa-fw fa-lg select-all fas"></span>
                                 </a>
-                            @elseif ($user->flag_active === 'N')
+                            @elseif ($theUser->flag_active === 'N')
                                 <a data-bs-toggle="tooltip"
-                                    data-bs-original-title="Aktifkan pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                    data-bs-original-title="Aktifkan pengguna {{ htmlspecialchars('@' . $theUser->username) }}."
                                     class="btn btn-success px-2 pt-2 me-1" data-confirm-user-activate="true"
-                                    data-unique="{{ base64_encode($user->id_user) }}">
+                                    data-unique="{{ base64_encode($theUser->id_user) }}">
                                     <span data-confirm-user-activate="true"
-                                        data-unique="{{ base64_encode($user->id_user) }}"
+                                        data-unique="{{ base64_encode($theUser->id_user) }}"
                                         class="fa-fw fa-lg select-all fas"></span>
                                 </a>
                             @endif
+                        @else
+                            <a data-bs-toggle="tooltip"
+                                data-bs-original-title="Ganti role pengguna {{ htmlspecialchars('@' . $theUser->username) }}."
+                                href="/dashboard/users/details/{{ $theUser->username }}/role"
+                                class="btn btn-light px-2 pt-2 me-1">
+                                <span class="text-black fa-fw fa-lg select-all fas"></span>
+                            </a>
                         @endif
                     </div>
                 </div>
@@ -61,6 +69,9 @@
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">
                                 <a href="/dashboard">Dashboard</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                <a href="/dashboard/users">Pengguna</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Profil
@@ -75,21 +86,21 @@
             <div class="card mb-5">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
-                        <h3 class="card-title">Pengguna</h3>
+                        <h3 class="card-title">Pengguna {{ htmlspecialchars('@' . $theUser->username) }}</h3>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="d-flex justify-content-center align-items-center flex-column mb-3">
-                        @if ($isUserImageExist($user->profile_picture))
-                            @if (File::exists(public_path('images/' . $user->profile_picture)))
+                        @if ($isUserImageExist($theUser->profile_picture))
+                            @if (File::exists(public_path('images/' . $theUser->profile_picture)))
                                 <img width="150" class="rounded-circle"
-                                    src="{{ asset('images/' . $user->profile_picture) }}" alt="User Avatar" />
+                                    src="{{ asset('images/' . $theUser->profile_picture) }}" alt="User Avatar" />
                             @else
                                 <img width="150" class="rounded-circle"
-                                    src="{{ asset('storage/' . $user->profile_picture) }}" alt="User Avatar" />
+                                    src="{{ asset('storage/' . $theUser->profile_picture) }}" alt="User Avatar" />
                             @endif
                         @else
-                            @if ($user->gender === 'L')
+                            @if ($theUser->gender === 'L')
                                 <img width="150" class="rounded-circle"
                                     src="{{ asset('assets/static/images/faces/2.jpg') }}" alt="User Avatar" />
                             @else
@@ -98,26 +109,27 @@
                             @endif
                         @endif
 
-                        <h4 class="mt-4">{{ $user->full_name }}</h4>
+                        <h4 class="mt-4">{{ $theUser->full_name }}</h4>
 
-                        <small class="text-muted">({{ htmlspecialchars('@' . $user->username) }})</small>
+                        <small class="text-muted">({{ htmlspecialchars('@' . $theUser->username) }})</small>
                     </div>
 
                     <div class="divider">
-                        <div class="divider-text">{{ $user->created_at->format('d F Y') }}</div>
+                        <div class="divider-text">{{ $theUser->created_at->format('d F Y') }}</div>
                     </div>
 
                     <div class="container text-center justify-content-center">
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="font-bold">
-                                    <p>NIK: <span style="font-weight: 400;" class="text-muted">{{ $user->nik }}</span>
+                                    <p>NIK: <span style="font-weight: 400;" class="text-muted">{{ $theUser->nik }}</span>
                                     </p>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="font-bold">
-                                    <p>Email: <span style="font-weight: 400;" class="text-muted">{{ $user->email }}</span>
+                                    <p>Email: <span style="font-weight: 400;"
+                                            class="text-muted">{{ $theUser->email }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -127,7 +139,7 @@
                                 <div class="font-bold">
                                     <p>Gender:
                                         <span style="font-weight: 400;" class="text-muted">
-                                            @if ($user->gender == 'L')
+                                            @if ($theUser->gender == 'L')
                                                 Laki-laki
                                             @else
                                                 Perempuan
@@ -139,7 +151,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="font-bold">
                                     <p>Status: <span
-                                            class="badge bg-primary">{{ ucwords($user->userRole->role->role_name) }}</span>
+                                            class="badge bg-primary">{{ ucwords($theUser->userRole->role->role_name) }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -147,16 +159,16 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="font-bold">
-                                    @if ($user->userRole->role->role_name == 'student')
+                                    @if ($theUser->userRole->role->role_name == 'student')
                                         <p>NISN:
                                             <span style="font-weight: 400;" class="text-muted">
-                                                {{ $user->student->nisn ? $user->student->nisn : '-' }}
+                                                {{ $theUser->student->nisn ? $theUser->student->nisn : '-' }}
                                             </span>
                                         </p>
                                     @else
                                         <p>NIP:
                                             <span style="font-weight: 400;" class="text-muted">
-                                                {{ $user->officer->nip ? $user->officer->nip : '-' }}
+                                                {{ $theUser->officer->nip ? $theUser->officer->nip : '-' }}
                                             </span>
                                         </p>
                                     @endif
@@ -177,4 +189,6 @@
     {{-- SweetAlert --}}
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/user/user.js'])
+    {{-- Back to page --}}
+    @vite(['resources/js/utils/back-to-page.js'])
 @endsection

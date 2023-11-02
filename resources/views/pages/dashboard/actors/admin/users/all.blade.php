@@ -125,16 +125,7 @@
                                     <td>
                                         <div class="d-flex">
                                             {{-- --------------------------------- Rules --}}
-                                            @if ($user->userRole->role->role_name === 'admin')
-                                                <div class="me-2">
-                                                    <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Ganti role pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                                                        href="/dashboard/users/details/{{ $user->username }}/role"
-                                                        class="btn btn-light px-2 pt-2">
-                                                        <span class="text-black fa-fw fa-lg select-all fas"></span>
-                                                    </a>
-                                                </div>
-                                            @else
+                                            @if ($user->userRole->role->role_name !== 'admin')
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
                                                         data-bs-original-title="Sunting pengguna {{ htmlspecialchars('@' . $user->username) }}."
@@ -168,6 +159,15 @@
                                                         </a>
                                                     </div>
                                                 @endif
+                                            @else
+                                                <div class="me-2">
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Ganti role pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                                        href="/dashboard/users/details/{{ $user->username }}/role"
+                                                        class="btn btn-light px-2 pt-2">
+                                                        <span class="text-black fa-fw fa-lg select-all fas"></span>
+                                                    </a>
+                                                </div>
                                             @endif
 
                                             <div class="me-2">
