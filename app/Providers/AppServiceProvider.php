@@ -6,8 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\{DB, Schema};
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,20 +31,23 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrapFive();
 
         Gate::define("admin", function (User $user) {
-            return $user->level == "admin";
+            $role = $user->userRole->role->role_name;
+            return $role == "admin";
         });
 
         Gate::define("officer", function (User $user) {
-            return $user->level == "officer";
+            $role = $user->userRole->role->role_name;
+            return $role == "officer";
         });
 
         Gate::define("student", function (User $user) {
-            return $user->level == "student";
+            $role = $user->userRole->role->role_name;
+            return $role === "student";
         });
 
         try {
-            Schema::hasTable('settings');
-            $web_config = DB::table('settings')->pluck('value', 'key');
+            Schema::hasTable('set_website');
+            $web_config = DB::table('set_website')->plucK('value', 'key');
             config(['web_config' => $web_config]);
         } catch (\Exception $e) {
         }

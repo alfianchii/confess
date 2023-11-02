@@ -233,6 +233,9 @@ a.btn.btn-lapor:active {
 .ql-editor.ql-blank::before {
     color: inherit !important;
 }
+div.ql-editor {
+    padding-bottom: 50px;
+}
 html[data-bs-theme="dark"] .ql-editor.ql-blank p {
     margin-bottom: 0;
 }
@@ -252,11 +255,12 @@ html[data-bs-theme="dark"] .filepond--drop-label {
 
 /* Datatable icons */
 .fa-fw {
-    color: #1e1e2d;
-}
-html[data-bs-theme="dark"] * .fa-fw {
     color: #ebebeb;
+    /* color: #1e1e2d; */
 }
+/* html[data-bs-theme="dark"] * .fa-fw {
+    color: #ebebeb;
+} */
 
 .card-keuntungan .ellipse {
     background-color: #1a9fbb;
@@ -342,6 +346,9 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     background-color: #1e1e2d;
     border-color: #0f0f15;
 }
+html[data-bs-theme="dark"] .navbar .navbar-collapse .nav .nav-item .nav-link {
+    border-color: #dee2e6 !important;
+}
 .navbar-expand .navbar-nav .dropdown-menu {
     position: absolute;
 }
@@ -349,6 +356,55 @@ html[data-bs-theme="dark"] #pagin-links .page-link {
     position: absolute;
     left: auto;
 }
+
+.attachment-file {
+    -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+    box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
+    border: 0;
+    position: relative;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: transparent;
+    background-clip: border-box;
+    border: 1px solid #c2c2d9;
+    border-radius: 0.42rem;
+}
+
+html[data-bs-theme="dark"] .attachment-file {
+    border: 1px solid #404053;
+}
+
+.attachment-file-body {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 2.25rem;
+}
+
+.attachment-file-footer {
+    padding: 2rem 2.25rem;
+    background-color: transparent;
+    border-top: 1px solid #c2c2d9;
+}
+
+html[data-bs-theme="dark"] .attachment-file-footer {
+    border-top: 1px solid #404053;
+}
+
+.icon-9x {
+    font-size: 9rem !important;
+}
+
+html[data-bs-theme="dark"] .ql-editor p {
+    margin-bottom: 0;
+}
+
 @media only screen and (max-width: 374px) {
     .margin-form {
         margin: 0 15px;

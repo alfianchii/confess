@@ -2,89 +2,146 @@
 
 namespace App\Services\Dashboard;
 
-use App\Models\{Complaint, Officer, Response, Student};
-use Illuminate\Database\Eloquent\Collection;
+use App\Models\{User, DTOfficer, DTStudent, RecConfession, HistoryConfessionResponse, HistoryLogin, MasterRole, RecConfessionComment};
+use App\Models\Traits\Daily;
+use App\Services\Service;
 
-class DashboardService
+class DashboardService extends Service
 {
-    protected $greetingService;
+    // ---------------------------------
+    // TRAITS
+    use Daily;
 
-    public function __construct(GreetingService $greetingService)
+
+    // ---------------------------------
+    // CORES
+    public function index(User $user, MasterRole $userRole)
     {
-        $this->greetingService = $greetingService;
+        // Roles checking
+        $roleName = $userRole->role_name;
+        if ($roleName === "admin") return $this->adminIndex($user);
+        if ($roleName === "officer") return $this->officerIndex($user);
+        if ($roleName === "student") return $this->studentIndex($user);
+
+        // Redirect to unauthorized page
+        return view("errors.403");
     }
 
-    public function index($user): array
+
+    // ---------------------------------
+    // UTILITIES
+    // ADMIN
+    // Index
+    private function adminIndex(User $user)
     {
-        // Greetings
-        $greeting = $this->greetingService->dashboardGreeting();
+        // Confessions count
+        $confessionsCount = RecConfession::recentConfessions(null)->count();
+        // Recent confessions
+        $recentConfessions = RecConfession::recentConfessions(6)->get();
 
-        $results = [
+        // Users
+        $usersCount = User::count();
+        // Inactive users
+        $inactiveUsersCount = User::where("flag_active", "N")->count();
+
+        // Officers
+        $officersCount = DTOfficer::count();
+        // Students
+        $studentsCount = DTStudent::count();
+
+        // Responses
+        $responsesCount = HistoryConfessionResponse::recentResponses(null)->count();
+        // Recent responses
+        $recentResponses = HistoryConfessionResponse::recentResponses(10, $user)->paginateResponsesFromConfession(self::PER_PAGE);
+
+        // Comments
+        $commentsCount = RecConfessionComment::count();
+
+        // History logins
+        $historyLoginsCount = HistoryLogin::recentHistoryLogins(null)->count();
+
+        // Passing out a view
+        $viewVariables = [
             "title" => "Dashboard",
-            "greeting" => $greeting,
+            "greeting" => $this->greeting(),
+            "confessionsCount" => $confessionsCount,
+            "recentConfessions" => $recentConfessions,
+            "usersCount" => $usersCount,
+            "inactiveUsersCount" => $inactiveUsersCount,
+            "officersCount" => $officersCount,
+            "studentsCount" => $studentsCount,
+            "responsesCount" => $responsesCount,
+            "commentsCount" => $commentsCount,
+            "historyLoginsCount" => $historyLoginsCount,
+            "recentResponses" => $recentResponses,
         ];
+        return view("pages.dashboard.actors.admin.dashboard.index", $viewVariables);
+    }
 
-        if ($user->level === "admin" || $user->level === "officer") {
-            // Complaints
-            $complaints = Complaint::with(["student", "responses", "category"])->orderByDesc("created_at")->get();
-            // Complaints count
-            $complaintsCount = $complaints->count();
-            // Recent complaints
-            $recentComplaints = $complaints->where("status", "!=", '2')->slice(0, 3);
+    // OFFICER
+    // Index
+    private function officerIndex(User $user)
+    {
+        // Confessions count
+        $confessionsCount = RecConfession::count();
+        // Recent confessions
+        $recentConfessions = RecConfession::recentConfessions(4)->get();
 
-            // Officers
-            $officersCount = Officer::all()->count();
+        // Officers
+        $officersCount = DTOfficer::count();
+        // Students
+        $studentsCount = DTStudent::count();
 
-            // Students
-            $studentsCount = Student::all()->count();
+        // Responses
+        $responsesCount = HistoryConfessionResponse::where("system_response", "N")->count();
+        // Recent responses
+        $recentResponses = HistoryConfessionResponse::recentResponses(15, $user)->paginateResponsesFromConfession(self::PER_PAGE);
 
-            // Your responses
-            $yourResponsesCount = Response::with(["officer", "complaint"])->where('officer_nik', $user->nik)->count();
-            // Recent responses
-            $recentResponses = Response::with(['officer', "complaint"])->orderByDesc("created_at")->get()->slice(0, 3);
+        // Passing out a view
+        $viewVariables = [
+            "title" => "Dashboard",
+            "greeting" => $this->greeting(),
+            "confessionsCount" => $confessionsCount,
+            "recentConfessions" => $recentConfessions,
+            "officersCount" => $officersCount,
+            "studentsCount" => $studentsCount,
+            "responsesCount" => $responsesCount,
+            "recentResponses" => $recentResponses,
+        ];
+        return view("pages.dashboard.actors.officer.dashboard.index", $viewVariables);
+    }
 
-            $results = array_merge($results, [
-                "complaints" => $complaints,
-                "complaintsCount" => $complaintsCount,
-                "recentComplaints" => $recentComplaints,
-                "officersCount" => $officersCount,
-                "studentsCount" => $studentsCount,
-                "yourResponsesCount" => $yourResponsesCount,
-                "recentResponses" => $recentResponses,
-            ]);
-        } else if ($user->level === "student") {
-            $complaints = Complaint::with(["student", "responses", "category"])->where("student_nik", $user->nik)->orderByDesc("created_at")->get();
+    // STUDENT
+    // Index
+    private function studentIndex(User $user)
+    {
+        // Your confessions count
+        $yourConfessionsCount = RecConfession::where("id_user", $user->id_user)->count();
+        // Your recent confessions
+        $yourRecentConfessions = RecConfession::recentConfessions(4, $user)->get();
 
-            // Your complaints count
-            $yourComplaintsCount = $complaints->count();
+        // Your responses count
+        $responsesFromYourConfessionCount = HistoryConfessionResponse::yourRecentResponsesFromConfession(null, $user)->count();
+        // Your recent responses (based on your confessions)
+        $recentResponsesFromYourConfession = HistoryConfessionResponse::yourRecentResponsesFromConfession(10, $user)->paginateResponsesFromConfession(self::PER_PAGE);
 
-            // Recent complaints
-            $recentComplaints = $complaints
-                ->where("status", "!=", '2')
-                ->slice(0, 3);
+        // Your comments count
+        $yourCommentsCount = RecConfessionComment::where("id_user", $user->id_user)->count();
 
-            // Responses (Student complaint's responses)
-            $responsesStudent = new Collection();
-            foreach ($complaints as $complaint) {
-                if (!empty($complaint->responses)) {
-                    foreach ($complaint->responses as $response) {
-                        $responsesStudent->push($response);
-                    }
-                }
-            }
-            $responsesStudent = $responsesStudent->sortByDesc("created_at");
+        // Your history logins
+        $yourHistoryLoginsCount = HistoryLogin::recentHistoryLogins(null, $user)->count();
 
-            // Responses student count
-            $responsesStudentCount = $responsesStudent->count();
-
-            $results = array_merge($results, [
-                "recentComplaints" => $recentComplaints,
-                "yourComplaintsCount" => $yourComplaintsCount,
-                "recentResponsesStudent" => $responsesStudent->slice(0, 3),
-                "responsesStudentCount" => $responsesStudentCount,
-            ]);
-        }
-
-        return $results;
+        // Passing out a view
+        $viewVariables = [
+            "title" => "Dashboard",
+            "greeting" => $this->greeting(),
+            "yourConfessionsCount" => $yourConfessionsCount,
+            "yourRecentConfessions" => $yourRecentConfessions,
+            "responsesFromYourConfessionCount" => $responsesFromYourConfessionCount,
+            "recentResponsesFromYourConfession" => $recentResponsesFromYourConfession,
+            "yourCommentsCount" => $yourCommentsCount,
+            "yourHistoryLoginsCount" => $yourHistoryLoginsCount,
+        ];
+        return view("pages.dashboard.actors.student.dashboard.index", $viewVariables);
     }
 }

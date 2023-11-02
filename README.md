@@ -1,4 +1,4 @@
-<h1 align="center">Selamat datang di Confess! 👋</h1>
+<h1 align="center">Welcome to Confess! 👋</h1>
 
 ![Landing Page](https://github.com/alfianchii/confess/blob/main/public/images/Confess-Welcome.png?raw=true)
 
@@ -7,50 +7,50 @@
 
 ---
 
-<h2 id="tentang">🤔 Apa itu Confess?</h2>
+<h2 id="tentang">🤔 What is Confess?</h2>
 
-Confess adalah aplikasi pelaporan pengaduan sekolah yang memungkinkan siswa/siswi untuk melaporkan masalah, keluhan, saran, dan kritik mereka secara online.
+Confess is a school complaint reporting application that enables students to submit their issues, grievances, suggestions, criticisms, and even confessions online.
 
-<h2 id="fitur">🤨 Fitur apa saja yang tersedia di Confess?</h2>
+<h2 id="fitur">🤨 What features are available in Confess?</h2>
 
 -   [Mazer Bootstrap Template](https://github.com/zuramai/mazer)
-    -   <i>Dark</i> dan <i>Light</i> mode
-    -   <i>Dashboard UI</i>
+    -   Dark and light mode
+    -   Dashboard UI
 -   Landing Page
-    -   <i>Homepage</i>
-    -   Tentang
-    -   Keluhan
-    -   Kategori
+    -   Homepage
+    -   About
+    -   Confession
+    -   Confession's Category
 -   Authentication
-    -   <i>Registration</i>
-    -   <i>Login</i>
+    -   Registration
+    -   Login
 -   Multi User
-    -   <i>Admin</i>
-        -   Statistik Keluhan
-        -   Statistik Tanggapan
-        -   Statistik Keluhan dan Tanggapan
-        -   Membuat dan mengelola <i>responses</i>
-        -   Menanggapi <i>complaints</i>
-        -   Mengelola <i>categories</i>
-        -   Mengelola <i>users</i>
-        -   <i>Account</i>
-    -   <i>Officer</i>
-        -   Statistik Tanggapan
-        -   Menanggapi <i>complaints</i>
-        -   <i>Account</i>
-    -   <i>Student</i>
-        -   Membuat dan mengelola <i>complaints</i>
-        -   <i>Account</i>
+    -   Admin
+        -   Confession Statistics
+        -   Response Statistics
+        -   Confession and Response Statistics
+        -   Create and manage responses
+        -   Respond to confessions
+        -   Manage categories
+        -   Manage users
+        -   Account
+    -   Officer
+        -   Response Statistics
+        -   Respond to confessions
+        -   Account
+    -   Student
+        -   Create and manage complaints
+        -   Account
 -   Account
-    -   <i>Profile</i>
-    -   <i>Setting</i>
-    -   <i>Change Password</i>
+    -   Profile
+    -   Setting
+    -   Change Password
 -   CRUD (Create, Read, Update, and Delete)
-    -   <i>Complaint</i>
-    -   <i>Response</i>
-    -   <i>Category</i>
-    -   <i>User</i>
--   Pencarian <i>Complaint</i> di <i>Homepage</i>
+    -   Confession
+    -   Response
+    -   Category
+    -   User
+-   Confession search on the Homepage
 
 <h2 id="testing-account">👤 Default Account for Testing</h2>
 
@@ -61,7 +61,7 @@ Confess adalah aplikasi pelaporan pengaduan sekolah yang memungkinkan siswa/sisw
 
 #### Officer
 
--   Username: fauzy
+-   Username: moepoi
 -   Password: password
 
 #### Student
@@ -71,16 +71,16 @@ Confess adalah aplikasi pelaporan pengaduan sekolah yang memungkinkan siswa/sisw
 
 <h2 id="demo">🏠 Demo Page</h2>
 
-<p>Halaman demo saat ini tidak tersedia. Oleh karenanya, lebih baik kamu mencoba di <i>local</i> dengan mengikuti tahapan instalasi di bawah ini.</p>
+<p>The demo page is currently unavailable. Therefore, it is advisable for you to try it locally by following the installation steps below.</p>
 
 <h2 id="syarat">💾 Pre-requisite</h2>
 
-<p>Berikut adalah <i>pre-requisite</i> yang diperlukan ketika melakukan instalasi dan <i>running</i> aplikasi.</p>
+<p>Here are the prerequisites required for installing and running the application.</p>
 
--   PHP ^8.0 & Web Server (XAMPP, LAMPP, MAMPP, atau Laragon)
--   Web Browser (Chrome, Firefox, Safari, Opera, atau Brave)
+-   PHP ^8.0 & Web Server (Apache, Lighttpd, or NGinx)
+-   Web Browser (Firefox, Safari, Opera, or Brave)
 
-<h2 id="download">💻 Install</h2>
+<h2 id="download">💻 Installation</h2>
 
 1. Clone repository
 
@@ -92,7 +92,7 @@ npm install
 copy .env.example .env
 ```
 
-2. Konfigurasi database melalui `.env`
+2. Database configuration through the `.env` file
 
 ```
 DB_PORT=3306
@@ -101,7 +101,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-3. Migrasi dan symlinks
+3. Migrations and symlinks
 
 ```bash
 php artisan key:generate
@@ -109,7 +109,7 @@ php artisan migrate --seed
 php artisan storage:link
 ```
 
-4. Jalankan website
+4. Launch the website
 
 ```bash
 npm run dev
@@ -119,17 +119,14 @@ php artisan serve
 
 <h2 id="dukungan">💌 Support Me</h2>
 
-<p>
-Kamu bisa mendukung aku di platform Trakteer! Dukungan kamu akan sangat berarti. Namun, dengan kamu memberikan <i>star</i> pada <i>project</i> ini juga sudah sangat cukup kok~!
-</p>
+<p>You can support me on the Trakteer platform! Your support will be very meaningful. just giving a star to this project is already greatly appreciated~!</p>
 
-<a href="https://trakteer.id/alfianchii/tip" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="40" style="border:0px;height:40px;" alt="Trakteer Saya"></a>
+<a href="https://trakteer.id/alfianchii/tip" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="40" style="border:0px;height:40px;" alt="Trakteer Me"></a>
 
 <h2 id="kontribusi">🤝 Contributing</h2>
 
 <p>
-<i>Contributions, issues and feature requests</i> sangat diapresiasi karena aplikasi ini jauh dari kata sempurna. Jangan ragu untuk melakukan <i>pull request</i> dan membuat perubahan pada <i>project</i> ini, yaaa!
-</p>
+Contributions, issues, and feature requests are highly appreciated as this application is far from perfect. Please do not hesitate to make a pull request and make changes to this project!</p>
 
 <h2 id="lisensi">📝 License</h2>
 
@@ -137,4 +134,4 @@ Kamu bisa mendukung aku di platform Trakteer! Dukungan kamu akan sangat berarti.
 
 <h2 id="pembuat">🧍 Author</h2>
 
-<p>Confess dibuat oleh <a href="https://instagram.com/alfianchii">Alfian</a> dan <a href="https://instagram.com/nata_ardhana">Surya</a>.</p>
+<p>Confess is created by <a href="https://instagram.com/alfianchii">Alfian</a> and <a href="https://instagram.com/nata_ardhana">Surya</a>.</p>

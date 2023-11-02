@@ -20,7 +20,7 @@ export function simpleDatatable(
                 info: `Menampilkan {start} hingga {end} dari {rows} ${label}`,
                 perPage: `{select} ${label} per halaman`,
             },
-            fixedHeight: true,
+            fixedHeight: false,
         }
     );
 

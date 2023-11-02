@@ -9,18 +9,29 @@ FilePond.registerPlugin(
     FilePondPluginFileValidateType
 );
 
+const imageExtensions = [
+    "image/png",
+    "image/jpg",
+    "image/jpeg",
+    "image/heic",
+    "image/heif",
+];
+
 // Filepond: Image Crop
 export function imageCrop() {
     const images = document.querySelectorAll(".image-crop-filepond");
 
-    images.forEach((image) => {
+    images.forEach((image) =>
         FilePond.create(image, {
+            name: "image",
             credits: null,
             allowImagePreview: true,
             allowImageFilter: false,
             allowImageExifOrientation: false,
             allowImageCrop: true,
-            acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg"],
+            allowFileEncode: false,
+            acceptedFileTypes: imageExtensions,
+            maxFileSize: "10MB",
             fileValidateTypeDetectType: (source, type) =>
                 new Promise((resolve, reject) => {
                     // Do custom type detection here and return with promise
@@ -28,28 +39,31 @@ export function imageCrop() {
                 }),
             storeAsFile: true,
             imageCropAspectRatio: "1:1",
-        });
-    });
+        })
+    );
 }
 
 // Filepond: Image Preview
 export function imagePreview() {
     const images = document.querySelectorAll(".image-preview-filepond");
 
-    images.forEach((image) => {
+    images.forEach((image) =>
         FilePond.create(image, {
+            name: "image",
             credits: null,
             allowImagePreview: true,
             allowImageFilter: false,
             allowImageExifOrientation: false,
             allowImageCrop: false,
-            acceptedFileTypes: ["image/png", "image/jpg", "image/jpeg"],
+            allowFileEncode: false,
+            maxFileSize: "10MB",
+            acceptedFileTypes: imageExtensions,
             fileValidateTypeDetectType: (source, type) =>
                 new Promise((resolve, reject) => {
                     // Do custom type detection here and return with promise
                     resolve(type);
                 }),
             storeAsFile: true,
-        });
-    });
+        })
+    );
 }

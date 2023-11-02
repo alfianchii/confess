@@ -1,3 +1,4 @@
+{{-- Base styles --}}
 {{-- If WEB_FAVICON didn't contains "/" --}}
 @if (!strpos(config('web_config')['WEB_LOGO_WHITE'], '/'))
     <link rel="shortcut icon" href="{{ asset('images/' . config('web_config')['WEB_FAVICON']) }}" type="image/x-icon" />

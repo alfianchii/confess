@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboards\{DashboardAdminCategoryController, DashboardAuthController, DashboardComplaintController, DashboardResponseController, DashboardController, DashboardSettingController, DashboardUserPromoteController, DashboardUserController, DashboardUserSettingController};
-use App\Http\Controllers\{HomeController, ComplaintController, CategoryController};
 
 /*
 |--------------------------------------------------------------------------
@@ -15,61 +13,108 @@ use App\Http\Controllers\{HomeController, ComplaintController, CategoryControlle
 |
 */
 
-// Homepage
-Route::get('/', [HomeController::class, "index"]);
+// Default Homepage Routes
+Route::get('/', "\App\Http\Controllers\Home\HomeController@index");
+Route::get('/about', "\App\Http\Controllers\Home\AboutController@index");
 
-Route::get('/about', function () {
-    return view('about', ["title" => "Tentang"]);
+
+// ---------------------------------
+// Credentials Check Routes
+Route::get("/login", "\App\Http\Controllers\Auth\CredentialController@index")->name("login")->middleware("guest");
+Route::post("/login", "\App\Http\Controllers\Auth\CredentialController@authenticate")->middleware("guest");
+Route::post("/logout", "\App\Http\Controllers\Auth\CredentialController@logout")->middleware("auth");
+
+// ---------------------------------
+// Authentications Routes
+Route::group(["middleware" => "auth"], function () {
+    // ---------------------------------
+    // Homepage Routes
+    Route::match(['get', 'post'], '/confessions', "\App\Http\Controllers\Home\ConfessionController@index");
+    Route::get('/categories', "\App\Http\Controllers\Home\CategoryController@index");
+
+    // ---------------------------------
+    // Dashboard Routes
+    // Route: /dashboard/
+    Route::group(["prefix" => "dashboard"], function () {
+        // Base Route
+        Route::get("/", "\App\Http\Controllers\Dashboard\DashboardController@index");
+
+        // ---------------------------------
+        // Chart Routes
+        Route::post('/chart-data', "\App\Http\Controllers\Dashboard\DashboardController@chartData");
+
+        // ---------------------------------
+        // Account Routes
+        // Profile
+        Route::get("/users/account", "\App\Http\Controllers\Dashboard\MasterUserController@profile");
+        // Activate
+        Route::put("/users/{user:id_user}/activate", "\App\Http\Controllers\Dashboard\MasterUserController@activate");
+        // Settings
+        Route::get("/users/account/settings", "\App\Http\Controllers\Dashboard\MasterUserController@settings");
+        Route::put("/users/account/settings/{user:username}", "\App\Http\Controllers\Dashboard\MasterUserController@settingsUpdate");
+        // Destroy (profile picture)
+        Route::delete("/users/account/settings/{user:username}/profile-picture", "\App\Http\Controllers\Dashboard\MasterUserController@destroyProfilePicture");
+        // Change password
+        Route::get("/users/account/password", "\App\Http\Controllers\Dashboard\MasterUserController@changeYourPassword");
+        Route::put("/users/account/password/{user:username}", "\App\Http\Controllers\Dashboard\MasterUserController@changeYourPasswordUpdate");
+        // Non-active
+        Route::delete("/users/account/{user:id_user}/non-active/", "\App\Http\Controllers\Dashboard\MasterUserController@nonActiveYourAccount");
+
+        // ---------------------------------
+        // User Routes
+        // Register
+        Route::get("/users/register", "\App\Http\Controllers\Dashboard\MasterUserController@register");
+        // History logins
+        Route::get("/users/history-logins", "\App\Http\Controllers\Dashboard\MasterUserController@historyLogins");
+        // User's details
+        Route::get("/users/details/{user:username}", "\App\Http\Controllers\Dashboard\MasterUserController@show");
+        // User's details of edit
+        Route::get("/users/details/{user:username}/edit", "\App\Http\Controllers\Dashboard\MasterUserController@edit");
+        // User's change role
+        Route::get("/users/details/{user:username}/role", "\App\Http\Controllers\Dashboard\MasterUserController@role");
+        Route::put("/users/details/{user:username}/role/update", "\App\Http\Controllers\Dashboard\MasterUserController@roleUpdate");
+        // User
+        Route::resource("/users", "\App\Http\Controllers\Dashboard\MasterUserController")->except(["create", "show", "edit"]);
+
+        // ---------------------------------
+        // Website settings
+        Route::get("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@index");
+        Route::put("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@update");
+
+        // ---------------------------------
+        // Confession Routes
+        Route::resource('confessions', "\App\Http\Controllers\Dashboard\RecConfessionController")->except(["show"]);
+        // Sluggable check
+        Route::post("/confessions/check-slug", "\App\Http\Controllers\Dashboard\RecConfessionController@checkSlug");
+        // Pick
+        Route::put("/confessions/{confession:slug}/pick", "\App\Http\Controllers\Dashboard\RecConfessionController@pick");
+        // Release
+        Route::put("/confessions/{confession:slug}/release", "\App\Http\Controllers\Dashboard\RecConfessionController@release");
+        // Close
+        Route::put("/confessions/{confession:slug}/close", "\App\Http\Controllers\Dashboard\RecConfessionController@close");
+        // Destroy image
+        Route::delete("/confessions/{confession:slug}/image", "\App\Http\Controllers\Dashboard\RecConfessionController@destroyImage");
+
+        // ---------------------------------
+        // Confession's Category Routes
+        Route::resource('/confessions/confession-categories', "\App\Http\Controllers\Dashboard\MasterConfessionCategoryController")->except(["show"]);
+        // Sluggable check
+        Route::post("/confessions/confession-categories/check-slug", "\App\Http\Controllers\Dashboard\MasterConfessionCategoryController@checkSlug");
+        // Destroy image
+        Route::delete("/confessions/confession-categories/{confession_category}/image", "\App\Http\Controllers\Dashboard\MasterConfessionCategoryController@destroyImage");
+        // Activate
+        Route::put("/confessions/confession-categories/{confession_category}/activate", "\App\Http\Controllers\Dashboard\MasterConfessionCategoryController@activate");
+
+        // ---------------------------------
+        // Response Routes
+        Route::resource('confessions.responses', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController")->shallow()->except(["show", "index"]);
+        // Index
+        Route::get("confessions/responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@index");
+        // Destroy (attachment)
+        Route::delete("/responses/{response:id_confession_response}/attachment", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@destroyAttachment");
+
+        // ---------------------------------
+        // Comment Routes
+        Route::get("/comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@index");
+    });
 });
-
-// Landing page
-Route::resource('/complaints', ComplaintController::class)->only(["index", "show"])->middleware("auth");
-Route::get('/categories', [CategoryController::class, "index"])->middleware("auth");
-
-// Authentication
-Route::get("/login", [DashboardAuthController::class, "index"])->name("login")->middleware("guest");
-Route::post("/login", [DashboardAuthController::class, "authenticate"])->middleware("guest");
-Route::post("/logout", [DashboardAuthController::class, "logout"])->middleware("auth");
-
-// User
-Route::group(["middleware" => "auth", "prefix" => "dashboard/user"], function () {
-    // Profile
-    Route::get("/account/profile", [DashboardUserSettingController::class, "profile"]);
-    // Setting
-    Route::get("/account/setting", [DashboardUserSettingController::class, "setting"]);
-    Route::put("/account/setting/{user:username}", [DashboardUserSettingController::class, "settingUpdate"]);
-    // Change password
-    Route::get("/account/password", [DashboardUserSettingController::class, "changeYourPassword"]);
-    Route::put("/account/password/{user:username}", [DashboardUserSettingController::class, "changePassword"]);
-    // Register
-    Route::get("/register", [DashboardUserController::class, "create"])->middleware("admin");
-    // Promote and demote
-    Route::put("/{user:username}/promote", [DashboardUserPromoteController::class, "promote"])->middleware("admin");
-    Route::put("/{user:username}/demote", [DashboardUserPromoteController::class, "demote"])->middleware("admin");
-});
-
-// Dashboard
-Route::group(["middleware" => 'auth', "prefix" => "dashboard"], function () {
-    // Dashboard
-    Route::get("/", [DashboardController::class, 'index']);
-
-    // Sluggable check
-    Route::get("/complaints/checkSlug", [DashboardComplaintController::class, "checkSlug"])->middleware("student");
-    Route::get("/categories/checkSlug", [DashboardAdminCategoryController::class, "checkSlug"])->middleware("admin");
-
-    // Complaint
-    Route::resource("/complaints", DashboardComplaintController::class)->middleware("student");
-    // Response
-    Route::resource("/responses", DashboardResponseController::class)->middleware("response")->except(["create"]);
-    Route::get("/responses/create/{complaint:slug}", [DashboardResponseController::class, "create"])->middleware("response");
-    // Category
-    Route::resource("/categories", DashboardAdminCategoryController::class)->middleware("admin")->except(["show"]);
-    // User
-    Route::resource("/users", DashboardUserController::class)->middleware("admin")->except(["create"]);
-    // Website settings
-    Route::get("/website", [DashboardSettingController::class, "index"])->middleware("admin");
-    Route::put("/website", [DashboardSettingController::class, "update"])->middleware("admin");
-});
-
-// Responses data
-Route::post('/dashboard/chart-data', [DashboardController::class, "chartData"])->middleware("auth");
