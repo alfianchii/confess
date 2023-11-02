@@ -106,9 +106,9 @@
                                                 class="form-group has-icon-left mandatory @error('username'){{ 'is-invalid' }}@enderror">
                                                 <label for="username" class="form-label">Username</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control py-2" placeholder="alfianchii"
-                                                        id="username" name="username" value="{{ old('username') }}"
-                                                        maxlength="255" />
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder="e.g. alfianchii" id="username" name="username"
+                                                        value="{{ old('username') }}" maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-at py-2"></i>
                                                     </div>
@@ -143,39 +143,51 @@
                                             <div
                                                 class="form-group has-icon-left mandatory @error('password'){{ 'is-invalid' }}@enderror">
                                                 <label for="password" class="form-label">Password</label>
-                                                <div class="position-relative">
-                                                    <input type="password" class="form-control py-2"
+                                                <div class="d-flex flex-row-reverse align-items-center position-relative"
+                                                    id="wrapper">
+                                                    <input type="password" class="form-control py-2 mt-1"
                                                         placeholder="e.g. 4kuBu7uhM3dk1t" id="password" name="password"
                                                         maxlength="255" />
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-key py-2"></i>
+                                                    <div class="form-control-icon pt-1">
+                                                        <i class="bi bi-key"></i>
                                                     </div>
-                                                    @error('password')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                    <button type="button" class="btn bg-transparent show-password"
+                                                        id="show-password" data-bs-toggle="tooltip"
+                                                        data-bs-title="Tampilkan/sembunyikan password.">
+                                                        <i class="bi bi-eye-slash-fill"></i>
+                                                    </button>
                                                 </div>
+                                                @error('password')
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
                                                 class="form-group has-icon-left mandatory @error('password_confirmation'){{ 'is-invalid' }}@enderror">
-                                                <label for="password_confirmation" class="form-label">Konfirmasi
+                                                <label for="password-confirmation" class="form-label">Konfirmasi
                                                     Password</label>
-                                                <div class="position-relative">
-                                                    <input type="password" class="form-control py-2"
-                                                        placeholder="e.g. 4kuBu7uhM3dk1t" id="password_confirmation"
+                                                <div class="d-flex flex-row-reverse align-items-center position-relative"
+                                                    id="wrapper">
+                                                    <input type="password" class="form-control py-2 mt-1"
+                                                        placeholder="e.g. 4kuBu7uhM3dk1t" id="password-confirmation"
                                                         name="password_confirmation" maxlength="255" />
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-key-fill py-2"></i>
+                                                    <div class="form-control-icon pt-1">
+                                                        <i class="bi bi-key-fill"></i>
                                                     </div>
-                                                    @error('password_confirmation')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
+                                                    <button type="button" class="btn bg-transparent show-password"
+                                                        id="show-password-confirmation" data-bs-toggle="tooltip"
+                                                        data-bs-title="Tampilkan/sembunyikan password.">
+                                                        <i class="bi bi-eye-slash-fill"></i>
+                                                    </button>
                                                 </div>
+                                                @error('password_confirmation')
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +227,7 @@
                                         </div>
                                         <div class="col-md-6 col-12 mb-1" id="role-name">
                                             <div class="col-12 mb-1">
-                                                <fieldset class="form-group">
+                                                <fieldset class="form-group mandatory">
                                                     <label for="role"
                                                         class="form-label @error('role'){{ 'text-danger' }}@enderror">Role</label>
                                                     <select class="form-select" id="role" name="role">
@@ -297,6 +309,8 @@
     @vite(['resources/js/filepond/image-crop.js'])
     {{-- Back to page --}}
     @vite(['resources/js/utils/back-to-page.js'])
+    {{-- Display password --}}
+    @vite(['resources/js/display-password/password-confirmation.js'])
     {{-- Custom JS: select role --}}
     <script>
         const uniqueFields = generateUniqueFields();

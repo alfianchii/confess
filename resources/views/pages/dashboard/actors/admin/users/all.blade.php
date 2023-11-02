@@ -24,7 +24,7 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a data-bs-toggle="tooltip" data-bs-original-title="Lakukan registrasi seorang."
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Lakukan registrasi seorang pengguna."
                             href="/dashboard/users/register" class="btn btn-success px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas text-white"></span> Registrasi
                         </a>
@@ -125,7 +125,16 @@
                                     <td>
                                         <div class="d-flex">
                                             {{-- --------------------------------- Rules --}}
-                                            @if ($user->userRole->role->role_name !== 'admin')
+                                            @if ($user->userRole->role->role_name === 'admin')
+                                                <div class="me-2">
+                                                    <a data-bs-toggle="tooltip"
+                                                        data-bs-original-title="Ganti role pengguna {{ htmlspecialchars('@' . $user->username) }}."
+                                                        href="/dashboard/users/details/{{ $user->username }}/role"
+                                                        class="btn btn-light px-2 pt-2">
+                                                        <span class="text-black fa-fw fa-lg select-all fas"></span>
+                                                    </a>
+                                                </div>
+                                            @else
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
                                                         data-bs-original-title="Sunting pengguna {{ htmlspecialchars('@' . $user->username) }}."
@@ -159,17 +168,7 @@
                                                         </a>
                                                     </div>
                                                 @endif
-                                            @else
-                                                <div class="me-2">
-                                                    <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Ganti role dari pengguna {{ htmlspecialchars('@' . $user->username) }}."
-                                                        href="/dashboard/users/details/{{ $user->username }}/role"
-                                                        class="btn btn-light px-2 pt-2">
-                                                        <span class="text-black fa-fw fa-lg select-all fas"></span>
-                                                    </a>
-                                                </div>
                                             @endif
-
 
                                             <div class="me-2">
                                                 <a data-bs-toggle="tooltip"

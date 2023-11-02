@@ -61,13 +61,12 @@ class UserService extends Service
     "username.max" => "Username tidak boleh lebih dari :max karakter.",
     "nik.required" => "NIK tidak boleh kosong.",
     "nik.size" => "NIK harus :size karakter.",
-    "nik.string" => "NIK harus berupa teks.",
     "nik.numeric" => "NIK harus berupa angka.",
+    "nip.required" => "NIP tidak boleh kosong.",
     "nip.size" => "NIP harus :size karakter.",
-    "nip.string" => "NIP harus berupa string.",
     "nip.numeric" => "NIP harus berupa angka.",
+    "nisn.required" => "NISN tidak boleh kosong.",
     "nisn.size" => "NISN harus :size karakter.",
-    "nisn.string" => "NISN harus berupa string.",
     "nisn.numeric" => "NISN harus berupa angka.",
     "email.unique" => "Email sudah digunakan.",
     "gender.required" => "Jenis kelamin tidak boleh kosong.",
@@ -334,19 +333,8 @@ class UserService extends Service
 
     // Create the user
     $theUser = User::create($credentials);
-    $theUser->userRole()->create(["id_role" => $credentials["role"]]);
-
-    if ($data["role"] === "officer") {
-      $theUser->officer()->update([
-        "nip" => $credentials["nip"],
-      ]);
-    }
-
-    if ($data["role"] === "student") {
-      $theUser->student()->update([
-        "nisn" => $credentials["nisn"],
-      ]);
-    }
+    $theUser = $this->createRoleUser($theUser, $credentials);
+    $theUser = $this->createUniqueUser($theUser, $data["role"], $credentials);
 
     // Success
     return redirect("/dashboard/users/details/$theUser->username")->withSuccess("Pengguna @$theUser->username berhasil diregistrasi!");
@@ -384,14 +372,14 @@ class UserService extends Service
   // Update
   public function adminUpdate($data, User $user, User $theUser)
   {
-    $userRole = $theUser->userRole->role->role_name;
+    $theUserRole = $theUser->userRole->role->role_name;
 
     // ---------------------------------
     // Rules
-    if ($theUser->userRole->role->role_name !== "admin") {
+    if ($theUserRole !== "admin") {
       // Rules
       $rules = $this->rules;
-      if ($userRole === "officer") $rules['role'] = ["required"];
+      if ($theUserRole === "officer") $rules['role'] = ["required"];
       unset($rules["password"], $rules["password_confirmation"]);
       if ($data["username"] === $theUser->username) unset($rules["username"]);
       if ($data["email"] === $theUser->email) unset($rules["email"]);
@@ -406,7 +394,7 @@ class UserService extends Service
       $credentials = Validator::make($data, $rules, $this->messages)->validate();
       $credentials = $this->imageCropping($theUser->profile_picture, $credentials, "profile_picture", "user/profile-pictures");
       $credentials["updated_by"] = $user->id_user;
-      if ($userRole === "officer") {
+      if ($theUserRole === "officer") {
         $role = $credentials["role"];
         $credentials["role"] = MasterRole::where("role_name", $role)->value("id_role");
       };
@@ -414,19 +402,19 @@ class UserService extends Service
       // Update the user
       $theUser->update($credentials);
 
-      if ($userRole === "officer" && array_key_exists("nip", $credentials)) {
+      if ($theUserRole === "officer" && array_key_exists("nip", $credentials)) {
         $theUser->officer()->update([
           "nip" => $credentials["nip"],
           "updated_by" => $user->id_user,
         ]);
       }
 
-      if ($userRole !== $role) {
+      if ($theUserRole !== $role) {
         $theUser->userRole()->update(["id_role" => $credentials["role"]]);
         $theUser->refresh();
       }
 
-      if ($userRole === "student" && array_key_exists("nisn", $credentials)) {
+      if ($theUserRole === "student" && array_key_exists("nisn", $credentials)) {
         $theUser->student()->update([
           "nisn" => $credentials["nisn"],
           "updated_by" => $user->id_user,
@@ -583,38 +571,53 @@ class UserService extends Service
   // Change role
   public function adminRole(User $theUser)
   {
-    // Data processing
-    $roles = MasterRole::all();
+    // ---------------------------------
+    // Rules
+    if ($theUser->userRole->role->role_name === "admin") {
+      // Data processing
+      $roles = MasterRole::all();
 
-    // Passing out a view
-    $viewVariables = [
-      "title" => "Ganti Role",
-      "roles" => $roles,
-      "user" => $theUser,
-    ];
-    return view("pages.dashboard.actors.admin.users.role", $viewVariables);
+      // Passing out a view
+      $viewVariables = [
+        "title" => "Ganti Role",
+        "roles" => $roles,
+        "user" => $theUser,
+      ];
+      return view("pages.dashboard.actors.admin.users.role", $viewVariables);
+    }
+
+    return redirect(self::HOME_URL)->withErrors('User bukan admin.');
   }
   public function adminRoleUpdate($data, User $user, User $theUser)
   {
-    $userRole = $theUser->userRole->role->role_name;
-    $role = $data["role"];
+    $theUserRole = $theUser->userRole->role->role_name;
 
+    // ---------------------------------
     // Rules
-    $rules = [];
-    $rules["nip"] = $this->rules["nip"];
-    $rules["role"] = ["required"];
-    if ($data["nip"] === $theUser->officer->nip) unset($rules["nip"]);
+    if ($theUserRole === "admin") {
+      $role = $data["role"];
 
-    // Validates
-    $this->validateNumbering($data);
-    $credentials = Validator::make($data, $rules, $this->messages)->validate();
-    $credentials["id_role"] = MasterRole::where("role_name", $credentials["role"])->value("id_role");
+      // Rules
+      $rules = [];
+      $rules["nip"] = $this->rules["nip"];
+      $rules["role"] = ["required"];
+      if ($data["nip"] === $theUser->officer->nip) unset($rules["nip"]);
 
-    if (array_key_exists("nip", $credentials)) {
-      $fields["nip"] = $credentials["nip"];
-      return $this->modify($theUser->officer, $fields, $theUser->id_user, "akun $theUser->full_name", "/dashboard/users");
+      // Validates
+      $this->validateNumbering($data);
+      $credentials = Validator::make($data, $rules, $this->messages)->validate();
+      $credentials["id_role"] = MasterRole::where("role_name", $credentials["role"])->value("id_role");
+
+      if (array_key_exists("nip", $credentials)) {
+        $fields["nip"] = $credentials["nip"];
+        return $this->modify($theUser->officer, $fields, $theUser->id_user, "akun $theUser->full_name", "/dashboard/users");
+      }
+
+      // Success
+      return $this->modify($theUser->userRole, $credentials, $theUser->id_user, "akun $theUser->full_name", "/dashboard/users");
     }
-    return $this->modify($theUser->userRole, $credentials, $theUser->id_user, "akun $theUser->full_name", "/dashboard/users");
+
+    return redirect(self::HOME_URL)->withErrors('User bukan admin.');
   }
 
 

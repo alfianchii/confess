@@ -543,4 +543,6 @@
     <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     {{-- Admin Dashboard --}}
     @vite(['resources/js/dashboard/admin.js'])
+    {{-- realrashid/sweetalert --}}
+    @include('sweetalert::alert')
 @endsection
