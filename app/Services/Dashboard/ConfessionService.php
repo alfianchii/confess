@@ -261,6 +261,7 @@ class ConfessionService extends Service
         $confession->update([
           "status" => "process",
           "assigned_to" => $user->id_user,
+          "updated_at" => now(),
         ]);
 
         // Response
@@ -291,6 +292,7 @@ class ConfessionService extends Service
         $confession->update([
           "status" => "release",
           "assigned_to" => null,
+          "updated_at" => now(),
         ]);
 
         // Response
@@ -320,7 +322,7 @@ class ConfessionService extends Service
         // Close
         $confession->update([
           "status" => "close",
-          "updated_by" => $user->id_user,
+          "updated_at" => now(),
         ]);
 
         // Response

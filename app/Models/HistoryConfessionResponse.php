@@ -219,6 +219,7 @@ class HistoryConfessionResponse extends Model
             }
         };
 
+        $confession->update(["updated_at" => now()]);
         return HistoryConfessionResponse::create($responseFields);
     }
 
