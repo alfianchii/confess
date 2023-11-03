@@ -495,8 +495,6 @@ class UserService extends Service
       if (!Storage::delete($yourAccount->profile_picture)) throw new \Exception('Error deleting profile picture.');
       // Update the profile picture and update by
       $yourAccount->update(["profile_picture" => null, "updated_by" => $yourAccount->id_user]);
-      // Success
-      return $this->responseJsonMessage("Foto profil berhasil dihapus.");
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
@@ -504,8 +502,8 @@ class UserService extends Service
       return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
     }
 
-    // Redirect to unauthorized page
-    return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
+    // Success
+    return $this->responseJsonMessage("Foto profil berhasil dihapus.");
   }
   // History logins
   public function adminHistoryLogins()
@@ -642,8 +640,6 @@ class UserService extends Service
       if (!Storage::delete($yourAccount->profile_picture)) throw new \Exception('Error deleting profile picture.');
       // Update the profile picture and update by
       $yourAccount->update(["profile_picture" => null, "updated_by" => $yourAccount->id_user]);
-      // Success
-      return $this->responseJsonMessage("Foto profil berhasil dihapus.");
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
@@ -651,8 +647,8 @@ class UserService extends Service
       return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
     }
 
-    // Redirect to unauthorized page
-    return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
+    // Success
+    return $this->responseJsonMessage("Foto profil berhasil dihapus.");
   }
 
 
@@ -701,8 +697,6 @@ class UserService extends Service
       if (!Storage::delete($yourAccount->profile_picture)) throw new \Exception('Error deleting profile picture.');
       // Update the profile picture and update by
       $yourAccount->update(["profile_picture" => null, "updated_by" => $yourAccount->id_user]);
-      // Success
-      return $this->responseJsonMessage("Foto profil berhasil dihapus.");
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
@@ -710,7 +704,7 @@ class UserService extends Service
       return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
     }
 
-    // Redirect to unauthorized page
-    return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
+    // Success
+    return $this->responseJsonMessage("Foto profil berhasil dihapus.");
   }
 }
