@@ -55,8 +55,11 @@ document.documentElement.addEventListener("click", function (event) {
             redirect: "/dashboard/users",
         });
 
-    // Non-active
-    if (event.target && event.target.matches("[data-confirm-user-non-active]"))
+    // Non-active your account
+    if (
+        event.target &&
+        event.target.matches("[data-confirm-user-non-active-your-account]")
+    )
         handleClick({
             data: { unique },
             event: {
@@ -66,7 +69,7 @@ document.documentElement.addEventListener("click", function (event) {
             },
             uri: {
                 url: `/dashboard/users/account`,
-                noun: `non-active`,
+                noun: `non-active-your-account`,
             },
             redirect: "/",
         });

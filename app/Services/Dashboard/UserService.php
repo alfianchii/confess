@@ -397,15 +397,15 @@ class UserService extends Service
   // Destroy
   public function adminDestroy(User $user, User $theUser)
   {
+    $theUserRole = $theUser->userRole->role->role_name;
+
     try {
       // ---------------------------------
       // Rules
-      if ($theUser->userRole->role->role_name !== "admin") {
-        // Destroy the user
-        if (!User::destroy($theUser->id_user)) throw new \Exception("Error deleting the user.");
+      if ($theUserRole !== "admin") {
         // Non-active data and updated by
-        $theUser->refresh();
-        $theUser->update(["updated_by" => $user->id_user, "flag_active" => "N", "deleted_at" => null]);
+        if (!$theUser->update(["updated_by" => $user->id_user, "flag_active" => "N", "deleted_at" => null]))
+          throw new \Exception("Error deactivating the user.");
       } else return $this->responseJsonMessage('Kamu tidak bisa menonaktifkan akun admin.', 422);
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
@@ -415,17 +415,20 @@ class UserService extends Service
     }
 
     // Success
-    return $this->responseJsonMessage("Pengguna berhasil dinonaktifkan.");
+    return $this->responseJsonMessage("Pengguna @$theUser->username berhasil dinonaktifkan.");
   }
   // Activate
   public function adminActivate(User $user, User $theUser)
   {
+    $theUserRole = $theUser->userRole->role->role_name;
+
     try {
       // ---------------------------------
       // Rules
-      if ($theUser->userRole->role->role_name !== "admin") {
+      if ($theUserRole !== "admin") {
         // Activate the user
-        $theUser->update(["updated_by" => $user->id_user, "flag_active" => "Y", "deleted_at" => null]);
+        if (!$theUser->update(["updated_by" => $user->id_user, "flag_active" => "Y", "deleted_at" => null]))
+          throw new \Exception("Error activating the user.");;
       } else return $this->responseJsonMessage('Kamu tidak bisa mengaktifkan akun admin.', 422);
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
@@ -435,7 +438,7 @@ class UserService extends Service
     }
 
     // Success
-    return $this->responseJsonMessage("Pengguna berhasil diaktifkan.");
+    return $this->responseJsonMessage("Pengguna @$theUser->username berhasil diaktifkan.");
   }
   // Settings
   public function adminSettings()
@@ -515,15 +518,13 @@ class UserService extends Service
     try {
       // ---------------------------------
       // Rules
-      if ($yourAccount->userRole->role->role_name === "admin") {
-        if ($yourAccount->userRole->role->anotherUsersBasedYourRole->count() === 1) throw new \Exception("Kamu tidak bisa menonaktifkan akun karena kamu adalah admin terakhir!");
-        // Destroy the user
-        if (!User::destroy($yourAccount->id_user)) throw new \Exception("Error deleting the user.");
-        // Non-active data and updated by
-        $yourAccount->refresh();
-        $yourAccount->update(["flag_active" => "N", "deleted_at" => null]);
-        $this->breakUserSession();
-      } else return $this->responseJsonMessage('Role kamu bukan admin. Hanya admin yang bisa menghapus akun.', 422);
+      // Do not deactivate if there is just 1 admin
+      if ($yourAccount->userRole->role->anotherUsersBasedYourRole->count() === 1)
+        throw new \Exception("Kamu tidak bisa menonaktifkan akun karena kamu adalah admin terakhir!");
+      // Non-active data and updated by
+      if (!$yourAccount->update(["flag_active" => "N", "deleted_at" => null]))
+        throw new \Exception("Error deactivating the user.");
+      $this->breakUserSession();
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Exception $e) {
@@ -554,6 +555,7 @@ class UserService extends Service
 
     return redirect(self::HOME_URL)->withErrors('User bukan admin.');
   }
+  // Update change role
   public function adminRoleUpdate($data, User $user, User $theUser)
   {
     $theUserRole = $theUser->userRole->role->role_name;

@@ -142,6 +142,7 @@
                 </div>
             </div>
 
+            {{-- --------------------------------- Rules --}}
             @can('admin')
                 <div class="card">
                     <div class="card-header">
@@ -157,8 +158,9 @@
                             </div>
                         </div>
                         <div class="form-group my-2 d-flex justify-content-end">
-                            <button data-confirm-user-non-active="true" data-unique={{ base64_encode($userData->id_user) }}
-                                type="submit" class="btn btn-danger" id="btn-delete-account" disabled="">Non-active</button>
+                            <button data-confirm-user-non-active-your-account="true"
+                                data-unique={{ base64_encode($userData->id_user) }} type="submit" class="btn btn-danger"
+                                id="btn-delete-account" disabled="">Non-active</button>
                         </div>
                     </div>
                 </div>
@@ -175,7 +177,7 @@
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/user/user.js'])
     @can('admin')
-        {{-- Non-active account --}}
-        @vite(['resources/js/utils/non-active-a-user.js'])
+        {{-- Non-active your account --}}
+        @vite(['resources/js/utils/non-active-your-account.js'])
     @endcan
 @endsection
