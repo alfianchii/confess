@@ -47,10 +47,11 @@ trait Accountable
     // Student
     if ($theUserRole === "student")
       // Update student
-      $theUser->student()->update([
-        "nisn" => $credentials["nisn"],
-        "updated_by" => $user->id_user,
-      ]);
+      if (array_key_exists("nisn", $credentials))
+        $theUser->student()->update([
+          "nisn" => $credentials["nisn"],
+          "updated_by" => $user->id_user,
+        ]);
 
     // Update the user
     $credentials["updated_by"] = $user->user_id;
