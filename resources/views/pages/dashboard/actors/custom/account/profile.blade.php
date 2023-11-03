@@ -160,7 +160,7 @@
                         <div class="form-group my-2 d-flex justify-content-end">
                             <button data-confirm-user-non-active-your-account="true"
                                 data-unique={{ base64_encode($userData->id_user) }} type="submit" class="btn btn-danger"
-                                id="btn-delete-account" disabled="">Non-active</button>
+                                id="btn-non-active-your-account" disabled="">Non-active</button>
                         </div>
                     </div>
                 </div>
