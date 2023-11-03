@@ -33,13 +33,13 @@ class Service
   {
     try {
       // Get the new and old of $data
-      $oldResponse = $data->fresh();
+      $oldData = $data->fresh();
       $data->update($credentials);
-      $newResponse = $data->fresh();
+      $newData = $data->fresh();
 
       // Get the old and new versions of the model as arrays
-      $oldAttributes = $oldResponse->getAttributes();
-      $newAttributes = $newResponse->getAttributes();
+      $oldAttributes = $oldData->getAttributes();
+      $newAttributes = $newData->getAttributes();
 
       // Compare the arrays to see if any attributes have changed
       if (($oldAttributes === $newAttributes))
@@ -54,9 +54,9 @@ class Service
         ->withErrors($e->getMessage());
     }
 
-    // The instance of the $response record has been updated
+    // The instance of the $data record has been updated
     return redirect($url)
-      ->withSuccess(ucwords($noun) . " berhasil di-edit!");
+      ->withSuccess(ucfirst($noun) . " berhasil disunting!");
   }
 
   public function file($file, $credentials, $key, $storeUrl)

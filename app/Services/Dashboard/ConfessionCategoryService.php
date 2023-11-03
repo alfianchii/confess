@@ -95,7 +95,7 @@ class ConfessionCategoryService extends Service
   {
     // Data processing
     $confessionCategory = MasterConfessionCategory::where("slug", $slug)->first();
-    if (!$confessionCategory) $this->responseJsonMessage("The data you are looking not found.", 404);;
+    if (!$confessionCategory) $this->responseJsonMessage("The data you are looking not found.", 404);
 
     // Roles checking
     $roleName = $userRole->role_name;

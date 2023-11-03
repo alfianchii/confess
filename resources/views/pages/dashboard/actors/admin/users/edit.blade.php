@@ -20,9 +20,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>WWwwWWW Pengguna</h2>
+                    <h2>Sunting Pengguna</h2>
                     <p class="text-subtitle text-muted">
-                        Daftarkan pengguna untuk melakukan sesuatu di {{ config('web_config')['WEB_TITLE'] }}.
+                        Lakukan penyuntingan terhadap pengguna {{ $theUser->full_name }}.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -44,7 +44,7 @@
                                 <a href="/dashboard/users">Pengguna</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Registrasi
+                                Sunting
                             </li>
                         </ol>
                     </nav>
@@ -61,7 +61,7 @@
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="/dashboard/users/{{ $user->username }}" method="POST"
+                                <form class="form" action="/dashboard/users/{{ $theUser->username }}" method="POST"
                                     enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
@@ -74,7 +74,7 @@
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
                                                         placeholder="e.g. Muhammad Alfian" id="full_name" name="full_name"
-                                                        value="{{ old('full_name') ?? $user->full_name }}" />
+                                                        value="{{ old('full_name') ?? $theUser->full_name }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person py-2"></i>
                                                     </div>
@@ -93,7 +93,7 @@
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
                                                         placeholder="e.g. 1050241708900001" id="nik" name="nik"
-                                                        value="{{ old('nik') ?? $user->nik }}" maxlength="16" />
+                                                        value="{{ old('nik') ?? $theUser->nik }}" maxlength="16" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-person-vcard py-2"></i>
                                                     </div>
@@ -110,9 +110,10 @@
                                                 class="form-group has-icon-left mandatory @error('username'){{ 'is-invalid' }}@enderror">
                                                 <label for="username" class="form-label">Username</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control py-2" placeholder="alfianchii"
-                                                        id="username" name="username"
-                                                        value="{{ old('username') ?? $user->username }}" maxlength="255" />
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder="e.g. alfianchii" id="username" name="username"
+                                                        value="{{ old('username') ?? $theUser->username }}"
+                                                        maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-at py-2"></i>
                                                     </div>
@@ -131,7 +132,7 @@
                                                 <div class="position-relative">
                                                     <input type="email" class="form-control py-2"
                                                         placeholder="e.g. alfian.dev@gmail.com" id="email"
-                                                        name="email" value="{{ old('email') ?? $user->email }}"
+                                                        name="email" value="{{ old('email') ?? $theUser->email }}"
                                                         maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-envelope-paper py-2"></i>
@@ -157,7 +158,7 @@
                                                         <div class="form-check me-3">
                                                             <input class="form-check-input" type="radio" name="gender"
                                                                 id="gender-L" value="L"
-                                                                @if (old('gender', $user->gender) == 'L') checked @endif />
+                                                                @if (old('gender', $theUser->gender) == 'L') checked @endif />
                                                             <label class="form-check-label form-label" for="gender-L">
                                                                 Laki-laki
                                                             </label>
@@ -165,7 +166,7 @@
                                                         <div class="form-check me-3">
                                                             <input class="form-check-input" type="radio" name="gender"
                                                                 id="gender-P" value="P"
-                                                                @if (old('gender', $user->gender) == 'P') checked @endif />
+                                                                @if (old('gender', $theUser->gender) == 'P') checked @endif />
                                                             <label class="form-check-label form-label" for="gender-P">
                                                                 Perempuan
                                                             </label>
@@ -181,50 +182,50 @@
                                         </div>
 
                                         {{-- --------------------------------- Rules --}}
-                                        @if ($user->userRole->role->role_name === 'officer')
+                                        @if ($theUser->userRole->role->role_name === 'officer')
                                             <div class="col-md-6 col-12 mb-1" id="role-name">
-                                                <div class="col-12 mb-1">
-                                                    <fieldset class="form-group">
-                                                        <label for="role"
-                                                            class="form-label @error('role'){{ 'text-danger' }}@enderror">Role</label>
-                                                        <select class="form-select" id="role" name="role">
-                                                            @foreach ($roles as $role)
-                                                                @if ($role->role_name !== 'student')
-                                                                    <option value="{{ $role->role_name }}"
-                                                                        @if (old('role', $user->userRole->role->role_name) === $role->role_name) {{ 'selected' }} @endif>
-                                                                        {{ $role->description }}
-                                                                    </option>
-                                                                @endif
-                                                            @endforeach
-                                                        </select>
-                                                    </fieldset>
-                                                    @error('role')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
-                                                    @enderror
-                                                </div>
+                                                <fieldset class="form-group mandatory">
+                                                    <label for="role"
+                                                        class="form-label @error('role'){{ 'text-danger' }}@enderror">Role</label>
+                                                    <select class="form-select" id="role" name="role">
+                                                        @foreach ($roles as $role)
+                                                            @if ($role->role_name !== 'student')
+                                                                <option value="{{ $role->role_name }}"
+                                                                    @if (old('role', $theUser->userRole->role->role_name) === $role->role_name) {{ 'selected' }} @endif>
+                                                                    {{ $role->description }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </fieldset>
+                                                @error('role')
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
+                                                @enderror
                                             </div>
                                         @endif
 
                                         {{-- --------------------------------- Rules --}}
-                                        @if ($user->userRole->role->role_name === 'student')
-                                            <div
-                                                class="form-group has-icon-left mandatory @error('nisn'){{ 'is-invalid' }}@enderror">
-                                                <label for="nisn" class="form-label">NISN</label>
-                                                <div class="position-relative">
-                                                    <input type="text" class="form-control py-2"
-                                                        placeholder="e.g. 7090851024" id="nisn" name="nisn"
-                                                        value="{{ old('nisn') ?? $user->student->nisn }}"
-                                                        maxlength="10" />
-                                                    <div class="form-control-icon">
-                                                        <i class="bi bi-person-vcard py-2"></i>
-                                                    </div>
-                                                    @error('nisn')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
+                                        @if ($theUser->userRole->role->role_name === 'student')
+                                            <div class="col-md-6 col-12 mb-1">
+                                                <div
+                                                    class="form-group has-icon-left mandatory @error('nisn'){{ 'is-invalid' }}@enderror">
+                                                    <label for="nisn" class="form-label">NISN</label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control py-2"
+                                                            placeholder="e.g. 7090851024" id="nisn" name="nisn"
+                                                            value="{{ old('nisn') ?? $theUser->student->nisn }}"
+                                                            maxlength="10" />
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-person-vcard py-2"></i>
                                                         </div>
-                                                    @enderror
+                                                        @error('nisn')
+                                                            <div class="invalid-feedback d-block">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endif
@@ -232,37 +233,37 @@
                                     <div class="row">
                                         <div class="col-12 mb-1">
                                             <div class="form-group ">
-                                                <label for="profile_picture"
-                                                    class="@if ($user->profile_picture) {{ 'd-block' }} @endif{{ 'form-label' }} @error('profile_picture'){{ 'text-danger' }}@enderror">Foto</label>
+                                                <label for="profile-picture"
+                                                    class="@if ($theUser->profile_picture) {{ 'd-block' }} @endif{{ 'form-label' }} @error('profile_picture'){{ 'text-danger' }}@enderror">Foto</label>
                                                 <div class="position-relative">
                                                     <!-- Image preview -->
-                                                    @if ($isUserImageExist($user->profile_picture))
+                                                    @if ($isUserImageExist($theUser->profile_picture))
                                                         <div class="mb-2">
                                                             <a data-bs-toggle="tooltip"
                                                                 data-bs-original-title="Hapus foto profil kamu."
                                                                 class="btn btn-danger px-2 pt-2"
                                                                 data-confirm-user-profile-picture-destroy="true"
-                                                                data-unique="{{ base64_encode($user->id_user) }}">
+                                                                data-unique="{{ base64_encode($theUser->id_user) }}">
                                                                 <span data-confirm-user-profile-picture-destroy="true"
-                                                                    data-unique="{{ base64_encode($user->id_user) }}"
+                                                                    data-unique="{{ base64_encode($theUser->id_user) }}"
                                                                     class="fa-fw fa-lg select-all fas"></span>
                                                             </a>
                                                         </div>
 
-                                                        @if (File::exists(public_path('images/' . $user->profile_picture)))
+                                                        @if (File::exists(public_path('images/' . $theUser->profile_picture)))
                                                             <img class="img-fluid bg-nav box-gradient rounded mb-3 col-sm-5"
-                                                                src="{{ asset('images/' . $user->profile_picture) }}"
+                                                                src="{{ asset('images/' . $theUser->profile_picture) }}"
                                                                 alt="User Avatar" />
                                                         @else
                                                             <img class="img-fluid bg-nav box-gradient rounded mb-3 col-sm-5"
-                                                                src="{{ asset('storage/' . $user->profile_picture) }}"
+                                                                src="{{ asset('storage/' . $theUser->profile_picture) }}"
                                                                 alt="User Avatar" />
                                                         @endif
                                                     @endif
 
                                                     <!-- Auto crop image file uploader -->
                                                     <input type="file" class="image-crop-filepond"
-                                                        name="profile_picture" />
+                                                        name="profile_picture" id="profile-picture" />
 
                                                     @error('profile_picture')
                                                         <p class="text-danger">{{ $message }}</p>
@@ -315,7 +316,7 @@
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/user/user.js'])
     {{-- --------------------------------- Rules --}}
-    @if ($user->userRole->role->role_name === 'officer')
+    @if ($theUser->userRole->role->role_name === 'officer')
         {{-- Custom JS: select role --}}
         <script>
             const uniqueFields = generateUniqueFields();
@@ -345,7 +346,7 @@
                             <label for="nip" class="form-label">NIP</label>
                             <div class="position-relative">
                                 <input type="text" class="form-control py-2" placeholder="e.g. 105024170890000123" id="nip"
-                                    name="nip" value="{{ old('nip') ?? $user->officer?->nip }}" maxlength="18" />
+                                    name="nip" value="{{ old('nip') ?? $theUser->officer?->nip }}" maxlength="18" />
                                 <div class="form-control-icon">
                                     <i class="bi bi-person-vcard py-2"></i>
                                 </div>
