@@ -68,9 +68,9 @@
                                     class="form-group has-icon-left mandatory @error('full_name'){{ 'is-invalid' }}@enderror">
                                     <label for="full_name" class="form-label">Nama</label>
                                     <div class="position-relative">
-                                        <input readonly type="text" class="form-control py-2"
+                                        <input readonly disabled type="text" class="form-control py-2"
                                             placeholder="e.g. Muhammad Alfian" id="full_name" name="full_name"
-                                            value="{{ old('full_name') ?? $userData->full_name }}" />
+                                            value="{{ $userData->full_name }}" />
                                         <div class="form-control-icon">
                                             <i class="bi bi-person py-2"></i>
                                         </div>
@@ -86,9 +86,9 @@
                                 <div class="form-group has-icon-left mandatory @error('nik'){{ 'is-invalid' }}@enderror">
                                     <label for="nik" class="form-label">NIK</label>
                                     <div class="position-relative">
-                                        <input readonly type="text" class="form-control py-2"
+                                        <input readonly disabled type="text" class="form-control py-2"
                                             placeholder="e.g. 1050241708900001" id="nik" name="nik"
-                                            value="{{ old('nik') ?? $userData->nik }}" maxlength="16" />
+                                            value="{{ $userData->nik }}" maxlength="16" />
                                         <div class="form-control-icon">
                                             <i class="bi bi-person-vcard py-2"></i>
                                         </div>
@@ -144,9 +144,9 @@
                                 <div class="form-group has-icon-left mandatory @error('nip'){{ 'is-invalid' }}@enderror">
                                     <label for="nip" class="form-label">NIP</label>
                                     <div class="position-relative">
-                                        <input readonly type="text" class="form-control py-2"
+                                        <input readonly disabled type="text" class="form-control py-2"
                                             placeholder="e.g. 1050241708" id="nip" name="nip"
-                                            value="{{ old('nip') ?? $userUnique->nip }}" maxlength="18" />
+                                            value="{{ $userUnique->nip }}" maxlength="18" />
                                         <div class="form-control-icon">
                                             <i class="bi bi-person-vcard py-2"></i>
                                         </div>

@@ -110,10 +110,9 @@
                                                 class="form-group has-icon-left mandatory @error('username'){{ 'is-invalid' }}@enderror">
                                                 <label for="username" class="form-label">Username</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control py-2"
+                                                    <input type="text" readonly disabled class="form-control py-2"
                                                         placeholder="e.g. alfianchii" id="username" name="username"
-                                                        value="{{ old('username') ?? $theUser->username }}"
-                                                        maxlength="255" />
+                                                        value="{{ $theUser->username }}" maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-at py-2"></i>
                                                     </div>
@@ -130,10 +129,9 @@
                                                 class="form-group has-icon-left mandatory @error('email'){{ 'is-invalid' }}@enderror">
                                                 <label for="email" class="form-label">Email</label>
                                                 <div class="position-relative">
-                                                    <input type="email" class="form-control py-2"
+                                                    <input readonly disabled type="email" class="form-control py-2"
                                                         placeholder="e.g. alfian.dev@gmail.com" id="email"
-                                                        name="email" value="{{ old('email') ?? $theUser->email }}"
-                                                        maxlength="255" />
+                                                        name="email" value="{{ $theUser->email }}" maxlength="255" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-envelope-paper py-2"></i>
                                                     </div>

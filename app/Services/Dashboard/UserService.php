@@ -612,7 +612,7 @@ class UserService extends Service
 
     // Rules
     $rules = $this->settingRules;
-    unset($rules["nisn"], $rules["nik"]);
+    unset($rules["nik"], $rules["nip"], $rules["nisn"], $rules["full_name"]);
     if ($data["username"] === $yourAccount->username) unset($rules["username"]);
     if ($data["email"] === $yourAccount->email) unset($rules["email"]);
 
@@ -671,7 +671,7 @@ class UserService extends Service
 
     // Rules
     $rules = $this->settingRules;
-    unset($rules["nip"], $rules["nik"]);
+    unset($rules["nik"], $rules["nisn"], $rules["nik"], $rules["full_name"]);
     if ($data["username"] === $yourAccount->username) unset($rules["username"]);
     if ($data["email"] === $yourAccount->email) unset($rules["email"]);
 

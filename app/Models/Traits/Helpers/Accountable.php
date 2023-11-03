@@ -9,10 +9,8 @@ trait Accountable
   public function updateUserRules(array $rules, User $theUser, array $data)
   {
     $theUserRole = $theUser->userRole->role->role_name;
-    unset($rules["password"], $rules["password_confirmation"]);
+    unset($rules["password"], $rules["password_confirmation"], $rules["username"], $rules["email"]);
     if ($theUserRole === "officer") $rules['role'] = ["required"];
-    if ($data["username"] === $theUser->username) unset($rules["username"]);
-    if ($data["email"] === $theUser->email) unset($rules["email"]);
     if ($data["nik"] === $theUser->nik) unset($rules["nik"]);
     if (!array_key_exists("nip", $data)) unset($rules["nip"]);
     if (!array_key_exists("nisn", $data)) unset($rules["nisn"]);

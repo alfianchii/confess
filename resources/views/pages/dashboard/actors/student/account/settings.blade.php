@@ -68,7 +68,7 @@
                                     class="form-group has-icon-left mandatory @error('full_name'){{ 'is-invalid' }}@enderror">
                                     <label for="full_name" class="form-label">Nama</label>
                                     <div class="position-relative">
-                                        <input readonly type="text" class="form-control py-2"
+                                        <input readonly disabled type="text" class="form-control py-2"
                                             placeholder="e.g. Muhammad Alfian" id="full_name" name="full_name"
                                             value="{{ old('full_name') ?? $userData->full_name }}" />
                                         <div class="form-control-icon">
@@ -86,9 +86,9 @@
                                 <div class="form-group has-icon-left mandatory @error('nik'){{ 'is-invalid' }}@enderror">
                                     <label for="nik" class="form-label">NIK</label>
                                     <div class="position-relative">
-                                        <input readonly type="text" class="form-control py-2"
+                                        <input readonly disabled type="text" class="form-control py-2"
                                             placeholder="e.g. 1050241708900001" id="nik" name="nik"
-                                            value="{{ old('nik') ?? $userData->nik }}" maxlength="16" />
+                                            value="{{ $userData->nik }}" maxlength="16" />
                                         <div class="form-control-icon">
                                             <i class="bi bi-person-vcard py-2"></i>
                                         </div>
@@ -126,7 +126,7 @@
                                     <div class="position-relative">
                                         <input type="email" class="form-control py-2"
                                             placeholder="e.g. alfian.ganteng@gmail.com" id="email" name="email"
-                                            value="{{ old('email') ?? $userData->email }}" maxlength="255" />
+                                            value="{{ $userData->email }}" maxlength="255" />
                                         <div class="form-control-icon">
                                             <i class="bi bi-envelope-paper py-2"></i>
                                         </div>
@@ -144,9 +144,9 @@
                                 <div class="form-group has-icon-left mandatory @error('nisn'){{ 'is-invalid' }}@enderror">
                                     <label for="nisn" class="form-label">NISN</label>
                                     <div class="position-relative">
-                                        <input readonly type="text" class="form-control py-2"
+                                        <input readonly disabled type="text" class="form-control py-2"
                                             placeholder="e.g. 1050241708" id="nisn" name="nisn"
-                                            value="{{ old('nisn') ?? $userUnique->nisn }}" maxlength="10" />
+                                            value="{{ $userUnique->nisn }}" maxlength="10" />
                                         <div class="form-control-icon">
                                             <i class="bi bi-person-vcard py-2"></i>
                                         </div>
