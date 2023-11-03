@@ -20,9 +20,11 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h2>WwwWWW Pengguna</h2>
+                    <h2>Role Pengguna</h2>
                     <p class="text-subtitle text-muted">
-                        Daftarkan pengguna untuk melakukan sesuatu di {{ config('web_config')['WEB_TITLE'] }}.
+                        Role pengguna merupakan hak akses yang diberikan kepada pengguna.
+                        <span class="text-danger">Perhatian!</span> Periksa kembali role yang akan diberikan kepada
+                        pengguna.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -44,7 +46,7 @@
                                 <a href="/dashboard/users">Pengguna</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
-                                Registrasi
+                                Ganti Role
                             </li>
                         </ol>
                     </nav>
@@ -57,11 +59,11 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title mb-0">Pengguna</h3>
+                            <h3 class="card-title mb-0">Pengguna {{ htmlspecialchars('@' . $theUser->username) }}</h3>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
-                                <form class="form" action="/dashboard/users/details/{{ $user->username }}/role/update"
+                                <form class="form" action="/dashboard/users/details/{{ $theUser->username }}/role/update"
                                     method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
@@ -69,14 +71,14 @@
                                     <div class="row">
                                         <div class="col-12 mb-1" id="role-name">
                                             <div class="col-12 mb-1">
-                                                <fieldset class="form-group">
+                                                <fieldset class="form-group mandatory">
                                                     <label for="role"
                                                         class="form-label @error('role'){{ 'text-danger' }}@enderror">Role</label>
                                                     <select class="form-select" id="role" name="role">
                                                         @foreach ($roles as $role)
                                                             @if ($role->role_name !== 'student')
                                                                 <option value="{{ $role->role_name }}"
-                                                                    @if (old('role', $user->userRole->role->role_name) === $role->role_name) {{ 'selected' }} @endif>
+                                                                    @if (old('role', $theUser->userRole->role->role_name) === $role->role_name) {{ 'selected' }} @endif>
                                                                     {{ $role->description }}
                                                                 </option>
                                                             @endif
@@ -157,21 +159,21 @@
         function generateUniqueFields() {
             return {
                 nip: `
-                      <div class="form-group has-icon-left mandatory @error('nip'){{ 'is-invalid' }}@enderror">
-                          <label for="nip" class="form-label">NIP</label>
-                          <div class="position-relative">
-                              <input type="text" class="form-control py-2" placeholder="e.g. 105024170890000123" id="nip"
-                                  name="nip" value="{{ old('nip') ?? $user->officer?->nip }}" maxlength="18" />
-                              <div class="form-control-icon">
-                                  <i class="bi bi-person-vcard py-2"></i>
-                              </div>
-                              @error('nip')
-                                  <div class="invalid-feedback d-block">
-                                      {{ $message }}
-                                  </div>
-                              @enderror
-                          </div>
-                      </div>`,
+                    <div class="form-group has-icon-left mandatory @error('nip'){{ 'is-invalid' }}@enderror">
+                        <label for="nip" class="form-label">NIP</label>
+                        <div class="position-relative">
+                            <input @if ($theUser->officer?->nip) {{ 'readonly' }} @endif type="text" class="form-control py-2" placeholder="e.g. 105024170890000123" id="nip"
+                                name="nip" value="{{ old('nip') ?? $theUser->officer?->nip }}" maxlength="18" />
+                            <div class="form-control-icon">
+                                <i class="bi bi-person-vcard py-2"></i>
+                            </div>
+                            @error('nip')
+                                <div class="invalid-feedback d-block">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>`,
             };
         }
 

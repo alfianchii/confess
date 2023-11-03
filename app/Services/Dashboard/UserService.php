@@ -544,9 +544,11 @@ class UserService extends Service
   // Change role
   public function adminRole(User $theUser)
   {
+    $theUserRole = $theUser->userRole->role->role_name;
+
     // ---------------------------------
     // Rules
-    if ($theUser->userRole->role->role_name === "admin") {
+    if ($theUserRole === "admin") {
       // Data processing
       $roles = MasterRole::all();
 
@@ -554,44 +556,56 @@ class UserService extends Service
       $viewVariables = [
         "title" => "Ganti Role",
         "roles" => $roles,
-        "user" => $theUser,
+        "theUser" => $theUser,
       ];
       return view("pages.dashboard.actors.admin.users.role", $viewVariables);
     }
 
-    return redirect(self::HOME_URL)->withErrors('User bukan admin.');
+    return redirect(self::HOME_URL)->withErrors("$theUser->full_name bukan admin.");
   }
   // Update change role
   public function adminRoleUpdate($data, User $user, User $theUser)
   {
     $theUserRole = $theUser->userRole->role->role_name;
+    $inputRole = $data["role"];
 
     // ---------------------------------
     // Rules
     if ($theUserRole === "admin") {
-      $role = $data["role"];
-
       // Rules
-      $rules = [];
       $rules["nip"] = $this->rules["nip"];
       $rules["role"] = ["required"];
-      if ($data["nip"] === $theUser->officer->nip) unset($rules["nip"]);
 
-      // Validates
-      $this->validateNumbering($data);
-      $credentials = Validator::make($data, $rules, $this->messages)->validate();
-      $credentials["id_role"] = MasterRole::where("role_name", $credentials["role"])->value("id_role");
+      // Do not manipulate the unique
+      if ($data["nip"] === $theUser->officer->nip) {
+        unset($rules['nip']);
 
-      if (array_key_exists("nip", $credentials)) {
-        $fields["nip"] = $credentials["nip"];
-        return $this->modify($theUser->officer, $fields, $theUser->id_user, "akun $theUser->full_name", "/dashboard/users");
+        // Validates
+        $this->validateNumbering($data);
+        $credentials = Validator::make($data, $rules, $this->messages)->validate();
+        $credentials["role"] = MasterRole::where("role_name", $credentials["role"])->value("id_role");
+
+
+        // Update unique
+        if (array_key_exists("nip", $credentials))
+          $theUser->officer()->update([
+            "nip" => $credentials["nip"],
+            "updated_by" => $user->id_user,
+          ]);
+
+        // Update role
+        if ($theUserRole !== $inputRole)
+          $theUser->userRole()->update(["id_role" => $credentials["role"]]);
+
+        // Success
+        $theUser->refresh();
+        return redirect("/dashboard/users")->withSuccess("Role pengguna @$theUser->username berhasil diubah menjadi " . ucwords($theUser->userRole->role->role_name) . ".");
       }
 
-      // Success
-      return $this->modify($theUser->userRole, $credentials, $theUser->id_user, "akun $theUser->full_name", "/dashboard/users");
+      return redirect(self::HOME_URL)->withErrors("Kamu tidak bisa memanipulasi unik pengguna.");
     }
 
-    return redirect(self::HOME_URL)->withErrors('User bukan admin.');
+    return redirect(self::HOME_URL)->withErrors("$theUser->full_name bukan admin.");
   }
 
 
