@@ -70,7 +70,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title mb-0">Kronologi</h3>
+                            <h3 class="card-title">Kronologi</h3>
                         </div>
                         <div class="card-content">
                             <div class="card-body">

@@ -235,7 +235,7 @@
                     ($confession->status === 'unprocess' || $confession->status === 'process'))
                 <div class="card mb-5">
                     <div class="card-header">
-                        <h3 class="card-title mb-0">Berikan Tanggapan</h3>
+                        <h3 class="card-title">Berikan Tanggapan</h3>
                     </div>
                     <div class="card-content">
                         <div class="card-body">

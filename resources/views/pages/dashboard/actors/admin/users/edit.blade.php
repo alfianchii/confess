@@ -57,7 +57,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title mb-0">Pengguna</h3>
+                            <h3 class="card-title">Pengguna</h3>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
