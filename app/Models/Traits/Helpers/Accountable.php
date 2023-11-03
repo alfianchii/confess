@@ -30,7 +30,7 @@ trait Accountable
       $inputRole = $credentials["role"];
       $credentials["role"] = MasterRole::where("role_name", $credentials["role"])->value("id_role");
 
-      // Update officer
+      // Update unique
       if (array_key_exists("nip", $credentials))
         $theUser->officer()->update([
           "nip" => $credentials["nip"],
@@ -44,7 +44,7 @@ trait Accountable
 
     // Student
     if ($theUserRole === "student")
-      // Update student
+      // Update unique
       if (array_key_exists("nisn", $credentials))
         $theUser->student()->update([
           "nisn" => $credentials["nisn"],

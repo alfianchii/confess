@@ -473,11 +473,19 @@ class UserService extends Service
     $credentials = Validator::make($data, $rules, $this->messages)->validate();
     $credentials = $this->imageCropping($yourAccount->profile_picture, $credentials, "profile_picture", "user/profile-pictures");
 
-    if (array_key_exists("nip", $credentials)) {
-      $fields["nip"] = $credentials["nip"];
-      return $this->modify($userUnique, $fields, $user->id_user, "akunmu", "/dashboard/users/account");
-    }
-    return $this->modify($yourAccount, $credentials, $user->id_user, "akunmu", "/dashboard/users/account");
+    // Update unique
+    if (array_key_exists("nip", $credentials))
+      $userUnique->update([
+        "nip" => $credentials["nip"],
+        "updated_by" => $user->id_user,
+      ]);
+
+    // Update user
+    $credentials["updated_by"] = $user->user_id;
+    $yourAccount->update($credentials);
+
+    // Success
+    return redirect("/dashboard/users/account")->withSuccess("Akun kamu berhasil disunting!");
   }
   // Destroy profile picture
   public function adminDestroyProfilePicture($yourAccount)
