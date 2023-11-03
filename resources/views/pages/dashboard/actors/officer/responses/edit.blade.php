@@ -23,7 +23,7 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a id="back-to-page-button" data-bs-toggle="tooltip"
+                        <a href="{{ back()->getTargetUrl() }}" data-bs-toggle="tooltip"
                             data-bs-original-title="Kembali ke halaman sebelumnya."
                             class="btn btn-secondary px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
@@ -171,6 +171,4 @@
     {{-- SweetAlert --}}
     @vite(['resources/js/sweetalert/confession/response/response.js'])
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
-    {{-- Back to page --}}
-    @vite(['resources/js/utils/back-to-page.js'])
 @endsection

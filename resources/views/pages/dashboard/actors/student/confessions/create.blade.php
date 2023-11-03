@@ -30,7 +30,7 @@
                     </p>
                     <hr>
                     <div class="mb-4">
-                        <a id="back-to-page-button" data-bs-toggle="tooltip"
+                        <a href="{{ back()->getTargetUrl() }}" data-bs-toggle="tooltip"
                             data-bs-original-title="Kembali ke halaman sebelumnya."
                             class="btn btn-secondary px-2 pt-2 me-1">
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
@@ -313,6 +313,4 @@
     <script src="{{ asset('assets/static/js/pages/filepond.js') }}"></script>
     @vite(['resources/js/filepond/image-preview.js'])
     @vite(['resources/js/sluggable/confession/confession.js'])
-    {{-- Back to page --}}
-    @vite(['resources/js/utils/back-to-page.js'])
 @endsection
