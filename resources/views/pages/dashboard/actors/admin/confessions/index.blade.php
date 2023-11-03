@@ -50,7 +50,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Tanggal</th>
+                                <th>Dibuat Pada</th>
                                 <th>Updated At</th>
                                 <th>Judul</th>
                                 <th>Kepemilikan</th>
@@ -140,12 +140,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Tanggal</th>
+                                <th>Dibuat Pada</th>
                                 <th>Updated At</th>
                                 <th>Judul</th>
-                                <th>Kepemilikan</th>
-                                <th>Kategori</th>
-                                <th>Sunting</th>
+                                <th>Kepemilikan</th>Dibuat Pada
                                 <th>Foto</th>
                                 <th>Status</th>
                                 <th>Aksi</th>

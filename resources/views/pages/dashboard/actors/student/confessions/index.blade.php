@@ -56,6 +56,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Dibuat Pada</th>
                                 <th>Judul</th>
                                 <th>Kategori</th>
                                 <th>Sunting</th>
@@ -68,6 +69,7 @@
                             @forelse ($confessions as $confession)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $confession->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
                                     <td>
@@ -141,7 +143,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>
