@@ -60,11 +60,6 @@ class MasterUserController extends Controller
         return $this->userService->destroy($this->userData, $this->userRole, $idUser);
     }
 
-    public function activate($idUser)
-    {
-        return $this->userService->activate($this->userData, $this->userRole, $idUser);
-    }
-
 
     // ---------------------------------
     // UTILITIES
@@ -84,13 +79,17 @@ class MasterUserController extends Controller
     {
         return $this->userService->destroyProfilePicture($this->userData, $this->userRole, $idUser);
     }
-    public function historyLogins()
+    public function activate($idUser)
     {
-        return $this->userService->historyLogins($this->userRole);
+        return $this->userService->activate($this->userData, $this->userRole, $idUser);
     }
     public function nonActiveYourAccount($idUser)
     {
         return $this->userService->nonActiveYourAccount($this->userRole, $idUser);
+    }
+    public function historyLogins()
+    {
+        return $this->userService->historyLogins($this->userRole);
     }
     public function role(User $user)
     {

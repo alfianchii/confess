@@ -47,16 +47,16 @@ Route::group(["middleware" => "auth"], function () {
         // Account Routes
         // Profile
         Route::get("/users/account", "\App\Http\Controllers\Dashboard\MasterUserController@profile");
-        // Activate
-        Route::put("/users/{user:id_user}/activate", "\App\Http\Controllers\Dashboard\MasterUserController@activate");
         // Settings
         Route::get("/users/account/settings", "\App\Http\Controllers\Dashboard\MasterUserController@settings");
         Route::put("/users/account/settings/{user:username}", "\App\Http\Controllers\Dashboard\MasterUserController@settingsUpdate");
+        // Change password
+        Route::get("/users/account/password", "\App\Http\Controllers\Dashboard\MasterUserController@changePassword");
+        Route::put("/users/account/password/update", "\App\Http\Controllers\Dashboard\MasterUserController@changePasswordUpdate");
         // Destroy (profile picture)
         Route::delete("/users/account/settings/{user:username}/profile-picture", "\App\Http\Controllers\Dashboard\MasterUserController@destroyProfilePicture");
-        // Change password
-        Route::get("/users/account/password", "\App\Http\Controllers\Dashboard\MasterUserController@changeYourPassword");
-        Route::put("/users/account/password/{user:username}", "\App\Http\Controllers\Dashboard\MasterUserController@changeYourPasswordUpdate");
+        // Activate
+        Route::put("/users/{user:id_user}/activate", "\App\Http\Controllers\Dashboard\MasterUserController@activate");
         // Non-active your account
         Route::delete("/users/account/{user:id_user}/non-active-your-account", "\App\Http\Controllers\Dashboard\MasterUserController@nonActiveYourAccount");
 

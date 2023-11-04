@@ -172,20 +172,6 @@ class UserService extends Service
     // Redirect to unauthorized page
     return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
   }
-  public function activate(User $user, MasterRole $userRole, $idUser)
-  {
-    // Data processing
-    $id = $this->idDecrypted($idUser);
-    $theUser = User::with(["userRole.role", "officer.confessions", "student"])->where("id_user", $id)->first();
-    if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
-
-    // Roles checking
-    $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminActivate($user, $theUser);
-
-    // Redirect to unauthorized page
-    return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
-  }
   public function profile()
   {
     // Passing out a view
@@ -235,14 +221,19 @@ class UserService extends Service
     // Redirect to unauthorized page
     return $this->responseJsonMessage("You are unauthorized to do this action.", 403);
   }
-  public function historyLogins(MasterRole $userRole)
+  public function activate(User $user, MasterRole $userRole, $idUser)
   {
+    // Data processing
+    $id = $this->idDecrypted($idUser);
+    $theUser = User::with(["userRole.role", "officer.confessions", "student"])->where("id_user", $id)->first();
+    if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
+
     // Roles checking
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminHistoryLogins();
+    if ($roleName === "admin") return $this->adminActivate($user, $theUser);
 
     // Redirect to unauthorized page
-    return view("errors.403");
+    return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
   }
   public function nonActiveYourAccount(MasterRole $userRole, $idUser)
   {
@@ -257,6 +248,15 @@ class UserService extends Service
 
     // Redirect to unauthorized page
     return $this->responseJsonMessage("You are unauthorized to do this action.", 403);
+  }
+  public function historyLogins(MasterRole $userRole)
+  {
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminHistoryLogins();
+
+    // Redirect to unauthorized page
+    return view("errors.403");
   }
   public function role(MasterRole $userRole, User $theUser)
   {
@@ -417,29 +417,6 @@ class UserService extends Service
     // Success
     return $this->responseJsonMessage("Pengguna @$theUser->username berhasil dinonaktifkan.");
   }
-  // Activate
-  public function adminActivate(User $user, User $theUser)
-  {
-    $theUserRole = $theUser->userRole->role->role_name;
-
-    try {
-      // ---------------------------------
-      // Rules
-      if ($theUserRole !== "admin") {
-        // Activate the user
-        if (!$theUser->update(["updated_by" => $user->id_user, "flag_active" => "Y", "deleted_at" => null]))
-          throw new \Exception("Error activating the user.");;
-      } else return $this->responseJsonMessage('Kamu tidak bisa mengaktifkan akun admin.', 422);
-    } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
-      return $this->responseJsonMessage($e->getMessage(), 500);
-    } catch (\Exception $e) {
-      // Catch all exceptions here
-      return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
-    }
-
-    // Success
-    return $this->responseJsonMessage("Pengguna @$theUser->username berhasil diaktifkan.");
-  }
   // Settings
   public function adminSettings()
   {
@@ -505,18 +482,28 @@ class UserService extends Service
     // Success
     return $this->responseJsonMessage("Foto profil berhasil dihapus.");
   }
-  // History logins
-  public function adminHistoryLogins()
+  // Activate
+  public function adminActivate(User $user, User $theUser)
   {
-    // Data processing
-    $historyLogins = HistoryLogin::latest()->get();
+    $theUserRole = $theUser->userRole->role->role_name;
 
-    // Passing out a view
-    $viewVariables = [
-      "title" => "Riwayat Login",
-      "historyLogins" => $historyLogins,
-    ];
-    return view("pages.dashboard.actors.admin.users.history-logins", $viewVariables);
+    try {
+      // ---------------------------------
+      // Rules
+      if ($theUserRole !== "admin") {
+        // Activate the user
+        if (!$theUser->update(["updated_by" => $user->id_user, "flag_active" => "Y", "deleted_at" => null]))
+          throw new \Exception("Error activating the user.");;
+      } else return $this->responseJsonMessage('Kamu tidak bisa mengaktifkan akun admin.', 422);
+    } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
+      return $this->responseJsonMessage($e->getMessage(), 500);
+    } catch (\Exception $e) {
+      // Catch all exceptions here
+      return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
+    }
+
+    // Success
+    return $this->responseJsonMessage("Pengguna @$theUser->username berhasil diaktifkan.");
   }
   // Non-active your account
   public function adminNonActiveYourAccount(User $yourAccount)
@@ -540,6 +527,19 @@ class UserService extends Service
 
     // Success
     return $this->responseJsonMessage("Akun kamu berhasil dinonaktifkan.");
+  }
+  // History logins
+  public function adminHistoryLogins()
+  {
+    // Data processing
+    $historyLogins = HistoryLogin::latest()->get();
+
+    // Passing out a view
+    $viewVariables = [
+      "title" => "Riwayat Login",
+      "historyLogins" => $historyLogins,
+    ];
+    return view("pages.dashboard.actors.admin.users.history-logins", $viewVariables);
   }
   // Change role
   public function adminRole(User $theUser)
