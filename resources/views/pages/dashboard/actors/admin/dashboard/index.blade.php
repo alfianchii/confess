@@ -94,7 +94,7 @@
                             </a>
                         </div>
                         <div class="col-6 col-lg-3 col-md-6">
-                            <a style="cursor: pointer" onclick="window.location.href='/dashboard/users'"
+                            <a style="cursor: pointer" onclick="window.location.href='/dashboard/users?data=non-active'"
                                 data-bs-toggle="tooltip" data-bs-original-title="Jumlah pengguna yang telah non-aktif.">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">

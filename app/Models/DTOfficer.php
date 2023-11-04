@@ -47,6 +47,14 @@ class DTOfficer extends Model
 
     // ---------------------------------
     // HELPERS
+    public function scopeOfficerRoles($query)
+    {
+        return $query->with(["user.userRole.role"])
+            ->leftJoin("mst_users_role", "mst_users_role.id_user", "=", "dt_officers.id_user")
+            ->leftJoin("mst_roles", "mst_users_role.id_role", "=", "mst_roles.id_role")
+            ->where("mst_users_role.flag_active", "Y")
+            ->where("dt_officers.flag_active", "Y");
+    }
 
 
     // ---------------------------------

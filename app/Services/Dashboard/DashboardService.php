@@ -45,7 +45,9 @@ class DashboardService extends Service
         $inactiveUsersCount = User::where("flag_active", "N")->count();
 
         // Officers
-        $officersCount = DTOfficer::count();
+        $officersCount = DTOfficer::officerRoles()
+            ->where("role_name", "officer")
+            ->count();
         // Students
         $studentsCount = DTStudent::count();
 
@@ -88,7 +90,9 @@ class DashboardService extends Service
         $recentConfessions = RecConfession::recentConfessions(4)->get();
 
         // Officers
-        $officersCount = DTOfficer::count();
+        $officersCount = DTOfficer::officerRoles()
+            ->where("role_name", "officer")
+            ->count();
         // Students
         $studentsCount = DTStudent::count();
 

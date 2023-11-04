@@ -68,8 +68,7 @@
                     </div>
                     <div class="row user-select-none">
                         <div class="col-6 col-lg-3 col-md-6">
-                            <a style="cursor: pointer" onclick="window.location.href='/dashboard/users?status=officer'"
-                                data-bs-toggle="tooltip"
+                            <a style="cursor: pointer" data-bs-toggle="tooltip"
                                 data-bs-original-title="Jumlah pengguna dengan status sebagai 'officer' yang aktif.">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">
@@ -94,8 +93,7 @@
                             </a>
                         </div>
                         <div class="col-6 col-lg-3 col-md-6">
-                            <a style="cursor: pointer" onclick="window.location.href='/dashboard/users?status=student'"
-                                data-bs-toggle="tooltip"
+                            <a style="cursor: pointer" data-bs-toggle="tooltip"
                                 data-bs-original-title="Jumlah pengguna dengan status sebagai 'student' yang aktif.">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">
