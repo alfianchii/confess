@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top {{ Request::is('confessions*') || Request::is('categories') ? 'bg-nav' : 'bg-transparent' }}"
+<nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top bg-nav"
     id="{{ Request::is('confessions*') || Request::is('categories') ? '' : 'navbar' }}">
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
