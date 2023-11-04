@@ -264,10 +264,12 @@ class UserService extends Service
       // Rules and messages
       $arr = $this->getRulesMessagesPassword();
 
+      // Validates
+      $credentials = Validator::make($data, $arr["rules"], $arr["messages"])->validate();
+
       try {
         // ---------------------------------
         // Validations
-        $credentials = Validator::make($data, $arr["rules"], $arr["messages"])->validate();
         $this->validateChangePassword($user, $credentials["current_password"], $credentials["new_password"]);
       } catch (\Exception $e) {
         return redirect("/dashboard/users/account/password")->withErrors($e->getMessage());
