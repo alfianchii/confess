@@ -4,8 +4,8 @@
             <div class="col-12 col-md-3 text-center text-md-start">
                 <p class="fs-5">Dikelola oleh</p>
                 <div class="d-flex align-items-center justify-content-center justify-content-md-start">
-                    {{-- If IMAGE_FOOTER_DASHBOARD didn't contains "/" --}}
-                    @if (!strpos(config('web_config')['IMAGE_FOOTER_DASHBOARD'], '/'))
+                    {{-- Default --}}
+                    @if (File::exists(public_path('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD'])))
                         <img src="{{ asset('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD']) }}"
                             class="logo-smk4" alt="Footer Website" width="100%">
                     @else

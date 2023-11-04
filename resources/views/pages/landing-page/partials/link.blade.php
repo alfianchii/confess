@@ -1,11 +1,11 @@
 {{-- Base styles --}}
-{{-- If IMAGE_WEB_FAVICON didn't contains "/" --}}
 <style>
     body {
         font-family: 'Inter', sans-serif;
     }
 </style>
-@if (!strpos(config('web_config')['IMAGE_WEB_LOGO_WHITE'], '/'))
+{{-- Default --}}
+@if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE'])))
     <link rel="shortcut icon" href="{{ asset('images/' . config('web_config')['IMAGE_WEB_FAVICON']) }}"
         type="image/x-icon" />
 @else

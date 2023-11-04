@@ -12,8 +12,8 @@
     <div class="col-12 col-sm-5 bg pt-3">
         <div class=" d-flex pt-3 pt-sm-0 align-items-center">
             <a href="/" class=" ms-3 ms-sm-5 me-auto  mb-2 mb-sm-5 logo-login">
-                {{-- If IMAGE_WEB_LOGO_WHITE didn't contains "/" --}}
-                @if (!strpos(config('web_config')['IMAGE_WEB_LOGO_WHITE'], '/'))
+                {{-- Default --}}
+                @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE'])))
                     <img src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE']) }}"
                         alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
                 @else
