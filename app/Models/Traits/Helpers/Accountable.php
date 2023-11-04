@@ -3,6 +3,7 @@
 namespace App\Models\Traits\Helpers;
 
 use App\Models\{MasterRole, User};
+use Illuminate\Support\Facades\Hash;
 
 trait Accountable
 {
@@ -80,5 +81,15 @@ trait Accountable
       ]);
 
     return $theUser;
+  }
+  public function checkCurrentPassword(User $user, string $currentPassword)
+  {
+    if (!Hash::check($currentPassword, $user->password))
+      throw new \Exception("Password saat ini salah. Silakan coba lagi.");
+  }
+  public function checkSamePassword(string $currentPassword, string $newPassword)
+  {
+    if ($currentPassword === $newPassword)
+      throw new \Exception("Password baru tidak boleh sama dengan password lama.");
   }
 }

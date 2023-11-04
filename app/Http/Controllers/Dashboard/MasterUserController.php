@@ -65,7 +65,7 @@ class MasterUserController extends Controller
     // UTILITIES
     public function profile()
     {
-        return $this->userService->profile();
+        return $this->userService->profile($this->userRole);
     }
     public function settings()
     {
@@ -74,6 +74,14 @@ class MasterUserController extends Controller
     public function settingsUpdate(Request $request, User $user)
     {
         return $this->userService->settingsUpdate($request, $this->userData, $this->userRole, $this->userUnique, $user);
+    }
+    public function changePassword()
+    {
+        return $this->userService->changePassword($this->userRole);
+    }
+    public function changePasswordUpdate(Request $request)
+    {
+        return $this->userService->changePasswordUpdate($request, $this->userData, $this->userRole);
     }
     public function destroyProfilePicture($idUser)
     {

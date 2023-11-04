@@ -87,6 +87,32 @@ class UserService extends Service
   {
     return Validator::make($data, $this->numberingRules, $this->messages)->validate();
   }
+  public function validateChangePassword(User $user, $currentPassword, $newPassword)
+  {
+    $this->checkCurrentPassword($user, $currentPassword);
+    $this->checkSamePassword($currentPassword, $newPassword);
+  }
+  public function alterYourPassword(User $user, $credentials)
+  {
+    $fields["password"] = Hash::make($credentials["new_password"]);
+    $user->update($fields);
+    return redirect('/dashboard/users/account')->withSuccess("Password kamu berhasil diganti!");
+  }
+  public function getRulesMessagesPassword()
+  {
+    return [
+      "rules" => [
+        "current_password" => ["required", "min:6"],
+        "new_password" => ["required", "min:6"],
+      ],
+      "messages" => [
+        "current_password.required" => "Password saat ini tidak boleh kosong.",
+        "current_password.min" => "Password saat ini tidak boleh kurang dari :min karakter.",
+        "new_password.required" => "Password baru tidak boleh kosong.",
+        "new_password.min" => "Password baru tidak boleh kurang dari :min karakter."
+      ],
+    ];
+  }
 
 
   // ---------------------------------
@@ -172,13 +198,20 @@ class UserService extends Service
     // Redirect to unauthorized page
     return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
   }
-  public function profile()
+  public function profile(MasterRole $userRole)
   {
-    // Passing out a view
-    $viewVariables = [
-      "title" => "Profil",
-    ];
-    return view("pages.dashboard.actors.custom.account.profile", $viewVariables);
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName) {
+      // Passing out a view
+      $viewVariables = [
+        "title" => "Profil",
+      ];
+      return view("pages.dashboard.actors.custom.account.profile", $viewVariables);
+    }
+
+    // Redirect to unauthorized page
+    return view("errors.403");
   }
   public function settings(MasterRole $userRole)
   {
@@ -201,6 +234,48 @@ class UserService extends Service
     if ($roleName === "admin") return $this->adminSettingsUpdate($data, $user, $userUnique, $yourAccount);
     if ($roleName === "officer") return $this->officerSettingsUpdate($data, $user, $yourAccount);
     if ($roleName === "student") return $this->studentSettingsUpdate($data, $user, $yourAccount);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+  public function changePassword(MasterRole $userRole)
+  {
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName) {
+      // Passing out a view
+      $viewVariables = [
+        "title" => "Ganti Password",
+      ];
+      return view("pages.dashboard.actors.custom.account.change-password", $viewVariables);
+    }
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+  public function changePasswordUpdate(Request $request, User $user, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName) {
+      // Rules and messages
+      $arr = $this->getRulesMessagesPassword();
+
+      try {
+        // ---------------------------------
+        // Validations
+        $credentials = Validator::make($data, $arr["rules"], $arr["messages"])->validate();
+        $this->validateChangePassword($user, $credentials["current_password"], $credentials["new_password"]);
+      } catch (\Exception $e) {
+        return redirect("/dashboard/users/account/password")->withErrors($e->getMessage());
+      }
+
+      // Success
+      return $this->alterYourPassword($user, $credentials);
+    }
 
     // Redirect to unauthorized page
     return view("errors.403");
