@@ -125,7 +125,8 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Melapor dengan Aman</h5>
-                                        <p>Confess menyediakan pengalaman melapor yang aman dan terjamin. kamu dapat
+                                        <p>{{ config('web_config')['TEXT_WEB_TITLE'] }} menyediakan pengalaman melapor yang
+                                            aman dan terjamin. kamu dapat
                                             mengungkapkan berbagai permasalahan, pengalaman, atau pikiran tanpa khawatir
                                             tentang kebocoran identitas kamu.</p>
                                     </div>
