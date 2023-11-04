@@ -2,13 +2,13 @@
     id="{{ Request::is('confessions*') || Request::is('categories') ? '' : 'navbar' }}">
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
-            {{-- If WEB_LOGO_WHITE didn't contains "/" --}}
-            @if (!strpos(config('web_config')['WEB_LOGO_WHITE'], '/'))
-                <img src="{{ asset('images/' . config('web_config')['WEB_LOGO_WHITE']) }}"
-                    alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+            {{-- If IMAGE_WEB_LOGO_WHITE didn't contains "/" --}}
+            @if (!strpos(config('web_config')['IMAGE_WEB_LOGO_WHITE'], '/'))
+                <img src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE']) }}"
+                    alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
             @else
-                <img src="{{ asset('storage/' . config('web_config')['WEB_LOGO_WHITE']) }}"
-                    alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                <img src="{{ asset('storage/' . config('web_config')['IMAGE_WEB_LOGO_WHITE']) }}"
+                    alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
             @endif
         </a>
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse"

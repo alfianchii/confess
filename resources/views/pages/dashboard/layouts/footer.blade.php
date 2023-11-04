@@ -4,15 +4,15 @@
             <div class="col-12 col-md-3 text-center text-md-start">
                 <p class="fs-5">Dikelola oleh</p>
                 <div class="d-flex align-items-center justify-content-center justify-content-md-start">
-                    {{-- If FOOTER_IMAGE_DASHBOARD didn't contains "/" --}}
-                    @if (!strpos(config('web_config')['FOOTER_IMAGE_DASHBOARD'], '/'))
-                        <img src="{{ asset('images/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
+                    {{-- If IMAGE_FOOTER_DASHBOARD didn't contains "/" --}}
+                    @if (!strpos(config('web_config')['IMAGE_FOOTER_DASHBOARD'], '/'))
+                        <img src="{{ asset('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD']) }}"
                             class="logo-smk4" alt="Footer Website" width="100%">
                     @else
-                        <img src="{{ asset('storage/' . config('web_config')['FOOTER_IMAGE_DASHBOARD']) }}"
+                        <img src="{{ asset('storage/' . config('web_config')['IMAGE_FOOTER_DASHBOARD']) }}"
                             class="logo-smk4" alt="Footer Website" width="100%">
                     @endif
-                    <span class="ms-2">{{ config('web_config')['FOOTER_TEXT_DASHBOARD'] }}</span>
+                    <span class="ms-2">{{ config('web_config')['TEXT_FOOTER_DASHBOARD'] }}</span>
                 </div>
             </div>
             <div class="col pt-5 text-center">
@@ -31,7 +31,7 @@
         </div>
         <div class="row mx-auto w-100">
             <div class="col-12 text-center">
-                <p>Copyright © 2023 {{ config('web_config')['WEB_TITLE'] }}. All rights reserved</p>
+                <p>Copyright © 2023 {{ config('web_config')['TEXT_WEB_TITLE'] }}. All rights reserved</p>
             </div>
         </div>
     </div>

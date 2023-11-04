@@ -15,9 +15,9 @@
                 <div class="container pt-2 pt-sm-5">
                     <div class="row d-flex align-items-center text-sm-start text-center">
                         <div class="col-md-6 col-12" style="z-index: 10">
-                            <h1 class="text-white fw-bold">{!! config('web_config')['HERO_TEXT_HEADER'] !!}</h1>
+                            <h1 class="text-white fw-bold">{!! config('web_config')['TEXT_HERO_HEADER'] !!}</h1>
                             <p class="text-white fs-4 pt-3 pt-sm-4 w-100 ">
-                                {!! config('web_config')['HERO_TEXT_DESCRIPTION'] !!}
+                                {!! config('web_config')['TEXT_HERO_DESCRIPTION'] !!}
                             </p>
                         </div>
                         <div class="col text-center text-md-end mt-5 mt-sm-0">
@@ -100,7 +100,7 @@
                 <div class="container">
                     <div class="row my-5">
                         <div class="col-12 mb-5">
-                            <h2 class="text-center">Keuntungan Menggunakan {{ config('web_config')['WEB_TITLE'] }}</h2>
+                            <h2 class="text-center">Keuntungan Menggunakan {{ config('web_config')['TEXT_WEB_TITLE'] }}</h2>
                         </div>
                         <div class="row card-keuntungan d-block d-md-flex justify-content-center text-center mx-auto">
                             <div class="col">

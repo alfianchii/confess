@@ -77,11 +77,6 @@ Route::group(["middleware" => "auth"], function () {
         Route::resource("/users", "\App\Http\Controllers\Dashboard\MasterUserController")->except(["create", "show", "edit"]);
 
         // ---------------------------------
-        // Website settings
-        Route::get("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@index");
-        Route::put("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@update");
-
-        // ---------------------------------
         // Confession Routes
         Route::resource('confessions', "\App\Http\Controllers\Dashboard\RecConfessionController")->except(["show"]);
         // Sluggable check
@@ -109,12 +104,17 @@ Route::group(["middleware" => "auth"], function () {
         // Response Routes
         Route::resource('confessions.responses', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController")->shallow()->except(["show", "index"]);
         // Index
-        Route::get("confessions/responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@index");
+        Route::get("/confessions/responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@index");
         // Destroy (attachment)
         Route::delete("/responses/{response:id_confession_response}/attachment", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@destroyAttachment");
 
         // ---------------------------------
         // Comment Routes
         Route::get("/comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@index");
+
+        // ---------------------------------
+        // Website settings
+        Route::get("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@edit");
+        Route::put("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@update");
     });
 });

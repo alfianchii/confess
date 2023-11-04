@@ -70,7 +70,7 @@
                         <div class="col-6 col-lg-3 col-md-6">
                             <a style="cursor: pointer" onclick="window.location.href='/dashboard/users'"
                                 data-bs-toggle="tooltip"
-                                data-bs-original-title="Jumlah pengguna yang telah terdaftar dalam website {{ config('web_config')['WEB_TITLE'] }}.">
+                                data-bs-original-title="Jumlah pengguna yang telah terdaftar dalam website {{ config('web_config')['TEXT_WEB_TITLE'] }}.">
                                 <div class="card">
                                     <div class="card-body px-4 py-4-5">
                                         <div class="row">

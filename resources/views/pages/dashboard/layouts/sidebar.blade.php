@@ -4,13 +4,15 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="/">
-                        {{-- If WEB_LOGO didn't contains "/" --}}
-                        @if (!strpos(config('web_config')['WEB_LOGO'], '/'))
-                            <img style="width: 85px;" src="{{ asset('images/' . config('web_config')['WEB_LOGO']) }}"
-                                alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                        {{-- If IMAGE_WEB_LOGO didn't contains "/" --}}
+                        @if (!strpos(config('web_config')['IMAGE_WEB_LOGO'], '/'))
+                            <img style="width: 85px;"
+                                src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO']) }}"
+                                alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
                         @else
-                            <img style="width: 85px;" src="{{ asset('storage/' . config('web_config')['WEB_LOGO']) }}"
-                                alt="Logo {{ config('web_config')['WEB_TITLE'] }}">
+                            <img style="width: 85px;"
+                                src="{{ asset('storage/' . config('web_config')['IMAGE_WEB_LOGO']) }}"
+                                alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
                         @endif
                     </a>
                 </div>

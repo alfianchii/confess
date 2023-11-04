@@ -9,8 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SettingWebsite extends Model
 {
+    // ---------------------------------
+    // TRAITS
     use HasFactory, SoftDeletes, Flagging;
 
+
+    // ---------------------------------
+    // PROPERTIES
     protected $table = "set_website";
     protected $primaryKey = "id_website";
+    protected $guarded = [
+        'id_website',
+    ];
 }
