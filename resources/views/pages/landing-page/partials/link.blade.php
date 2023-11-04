@@ -1,9 +1,4 @@
 {{-- Base styles --}}
-<style>
-    body {
-        font-family: 'Inter', sans-serif;
-    }
-</style>
 {{-- Default --}}
 @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE'])))
     <link rel="shortcut icon" href="{{ asset('images/' . config('web_config')['IMAGE_WEB_FAVICON']) }}"
