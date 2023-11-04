@@ -74,9 +74,7 @@
                                                         <i class="bi bi-globe py-2"></i>
                                                     </div>
                                                     @error('TEXT_WEB_TITLE')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -95,9 +93,7 @@
                                                         <i class="bi bi-chat-left-text py-2"></i>
                                                     </div>
                                                     @error('TEXT_HERO_HEADER')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -117,9 +113,7 @@
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
                                                     @error('TEXT_HERO_DESCRIPTION')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -137,9 +131,7 @@
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
                                                     @error('TEXT_WEB_LOCATION')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -158,9 +150,7 @@
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
                                                     @error('TEXT_FOOTER_DASHBOARD')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -188,9 +178,7 @@
                                                         name="IMAGE_WEB_LOGO_WHITE" />
 
                                                     @error('IMAGE_WEB_LOGO_WHITE')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -219,9 +207,7 @@
                                                         name="IMAGE_WEB_LOGO" />
 
                                                     @error('IMAGE_WEB_LOGO')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -249,9 +235,7 @@
                                                         name="IMAGE_WEB_FAVICON" />
 
                                                     @error('IMAGE_WEB_FAVICON')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -280,9 +264,7 @@
                                                         name="IMAGE_FOOTER" />
 
                                                     @error('IMAGE_FOOTER')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -311,9 +293,7 @@
                                                         name="IMAGE_FOOTER_DASHBOARD" />
 
                                                     @error('IMAGE_FOOTER_DASHBOARD')
-                                                        <div class="invalid-feedback d-block">
-                                                            {{ $message }}
-                                                        </div>
+                                                        <p class="text-danger">{{ $message }}</p>
                                                     @enderror
                                                 </div>
                                             </div>
