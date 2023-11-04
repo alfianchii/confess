@@ -264,7 +264,9 @@
                                                         name="profile_picture" id="profile-picture" />
 
                                                     @error('profile_picture')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>

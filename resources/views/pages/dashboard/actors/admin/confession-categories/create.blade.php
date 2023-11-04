@@ -82,7 +82,9 @@
                                                         <i class="bi bi-card-heading py-2"></i>
                                                     </div>
                                                     @error('category_name')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -99,7 +101,9 @@
                                                         <i class="bi bi-pencil py-2"></i>
                                                     </div>
                                                     @error('slug')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -119,7 +123,9 @@
                                                     </div>
 
                                                     @error('description')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -137,7 +143,9 @@
                                                         id="image" />
 
                                                     @error('image')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>

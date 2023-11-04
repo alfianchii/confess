@@ -63,7 +63,7 @@
                                     <div class="row">
                                         <div class="col-12 mb-1">
                                             <div
-                                                class="form-group has-icon-left mandatory @error('TEXT_WEB_TITLE') {{ 'is-invalid' }} @enderror">
+                                                class="form-group has-icon-left mandatory @error('TEXT_WEB_TITLE'){{ 'is-invalid' }}@enderror">
                                                 <label for="TEXT_WEB_TITLE" class="form-label">Judul Website</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2" placeholder="Confess"
@@ -74,14 +74,16 @@
                                                         <i class="bi bi-globe py-2"></i>
                                                     </div>
                                                     @error('TEXT_WEB_TITLE')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
-                                                class="form-group has-icon-left mandatory @error('TEXT_HERO_HEADER') {{ 'is-invalid' }} @enderror">
+                                                class="form-group has-icon-left mandatory @error('TEXT_HERO_HEADER'){{ 'is-invalid' }}@enderror">
                                                 <label for="TEXT_HERO_HEADER" class="form-label">Hero Text Title</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
@@ -93,14 +95,16 @@
                                                         <i class="bi bi-chat-left-text py-2"></i>
                                                     </div>
                                                     @error('TEXT_HERO_HEADER')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
-                                                class="form-group has-icon-left mandatory @error('TEXT_HERO_DESCRIPTION') {{ 'is-invalid' }} @enderror">
+                                                class="form-group has-icon-left mandatory @error('TEXT_HERO_DESCRIPTION'){{ 'is-invalid' }}@enderror">
                                                 <label for="TEXT_HERO_DESCRIPTION" class="form-label">Hero Text
                                                     Description</label>
                                                 <div class="position-relative">
@@ -113,14 +117,16 @@
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
                                                     @error('TEXT_HERO_DESCRIPTION')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
-                                                class="form-group has-icon-left mandatory @error('TEXT_WEB_LOCATION') {{ 'is-invalid' }} @enderror">
+                                                class="form-group has-icon-left mandatory @error('TEXT_WEB_LOCATION'){{ 'is-invalid' }}@enderror">
                                                 <label for="TEXT_WEB_LOCATION" class="form-label">Google Maps</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
@@ -131,14 +137,16 @@
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
                                                     @error('TEXT_WEB_LOCATION')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
-                                                class="form-group has-icon-left mandatory @error('TEXT_FOOTER_DASHBOARD') {{ 'is-invalid' }} @enderror">
+                                                class="form-group has-icon-left mandatory @error('TEXT_FOOTER_DASHBOARD'){{ 'is-invalid' }}@enderror">
                                                 <label for="TEXT_FOOTER_DASHBOARD" class="form-label">Footer Text
                                                     (Dashboard)</label>
                                                 <div class="position-relative">
@@ -150,7 +158,9 @@
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
                                                     @error('TEXT_FOOTER_DASHBOARD')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -178,7 +188,9 @@
                                                         name="IMAGE_WEB_LOGO_WHITE" />
 
                                                     @error('IMAGE_WEB_LOGO_WHITE')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -207,7 +219,9 @@
                                                         name="IMAGE_WEB_LOGO" />
 
                                                     @error('IMAGE_WEB_LOGO')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -235,7 +249,9 @@
                                                         name="IMAGE_WEB_FAVICON" />
 
                                                     @error('IMAGE_WEB_FAVICON')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -264,7 +280,9 @@
                                                         name="IMAGE_FOOTER" />
 
                                                     @error('IMAGE_FOOTER')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -293,7 +311,9 @@
                                                         name="IMAGE_FOOTER_DASHBOARD" />
 
                                                     @error('IMAGE_FOOTER_DASHBOARD')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>

@@ -196,7 +196,9 @@
                                         <input type="file" class="image-crop-filepond" name="profile_picture" />
 
                                         @error('profile_picture')
-                                            <p class="text-danger">{{ $message }}</p>
+                                            <div class="invalid-feedback d-block">
+                                                {{ $message }}
+                                            </div>
                                         @enderror
                                     </div>
                                 </div>

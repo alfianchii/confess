@@ -246,7 +246,9 @@
                                                 </div>
 
                                                 @error('response')
-                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -258,7 +260,9 @@
                                                 id="attachment_file">
 
                                             @error('attachment_file')
-                                                <p class="text-danger">{{ $message }}</p>
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>

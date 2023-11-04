@@ -83,7 +83,9 @@
                                                     </div>
 
                                                     @error('title')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -101,7 +103,9 @@
                                                     </div>
 
                                                     @error('slug')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -119,7 +123,9 @@
                                                     </div>
 
                                                     @error('date')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
@@ -141,7 +147,9 @@
                                                 </select>
 
                                                 @error('id_confession_category')
-                                                    <p class="text-danger" style="margin-top: -24px">{{ $message }}</p>
+                                                    <div class="invalid-feedback d-block" style="margin-top: -24px">
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -178,7 +186,9 @@
                                                 </fieldset>
 
                                                 @error('place')
-                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -215,7 +225,9 @@
                                                 </fieldset>
 
                                                 @error('privacy')
-                                                    <p class="text-danger">{{ $message }}</p>
+                                                    <div class="invalid-feedback d-block">
+                                                        {{ $message }}
+                                                    </div>
                                                 @enderror
                                             </div>
                                         </div>
@@ -234,7 +246,9 @@
                                             </div>
 
                                             @error('image')
-                                                <p class="text-danger">{{ $message }}</p>
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $message }}
+                                                </div>
                                             @enderror
                                         </div>
                                     </div>
@@ -251,7 +265,9 @@
                                                     </div>
 
                                                     @error('body')
-                                                        <p class="text-danger">{{ $message }}</p>
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
                                                     @enderror
                                                 </div>
                                             </div>
