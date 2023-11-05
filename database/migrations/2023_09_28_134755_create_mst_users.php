@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->enum('gender', ["L", "P"]);
             $table->string('email')->unique()->nullable();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string("profile_picture")->nullable();
             $table->string('password');
             $table->enum('flag_active', ["Y", "N"]);
