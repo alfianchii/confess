@@ -146,21 +146,21 @@
             @can('admin')
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Non-active Your Account</h5>
+                        <h5 class="card-title">Nonaktifkan Akun Kamu</h5>
                     </div>
                     <div class="card-body">
-                        <p>Your account will be permanently deleted and cannot be restored, click "Touch me!" to
-                            continue.</p>
+                        <p>Akun kamu akan dinonaktifkan secara permanen dan tidak bisa dikembalikan, click "Touch me!" untuk
+                            melanjutkan (jika kamu setuju untuk dinonaktifkan secara permanen).</p>
                         <div class="form-check">
                             <div class="checkbox">
                                 <input type="checkbox" id="iaggree" class="form-check-input">
-                                <label for="iaggree">Touch me! If you agree to delete permanently.</label>
+                                <label for="iaggree">Touch me!</label>
                             </div>
                         </div>
                         <div class="form-group my-2 d-flex justify-content-end">
                             <button data-confirm-user-non-active-your-account="true"
                                 data-unique={{ base64_encode($userData->id_user) }} type="submit" class="btn btn-danger"
-                                id="btn-non-active-your-account" disabled="">Non-active</button>
+                                id="btn-non-active-your-account" disabled="">Nonaktifkan</button>
                         </div>
                     </div>
                 </div>
