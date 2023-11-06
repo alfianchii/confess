@@ -112,4 +112,8 @@ class MasterUserController extends Controller
     {
         return $this->userService->roleUpdate($request, $this->userData, $this->userRole, $user);
     }
+    public function mutateUserPassword(Request $request, User $user)
+    {
+        return $this->userService->mutateUserPassword($request, $this->userRole, $user);
+    }
 }

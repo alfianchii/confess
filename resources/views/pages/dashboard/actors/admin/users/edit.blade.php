@@ -284,6 +284,57 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center">
+                                <h3 class="card-title">Password</h3>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" action="/dashboard/users/mutate-user-password/{{ $theUser->username }}"
+                                method="POST" enctype="multipart/form-data">
+                                @method('PATCH')
+                                @csrf
+
+                                <div class="row">
+                                    <div class="col-12 mb-1">
+                                        <div
+                                            class="form-group has-icon-left mandatory @error('new_password'){{ 'is-invalid' }}@enderror">
+                                            <label for="password-confirmation" class="form-label">Password Baru</label>
+                                            <div class="d-flex flex-row-reverse align-items-center position-relative"
+                                                id="wrapper">
+                                                <input type="password" class="form-control py-2 mt-1"
+                                                    placeholder="e.g. 4kuBu7uhM3dk1t" id="password-confirmation"
+                                                    name="new_password" maxlength="255" />
+                                                <div class="form-control-icon pt-1">
+                                                    <i class="bi bi-key-fill"></i>
+                                                </div>
+                                                <button type="button" class="btn bg-transparent show-password"
+                                                    id="show-password-confirmation" data-bs-toggle="tooltip"
+                                                    data-bs-title="Tampilkan/sembunyikan password.">
+                                                    <i class="bi bi-eye-slash-fill"></i>
+                                                </button>
+                                            </div>
+                                            @error('new_password')
+                                                <div class="invalid-feedback d-block">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 mt-3 d-flex justify-content-start">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </div>

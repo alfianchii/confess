@@ -73,6 +73,8 @@ Route::group(["middleware" => "auth"], function () {
         // User's change role
         Route::get("/users/details/{user:username}/role", "\App\Http\Controllers\Dashboard\MasterUserController@role");
         Route::put("/users/details/{user:username}/role/update", "\App\Http\Controllers\Dashboard\MasterUserController@roleUpdate");
+        // Change password
+        Route::patch("/users/mutate-user-password/{user:username}", "\App\Http\Controllers\Dashboard\MasterUserController@mutateUserPassword");
         // User
         Route::resource("/users", "\App\Http\Controllers\Dashboard\MasterUserController")->except(["create", "show", "edit"]);
 

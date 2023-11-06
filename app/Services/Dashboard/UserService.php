@@ -94,15 +94,15 @@ class UserService extends Service
     $this->checkCurrentPassword($user, $currentPassword);
     $this->checkSamePassword($currentPassword, $newPassword);
   }
-  public function alterYourPassword(User $user, $credentials)
+  public function alterYourPassword(User $user, $credentials, $url = "/dashboard/users/account", $message = "Password kamu berhasil diganti!")
   {
     $fields["password"] = Hash::make($credentials["new_password"]);
     $user->update($fields);
-    return redirect('/dashboard/users/account')->withSuccess("Password kamu berhasil diganti!");
+    return redirect($url)->withSuccess($message);
   }
-  public function getRulesMessagesPassword()
+  public function getRulesMessagesPassword($currentPassword = false, $newPassword = false)
   {
-    return [
+    $array = [
       "rules" => [
         "current_password" => ["required", "min:6"],
         "new_password" => ["required", "min:6"],
@@ -114,6 +114,13 @@ class UserService extends Service
         "new_password.min" => "Password baru tidak boleh kurang dari :min karakter."
       ],
     ];
+
+    if ($currentPassword)
+      unset($array["rules"]["new_password"], $array["messages"]["new_password.required"], $array["messages"]["new_password.min"]);
+    if ($newPassword)
+      unset($array["rules"]["current_password"], $array["messages"]["current_password.required"], $array["messages"]["current_password.min"]);
+
+    return $array;
   }
 
 
@@ -276,7 +283,7 @@ class UserService extends Service
     $roleName = $userRole->role_name;
     if ($roleName) {
       // Rules and messages
-      $arr = $this->getRulesMessagesPassword();
+      $arr = $this->getRulesMessagesPassword(true, true);
 
       // Validates
       $credentials = Validator::make($data, $arr["rules"], $arr["messages"])->validate();
@@ -368,6 +375,20 @@ class UserService extends Service
     // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminRoleUpdate($data, $user, $theUser);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+  public function mutateUserPassword(Request $request, MasterRole $userRole, User $theUser)
+  {
+    // Data processing
+    $data = $request->all();
+    $theUser = User::where("id_user", $theUser->id_user)->first();
+    if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminMutateUserPassword($data, $theUser);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -714,6 +735,18 @@ class UserService extends Service
     }
 
     return redirect(self::HOME_URL)->withErrors("$theUser->full_name bukan admin.");
+  }
+  // Update change role
+  public function adminMutateUserPassword($data, User $theUser)
+  {
+    // Rules and messages
+    $arr = $this->getRulesMessagesPassword(false, true);
+
+    // Validates
+    $credentials = Validator::make($data, $arr["rules"], $arr["messages"])->validate();
+
+    // Success
+    return $this->alterYourPassword($theUser, $credentials, "/dashboard/users/details/$theUser->username", "Password @$theUser->username berhasil diganti!");
   }
 
 
