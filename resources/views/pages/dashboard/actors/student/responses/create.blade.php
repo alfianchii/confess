@@ -72,7 +72,7 @@
 
         <section class="section">
             {{-- Confession --}}
-            <div class="card mb-5">
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title d-inline-block">Pengakuan</h3> <small
                         class="text-muted">({{ $confession->privacy }})</small>
@@ -223,7 +223,7 @@
             {{-- Made a response --}}
             {{-- --------------------------------- Rules --}}
             @if ($confession->status === 'unprocess' || $confession->status === 'process')
-                <div class="card mb-5">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Berikan Tanggapan</h3>
                     </div>

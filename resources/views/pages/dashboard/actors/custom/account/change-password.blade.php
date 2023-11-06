@@ -44,7 +44,7 @@
         </div>
 
         <section class="section">
-            <div class="card mb-5">
+            <div class="card">
                 <div class="card-header">
                     <div class="d-flex align-items-center">
                         <h3 class="card-title">Password</h3>

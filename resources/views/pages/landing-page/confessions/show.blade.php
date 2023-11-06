@@ -23,7 +23,7 @@
                 <div class="row justify-content-center mb-5">
                     <div class="col-12 col-md-10 shadow p-0">
                         {{-- Complaint --}}
-                        <div class="card mb-0">
+                        <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title d-inline-block">{{ $complaint->title }}</h3>
                                 @if ($complaint->privacy == 'public')
@@ -163,7 +163,7 @@
                 <div class="row justify-content-center">
                     <div class="col-12 col-md-10">
                         {{-- Responses --}}
-                        <div class="card mb-0">
+                        <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Tanggapan</h3>
                             </div>

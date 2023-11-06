@@ -49,7 +49,7 @@
 
         <section class="section">
             {{-- Confession --}}
-            <div class="card mb-5">
+            <div class="card">
                 <div class="card-header">
                     <h3 class="card-title d-inline-block">Pengakuan</h3> <small
                         class="text-muted">({{ $confession->privacy }})</small>

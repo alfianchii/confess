@@ -43,7 +43,7 @@
                 {{-- First --}}
                 <div class="row">
                     <div class="col mb-3">
-                        <div class="card mb-3">
+                        <div class="card">
                             @if ($confessions[0]->image)
                                 <img class="img-fluid rounded" src="{{ asset('storage/' . $confessions[0]->image) }}"
                                     alt="{{ $confessions[0]->category->category_name }}">
