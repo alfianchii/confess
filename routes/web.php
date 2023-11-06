@@ -116,5 +116,12 @@ Route::group(["middleware" => "auth"], function () {
         // Website settings
         Route::get("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@edit");
         Route::put("/website", "\App\Http\Controllers\Dashboard\SettingWebsiteController@update");
+
+        // ---------------------------------
+        // EXPORTS
+        // Users
+        Route::post('/users/export', "\App\Http\Controllers\Dashboard\MasterUserController@export");
+        // Confessions
+        Route::post('/confessions/export', "\App\Http\Controllers\Dashboard\RecConfessionController@export");
     });
 });

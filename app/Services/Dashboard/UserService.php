@@ -2,7 +2,9 @@
 
 namespace App\Services\Dashboard;
 
+use App\Exports\Users\AllOfUsersExport;
 use App\Models\{HistoryLogin, MasterRole, User};
+use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\Accountable;
 use App\Services\Service;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +17,7 @@ class UserService extends Service
 {
   // ---------------------------------
   // TRAITS
-  use Accountable;
+  use Accountable, Exportable;
 
 
   // ---------------------------------
@@ -197,6 +199,18 @@ class UserService extends Service
 
     // Redirect to unauthorized page
     return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
+  }
+  public function export(Request $request, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminExport($data);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
   }
   public function profile(MasterRole $userRole)
   {
@@ -493,6 +507,23 @@ class UserService extends Service
 
     // Success
     return $this->responseJsonMessage("Pengguna @$theUser->username berhasil dinonaktifkan.");
+  }
+  // Export
+  public function adminExport($data)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Credentials
+    $table = $creds["table"];
+    $type = $creds["type"];
+    $fileName = $this->getExportFileName($type);
+
+    // Table
+    if ($table === "all-of-users")
+      return (new AllOfUsersExport)->download($fileName);
   }
   // Settings
   public function adminSettings()

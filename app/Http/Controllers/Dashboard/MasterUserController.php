@@ -60,6 +60,11 @@ class MasterUserController extends Controller
         return $this->userService->destroy($this->userData, $this->userRole, $idUser);
     }
 
+    public function export(Request $request)
+    {
+        return $this->userService->export($request, $this->userRole);
+    }
+
 
     // ---------------------------------
     // UTILITIES

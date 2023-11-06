@@ -2,7 +2,9 @@
 
 namespace App\Services\Dashboard;
 
+use App\Exports\Confessions\AllOfConfessionsExport;
 use App\Models\{HistoryConfessionResponse, RecConfession, MasterConfessionCategory, MasterRole, User};
+use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\{Confessable, Responsible};
 use Illuminate\Support\Facades\{Storage, Validator};
 use App\Services\Service;
@@ -16,7 +18,7 @@ class ConfessionService extends Service
 {
   // ---------------------------------
   // TRAITS
-  use Confessable, Responsible;
+  use Confessable, Responsible, Exportable;
 
 
   // ---------------------------------
@@ -131,6 +133,19 @@ class ConfessionService extends Service
     return $this->responseJsonMessage("You are unauthorized to do this action.", 403);
   }
 
+  public function export(Request $request, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminExport($data);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+
   public function destroyImage(User $user, MasterRole $userRole, $slug)
   {
     // Data processing
@@ -196,7 +211,7 @@ class ConfessionService extends Service
   public function adminIndex()
   {
     // All Confessions
-    $allConfessions = RecConfession::with(["category", "student.user"])
+    $allConfessions = RecConfession::with(["category", "student.user", "responses", "comments"])
       ->latest("updated_at")
       ->get();
 
@@ -214,6 +229,23 @@ class ConfessionService extends Service
       "unprocessedConfessions" => $unprocessedConfessions,
     ];
     return view("pages.dashboard.actors.admin.confessions.index", $viewVariables);
+  }
+  // Export
+  public function adminExport($data)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Credentials
+    $table = $creds["table"];
+    $type = $creds["type"];
+    $fileName = $this->getExportFileName($type);
+
+    // Table
+    if ($table === "all-of-confessions")
+      return (new AllOfConfessionsExport)->download($fileName);
   }
 
 

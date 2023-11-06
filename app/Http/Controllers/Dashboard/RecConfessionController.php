@@ -55,9 +55,9 @@ class RecConfessionController extends Controller
         return $this->confessionService->destroy($this->userData, $this->userRole, $slug);
     }
 
-    public function destroyImage(string $slug)
+    public function export(Request $request)
     {
-        return $this->confessionService->destroyImage($this->userData, $this->userRole, $slug);
+        return $this->confessionService->export($request, $this->userRole);
     }
 
     // ---------------------------------
@@ -65,6 +65,11 @@ class RecConfessionController extends Controller
     public function checkSlug(Request $request)
     {
         return $this->confessionService->checkSlug($request, $this->userRole);
+    }
+
+    public function destroyImage(string $slug)
+    {
+        return $this->confessionService->destroyImage($this->userData, $this->userRole, $slug);
     }
 
     public function pick(RecConfession $confession)
