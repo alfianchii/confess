@@ -50,7 +50,7 @@ class HistoryLogin extends Model
             // Order the results by date in ascending order
             ->oldest("date")
             // Execute the query and retrieve the results
-            ->lazyById(200, "id_history_login");
+            ->get();
 
         // Create an array to store the history login counts for each day
         $axises = [
