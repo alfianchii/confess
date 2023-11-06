@@ -32,7 +32,7 @@ trait Exportable
   }
   public function getExportFileName(string $type)
   {
-    return substr(md5(now()), 0, 10) . "." . strtolower($type);
+    return now()->format("Y_m_d_His") . "." . strtolower($type);
   }
   public function exportValidates(array $data)
   {
