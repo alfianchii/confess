@@ -10,11 +10,12 @@ use Maatwebsite\Excel\Concerns\{
     WithHeadings,
     WithMapping,
     WithStyles,
+    WithStrictNullComparison,
 };
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AllOfConfessionsExport
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
+implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
 {
     // ---------------------------------
     // TRAITS
