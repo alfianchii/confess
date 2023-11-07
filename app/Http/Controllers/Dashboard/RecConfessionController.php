@@ -57,7 +57,7 @@ class RecConfessionController extends Controller
 
     public function export(Request $request)
     {
-        return $this->confessionService->export($request, $this->userRole);
+        return $this->confessionService->export($request, $this->userData, $this->userRole);
     }
 
     // ---------------------------------

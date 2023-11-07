@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard;
 
-use App\Exports\Confessions\AllOfConfessionsExport;
+use App\Exports\Confessions\{AllOfConfessionsExport, ConfessionsHandledByYouExport, UnprocessedConfessionsExport};
 use App\Models\{HistoryConfessionResponse, RecConfession, MasterConfessionCategory, MasterRole, User};
 use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\{Confessable, Responsible};
@@ -133,7 +133,7 @@ class ConfessionService extends Service
     return $this->responseJsonMessage("You are unauthorized to do this action.", 403);
   }
 
-  public function export(Request $request, MasterRole $userRole)
+  public function export(Request $request, User $user, MasterRole $userRole)
   {
     // Data processing
     $data = $request->all();
@@ -141,6 +141,7 @@ class ConfessionService extends Service
     // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminExport($data);
+    if ($roleName === "officer") return $this->officerExport($data, $user);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -252,7 +253,7 @@ class ConfessionService extends Service
   public function officerIndex(User $user)
   {
     // All Confessions
-    $allConfessions = RecConfession::with(["category", "student.user", "responses"])
+    $allConfessions = RecConfession::with(["category", "student.user", "responses", "comments"])
       ->latest("updated_at")
       ->get();
 
@@ -275,6 +276,28 @@ class ConfessionService extends Service
       "unprocessedConfessions" => $unprocessedConfessions,
     ];
     return view("pages.dashboard.actors.officer.confessions.index", $viewVariables);
+  }
+  // Export
+  public function officerExport($data, User $user)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // File name
+    $fileName = $this->getExportFileName($creds["type"]);
+
+    // Table
+    if ($creds["table"] === "all-of-confessions")
+      return (new AllOfConfessionsExport)->download($fileName);
+    if ($creds["table"] === "confessions-handled-by-you")
+      return (new ConfessionsHandledByYouExport)
+        ->forAssignedTo($user->id_user)
+        ->download($fileName);
+    if ($creds["table"] === "unprocessed-confessions")
+      return (new UnprocessedConfessionsExport)
+        ->download($fileName);
   }
   // Pick
   public function officerPick(User $user, RecConfession $confession)
