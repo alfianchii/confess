@@ -23,8 +23,6 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
 
     // ---------------------------------
     // PROPERTIES
-    protected string $gender;
-
 
 
     // ---------------------------------

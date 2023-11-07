@@ -25,8 +25,6 @@ implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping,
 
   // ---------------------------------
   // PROPERTIES
-  protected string $gender;
-
 
 
   // ---------------------------------
