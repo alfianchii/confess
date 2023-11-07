@@ -67,12 +67,30 @@
                                     </button>
                                 </form>
 
-                                <form action="/dashboard/users/export" method="POST">
+                                <form action="/dashboard/confessions/categories/export" method="POST">
                                     @csrf
                                     <input type="hidden" name="table" value="confession-categories">
                                     <input type="hidden" name="type" value="CSV">
                                     <button type="submit" class="dropdown-item">
                                         <span class="fa-fw select-all fas text-light"></span> CSV
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/confessions/categories/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="confession-categories">
+                                    <input type="hidden" name="type" value="HTML">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all fab text-light"></span> HTML
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/confessions/categories/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="confession-categories">
+                                    <input type="hidden" name="type" value="MPDF">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all far text-light"></span> PDF
                                     </button>
                                 </form>
                             </div>
@@ -146,8 +164,8 @@
                                             @else
                                                 <div class="me-2">
                                                     <a data-bs-toggle="tooltip"
-                                                        data-bs-original-title="Aktivasi kategori pengakuan." href="#"
-                                                        class="btn btn-success px-2 pt-2"
+                                                        data-bs-original-title="Aktivasi kategori pengakuan."
+                                                        href="#" class="btn btn-success px-2 pt-2"
                                                         data-confirm-confession-category-activate="true"
                                                         data-unique="{{ base64_encode($category->slug) }}">
                                                         <span data-confirm-confession-category-activate="true"

@@ -226,6 +226,9 @@ class ResponseService extends Service
     // Table
     if ($creds["table"] === "all-of-responses")
       return (new AllOfResponsesExport)->download($fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
 
 

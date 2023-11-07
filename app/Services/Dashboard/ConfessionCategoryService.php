@@ -264,12 +264,15 @@ class ConfessionCategoryService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // File name
     $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Table
     if ($creds["table"] === "confession-categories")
-      return (new ConfessionCategoriesExport)->download($fileName);
+      return (new ConfessionCategoriesExport)->download($fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
   // Destroy image
   private function adminDestroyImage(User $user, $confessionCategory)
