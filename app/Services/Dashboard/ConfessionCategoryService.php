@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard;
 
-use App\Exports\Confessions\Categories\ConfessionCategoriesExport;
+use App\Exports\Confessions\Categories\{ConfessionCategoriesExport};
 use App\Models\{MasterConfessionCategory, User, MasterRole};
 use App\Models\Traits\Exportable;
 use App\Services\Service;

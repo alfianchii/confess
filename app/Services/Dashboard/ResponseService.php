@@ -149,6 +149,7 @@ class ResponseService extends Service
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminExport($data);
     if ($roleName === "officer") return $this->officerExport($data, $user);
+    if ($roleName === "student") return $this->studentExport($data, $user);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -608,6 +609,24 @@ class ResponseService extends Service
 
     // Success
     return $this->responseJsonMessage("Tanggapan kamu telah di-unsend!");
+  }
+  // Export
+  public function studentExport($data, User $user)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
+
+    // Table
+    if ($creds["table"] === "your-responses")
+      return (new YourResponsesExport)->forIdUser($user->id_user)->download($fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
   // Destroy attachment
   private function studentDestroyAttachment(User $user, HistoryConfessionResponse $response)

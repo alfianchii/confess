@@ -31,11 +31,11 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
   public function properties(): array
   {
     return [
-      'title'          => 'All of Responses Export',
-      'description'    => "Total of responses that have been made on the " . config('web_config')['TEXT_WEB_TITLE'],
-      'subject'        => 'Responses',
-      'keywords'       => 'Responses,export,spreadsheet',
-      'category'       => 'Responses',
+      'title'          => 'Your Responses Export',
+      'description'    => "Total of your responses that have been made on the " . config('web_config')['TEXT_WEB_TITLE'],
+      'subject'        => 'Your Responses',
+      'keywords'       => 'Your Responses,export,spreadsheet',
+      'category'       => 'Your Responses',
     ];
   }
 
@@ -62,6 +62,10 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
 
   // ---------------------------------
   // UTILITIES
+  public function title(): string
+  {
+    return "Your Responses";
+  }
   public function headings(): array
   {
     return [
