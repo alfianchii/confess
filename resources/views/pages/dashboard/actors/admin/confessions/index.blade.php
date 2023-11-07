@@ -69,6 +69,24 @@
                                         <span class="fa-fw select-all fas text-light"></span> CSV
                                     </button>
                                 </form>
+
+                                <form action="/dashboard/confessions/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="all-of-confessions">
+                                    <input type="hidden" name="type" value="HTML">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all fab text-light"></span> HTML
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/confessions/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="all-of-confessions">
+                                    <input type="hidden" name="type" value="MPDF">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all far text-light"></span> PDF
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -179,12 +197,30 @@
                                     </button>
                                 </form>
 
-                                <form action="/dashboard/users/export" method="POST">
+                                <form action="/dashboard/confessions/export" method="POST">
                                     @csrf
                                     <input type="hidden" name="table" value="unprocessed-confessions">
                                     <input type="hidden" name="type" value="CSV">
                                     <button type="submit" class="dropdown-item">
                                         <span class="fa-fw select-all fas text-light"></span> CSV
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/confessions/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="unprocessed-confessions">
+                                    <input type="hidden" name="type" value="HTML">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all fab text-light"></span> HTML
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/confessions/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="unprocessed-confessions">
+                                    <input type="hidden" name="type" value="MPDF">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all far text-light"></span> PDF
                                     </button>
                                 </form>
                             </div>

@@ -220,12 +220,12 @@ class ResponseService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // File name
     $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Table
     if ($creds["table"] === "all-of-responses")
-      return (new AllOfResponsesExport)->download($fileName);
+      return (new AllOfResponsesExport)->download($fileName, $writterType);
   }
 
 

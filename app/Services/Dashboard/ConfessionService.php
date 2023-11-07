@@ -239,14 +239,14 @@ class ConfessionService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // File name
     $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Table
     if ($creds["table"] === "all-of-confessions")
-      return (new AllOfConfessionsExport)->download($fileName);
+      return (new AllOfConfessionsExport)->download($fileName, $writterType);
     if ($creds["table"] === "unprocessed-confessions")
-      return (new UnprocessedConfessionsExport)->download($fileName);
+      return (new UnprocessedConfessionsExport)->download($fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");
@@ -290,19 +290,16 @@ class ConfessionService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // File name
     $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Table
     if ($creds["table"] === "all-of-confessions")
-      return (new AllOfConfessionsExport)->download($fileName);
+      return (new AllOfConfessionsExport)->download($fileName, $writterType);
     if ($creds["table"] === "confessions-handled-by-you")
-      return (new ConfessionsHandledByYouExport)
-        ->forAssignedTo($user->id_user)
-        ->download($fileName);
+      return (new ConfessionsHandledByYouExport)->forAssignedTo($user->id_user)->download($fileName, $writterType);
     if ($creds["table"] === "unprocessed-confessions")
-      return (new UnprocessedConfessionsExport)
-        ->download($fileName);
+      return (new UnprocessedConfessionsExport)->download($fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");

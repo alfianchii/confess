@@ -38,4 +38,8 @@ trait Exportable
   {
     return Validator::make($data, $this->getExportRules(), $this->getExportMessages());
   }
+  public function getWritterType(string $ext)
+  {
+    return constant("\Maatwebsite\Excel\Excel::" . $ext);
+  }
 }

@@ -537,14 +537,14 @@ class UserService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // File name
     $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Table
     if ($creds["table"] === "all-of-users")
-      return (new AllOfUsersExport)->download($fileName);
+      return (new AllOfUsersExport)->download($fileName, $writterType);
     if ($creds["table"] === "history-logins")
-      return (new HistoryLoginsExport)->download($fileName);
+      return (new HistoryLoginsExport)->download($fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");
