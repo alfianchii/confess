@@ -545,6 +545,9 @@ class UserService extends Service
       return (new AllOfUsersExport)->download($fileName);
     if ($creds["table"] === "history-logins")
       return (new HistoryLoginsExport)->download($fileName);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
   // Settings
   public function adminSettings()

@@ -247,6 +247,9 @@ class ConfessionService extends Service
       return (new AllOfConfessionsExport)->download($fileName);
     if ($creds["table"] === "unprocessed-confessions")
       return (new UnprocessedConfessionsExport)->download($fileName);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
 
 
@@ -300,6 +303,9 @@ class ConfessionService extends Service
     if ($creds["table"] === "unprocessed-confessions")
       return (new UnprocessedConfessionsExport)
         ->download($fileName);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
   // Pick
   public function officerPick(User $user, RecConfession $confession)
