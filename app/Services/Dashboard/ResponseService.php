@@ -144,12 +144,19 @@ class ResponseService extends Service
   {
     // Data processing
     $data = $request->all();
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Validates
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Roles checking
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminExport($data);
-    if ($roleName === "officer") return $this->officerExport($data, $user);
-    if ($roleName === "student") return $this->studentExport($data, $user);
+    if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType);
+    if ($roleName === "officer") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
+    if ($roleName === "student") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -215,18 +222,10 @@ class ResponseService extends Service
     return view("pages.dashboard.actors.admin.responses.create", $viewVariables);
   }
   // Export
-  public function adminExport($data)
+  public function adminExport(string $table, string $fileName, $writterType)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "all-of-responses")
+    if ($table === "all-of-responses")
       return (new AllOfResponsesExport)->download($fileName, $writterType);
 
     // Redirect to not found page
@@ -403,20 +402,12 @@ class ResponseService extends Service
     return $this->responseJsonMessage("Tanggapan kamu berhasil di-unsend!");
   }
   // Export
-  public function officerExport($data, User $user)
+  public function officerExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "all-of-responses")
+    if ($table === "all-of-responses")
       return (new AllOfResponsesExport)->download($fileName, $writterType);
-    if ($creds["table"] === "your-responses")
+    if ($table === "your-responses")
       return (new YourResponsesExport)->forIdUser($user->id_user)->download($fileName, $writterType);
 
     // Redirect to not found page
@@ -611,18 +602,10 @@ class ResponseService extends Service
     return $this->responseJsonMessage("Tanggapan kamu telah di-unsend!");
   }
   // Export
-  public function studentExport($data, User $user)
+  public function studentExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "your-responses")
+    if ($table === "your-responses")
       return (new YourResponsesExport)->forIdUser($user->id_user)->download($fileName, $writterType);
 
     // Redirect to not found page

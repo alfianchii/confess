@@ -137,12 +137,19 @@ class ConfessionService extends Service
   {
     // Data processing
     $data = $request->all();
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Validates
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Roles checking
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminExport($data);
-    if ($roleName === "officer") return $this->officerExport($data, $user);
-    if ($roleName === "student") return $this->studentExport($data, $user);
+    if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType);
+    if ($roleName === "officer") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
+    if ($roleName === "student") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -233,20 +240,12 @@ class ConfessionService extends Service
     return view("pages.dashboard.actors.admin.confessions.index", $viewVariables);
   }
   // Export
-  public function adminExport($data)
+  public function adminExport(string $table, string $fileName, $writterType)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "all-of-confessions")
+    if ($table === "all-of-confessions")
       return (new AllOfConfessionsExport)->download($fileName, $writterType);
-    if ($creds["table"] === "unprocessed-confessions")
+    if ($table === "unprocessed-confessions")
       return (new UnprocessedConfessionsExport)->download($fileName, $writterType);
 
     // Redirect to not found page
@@ -284,22 +283,14 @@ class ConfessionService extends Service
     return view("pages.dashboard.actors.officer.confessions.index", $viewVariables);
   }
   // Export
-  public function officerExport($data, User $user)
+  public function officerExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "all-of-confessions")
+    if ($table === "all-of-confessions")
       return (new AllOfConfessionsExport)->download($fileName, $writterType);
-    if ($creds["table"] === "confessions-handled-by-you")
+    if ($table === "confessions-handled-by-you")
       return (new ConfessionsHandledByYouExport)->forAssignedTo($user->id_user)->download($fileName, $writterType);
-    if ($creds["table"] === "unprocessed-confessions")
+    if ($table === "unprocessed-confessions")
       return (new UnprocessedConfessionsExport)->download($fileName, $writterType);
 
     // Redirect to not found page
@@ -543,18 +534,10 @@ class ConfessionService extends Service
     return $this->responseJsonMessage("Pengakuan kamu telah di-unsend!");
   }
   // Export
-  public function studentExport($data, User $user)
+  public function studentExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "your-confessions")
+    if ($table === "your-confessions")
       return (new YourConfessionsExport)->forIdUser($user->id_user)->download($fileName, $writterType);
 
     // Redirect to not found page

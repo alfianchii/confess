@@ -210,10 +210,17 @@ class UserService extends Service
   {
     // Data processing
     $data = $request->all();
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Validates
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Roles checking
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminExport($data);
+    if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -529,20 +536,12 @@ class UserService extends Service
     return $this->responseJsonMessage("Pengguna @$theUser->username berhasil dinonaktifkan.");
   }
   // Export
-  public function adminExport($data)
+  public function adminExport(string $table, string $fileName, $writterType)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "all-of-users")
+    if ($table === "all-of-users")
       return (new AllOfUsersExport)->download($fileName, $writterType);
-    if ($creds["table"] === "history-logins")
+    if ($table === "history-logins")
       return (new HistoryLoginsExport)->download($fileName, $writterType);
 
     // Redirect to not found page

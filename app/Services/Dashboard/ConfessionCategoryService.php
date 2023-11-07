@@ -116,10 +116,17 @@ class ConfessionCategoryService extends Service
   {
     // Data processing
     $data = $request->all();
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Validates
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
 
     // Roles checking
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminExport($data);
+    if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -257,18 +264,10 @@ class ConfessionCategoryService extends Service
     return $this->responseJsonMessage("Kategori pengakuan $confessionCategory->category_name telah dinonaktifkan!");
   }
   // Export
-  public function adminExport($data)
+  public function adminExport(string $table, string $fileName, $writterType)
   {
-    // Validates
-    $validator = $this->exportValidates($data);
-    if ($validator->fails()) return view("errors.403");
-    $creds = $validator->validate();
-
-    $fileName = $this->getExportFileName($creds["type"]);
-    $writterType = $this->getWritterType($creds["type"]);
-
     // Table
-    if ($creds["table"] === "confession-categories")
+    if ($table === "confession-categories")
       return (new ConfessionCategoriesExport)->download($fileName, $writterType);
 
     // Redirect to not found page
