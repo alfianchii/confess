@@ -252,7 +252,7 @@ class ConfessionService extends Service
   public function officerIndex(User $user)
   {
     // All Confessions
-    $allConfessions = RecConfession::with(["category", "student.user"])
+    $allConfessions = RecConfession::with(["category", "student.user", "responses"])
       ->latest("updated_at")
       ->get();
 
@@ -375,7 +375,7 @@ class ConfessionService extends Service
   public function studentIndex(User $user)
   {
     // Your confessions
-    $confessions = RecConfession::with(['category'])
+    $confessions = RecConfession::with(['category', "responses"])
       ->where('id_user', $user->id_user)
       ->latest()
       ->get();

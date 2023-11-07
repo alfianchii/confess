@@ -59,6 +59,7 @@
                                 <th>Dibuat Pada</th>
                                 <th>Judul</th>
                                 <th>Kategori</th>
+                                <th>Tanggapan</th>
                                 <th>Sunting</th>
                                 <th>Foto</th>
                                 <th>Status</th>
@@ -72,6 +73,7 @@
                                     <td>{{ $confession->created_at->format('Y-m-d') }}</td>
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
+                                    <td>{{ $confession->responses->count() }}</td>
                                     <td>
                                         @if ($confession->updated_by)
                                             <span class="badge bg-light-warning">Ya</span>

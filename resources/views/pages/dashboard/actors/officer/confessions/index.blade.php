@@ -55,6 +55,7 @@
                                 <th>Judul</th>
                                 <th>Kepemilikan</th>
                                 <th>Kategori</th>
+                                <th>Tanggapan</th>
                                 <th>Sunting</th>
                                 <th>Foto</th>
                                 <th>Status</th>
@@ -70,6 +71,7 @@
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->student->user->full_name }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
+                                    <td>{{ $confession->responses->count() }}</td>
                                     <td>
                                         @if ($confession->updated_by)
                                             <span class="badge bg-light-warning">Ya</span>
@@ -155,7 +157,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">
+                                    <td colspan="11">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>
@@ -181,6 +183,7 @@
                                 <th>Updated At</th>
                                 <th>Judul</th>
                                 <th>Kategori</th>
+                                <th>Tanggapan</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -192,6 +195,7 @@
                                     <td>{{ $confession->updated_at->diffForHumans() }}</td>
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
+                                    <td>{{ $confession->responses->count() }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <div class="me-2">
@@ -229,7 +233,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>
@@ -256,6 +260,7 @@
                                 <th>Judul</th>
                                 <th>Kepemilikan</th>
                                 <th>Kategori</th>
+                                <th>Tanggapan</th>
                                 <th>Sunting</th>
                                 <th>Foto</th>
                                 <th>Status</th>
@@ -271,6 +276,7 @@
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->student->user->full_name }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
+                                    <td>{{ $confession->responses->count() }}</td>
                                     <td>
                                         @if ($confession->updated_by)
                                             <span class="badge bg-light-warning">Ya</span>
@@ -329,7 +335,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">
+                                    <td colspan="11">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>
