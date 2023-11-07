@@ -163,7 +163,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 mb-1">
-                                <div class="form-group ">
+                                <div class="form-group">
                                     <label for="profile_picture"
                                         class="@if ($userData->profile_picture) {{ 'd-block' }} @endif{{ 'form-label' }} @error('profile_picture'){{ 'text-danger' }}@enderror">Foto</label>
                                     <div class="position-relative">

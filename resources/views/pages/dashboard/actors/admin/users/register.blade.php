@@ -252,7 +252,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-1">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <div class="position-relative">
                                                     <label for="profile_picture" class="form-label">Foto</label>
 

@@ -199,7 +199,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label for="IMAGE_WEB_LOGO" class="form-label">Logo Website
                                                     (Dashboard)</label>
                                                 <div class="position-relative">
@@ -230,7 +230,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label for="IMAGE_WEB_FAVICON" class="form-label">Favicon Website</label>
                                                 <div class="position-relative">
                                                     <!-- Image preview -->
@@ -260,7 +260,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label for="IMAGE_FOOTER" class="form-label">Footer Website
                                                     (Homepage)</label>
                                                 <div class="position-relative">
@@ -291,7 +291,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-4">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <label for="IMAGE_FOOTER_DASHBOARD" class="form-label">Footer Website
                                                     (Dashboard)</label>
                                                 <div class="position-relative">

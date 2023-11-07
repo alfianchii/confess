@@ -133,7 +133,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12 mb-1">
-                                            <div class="form-group ">
+                                            <div class="form-group">
                                                 <div class="position-relative">
                                                     <label for="image"
                                                         class="form-label @error('image'){{ 'text-danger' }}@enderror">Foto</label>
