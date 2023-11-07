@@ -78,8 +78,6 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
                                 <th>Judul</th>
                                 <th>Kepemilikan</th>
                                 <th>Kategori</th>
@@ -95,8 +93,6 @@
                             @forelse ($allConfessions as $confession)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $confession->created_at->format('Y-m-d') }}</td>
-                                    <td>{{ $confession->updated_at->diffForHumans() }}</td>
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->student->user->full_name }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
@@ -150,7 +146,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="12">
+                                    <td colspan="10">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>
@@ -165,15 +161,41 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>Unprocessed Confessions</h3>
+                    <div class="d-flex justify-content-between">
+                        <h3>Unprocessed Confessions</h3>
+
+                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="export"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa-fw select-all fas me-1"></span> Export
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="export">
+                                <form action="/dashboard/confessions/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="unprocessed-confessions">
+                                    <input type="hidden" name="type" value="XLSX">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all far text-light"></span> Excel
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/users/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="unprocessed-confessions">
+                                    <input type="hidden" name="type" value="CSV">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all fas text-light"></span> CSV
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table3">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
                                 <th>Judul</th>
                                 <th>Kepemilikan</th>
                                 <th>Kategori</th>
@@ -189,8 +211,6 @@
                             @forelse ($unprocessedConfessions as $confession)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $confession->created_at->format('Y-m-d') }}</td>
-                                    <td>{{ $confession->updated_at->diffForHumans() }}</td>
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->student->user->full_name }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
@@ -244,7 +264,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="12">
+                                    <td colspan="10">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>

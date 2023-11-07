@@ -245,6 +245,8 @@ class ConfessionService extends Service
     // Table
     if ($creds["table"] === "all-of-confessions")
       return (new AllOfConfessionsExport)->download($fileName);
+    if ($creds["table"] === "unprocessed-confessions")
+      return (new UnprocessedConfessionsExport)->download($fileName);
   }
 
 
