@@ -53,7 +53,6 @@
                                 <th>File pendukung</th>
                                 <th>Sunting</th>
                                 <th>Tanggal</th>
-                                <th>Kategori</th>
                                 <th>Status Pengakuan</th>
                                 <th>Aksi</th>
                             </tr>
@@ -80,7 +79,6 @@
                                         @endif
                                     </td>
                                     <td>{{ $response->created_at->format('d F Y, \a\t H:i') }}</td>
-                                    <td>{{ $response->confession->category->category_name }}</td>
                                     <td>
                                         @if ($response->confession->status == 'unprocess')
                                             <span class="badge bg-light-danger">
@@ -140,7 +138,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="8">
+                                    <td colspan="7">
                                         <p class="text-center mt-3">Tidak ada tanggapan :(</p>
                                     </td>
                                 </tr>

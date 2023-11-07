@@ -179,7 +179,7 @@ class ResponseService extends Service
   private function adminIndex()
   {
     $allResponses = HistoryConfessionResponse::with([
-      "confession.category",
+      "confession",
       "user",
     ])
       ->where("history_confession_responses.system_response", "N")
@@ -234,7 +234,7 @@ class ResponseService extends Service
   private function officerIndex(User $user)
   {
     $allResponses = HistoryConfessionResponse::with([
-      "confession.category",
+      "confession",
       "user",
     ])
       ->where("system_response", "N")
@@ -430,7 +430,7 @@ class ResponseService extends Service
   private function studentIndex(User $user)
   {
     $yourResponses = HistoryConfessionResponse::with([
-      "confession.category",
+      "confession",
     ])
       ->where("id_user", $user->id_user)
       ->where("system_response", "N")
