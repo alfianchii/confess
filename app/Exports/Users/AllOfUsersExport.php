@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\{
     Exportable,
     WithProperties,
     FromCollection,
+    WithTitle,
     WithHeadings,
     WithMapping,
     WithCustomValueBinder,
@@ -20,7 +21,7 @@ use PhpOffice\PhpSpreadsheet\Cell\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AllOfUsersExport extends DefaultValueBinder
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithCustomValueBinder, WithStyles
+implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithCustomValueBinder, WithStyles
 {
     // ---------------------------------
     // TRAITS
@@ -56,6 +57,10 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithCustom
 
     // ---------------------------------
     // UTILITIES
+    public function title(): string
+    {
+        return "All of Users";
+    }
     public function headings(): array
     {
         return [

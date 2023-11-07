@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\{
   Exportable,
   WithProperties,
   FromCollection,
+  WithTitle,
   WithHeadings,
   WithMapping,
   WithStyles,
@@ -14,7 +15,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class HistoryLoginsExport
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
+implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithStyles
 {
   // ---------------------------------
   // TRAITS
@@ -48,6 +49,10 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
 
   // ---------------------------------
   // UTILITIES
+  public function title(): string
+  {
+    return "History Logins";
+  }
   public function headings(): array
   {
     return [

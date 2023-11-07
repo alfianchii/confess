@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\{
     Exportable,
     WithProperties,
     FromCollection,
+    WithTitle,
     WithHeadings,
     WithMapping,
     WithStyles,
@@ -15,7 +16,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AllOfConfessionsExport
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
+implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
 {
     // ---------------------------------
     // TRAITS
@@ -51,6 +52,10 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
 
     // ---------------------------------
     // UTILITIES
+    public function title(): string
+    {
+        return "All of Confessions";
+    }
     public function headings(): array
     {
         return [

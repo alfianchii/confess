@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\{
   Exportable,
   WithProperties,
   FromCollection,
+  WithTitle,
   WithHeadings,
   WithMapping,
   WithStyles,
@@ -15,7 +16,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ConfessionCategoriesExport
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
+implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
 {
   // ---------------------------------
   // TRAITS
@@ -33,7 +34,7 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
   public function properties(): array
   {
     return [
-      'title'          => "Confessions' Categories Export",
+      'title'          => "Confession's Categories Export",
       'description'    => "Total of confession's categories that have been made on the " . config('web_config')['TEXT_WEB_TITLE'],
       'subject'        => "Confession's Categories",
       'keywords'       => "Confession's Categories,export,spreadsheet",
@@ -51,6 +52,10 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
 
   // ---------------------------------
   // UTILITIES
+  public function title(): string
+  {
+    return "Confession's Categories";
+  }
   public function headings(): array
   {
     return [
