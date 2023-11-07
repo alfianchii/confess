@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard;
 
-use App\Exports\Confessions\Responses\AllOfResponsesExport;
+use App\Exports\Confessions\Responses\{AllOfResponsesExport, YourResponsesExport};
 use App\Models\{HistoryConfessionResponse, MasterRole, RecConfession, User};
 use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\{Confessable, Responsible};
@@ -140,7 +140,7 @@ class ResponseService extends Service
     return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
   }
 
-  public function export(Request $request, MasterRole $userRole)
+  public function export(Request $request, User $user, MasterRole $userRole)
   {
     // Data processing
     $data = $request->all();
@@ -148,6 +148,7 @@ class ResponseService extends Service
     // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminExport($data);
+    if ($roleName === "officer") return $this->officerExport($data, $user);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -399,6 +400,26 @@ class ResponseService extends Service
 
     // Success
     return $this->responseJsonMessage("Tanggapan kamu berhasil di-unsend!");
+  }
+  // Export
+  public function officerExport($data, User $user)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
+
+    // Table
+    if ($creds["table"] === "all-of-responses")
+      return (new AllOfResponsesExport)->download($fileName, $writterType);
+    if ($creds["table"] === "your-responses")
+      return (new YourResponsesExport)->forIdUser($user->id_user)->download($fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
   // Destroy Attachment
   private function officerDestroyAttachment(User $user, HistoryConfessionResponse $response)

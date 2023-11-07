@@ -57,7 +57,7 @@ class HistoryConfessionResponseController extends Controller
 
     public function export(Request $request)
     {
-        return $this->responseService->export($request, $this->userRole);
+        return $this->responseService->export($request, $this->userData, $this->userRole);
     }
 
 
