@@ -537,13 +537,11 @@ class UserService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // Credentials
-    $table = $creds["table"];
-    $type = $creds["type"];
-    $fileName = $this->getExportFileName($type);
+    // File name
+    $fileName = $this->getExportFileName($creds["type"]);
 
     // Table
-    if ($table === "all-of-users")
+    if ($creds["table"] === "all-of-users")
       return (new AllOfUsersExport)->download($fileName);
   }
   // Settings

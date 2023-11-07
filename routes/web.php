@@ -125,5 +125,7 @@ Route::group(["middleware" => "auth"], function () {
         Route::post('/users/export', "\App\Http\Controllers\Dashboard\MasterUserController@export");
         // Confessions
         Route::post('/confessions/export', "\App\Http\Controllers\Dashboard\RecConfessionController@export");
+        // Confessions' responses
+        Route::post('/confessions/responses/export', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@export");
     });
 });

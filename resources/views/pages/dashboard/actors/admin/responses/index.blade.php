@@ -43,7 +43,35 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <h3>All of Responses</h3>
+                    <div class="d-flex justify-content-between">
+                        <h3>All of Responses</h3>
+
+                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="export"
+                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fa-fw select-all fas me-1"></span> Export
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="export">
+                                <form action="/dashboard/confessions/responses/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="all-of-responses">
+                                    <input type="hidden" name="type" value="XLSX">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all far text-light"></span> Excel
+                                    </button>
+                                </form>
+
+                                <form action="/dashboard/users/export" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="table" value="all-of-users">
+                                    <input type="hidden" name="type" value="CSV">
+                                    <button type="submit" class="dropdown-item">
+                                        <span class="fa-fw select-all fas text-light"></span> CSV
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table2">

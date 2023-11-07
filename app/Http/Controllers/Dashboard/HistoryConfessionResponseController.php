@@ -55,6 +55,11 @@ class HistoryConfessionResponseController extends Controller
         return $this->responseService->destroy($this->userData, $this->userRole, $idConfessionResponse);
     }
 
+    public function export(Request $request)
+    {
+        return $this->responseService->export($request, $this->userRole);
+    }
+
 
     // ---------------------------------
     // UTILITIES

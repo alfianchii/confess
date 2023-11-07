@@ -238,13 +238,11 @@ class ConfessionService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // Credentials
-    $table = $creds["table"];
-    $type = $creds["type"];
-    $fileName = $this->getExportFileName($type);
+    // File name
+    $fileName = $this->getExportFileName($creds["type"]);
 
     // Table
-    if ($table === "all-of-confessions")
+    if ($creds["table"] === "all-of-confessions")
       return (new AllOfConfessionsExport)->download($fileName);
   }
 

@@ -2,7 +2,9 @@
 
 namespace App\Services\Dashboard;
 
+use App\Exports\Confessions\Responses\AllOfResponsesExport;
 use App\Models\{HistoryConfessionResponse, MasterRole, RecConfession, User};
+use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\{Confessable, Responsible};
 use Illuminate\Support\Facades\{Storage, Validator};
 use App\Services\Service;
@@ -14,7 +16,7 @@ class ResponseService extends Service
 {
   // ---------------------------------
   // TRAITS
-  use Confessable, Responsible;
+  use Confessable, Responsible, Exportable;
 
 
   // ---------------------------------
@@ -138,6 +140,19 @@ class ResponseService extends Service
     return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
   }
 
+  public function export(Request $request, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminExport($data);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+
   public function destroyAttachment(User $user, MasterRole $userRole, $idConfessionResponse)
   {
     // Data processing
@@ -196,6 +211,21 @@ class ResponseService extends Service
       "responses" => $sortedResponses,
     ];
     return view("pages.dashboard.actors.admin.responses.create", $viewVariables);
+  }
+  // Export
+  public function adminExport($data)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // File name
+    $fileName = $this->getExportFileName($creds["type"]);
+
+    // Table
+    if ($creds["table"] === "all-of-responses")
+      return (new AllOfResponsesExport)->download($fileName);
   }
 
 
