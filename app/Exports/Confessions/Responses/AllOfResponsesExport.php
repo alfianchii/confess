@@ -78,7 +78,6 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
             strip_tags($response->response),
             $response->attachment_file ? "yes" : 'no',
             $response->updated_by ? "yes" : 'no',
-            $response->image ? "yes" : 'no',
             $response->created_at->format('j F Y, \a\t H.i'),
             $response->confession->student->user->full_name,
             $response->confession->title,
