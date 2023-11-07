@@ -33,7 +33,7 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
     {
         return [
             'title'          => 'All of Confessions Export',
-            'description'    => "Total of confessions that have been made on the " . config('app.name'),
+            'description'    => "Total of confessions that have been made on the " . config('web_config')['TEXT_WEB_TITLE'],
             'subject'        => 'Confessions',
             'keywords'       => 'Confessions,export,spreadsheet',
             'category'       => 'Confessions',

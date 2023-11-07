@@ -39,7 +39,7 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithCustom
     {
         return [
             'title'          => 'All of Users Export',
-            'description'    => "Total of users who have registered on the " . config('app.name'),
+            'description'    => "Total of users who have registered on the " . config('web_config')['TEXT_WEB_TITLE'],
             'subject'        => 'Users',
             'keywords'       => 'Users,export,spreadsheet',
             'category'       => 'Users',
