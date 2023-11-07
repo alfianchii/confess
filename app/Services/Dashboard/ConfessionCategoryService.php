@@ -2,7 +2,9 @@
 
 namespace App\Services\Dashboard;
 
+use App\Exports\Confessions\Categories\ConfessionCategoriesExport;
 use App\Models\{MasterConfessionCategory, User, MasterRole};
+use App\Models\Traits\Exportable;
 use App\Services\Service;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -12,6 +14,11 @@ use Illuminate\Support\Facades\{Storage, Validator};
 
 class ConfessionCategoryService extends Service
 {
+  // ---------------------------------
+  // TRAITS
+  use Exportable;
+
+
   // ---------------------------------
   // PROPERTIES
   protected array $rules = [
@@ -103,6 +110,19 @@ class ConfessionCategoryService extends Service
 
     // Redirect to unauthorized page
     return $this->responseJsonMessage("You are unauthorized to do this action.", 422);
+  }
+
+  public function export(Request $request, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminExport($data);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
   }
 
   public function destroyImage(User $user, MasterRole $userRole, string $slug)
@@ -235,6 +255,21 @@ class ConfessionCategoryService extends Service
 
     // Success
     return $this->responseJsonMessage("Kategori pengakuan $confessionCategory->category_name telah dinonaktifkan!");
+  }
+  // Export
+  public function adminExport($data)
+  {
+    // Validates
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // File name
+    $fileName = $this->getExportFileName($creds["type"]);
+
+    // Table
+    if ($creds["table"] === "confession-categories")
+      return (new ConfessionCategoriesExport)->download($fileName);
   }
   // Destroy image
   private function adminDestroyImage(User $user, $confessionCategory)

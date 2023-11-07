@@ -59,6 +59,11 @@ class MasterConfessionCategoryController extends Controller
         return $this->confessionCategoryService->destroy($this->userData, $this->userRole, $slug);
     }
 
+    public function export(Request $request)
+    {
+        return $this->confessionCategoryService->export($request, $this->userRole);
+    }
+
 
     // ---------------------------------
     // UTILITIES

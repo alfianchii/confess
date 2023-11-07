@@ -123,9 +123,11 @@ Route::group(["middleware" => "auth"], function () {
         // EXPORTS
         // Users
         Route::post('/users/export', "\App\Http\Controllers\Dashboard\MasterUserController@export");
+        // Confession's categories
+        Route::post('/confessions/categories/export', "\App\Http\Controllers\Dashboard\MasterConfessionCategoryController@export");
         // Confessions
         Route::post('/confessions/export', "\App\Http\Controllers\Dashboard\RecConfessionController@export");
-        // Confessions' responses
+        // Confession's responses
         Route::post('/confessions/responses/export', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@export");
     });
 });

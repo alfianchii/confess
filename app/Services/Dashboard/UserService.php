@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard;
 
-use App\Exports\Users\AllOfUsersExport;
+use App\Exports\Users\{AllOfUsersExport, HistoryLoginsExport};
 use App\Models\{HistoryLogin, MasterRole, User};
 use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\Accountable;
@@ -543,6 +543,8 @@ class UserService extends Service
     // Table
     if ($creds["table"] === "all-of-users")
       return (new AllOfUsersExport)->download($fileName);
+    if ($creds["table"] === "history-logins")
+      return (new HistoryLoginsExport)->download($fileName);
   }
   // Settings
   public function adminSettings()
