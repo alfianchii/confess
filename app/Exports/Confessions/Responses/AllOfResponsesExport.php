@@ -75,7 +75,7 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
         return [
             $response->user->full_name,
             $response->user->gender,
-            $response->response,
+            strip_tags($response->response),
             $response->attachment_file ? "yes" : 'no',
             $response->updated_by ? "yes" : 'no',
             $response->image ? "yes" : 'no',

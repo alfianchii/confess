@@ -74,7 +74,7 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
     {
         return [
             $confession->title,
-            $confession->body,
+            strip_tags($confession->body),
             $confession->student->user->full_name,
             $confession->student->user->gender,
             $confession->category->category_name,
