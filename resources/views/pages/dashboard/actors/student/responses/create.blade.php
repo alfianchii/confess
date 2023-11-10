@@ -7,6 +7,11 @@
 @section('additional_links')
     {{-- SweetAlert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
+    {{-- File preview --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}">
     {{-- --------------------------------- Rules --}}
     @if ($confession->status === 'unprocess' || $confession->status === 'process')
         {{-- Quill --}}
@@ -176,7 +181,8 @@
                                         <h4 class="modal-title" id="myModalLabel17">
                                             Foto
                                         </h4>
-                                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                        <button type="button" class="close" data-bs-dismiss="modal"
+                                            aria-label="Close">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -256,8 +262,10 @@
                                     <div class="col-12 mb-1">
                                         <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
                                             <label for="attachment_file" class="form-label">File Pendukung</label>
-                                            <input class="form-control" name="attachment_file" type="file"
-                                                id="attachment_file">
+
+                                            <!-- File preview -->
+                                            <input type="file" id="attachment_file" class="basic-file-filepond"
+                                                name="attachment_file" />
 
                                             @error('attachment_file')
                                                 <div class="invalid-feedback d-block">
@@ -433,6 +441,25 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
+    {{-- Filepond: file preview --}}
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/filepond/basic-file.js'])
     {{-- realrashid/sweetalert --}}
     @include('sweetalert::alert')
     {{-- SweetAlert --}}
