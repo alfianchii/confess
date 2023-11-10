@@ -5,8 +5,7 @@ namespace App\Imports\Users;
 use App\Models\{User, MasterRole};
 use App\Models\Traits\Helpers\Accountable;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\{Hash, Validator};
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\{Hash};
 use Maatwebsite\Excel\Concerns\{
     ToCollection,
     Importable,
@@ -45,7 +44,7 @@ class UsersImport implements ToCollection, WithValidation, WithHeadingRow
             "role" => $this->getRoleId($data["Role"]),
             "gender" => $data["Gender"],
             "email" => $data["Email"],
-            "password" => $data["Password"],
+            "password" => Hash::make($data["Password"]),
             "flag_active" => $data["Active"],
         ];
 

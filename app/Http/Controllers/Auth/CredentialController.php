@@ -78,7 +78,7 @@ class CredentialController extends Controller
                     "fields" => $fields,
                     "redirect" => $redirect,
                     "status" => $status,
-                    "message" => "Akun kamu telah dinonaktifkan!",
+                    "message" => "Akun kamu dinonaktifkan!",
                 ];
             }
 
