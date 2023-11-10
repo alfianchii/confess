@@ -56,7 +56,7 @@ implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping,
         "unique" => "1278901234567834",
         "gender" => "L",
         "email" => "alfian.dev@gmail.com",
-        "flag_active" => "n",
+        "flag_active" => "N",
         "password" => "officer123",
       ],
       [
