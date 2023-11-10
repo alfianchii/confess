@@ -58,10 +58,16 @@
 
                         <div class="d-flex" style="column-gap: 1rem;">
                             {{-- Import --}}
-                            <div class="mb-3 d-flex justify-content-end">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#import-users">
+                            <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="export"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="fa-fw select-all fas me-1"></span> Import
                                 </button>
+                                <div class="dropdown-menu" aria-labelledby="export">
+                                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#import-users">
+                                        <span class="fa-fw select-all fas text-light me-1"></span> Registrasi Pengguna
+                                    </button>
+                                </div>
                             </div>
 
                             {{-- Export --}}
@@ -256,7 +262,7 @@
         </section>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Import Users -->
     <div class="modal fade" id="import-users" tabindex="-1" role="dialog" aria-labelledby="modal-import-users"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -280,8 +286,7 @@
                             <div class="position-relative">
                                 <label for="file" class="form-label">Template</label>
 
-                                <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal"
-                                    data-bs-target="#import-users">
+                                <button type="submit" class="btn btn-primary w-100">
                                     <span class="fa-fw select-all far text-light"></span> Excel
                                 </button>
                             </div>

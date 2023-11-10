@@ -776,7 +776,6 @@ class UserService extends Service
         $credentials = Validator::make($data, $rules, $this->messages)->validate();
         $credentials["role"] = MasterRole::where("role_name", $credentials["role"])->value("id_role");
 
-
         // Update unique
         if (array_key_exists("nip", $credentials))
           $theUser->officer()->update([
