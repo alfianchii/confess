@@ -67,14 +67,14 @@
                                 <img src="{{ asset('images/icon/chat-bubble.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Dapat Tanggapan</h5>
-                            <p class="d-md-block d-none">Pengakuan kamu akan di tanggapi oleh petugas.</p>
+                            <p class="d-md-block d-none">Pengakuan kamu akan ditanggapi oleh petugas.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/Done.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Selesai</h5>
-                            <p class="d-md-block d-none">Selamat, pengakuan kamu sudah terselesaikan!</p>
+                            <p class="d-md-block d-none">Selamat, pengakuan kamu sudah selesai!</p>
                         </div>
                     </div>
                 </div>
@@ -111,9 +111,11 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Privasi Terjaga</h5>
-                                        <p>Aplikasi ini didesain untuk menjaga kerahasiaan informasi pribadi kamu. Dengan
-                                            demikian, kamu dapat merasa tenang dan percaya diri saat menggunakan aplikasi
-                                            ini, karena privasi kamu menjadi prioritas utama.</p>
+                                        <p>
+                                            Aplikasi ini spesial diciptakan buat ngejaga data pribadi kamu tetap aman dan
+                                            terjaga. Jadi, bisa dipakai tanpa was-was, deh! Privasi kamu jadi yang paling
+                                            utama di sini. Nikmatin pengalaman pakai aplikasi tanpa khawatir, yuk~
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -125,10 +127,11 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Melapor dengan Aman</h5>
-                                        <p>{{ config('web_config')['TEXT_WEB_TITLE'] }} menyediakan pengalaman melapor yang
-                                            aman dan terjamin. kamu dapat
-                                            mengungkapkan berbagai permasalahan, pengalaman, atau pikiran tanpa khawatir
-                                            tentang kebocoran identitas kamu.</p>
+                                        <p>{{ config('web_config')['TEXT_WEB_TITLE'] }} memberikan platform melapor
+                                            yang aman dan terpercaya. Di sini, kamu bebas mengungkapkan berbagai
+                                            permasalahan, pengalaman, atau pikiranmu tanpa perlu risau tentang kebocoran
+                                            identitasmu. Kebebasan berbicara, aman, dan nyaman.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -140,10 +143,13 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Ditanggapi Secara Cepat</h5>
-                                        <p>Pengakuan yang kamu buat akan cepat ditanggapi. Dengan demikian, kamu dapat
-                                            merasa didengar dan
-                                            mendapatkan tanggapan yang relevan terhadap keluhan, saran, atau masukan yang
-                                            kamu berikan.</p>
+                                        <p>
+
+                                            Setiap pengakuan yang kamu bagikan bakal segera direspon. Jadi, kamu gak cuma
+                                            bisa berbicara, tapi juga merasa didengar dengan tanggapan yang pas terhadap
+                                            keluhan, saran, atau masukan yang kamu berikan. Ayo, sampaikan pendapatmu, kita
+                                            siap dengerin!
+                                        </p>
                                     </div>
                                 </div>
                             </div>
