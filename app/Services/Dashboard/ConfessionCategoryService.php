@@ -268,7 +268,7 @@ class ConfessionCategoryService extends Service
   {
     // Table
     if ($table === "confession-categories")
-      return (new ConfessionCategoriesExport)->download($fileName, $writterType);
+      return $this->exports((new ConfessionCategoriesExport), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");

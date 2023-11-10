@@ -65,6 +65,16 @@ class MasterUserController extends Controller
         return $this->userService->export($request, $this->userRole);
     }
 
+    public function exportTemplate(Request $request)
+    {
+        return $this->userService->exportTemplate($request, $this->userRole);
+    }
+
+    public function import(Request $request)
+    {
+        return $this->userService->import($request, $this->userRole);
+    }
+
 
     // ---------------------------------
     // UTILITIES

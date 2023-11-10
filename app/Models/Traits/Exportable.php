@@ -42,4 +42,8 @@ trait Exportable
   {
     return constant("\Maatwebsite\Excel\Excel::" . $ext);
   }
+  public function exports($instance, string $fileName, $writterType)
+  {
+    return $instance->download($fileName, $writterType);
+  }
 }

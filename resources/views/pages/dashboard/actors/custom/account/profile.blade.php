@@ -149,7 +149,7 @@
                         <h5 class="card-title">Nonaktifkan Akun Kamu</h5>
                     </div>
                     <div class="card-body">
-                        <p>Akun kamu akan dinonaktifkan secara permanen dan tidak bisa dikembalikan, click "Touch me!" untuk
+                        <p>Akun kamu akan dinonaktifkan secara permanen dan tidak bisa dikembalikan, klik "Touch me!" untuk
                             melanjutkan (jika kamu setuju untuk dinonaktifkan secara permanen).</p>
                         <div class="form-check">
                             <div class="checkbox">

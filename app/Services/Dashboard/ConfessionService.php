@@ -244,9 +244,9 @@ class ConfessionService extends Service
   {
     // Table
     if ($table === "all-of-confessions")
-      return (new AllOfConfessionsExport)->download($fileName, $writterType);
+      return $this->exports((new AllOfConfessionsExport), $fileName, $writterType);
     if ($table === "unprocessed-confessions")
-      return (new UnprocessedConfessionsExport)->download($fileName, $writterType);
+      return $this->exports((new UnprocessedConfessionsExport), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");
@@ -287,11 +287,11 @@ class ConfessionService extends Service
   {
     // Table
     if ($table === "all-of-confessions")
-      return (new AllOfConfessionsExport)->download($fileName, $writterType);
+      return $this->exports((new AllOfConfessionsExport), $fileName, $writterType);
     if ($table === "confessions-handled-by-you")
-      return (new ConfessionsHandledByYouExport)->forAssignedTo($user->id_user)->download($fileName, $writterType);
+      return $this->exports((new ConfessionsHandledByYouExport)->forAssignedTo($user->id_user), $fileName, $writterType);
     if ($table === "unprocessed-confessions")
-      return (new UnprocessedConfessionsExport)->download($fileName, $writterType);
+      return $this->exports((new UnprocessedConfessionsExport), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");
@@ -538,7 +538,7 @@ class ConfessionService extends Service
   {
     // Table
     if ($table === "your-confessions")
-      return (new YourConfessionsExport)->forIdUser($user->id_user)->download($fileName, $writterType);
+      return $this->exports((new YourConfessionsExport)->forIdUser($user->id_user), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");

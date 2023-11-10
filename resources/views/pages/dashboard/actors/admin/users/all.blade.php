@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="{{ asset('assets/compiled/css/table-datatable.css') }}" />
     {{-- Sweetalert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
+    {{-- File preview --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}">
 @endsection
 
 {{-- --------------------------------- Content --}}
@@ -51,47 +56,57 @@
                     <div class="d-flex justify-content-between">
                         <h3>Pengguna</h3>
 
-                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="export"
-                                data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="fa-fw select-all fas me-1"></span> Export
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="export">
-                                <form action="/dashboard/users/export" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="table" value="all-of-users">
-                                    <input type="hidden" name="type" value="XLSX">
-                                    <button type="submit" class="dropdown-item">
-                                        <span class="fa-fw select-all far text-light"></span> Excel
-                                    </button>
-                                </form>
+                        <div class="d-flex" style="column-gap: 1rem;">
+                            {{-- Import --}}
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#import-users">
+                                    <span class="fa-fw select-all fas me-1"></span> Import
+                                </button>
+                            </div>
 
-                                <form action="/dashboard/users/export" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="table" value="all-of-users">
-                                    <input type="hidden" name="type" value="CSV">
-                                    <button type="submit" class="dropdown-item">
-                                        <span class="fa-fw select-all fas text-light"></span> CSV
-                                    </button>
-                                </form>
+                            {{-- Export --}}
+                            <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="export"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="fa-fw select-all fas me-1"></span> Export
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="export">
+                                    <form action="/dashboard/users/export" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="table" value="all-of-users">
+                                        <input type="hidden" name="type" value="XLSX">
+                                        <button type="submit" class="dropdown-item">
+                                            <span class="fa-fw select-all far text-light"></span> Excel
+                                        </button>
+                                    </form>
 
-                                <form action="/dashboard/users/export" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="table" value="all-of-users">
-                                    <input type="hidden" name="type" value="HTML">
-                                    <button type="submit" class="dropdown-item">
-                                        <span class="fa-fw select-all fab text-light"></span> HTML
-                                    </button>
-                                </form>
+                                    <form action="/dashboard/users/export" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="table" value="all-of-users">
+                                        <input type="hidden" name="type" value="CSV">
+                                        <button type="submit" class="dropdown-item">
+                                            <span class="fa-fw select-all fas text-light"></span> CSV
+                                        </button>
+                                    </form>
 
-                                <form action="/dashboard/users/export" method="POST">
-                                    @csrf
-                                    <input type="hidden" name="table" value="all-of-users">
-                                    <input type="hidden" name="type" value="MPDF">
-                                    <button type="submit" class="dropdown-item">
-                                        <span class="fa-fw select-all far text-light"></span> PDF
-                                    </button>
-                                </form>
+                                    <form action="/dashboard/users/export" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="table" value="all-of-users">
+                                        <input type="hidden" name="type" value="HTML">
+                                        <button type="submit" class="dropdown-item">
+                                            <span class="fa-fw select-all fab text-light"></span> HTML
+                                        </button>
+                                    </form>
+
+                                    <form action="/dashboard/users/export" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="table" value="all-of-users">
+                                        <input type="hidden" name="type" value="MPDF">
+                                        <button type="submit" class="dropdown-item">
+                                            <span class="fa-fw select-all far text-light"></span> PDF
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -240,10 +255,103 @@
             </div>
         </section>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="import-users" tabindex="-1" role="dialog" aria-labelledby="modal-import-users"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="modal-import-users">Import Pengguna
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+
+                {{-- Template --}}
+                <form action="/dashboard/users/export/template" method="POST">
+                    @csrf
+                    <div class="modal-body pb-0">
+                        <input type="hidden" name="table" value="users-template">
+                        <input type="hidden" name="type" value="XLSX">
+
+                        <div class="form-group">
+                            <div class="position-relative">
+                                <label for="file" class="form-label">Template</label>
+
+                                <button type="submit" class="btn btn-primary w-100" data-bs-toggle="modal"
+                                    data-bs-target="#import-users">
+                                    <span class="fa-fw select-all far text-light"></span> Excel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                {{-- Import --}}
+                <form class="form" action="/dashboard/users/import" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mandatory">
+                            <div class="position-relative">
+                                <label for="file" class="form-label">File</label>
+
+                                <!-- File preview -->
+                                <input type="file" id="file" class="basic-file-filepond" name="file" />
+                                <!-- Unique -->
+                                <input type="hidden" name="table" value="users-import" />
+
+                                @error('file')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
+                            </div>
+                        </div>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger alert-dismissible show fade">
+                                {!! implode('', $errors->all('<p class="mb-1">:message</p>')) !!}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Close</span>
+                        </button>
+                        <button type="submit" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                            <span class="fa-fw select-all fas"></span> Import
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
+    {{-- Filepond: image auto crop --}}
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/filepond/basic-file.js'])
     {{-- realrashid/sweetalert --}}
     @include('sweetalert::alert')
     {{-- SweetAlert --}}

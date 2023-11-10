@@ -67,3 +67,20 @@ export function imagePreview() {
         })
     );
 }
+
+// Filepond: Basic File
+export function basicFile() {
+    const files = document.querySelectorAll(".basic-file-filepond");
+
+    files.forEach((file) =>
+        FilePond.create(file, {
+            name: "file",
+            credits: null,
+            allowImagePreview: false,
+            allowMultiple: false,
+            allowFileEncode: false,
+            required: false,
+            storeAsFile: true,
+        })
+    );
+}

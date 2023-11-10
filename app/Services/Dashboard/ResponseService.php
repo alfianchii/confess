@@ -226,7 +226,7 @@ class ResponseService extends Service
   {
     // Table
     if ($table === "all-of-responses")
-      return (new AllOfResponsesExport)->download($fileName, $writterType);
+      return $this->exports((new AllOfResponsesExport), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");
@@ -406,9 +406,9 @@ class ResponseService extends Service
   {
     // Table
     if ($table === "all-of-responses")
-      return (new AllOfResponsesExport)->download($fileName, $writterType);
+      return $this->exports((new AllOfResponsesExport), $fileName, $writterType);
     if ($table === "your-responses")
-      return (new YourResponsesExport)->forIdUser($user->id_user)->download($fileName, $writterType);
+      return $this->exports((new YourResponsesExport)->forIdUser($user->id_user), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");
@@ -606,7 +606,7 @@ class ResponseService extends Service
   {
     // Table
     if ($table === "your-responses")
-      return (new YourResponsesExport)->forIdUser($user->id_user)->download($fileName, $writterType);
+      return $this->exports((new YourResponsesExport)->forIdUser($user->id_user), $fileName, $writterType);
 
     // Redirect to not found page
     return view("errors.404");

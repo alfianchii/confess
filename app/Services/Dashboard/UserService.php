@@ -3,8 +3,10 @@
 namespace App\Services\Dashboard;
 
 use App\Exports\Users\{AllOfUsersExport, HistoryLoginsExport};
+use App\Exports\Users\Templates\UsersExport;
+use App\Imports\Users\UsersImport;
 use App\Models\{HistoryLogin, MasterRole, User};
-use App\Models\Traits\Exportable;
+use App\Models\Traits\{Exportable, Importable};
 use App\Models\Traits\Helpers\Accountable;
 use App\Services\Service;
 use Illuminate\Support\Facades\{Validator, Hash, Storage};
@@ -16,7 +18,7 @@ class UserService extends Service
 {
   // ---------------------------------
   // TRAITS
-  use Accountable, Exportable;
+  use Accountable, Exportable, Importable;
 
 
   // ---------------------------------
@@ -25,9 +27,9 @@ class UserService extends Service
     "profile_picture" => ["image", "file", "max:5120"],
     "full_name" => ["required", "max:255"],
     "username" => ["required", "unique:mst_users,username", "min:3", "max:30"],
-    "nik" => ["required", "size:16", "string", "unique:mst_users,nik"],
-    "nip" => ["required", "size:18", "string", "unique:dt_officers,nip"],
-    "nisn" => ["required", "size:10", "string", "unique:dt_students,nisn"],
+    "nik" => ["required", "digits:16", "string", "unique:mst_users,nik"],
+    "nip" => ["required", "digits:18", "string", "unique:dt_officers,nip"],
+    "nisn" => ["required", "digits:10", "string", "unique:dt_students,nisn"],
     "email" => ["nullable", "unique:mst_users,email", "email:rfc,dns"],
     "gender" => ['required'],
     'password' => ['required', 'confirmed', 'min:6'],
@@ -38,9 +40,9 @@ class UserService extends Service
     "profile_picture" => ["image", "file", "max:5120"],
     "full_name" => ["required", "max:255"],
     "username" => ["required", "unique:mst_users,username", "min:3", "max:30"],
-    "nik" => ["required", "size:16", "string"],
-    "nip" => ["required", "size:18", "string"],
-    "nisn" => ["required", "size:10", "string"],
+    "nik" => ["required", "digits:16", "string"],
+    "nip" => ["required", "digits:18", "string"],
+    "nisn" => ["required", "digits:10", "string"],
     "email" => ["nullable", "unique:mst_users,email", "email:rfc,dns"],
   ];
 
@@ -61,15 +63,16 @@ class UserService extends Service
     "username.min" => "Username tidak boleh kurang dari :min karakter.",
     "username.max" => "Username tidak boleh lebih dari :max karakter.",
     "nik.required" => "NIK tidak boleh kosong.",
-    "nik.size" => "NIK harus :size karakter.",
+    "nik.digits" => "NIK harus :digits karakter.",
     "nik.numeric" => "NIK harus berupa angka.",
     "nip.required" => "NIP tidak boleh kosong.",
-    "nip.size" => "NIP harus :size karakter.",
+    "nip.digits" => "NIP harus :digits karakter.",
     "nip.numeric" => "NIP harus berupa angka.",
     "nisn.required" => "NISN tidak boleh kosong.",
-    "nisn.size" => "NISN harus :size karakter.",
+    "nisn.digits" => "NISN harus :digits karakter.",
     "nisn.numeric" => "NISN harus berupa angka.",
     "email.unique" => "Email sudah digunakan.",
+    "email.email" => "Email harus valid.",
     "gender.required" => "Jenis kelamin tidak boleh kosong.",
     "password.required" => "Password tidak boleh kosong.",
     "password.confirmed" => "Password tidak cocok.",
@@ -221,6 +224,44 @@ class UserService extends Service
     // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+  public function exportTemplate(Request $request, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Validates
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminExportTemplate($creds["table"], $fileName, $writterType);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+  public function import(Request $request, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+    $validator = $this->importValidates($data);
+    if ($validator->fails()) return back()->withErrors($validator->messages());
+    $creds = $validator->validate();
+
+    // Validates
+    $extFile = strtoupper($creds["file"]->getClientOriginalExtension());
+    $writterType = $this->getWritterType($extFile);
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminImport($creds["table"], $creds["file"], $writterType);
 
     // Redirect to unauthorized page
     return view("errors.403");
@@ -540,9 +581,29 @@ class UserService extends Service
   {
     // Table
     if ($table === "all-of-users")
-      return (new AllOfUsersExport)->download($fileName, $writterType);
+      return $this->exports((new AllOfUsersExport), $fileName, $writterType);
     if ($table === "history-logins")
-      return (new HistoryLoginsExport)->download($fileName, $writterType);
+      return $this->exports((new HistoryLoginsExport), $fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
+  }
+  // Export template
+  public function adminExportTemplate(string $table, string $fileName, $writterType)
+  {
+    // Table
+    if ($table === "users-template")
+      return $this->exports(new UsersExport, $fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
+  }
+  // Import
+  public function adminImport(string $table, $file, $writterType)
+  {
+    // Table
+    if ($table === "users-import")
+      return $this->imports(new UsersImport, $file, $writterType, "Data pengguna berhasil di-import!");
 
     // Redirect to not found page
     return view("errors.404");
