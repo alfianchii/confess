@@ -116,8 +116,8 @@
                                         </div>
                                         <h5 class="my-3">Privasi Terjaga</h5>
                                         <p>
-                                            Aplikasi ini spesial diciptakan buat ngejaga data pribadi kamu tetap aman dan
-                                            terjaga. Jadi, bisa dipakai tanpa was-was, deh! Privasi kamu jadi yang paling
+                                            Aplikasi ini spesial diciptakan untuk menjaga data pribadi kamu tetap aman dan
+                                            privasi. Jadi, bisa dipakai tanpa was-was, deh! Privasi kamu menjadi yang paling
                                             utama di sini. Nikmatin pengalaman pakai aplikasi tanpa khawatir, yuk~
                                         </p>
                                     </div>
@@ -148,9 +148,8 @@
                                         </div>
                                         <h5 class="my-3">Ditanggapi Secara Cepat</h5>
                                         <p>
-
-                                            Setiap pengakuan yang kamu bagikan akan segera direspon. Jadi, kamu gak cuma
-                                            bisa berbicara, tapi juga merasa didengar dengan tanggapan yang pas terhadap
+                                            Setiap pengakuan yang kamu bagikan akan segera direspon. Jadi, kamu tidak hanya
+                                            bisa 'berbicara', tapi juga merasa 'didengar' dengan tanggapan yang pas terhadap
                                             keluhan, saran, atau masukan yang kamu berikan. Ayo, sampaikan pendapatmu, kita
                                             siap dengerin!
                                         </p>

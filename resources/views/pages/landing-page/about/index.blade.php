@@ -32,23 +32,24 @@
                         Kenapa Diciptakannya {{ config('web_config')['TEXT_WEB_TITLE'] }}?
                     </h2>
                     <p class="fs-5 px-sm-5">
-                        Kami melihat banyak sekali tingkah laku di sekolah yang kurang menyenangkan, seperti pemalakan,
+                        Pihak sekolah melihat banyak sekali tingkah laku di sekolah yang kurang menyenangkan, seperti
+                        pemalakan,
                         penindasan,
-                        dan lain sebagainya. Maka dari itu, kami harap dengan adanya
+                        dan lain sebagainya. Maka dari itu, pihak sekolah harap dengan adanya
                         {{ config('web_config')['TEXT_WEB_TITLE'] }}, akan
                         membantu
-                        kamu yang menjadi korban untuk lapor ke
-                        guru atau staff lewat {{ config('web_config')['TEXT_WEB_TITLE'] }}. Agar kita bisa bersama-sama
+                        kamu yang menjadi korban untuk melapor ke
+                        guru atau staff melalui {{ config('web_config')['TEXT_WEB_TITLE'] }}. Agar kita bisa bersama-sama
                         menghadang hal-hal seperti itu. {{ config('web_config')['TEXT_WEB_TITLE'] }} juga bisa menjadi
                         tempat buat kamu yang punya ide-ide
                         kreatif
                         untuk membangun karakteristik {{ config('web_config')['TEXT_FOOTER_DASHBOARD'] }} agar bisa
-                        berkembang menjadi lebih baik lagi.
+                        berkembang menjadi lebih baik lagi!
                     </p>
 
                     <div class="text-center">
                         <h2 class=" my-5">
-                            Lokasi Kami
+                            Lokasi
                         </h2>
 
                         {!! config('web_config')['TEXT_WEB_LOCATION'] !!}
