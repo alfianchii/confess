@@ -46,35 +46,39 @@
                                 <img src="{{ asset('images/icon/edit-property.svg') }}" alt="icon" width="32">
                             </div>
                             <h5 class="mt-2">Tulis Pengakuan</h5>
-                            <p class="d-md-block d-none">Tuliskan pengakuan kamu secara menyeluruh.</p>
+                            <p class="d-md-block d-none">Bagikan ceritamu dengan lengkap dan detail.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/in-progress.svg') }}" alt="icon" width="36">
                             </div>
                             <h5 class="mt-2">Proses Verifikasi</h5>
-                            <p class="d-md-block d-none">Pengakuan kamu akan diverifikasi dan diteruskan.</p>
+                            <p class="d-md-block d-none">Pengakuan kamu akan dicek dan diverifikasi terlebih dahulu.
+                            </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/Messaging.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
-                            <p class="d-md-block d-none">Petugas akan menindaklanjuti pengakuan kamu.</p>
+                            <p class="d-md-block d-none">Petugas akan melanjutkan dan mengurus dengan sigap
+                                pengakuannya.
+                            </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/chat-bubble.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Dapat Tanggapan</h5>
-                            <p class="d-md-block d-none">Pengakuan kamu akan ditanggapi oleh petugas.</p>
+                            <p class="d-md-block d-none">Setelahnya, pengakuanmu akan mendapatkan tanggapan dari petugas.
+                            </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/Done.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Selesai</h5>
-                            <p class="d-md-block d-none">Selamat, pengakuan kamu sudah selesai!</p>
+                            <p class="d-md-block d-none">Selamat! Pengakuanmu udah selesai diproses oleh petugas~</p>
                         </div>
                     </div>
                 </div>
@@ -145,7 +149,7 @@
                                         <h5 class="my-3">Ditanggapi Secara Cepat</h5>
                                         <p>
 
-                                            Setiap pengakuan yang kamu bagikan bakal segera direspon. Jadi, kamu gak cuma
+                                            Setiap pengakuan yang kamu bagikan akan segera direspon. Jadi, kamu gak cuma
                                             bisa berbicara, tapi juga merasa didengar dengan tanggapan yang pas terhadap
                                             keluhan, saran, atau masukan yang kamu berikan. Ayo, sampaikan pendapatmu, kita
                                             siap dengerin!
