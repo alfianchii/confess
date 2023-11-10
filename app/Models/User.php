@@ -2,56 +2,73 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    // ---------------------------------
+    // TRAITS
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
+
+    // ---------------------------------
+    // PROPERTIES
+    protected $table = 'mst_users';
+    protected $primaryKey = 'id_user';
     protected $guarded = [
-        'id',
+        'id_user',
     ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function getRouteKeyName()
+    // ---------------------------------
+    // RELATIONSHIPS
+    public function officer()
     {
-        return "username";
+        return $this->hasOne(DTOfficer::class, 'id_user', 'id_user');
     }
 
     public function student()
     {
-        return $this->hasOne(Student::class, 'student_nik', 'nik');
+        return $this->hasOne(DTStudent::class, 'id_user', 'id_user');
     }
 
-    public function officer()
+    public function userRole()
     {
-        return $this->hasOne(Officer::class, 'officer_nik', 'nik');
+        return $this->hasOne(MasterUserRole::class, "id_user", "id_user");
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(HistoryConfessionResponse::class, "id_user", "id_user");
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(RecConfessionComment::class, "id_user", "id_user");
+    }
+
+
+    // ---------------------------------
+    // HELPERS
+
+
+    // ---------------------------------
+    // UTILITIES
+    public function getAuthPassword()
+    {
+        return $this->password;
+    }
+
+    public function getRouteKeyName()
+    {
+        return "username";
     }
 }

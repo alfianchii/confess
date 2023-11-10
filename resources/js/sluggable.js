@@ -1,16 +1,19 @@
+import axios from "axios";
+import userSession from "./helpers/user-session";
+
 // Sluggable
 export function sluggable(input, sluggable, uri) {
     let slug = document.querySelector("#slug");
 
-    input.addEventListener("change", function () {
-        if (!input.value) {
-            slug.value = "";
-        } else {
-            fetch(`${uri}/checkSlug?${sluggable}=${input.value}`)
-                .then((response) => response.json())
-                .then((data) => {
-                    slug.value = data.slug;
-                });
-        }
+    input.addEventListener("change", async function () {
+        if (!input.value) return (slug.value = "");
+
+        const { data } = await axios.request({
+            method: "post",
+            url: `${uri}/check-slug?${sluggable}=${input.value}`,
+            data: { userSession },
+        });
+
+        slug.value = data.slug;
     });
 }

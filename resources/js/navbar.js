@@ -13,28 +13,9 @@ function scroll() {
 }
 
 //panggil saat inisialisasi
-scroll();
+// scroll();
 
 // panggil saat discroll
-window.onscroll = () => {
-    scroll();
-};
-
-// const nav = document.querySelector(".navbar");
-// let showTimeout = null;
-
-// window.addEventListener("scroll", function () {
-//     hideNav();
-
-//     if (showTimeout !== null) {
-//         this.clearTimeout(showTimeout);
-//     }
-//     showTimeout = this.setTimeout(showNav, 100);
-// });
-
-// function hideNav() {
-//     nav.style.top = "-100px";
-// }
-// function showNav() {
-//     nav.style.top = "0";
-// }
+// window.onscroll = () => {
+//     scroll();
+// };

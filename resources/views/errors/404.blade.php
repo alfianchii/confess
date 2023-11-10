@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{{ config('app.name') }} | 404</title>
+    <title>{{ config('web_config')['TEXT_WEB_TITLE'] }} | 404</title>
 
     @include('errors.partials.link')
 </head>

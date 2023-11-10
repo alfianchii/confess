@@ -3,10 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-
-use App\Models\{User, Complaint, Category, Response};
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,10 +14,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(CategorySeeder::class);
-        $this->call(ComplaintSeeder::class);
-        $this->call(ResponseSeeder::class);
-        $this->call(SettingSeeder::class);
+        $this->call(MasterUserSeeder::class);
+        $this->call(MasterRoleSeeder::class);
+        $this->call(MasterUserRoleSeeder::class);
+        $this->call(DTStudentsSeeder::class);
+        $this->call(DTOfficersSeeder::class);
+        $this->call(MasterConfessionCategorySeeder::class);
+        $this->call(RecConfessionSeeder::class);
+        $this->call(HistoryConfessionResponseSeeder::class);
+        $this->call(RecConfessionCommentSeeder::class);
+        $this->call(HistoryLoginSeeder::class);
+        $this->call(SettingWebsiteSeeder::class);
     }
 }

@@ -2,66 +2,53 @@
 
 namespace App\Services\Dashboard;
 
-use App\Models\{Response, Complaint};
+use App\Models\{User, RecConfession, HistoryConfessionResponse, HistoryLogin, MasterRole, RecConfessionComment};
+use App\Services\Service;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
-class ChartService
+class ChartService extends Service
 {
-    public function yourResponseAxises()
-    {
-        return Response::yourResponseAxises();
-    }
+    // ---------------------------------
+    // PROPERTIES
+    protected array $rules = [
+        "session" => ["required", "integer"]
+    ];
 
-    public function allResponseAxises()
-    {
-        return Response::allResponseAxises();
-    }
 
-    public function yourComplaintAxises()
+    // ---------------------------------
+    // HELPERS
+    public function isValidate($validator)
     {
-        return Complaint::yourComplaintAxises();
-    }
-
-    public function allComplaintAxises()
-    {
-        return Complaint::allComplaintAxises();
-    }
-
-    public function responses($user, $body)
-    {
-        // ---------------------------------
-        // Fetching validations
-        $validator = Validator::make($body, [
-            "username" => ["required", "min:3"],
-            "email" => ["required", "email"],
-        ]);
-
         if ($validator->fails()) return response()->json([
             "message" => "Some credentials were missing!",
             "error" => "Unprocessable Entity",
         ], 422);
+    }
+
+    public function isAuthorize(int $user_session, $session)
+    {
+        if ($user_session !== $session) return response()->json([
+            "message" => "You are unauthorized!",
+            "error" => "Forbidden",
+        ], 403);
+    }
+
+
+    // ---------------------------------
+    // CORES
+    public function init(Request $request, User $user, MasterRole $userRole)
+    {
+        $data = $request->json()->all();
+        $validator = Validator::make($data, $this->rules);
+        $this->isValidate($validator);
 
         $credentials = $validator->validate();
+        $user_session = session("issued_time");
+        $this->isAuthorize($user_session, $credentials["session"]);
 
-        $userAuth = [
-            "username" => auth()->user()->username,
-            "email" => auth()->user()->email,
-        ];
-
-        foreach ($userAuth as $item => $value) {
-            if ($credentials[$item] !== $value) return response()->json([
-                "message" => "You are unauthorized!",
-                "error" => "Forbidden",
-            ], 403);
-        }
-
-        // Response
-        $responseAxises = $this->yourResponseAxises();
-        $allResponseAxises = $this->allResponseAxises();
-
-        // Complaint
-        $complaintAxises = $this->yourComplaintAxises();
-        $allComplaintAxises = $this->allComplaintAxises();
+        // User's role
+        $roleName = $userRole->role_name;
 
         // JSON response
         $results = [
@@ -70,27 +57,103 @@ class ChartService
             ],
             "authentication" => [
                 "data" => [
-                    "level" => auth()->user()->level,
+                    "role" => $roleName,
                 ],
             ],
         ];
 
-        // Check level
-        if ($user->level === "admin") {
-            // All complaints
-            $results['chart']["data"]["allComplaints"] = $allComplaintAxises;
-            // All responses
-            $results['chart']["data"]["allResponses"] = $allResponseAxises;
-            // Your responses
-            $results['chart']["data"]["responses"] = $responseAxises;
-        } else if ($user->level === "officer") {
-            $results['chart']["data"]["allResponses"] = $allResponseAxises;
-            $results['chart']["data"]["responses"] = $responseAxises;
-        } else if ($user->level === "student") {
-            $results['chart']["data"]["allComplaints"] = $allComplaintAxises;
-            $results['chart']["data"]["complaints"] = $complaintAxises;
-        }
+        return $this->chart($user, $roleName, $results);
+    }
 
+    private function chart(User $user, string $roleName, array $results)
+    {
+        // Roles checking
+        if ($roleName === "admin") return $this->adminChart($user, $results);
+        if ($roleName === "officer") return $this->officerChart($user, $results);
+        if ($roleName === "student") return $this->studentChart($user, $results);
+    }
+
+    public function index(Request $request, User $user, MasterRole $userRole)
+    {
+        return $this->init($request, $user, $userRole);
+    }
+
+
+    // ---------------------------------
+    // UTILITIES
+    private function adminChart(User $user, array $results)
+    {
+        // Confession
+        $confessionAxises = RecConfession::confessionAxises();
+
+        // Response
+        $responseAxises = HistoryConfessionResponse::responseAxises();
+
+        // Comment
+        $yourCommentAxises = RecConfessionComment::yourCommentAxises($user);
+        $commentAxises = RecConfessionComment::commentAxises();
+
+        // Login History
+        $yourHistoryLoginAxises = HistoryLogin::yourHistoryLoginAxises($user);
+        $historyLoginAxises = HistoryLogin::historyLoginAxises();
+
+        // Fill out
+        $results['chart']["data"]["allConfessions"] = $confessionAxises;
+        $results['chart']["data"]["allResponses"] = $responseAxises;
+        $results['chart']["data"]["allComments"] = $commentAxises;
+        $results['chart']["data"]["yourComments"] = $yourCommentAxises;
+        $results['chart']["data"]["allHistoryLogins"] = $historyLoginAxises;
+        $results['chart']["data"]["yourHistoryLogins"] = $yourHistoryLoginAxises;
+
+        // Return as JSON format
+        return response()->json($results);
+    }
+
+    private function officerChart(User $user, array $results)
+    {
+        // Confession
+        $confessionGenderAxises = RecConfession::confessionAxises()["genders"];
+
+        // Response
+        $yourResponseAxises = HistoryConfessionResponse::yourResponseAxises($user);
+
+        // Comment
+        $yourCommentAxises = RecConfessionComment::yourCommentAxises($user);
+
+        // Login History
+        $yourHistoryLoginAxises = HistoryLogin::yourHistoryLoginAxises($user);
+
+        // Fill out
+        $results['chart']["data"]["confessionGenders"] = $confessionGenderAxises;
+        $results['chart']["data"]["yourResponses"] = $yourResponseAxises;
+        $results['chart']["data"]["yourComments"] = $yourCommentAxises;
+        $results['chart']["data"]["yourHistoryLogins"] = $yourHistoryLoginAxises;
+
+        // Return as JSON format
+        return response()->json($results);
+    }
+
+    private function studentChart(User $user, array $results)
+    {
+        // Confession
+        $yourConfessionAxises = RecConfession::yourConfessionAxises($user);
+
+        // Response
+        $yourResponseAxises = HistoryConfessionResponse::yourResponseAxises($user);
+
+        // Comment
+        $yourCommentAxises = RecConfessionComment::yourCommentAxises($user);
+
+        // Login History
+        $yourHistoryLoginAxises = HistoryLogin::yourHistoryLoginAxises($user);
+
+        // Fill out
+        $results['chart']["data"]["yourConfessions"] = $yourConfessionAxises;
+        $results['chart']["data"]["yourResponses"] = $yourResponseAxises;
+        $results['chart']["data"]["yourComments"] = $yourCommentAxises;
+        $results['chart']["data"]["yourHistoryLogins"] = $yourHistoryLoginAxises;
+
+        // Return as JSON format
         return response()->json($results);
     }
 }
