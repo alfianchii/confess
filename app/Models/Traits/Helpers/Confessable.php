@@ -6,6 +6,8 @@ use App\Models\{User, RecConfession, MasterConfessionCategory};
 
 trait Confessable
 {
+  // ---------------------------------
+  // METHODS
   public function isYourConfession(User $user, RecConfession $confession, $message = "Pengakuan ini bukan milikmu.")
   {
     if ($confession->id_user !== $user->id_user) throw new \Exception($message);

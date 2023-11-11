@@ -18,7 +18,6 @@ trait Daily
   {
     return now()->daysInMonth;
   }
-
   public function greeting()
   {
     // Timezone

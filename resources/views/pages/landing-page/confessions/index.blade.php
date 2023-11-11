@@ -32,6 +32,13 @@
                                     value="{{ request('search') }}">
                                 <button class="btn btn-color text-white" id="search-button" type="submit">Search</button>
                             </div>
+
+                            {{-- Reset Filters --}}
+                            @if (!empty(request()->all()))
+                                <div class="mb-3 text-center">
+                                    <a class="btn btn-color text-white" href="{{ url()->current([]) }}">Reset Filters</a>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
@@ -54,15 +61,9 @@
 
                             <div class="card-body text-center">
                                 <h3 class="card-title d-inline-block">{{ $confessions[0]->title }}</h3>
-                                @if ($confessions[0]->privacy == 'public')
-                                    <a href="/confessions?privacy=anyone">
-                                        <small>({{ $confessions[0]->privacy }})</small>
-                                    </a>
-                                @elseif($confessions[0]->privacy == 'anonymous')
-                                    <a href="/confessions?privacy=private">
-                                        <small>({{ $confessions[0]->privacy }})</small>
-                                    </a>
-                                @endif
+                                <a href="{{ url('/confessions?privacy=' . $confessions[0]->privacy) }}">
+                                    <small>({{ $confessions[0]->privacy }})</small>
+                                </a>
                                 <p>
                                     <small class="text-muted">
                                         By
@@ -86,31 +87,25 @@
                                 </p>
 
                                 <div class="mb-4">
-                                    @if ($confessions[0]->status == 'unprocess')
-                                        <a href="/confessions?status=not">
+                                    <a href="{{ url('/confessions?status=' . $confessions[0]->status) }}">
+                                        @if ($confessions[0]->status == 'unprocess')
                                             <span class="badge bg-light-danger">
                                                 Belum diproses
                                             </span>
-                                        </a>
-                                    @elseif ($confessions[0]->status == 'process')
-                                        <a href="/confessions?status=proc">
+                                        @elseif ($confessions[0]->status == 'process')
                                             <span class="badge bg-light-info">
                                                 Sedang diproses
                                             </span>
-                                        </a>
-                                    @elseif ($confessions[0]->status == 'release')
-                                        <a href="/confessions?status=leash">
+                                        @elseif ($confessions[0]->status == 'release')
                                             <span class="badge bg-light">
                                                 Release
                                             </span>
-                                        </a>
-                                    @elseif ($confessions[0]->status == 'close')
-                                        <a href="/confessions?status=done">
+                                        @elseif ($confessions[0]->status == 'close')
                                             <span class="badge bg-light-success">
                                                 Selesai
                                             </span>
-                                        </a>
-                                    @endif
+                                        @endif
+                                    </a>
                                 </div>
 
                                 <hr>
@@ -148,19 +143,13 @@
 
                                 <div class="card-body">
                                     <h5 class="card-title d-inline-block">{{ $confession->title }}</h5>
-                                    @if ($confession->privacy == 'public')
-                                        <a href="/confessions?privacy=anyone">
-                                            <small>({{ $confession->privacy }})</small>
-                                        </a>
-                                    @elseif($confession->privacy == 'anonymous')
-                                        <a href="/confessions?privacy=anon">
-                                            <small>({{ $confession->privacy }})</small>
-                                        </a>
-                                    @endif
+                                    <a href="{{ url('/confessions?privacy=' . $confession->privacy) }}">
+                                        <small>({{ $confession->privacy }})</small>
+                                    </a>
                                     <p>
                                         <small class="text-muted">By
                                             @if ($confession->privacy == 'anonymous')
-                                                *******
+                                                {{ str_repeat('*', strlen($confession->student->user->full_name)) }}
                                             @else
                                                 <a href="/confessions?user={{ $confession->student->user->username }}">
                                                     {{ $confession->student->user->full_name }}
@@ -172,31 +161,25 @@
                                     </p>
 
                                     <div class="mb-4">
-                                        @if ($confessions[0]->status == 'unprocess')
-                                            <a href="/confessions?status=not">
+                                        <a href="{{ url('/confessions?status=' . $confession->status) }}">
+                                            @if ($confession->status == 'unprocess')
                                                 <span class="badge bg-light-danger">
                                                     Belum diproses
                                                 </span>
-                                            </a>
-                                        @elseif ($confessions[0]->status == 'process')
-                                            <a href="/confessions?status=proc">
+                                            @elseif ($confession->status == 'process')
                                                 <span class="badge bg-light-info">
                                                     Sedang diproses
                                                 </span>
-                                            </a>
-                                        @elseif ($confessions[0]->status == 'release')
-                                            <a href="/confessions?status=leash">
+                                            @elseif ($confession->status == 'release')
                                                 <span class="badge bg-light">
                                                     Release
                                                 </span>
-                                            </a>
-                                        @elseif ($confessions[0]->status == 'close')
-                                            <a href="/confessions?status=done">
+                                            @elseif ($confession->status == 'close')
                                                 <span class="badge bg-light-success">
                                                     Selesai
                                                 </span>
-                                            </a>
-                                        @endif
+                                            @endif
+                                        </a>
                                     </div>
 
                                     <hr>

@@ -296,30 +296,18 @@ class RecConfession extends Model
         );
 
         /* SEARCH: STATUS */
-        if (isset($filters["status"])) {
-            $str = "";
-
-            // Convert enum
-            if ($filters["status"] == "not") $str = "0";
-            if ($filters["status"] == "proc") $str = "1";
-            if ($filters["status"] == "done") $str = "2";
-
-            // Do query
-            // return $query->where("status", $str);
-            return $query->where("status", $str);
-        }
+        $query->when(
+            $filters["status"] ?? false,
+            fn ($query, $status) =>
+            $query->where("status", $status)
+        );
 
         /* SEARCH: PRIVACY */
-        if (isset($filters["privacy"])) {
-            $str = "";
-
-            // Convert enum
-            if ($filters["privacy"] == "anyone") $str = "public";
-            if ($filters["privacy"] == "private") $str = "anonymous";
-
-            // Do query
-            return $query->where('privacy', $str);
-        }
+        $query->when(
+            $filters["privacy"] ?? false,
+            fn ($query, $privacy) =>
+            $query->where("privacy", $privacy)
+        );
     }
 
 

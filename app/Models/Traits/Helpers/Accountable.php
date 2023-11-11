@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 
 trait Accountable
 {
+  // ---------------------------------
+  // METHODS
   public function updateUserRules(array $rules, User $theUser, array $data)
   {
     $theUserRole = $theUser->userRole->role->role_name;

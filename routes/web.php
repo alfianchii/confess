@@ -24,13 +24,18 @@ Route::get("/login", "\App\Http\Controllers\Auth\CredentialController@index")->n
 Route::post("/login", "\App\Http\Controllers\Auth\CredentialController@authenticate")->middleware("guest");
 Route::post("/logout", "\App\Http\Controllers\Auth\CredentialController@logout")->middleware("auth");
 
+
 // ---------------------------------
 // Authentications Routes
 Route::group(["middleware" => "auth"], function () {
     // ---------------------------------
     // Homepage Routes
-    Route::match(['get', 'post'], '/confessions', "\App\Http\Controllers\Home\ConfessionController@index");
-    Route::get('/categories', "\App\Http\Controllers\Home\CategoryController@index");
+    // Route: /
+    // ---------------------------------
+    // Confession Routes
+    Route::match(["get", "post"], "/confessions", "\App\Http\Controllers\Home\ConfessionController@index");
+    Route::get("/categories", "\App\Http\Controllers\Home\CategoryController@index");
+
 
     // ---------------------------------
     // Dashboard Routes
