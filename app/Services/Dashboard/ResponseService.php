@@ -155,8 +155,8 @@ class ResponseService extends Service
     // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType);
-    if ($roleName === "officer") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
-    if ($roleName === "student") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
+    if ($roleName === "officer") return $this->officerExport($creds["table"], $fileName, $writterType, $user);
+    if ($roleName === "student") return $this->studentExport($creds["table"], $fileName, $writterType, $user);
 
     // Redirect to unauthorized page
     return view("errors.403");
