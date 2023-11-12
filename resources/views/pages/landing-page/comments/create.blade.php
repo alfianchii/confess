@@ -62,17 +62,25 @@
                             @else
                                 @if ($isUserImageExist($confession->student->user->profile_picture))
                                     @if (File::exists(public_path('images/' . $confession->student->user->profile_picture)))
-                                        <img src="{{ asset('images/' . $confession->student->user->profile_picture) }}"
+                                        <img style="cursor: pointer;"
+                                            onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                            src="{{ asset('images/' . $confession->student->user->profile_picture) }}"
                                             alt="User Avatar" />
                                     @else
-                                        <img src="{{ asset('storage/' . $confession->student->user->profile_picture) }}"
+                                        <img style="cursor: pointer;"
+                                            onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                            src="{{ asset('storage/' . $confession->student->user->profile_picture) }}"
                                             alt="User Avatar" />
                                     @endif
                                 @else
                                     @if ($confession->student->user->gender === 'L')
-                                        <img src="{{ asset('assets/static/images/faces/2.jpg') }}" alt="User Avatar" />
+                                        <img style="cursor: pointer;"
+                                            onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                            src="{{ asset('assets/static/images/faces/2.jpg') }}" alt="User Avatar" />
                                     @else
-                                        <img src="{{ asset('assets/static/images/faces/5.jpg') }}" alt="User Avatar" />
+                                        <img style="cursor: pointer;"
+                                            onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                            src="{{ asset('assets/static/images/faces/5.jpg') }}" alt="User Avatar" />
                                     @endif
                                 @endif
                             @endif
@@ -294,18 +302,26 @@
                                                 @else
                                                     @if ($isUserImageExist($comment->user->profile_picture))
                                                         @if (File::exists(public_path('images/' . $comment->user->profile_picture)))
-                                                            <img src="{{ asset('images/' . $comment->user->profile_picture) }}"
+                                                            <img style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $comment->user->username }}'"
+                                                                src="{{ asset('images/' . $comment->user->profile_picture) }}"
                                                                 alt="User Avatar" />
                                                         @else
-                                                            <img src="{{ asset('storage/' . $comment->user->profile_picture) }}"
+                                                            <img style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $comment->user->username }}'"
+                                                                src="{{ asset('storage/' . $comment->user->profile_picture) }}"
                                                                 alt="User Avatar" />
                                                         @endif
                                                     @else
                                                         @if ($comment->user->gender === 'L')
-                                                            <img src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                            <img style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $comment->user->username }}'"
+                                                                src="{{ asset('assets/static/images/faces/2.jpg') }}"
                                                                 alt="User Avatar" />
                                                         @else
-                                                            <img src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                            <img style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $comment->user->username }}'"
+                                                                src="{{ asset('assets/static/images/faces/5.jpg') }}"
                                                                 alt="User Avatar" />
                                                         @endif
                                                     @endif
@@ -337,8 +353,10 @@
                                                         <a href="/users/{{ $comment->user->username }}"
                                                             class="font-bold mb-3 d-inline-block">{{ $comment->user->full_name }}</a>
                                                     @else
-                                                        <a href="/users/{{ $comment->user->username }}"
-                                                            class="font-bold text-light">{{ $comment->user->full_name }}</a>
+                                                        <p onclick="window.location.href='/users/{{ $comment->user->username }}'"
+                                                            class="font-bold mb-0" style="cursor: pointer;">
+                                                            {{ $comment->user->full_name }}
+                                                        </p>
                                                     @endif
                                                 @endif
 

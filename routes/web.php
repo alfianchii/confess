@@ -45,6 +45,10 @@ Route::group(["middleware" => "auth"], function () {
     // Confession's Categories Routes
     Route::match(["get", "post"], '/confessions/categories', "\App\Http\Controllers\Home\ConfessionCategoryController@index");
 
+    // ---------------------------------
+    // Profile Routes
+    Route::get('/users/{user:username}', "\App\Http\Controllers\Home\UserController@index");
+
 
     // ---------------------------------
     // Dashboard Routes
