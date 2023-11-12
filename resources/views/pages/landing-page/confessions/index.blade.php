@@ -5,47 +5,47 @@
 
 {{-- --------------------------------- Links --}}
 @section('additional_links')
-@endsection
-
-{{-- --------------------------------- Content --}}
-@section('content')
     <section class="container px-4">
         <div class="page-heading">
             <div class="page-title">
                 <div class="row justify-content-center">
                     <div class="col-12 mb-3 header-about mt-3">
-                        <div class="text-center mt-4 mt-sm-5">
-                            <h2>Pengakuan</h2>
-                        </div>
+                        <h2>Pengakuan</h2>
+                        <p class="text-subtitle text-muted">
+                            Daftar seluruh pengakuan yang telah dibuat oleh siswa/i.
+                        </p>
+                        <hr>
                     </div>
-                </div>
 
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <form class="mx-auto" action="/confessions">
-                            @if (request('user'))
-                                <input type="hidden" name="user" value="{{ request('user') }}">
-                            @elseif(request('status'))
-                                <input type="hidden" name="status" value="{{ request('status') }}">
-                            @elseif(request('privacy'))
-                                <input type="hidden" name="privacy" value="{{ request('privacy') }}">
-                            @elseif(request('category'))
-                                <input type="hidden" name="category" value="{{ request('category') }}">
-                            @endif
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <form action="/confessions">
+                                @if (request('user'))
+                                    <input type="hidden" name="user" value="{{ request('user') }}">
+                                @elseif(request('status'))
+                                    <input type="hidden" name="status" value="{{ request('status') }}">
+                                @elseif(request('privacy'))
+                                    <input type="hidden" name="privacy" value="{{ request('privacy') }}">
+                                @elseif(request('category'))
+                                    <input type="hidden" name="category" value="{{ request('category') }}">
+                                @endif
 
-                            <div class="input-group mb-3">
-                                <input type="text" name="search" class="form-control" placeholder="Search ..."
-                                    value="{{ request('search') }}">
-                                <button class="btn btn-color text-white" id="search-button" type="submit">Search</button>
-                            </div>
-
-                            {{-- Reset Filters --}}
-                            @if (!empty(request()->all()))
-                                <div class="mb-3 text-center">
-                                    <a class="btn btn-color text-white" href="{{ url()->current([]) }}">Reset Filters</a>
+                                <div class="input-group mb-3">
+                                    <input type="text" name="search" class="form-control" placeholder="Cari ..."
+                                        value="{{ request('search') }}">
+                                    <button class="btn btn-color text-white" id="search-button"
+                                        type="submit">Search</button>
                                 </div>
-                            @endif
-                        </form>
+
+                                {{-- Reset Filters --}}
+                                @if (!empty(request()->all()))
+                                    <div class="mb-3 text-center">
+                                        <a class="btn btn-color text-white" href="{{ url()->current([]) }}">Reset
+                                            Filters</a>
+                                    </div>
+                                @endif
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -217,6 +217,10 @@
             </div>
         </div>
     </section>
+@endsection
+
+{{-- --------------------------------- Content --}}
+@section('content')
 @endsection
 
 {{-- --------------------------------- Scripts --}}
