@@ -9,82 +9,137 @@
 
 {{-- --------------------------------- Content --}}
 @section('content')
-    <div class="col-12 col-sm-5 bg pt-3">
-        <div class=" d-flex pt-3 pt-sm-0 align-items-center">
-            <a href="/" class=" ms-3 ms-sm-5 me-auto  mb-2 mb-sm-5 logo-login">
-                {{-- Default --}}
-                @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE'])))
-                    <img src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE']) }}"
-                        alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
-                @else
-                    <img src="{{ asset('storage/' . config('web_config')['IMAGE_WEB_LOGO_WHITE']) }}"
-                        alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
-                @endif
-            </a>
-            <div class="text-end me-3 ms-sm-5 mb-2 mb-sm-5 d-block d-sm-none">
-                <a href="/" class="text-white opacity-75">Kembali</a>
+    <div class="d-flex flex-column mx-auto justify-content-center align-items-center w-100">
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="/" class="d-block mt-5 mb-4">
+                        {{-- Default --}}
+                        @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_FAVICON'])))
+                            <img src="{{ asset('images/' . config('web_config')['IMAGE_WEB_FAVICON']) }}"
+                                alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
+                        @else
+                            <img src="{{ asset('storage/' . config('web_config')['IMAGE_WEB_FAVICON']) }}"
+                                alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
+                        @endif
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="text-center illus-login">
-            <img src="{{ asset('images/illust.png') }}" alt="logo" width="60%" />
-        </div>
-    </div>
 
-    <div class="col-12 col-sm-7 pt-3">
-        <div class="text-end me-3 pt-3 me-sm-5 d-sm-block d-none">
-            <a href="/" class="text-secondary">Kembali</a>
-        </div>
-        <h1 class="w-100 fw-bold text-center mt-5 mt-sm-0 mb-0 p-0 pt-sm-5 fs-3">MASUK</h1>
-
-        @if (session()->has('error'))
-            <div class="alert alert-danger alert-dismissible show fade">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="row w-100 position-relative">
+            <div class="col-md-3">
+                <img class="position-absolute login-1" width="600"
+                    src="{{ asset('images/illustrations/login-visual-1.svg') }}" alt="Visual">
             </div>
-        @endif
 
-        <div class="card mt-5 p-sm-4 p-2 mb-0 border-start-0 border-end-0 margin-form">
-            <div class="card-body">
-                <form action="/login" method="post" class="">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="username" class="form-label">Username</label>
-                        <input type="text" class="form-control p-2 mt-1 @error('username') is-invalid @enderror"
-                            id="username" name="username" value="{{ old('username') }}" />
-                        @error('username')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+            <div class="col-11 col-md-6 col-lg-5 mx-auto">
+                <div class="card shadow-lg" style="border-top: 2px solid #6777ef;">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Login</li>
+                                    </ol>
+                                </nav>
                             </div>
-                        @enderror
-                    </div>
-                    <div class="mb-5">
-                        <label for="password" class="form-label">Password</label>
-                        <div class="d-flex flex-row-reverse align-items-center" id="wrapper">
-                            <input type="password" class="form-control p-2 mt-1 @error('password') is-invalid @enderror"
-                                id="password" name="password" />
-                            <button type="button" class="btn bg-transparent show-password" id="show-btn"
-                                data-bs-toggle="tooltip" data-bs-title="Tampilkan/sembunyikan password.">
-                                <i class="bi bi-eye-slash-fill"></i>
-                            </button>
-                        </div>
-                        @error('password')
-                            <div class="invalid-feedback d-block">
-                                {{ $message }}
+
+                            <div class="pb-4">
+                                <h4 class="card-title">Login</h4>
+                                <p class="card-text">
+                                    Masukkan username dan password kamu.
+                                </p>
                             </div>
-                        @enderror
-                        <div class="text-end mt-3">
-                            <a href="# " class="form-text">Lupa password?</a>
+
+                            {{-- Session --}}
+                            @if (session()->has('error'))
+                                <div class="alert alert-danger alert-dismissible show fade">
+                                    <small class="fs-6 text-white">
+                                        <i class="bi bi-exclamation-triangle-fill text-white me-2 align-text-bottom"></i>
+                                        {{ session('error') }}
+                                    </small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @elseif (session()->has('success'))
+                                <div class="alert alert-success alert-dismissible show fade">
+                                    <small class="fs-6 text-white">
+                                        <i class="bi bi-patch-check text-white me-2 align-text-bottom"></i>
+                                        {{ session('success') }}
+                                    </small>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                </div>
+                            @endif
+
+                            <form class="form" action="/login" method="post">
+                                @csrf
+
+                                <div class="form-body">
+                                    <div class="form-group">
+                                        <label for="username" class="form-label">Username</label>
+                                        <input type="text"
+                                            class="form-control @error('username'){{ 'is-invalid' }}@enderror"
+                                            id="username" name="username" value="{{ old('username') }}"
+                                            placeholder="e.g. alfianchii" />
+
+                                        @error('username')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password" class="form-label">Password</label>
+                                        <div class="d-flex flex-row-reverse align-items-center" id="wrapper">
+                                            <input type="password"
+                                                class="form-control @error('password'){{ 'is-invalid' }}@enderror"
+                                                id="password" name="password" placeholder="e.g. 4kuBu7uhM3dk1t" />
+                                            <button type="button" class="btn bg-transparent show-password" id="show-btn"
+                                                data-bs-toggle="tooltip" data-bs-title="Tampilkan/sembunyikan password.">
+                                                <i class="bi bi-eye-slash-fill"></i>
+                                            </button>
+                                        </div>
+
+                                        @error('password')
+                                            <div class="invalid-feedback d-block">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="form-actions d-flex justify-content-end mt-4">
+                                    <button type="submit" class="w-100 btn-primary btn text-white p-2">Masuk</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div class="text-start mt-3">
-                        <button type="submit" class="w-100 btn-color btn text-white p-2">Masuk</button>
-                    </div>
-                </form>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <img class="position-absolute login-2" width="600"
+                    src="{{ asset('images/illustrations/login-visual-2.svg') }}" alt="Visual">
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center my-4 px-5">
+                    <small class="text-muted fw-light">Belum memiliki akun? Coba tanyakan kepada pihak
+                        sekolah, ya.</small>
+                </div>
+            </div>
+        </div>
+
         {{-- Base layouts: footer --}}
-        <div class="d-flex justify-content-center">
-            @include('pages.auth.layouts.footer')
+        <div class="row">
+            <div class="col-12">
+                @include('pages.auth.layouts.footer')
+            </div>
         </div>
     </div>
 @endsection

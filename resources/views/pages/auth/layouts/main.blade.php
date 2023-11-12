@@ -11,8 +11,8 @@
     @yield('additional_links')
 </head>
 
-<body>
-    <div class="row d-block d-sm-flex height">
+<body style="overflow-x: hidden;">
+    <div class="row height">
         {{-- Base layouts --}}
         @yield('content')
     </div>
