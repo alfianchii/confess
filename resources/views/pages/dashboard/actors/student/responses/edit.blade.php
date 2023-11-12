@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
+    {{-- File preview --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}">
 @endsection
 
 {{-- --------------------------------- Content --}}
@@ -102,8 +107,10 @@
                                         <div class="col-12 mb-2">
                                             <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
                                                 <label for="attachment_file" class="form-label">File Pendukung</label>
-                                                <input class="form-control" name="attachment_file" type="file"
-                                                    id="attachment_file">
+
+                                                <!-- File preview -->
+                                                <input type="file" id="attachment_file" class="basic-file-filepond"
+                                                    name="attachment_file" />
 
                                                 @error('attachment_file')
                                                     <div class="invalid-feedback d-block">
@@ -169,6 +176,25 @@
         {{ Session::forget('alert') }}
     @endif
 
+    {{-- Filepond: file preview --}}
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/filepond/basic-file.js'])
     {{-- Quill --}}
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
     @vite(['resources/js/quill/confession/response/response.js'])
