@@ -35,6 +35,14 @@ class ConfessionService extends Service
     $username = User::firstWhere("username", request("user"))->full_name ?? "";
     $title = $this->confessionRequests($data, $username, $category);
 
+    return $this->allIndex($title, $confessions);
+  }
+
+
+  // ---------------------------------
+  // UTILITIES
+  public function allIndex(string $title, $confessions)
+  {
     // Passing out a view
     $viewVariables = [
       "title" => "Pengakuan $title",
@@ -42,8 +50,4 @@ class ConfessionService extends Service
     ];
     return view("pages.landing-page.confessions.index", $viewVariables);
   }
-
-
-  // ---------------------------------
-  // UTILITIES
 }

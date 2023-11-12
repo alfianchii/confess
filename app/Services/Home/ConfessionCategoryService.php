@@ -22,13 +22,20 @@ class ConfessionCategoryService extends Service
   {
     // Data processing
     $data = $request->only(["search"]);
-
     $confessionCategories = MasterConfessionCategory::with(["confessions"])
       ->orderBy("category_name", "asc")
       ->filter($data)
       ->paginate(3)
       ->withQueryString();
 
+    return $this->allIndex($confessionCategories);
+  }
+
+
+  // ---------------------------------
+  // UTILITIES
+  public function allIndex($confessionCategories)
+  {
     // Passing out a view
     $viewVariables = [
       "title" => "Kategori Pengakuan",
@@ -36,8 +43,4 @@ class ConfessionCategoryService extends Service
     ];
     return view("pages.landing-page.confession-categories.index", $viewVariables);
   }
-
-
-  // ---------------------------------
-  // UTILITIES
 }

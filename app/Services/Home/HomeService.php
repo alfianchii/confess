@@ -19,8 +19,17 @@ class HomeService extends Service
   // CORES
   public function index()
   {
+    // Data processing
     $confessionsCount = RecConfession::count();
 
+    return $this->allIndex($confessionsCount);
+  }
+
+
+  // ---------------------------------
+  // UTILITIES
+  public function allIndex($confessionsCount)
+  {
     // Passing out a view
     $viewVariables = [
       "title" => "Selamat Datang",
@@ -28,8 +37,4 @@ class HomeService extends Service
     ];
     return view("pages.landing-page.home.index", $viewVariables);
   }
-
-
-  // ---------------------------------
-  // UTILITIES
 }
