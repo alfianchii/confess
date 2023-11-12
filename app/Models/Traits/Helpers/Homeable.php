@@ -2,8 +2,6 @@
 
 namespace App\Models\Traits\Helpers;
 
-use Illuminate\Http\Request;
-
 trait Homeable
 {
   // ---------------------------------

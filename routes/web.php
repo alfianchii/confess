@@ -34,7 +34,12 @@ Route::group(["middleware" => "auth"], function () {
     // ---------------------------------
     // Confession Routes
     Route::match(["get", "post"], "/confessions", "\App\Http\Controllers\Home\ConfessionController@index");
-    Route::get("/categories", "\App\Http\Controllers\Home\CategoryController@index");
+
+    // ---------------------------------
+    // Comment Routes
+    Route::resource("confessions.comments", "\App\Http\Controllers\Home\CommentController")->shallow()->except(["show", "index"]);
+    // Destroy (attachment)
+    Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Home\CommentController@destroyAttachment");
 
 
     // ---------------------------------
@@ -109,7 +114,7 @@ Route::group(["middleware" => "auth"], function () {
 
         // ---------------------------------
         // Response Routes
-        Route::resource('confessions.responses', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController")->shallow()->except(["show", "index"]);
+        Route::resource("confessions.responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController")->shallow()->except(["show", "index"]);
         // Index
         Route::get("/confessions/responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@index");
         // Destroy (attachment)

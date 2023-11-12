@@ -1,7 +1,13 @@
 @extends('pages.landing-page.layouts.main')
 
+{{-- --------------------------------- Title --}}
 @section('title', $title)
 
+{{-- --------------------------------- Links --}}
+@section('additional_links')
+@endsection
+
+{{-- --------------------------------- Content --}}
 @section('content')
     <section class="container px-4">
         <div class="page-heading">
@@ -69,7 +75,7 @@
                                         By
 
                                         @if ($confessions[0]->privacy == 'anonymous')
-                                            {{ str_repeat('*', strlen($confessions[0]->student->user->full_name)) }}
+                                            <i>"rahasia"</i>
                                         @elseif($confessions[0]->privacy == 'public')
                                             <a href="/confessions?user={{ $confessions[0]->student->user->username }}">
                                                 {{ $confessions[0]->student->user->full_name }}
@@ -114,7 +120,8 @@
                                     <p class="card-text">{{ $confessions[0]->excerpt }}</p>
                                 </div>
 
-                                <a class="btn btn-color text-white" href="/confessions/{{ $confessions[0]->slug }}">
+                                <a class="btn btn-color text-white"
+                                    href="/confessions/{{ $confessions[0]->slug }}/comments/create">
                                     Selengkapnya ...
                                 </a>
                             </div>
@@ -149,7 +156,7 @@
                                     <p>
                                         <small class="text-muted">By
                                             @if ($confession->privacy == 'anonymous')
-                                                {{ str_repeat('*', strlen($confession->student->user->full_name)) }}
+                                                <i>"rahasia"</i>
                                             @else
                                                 <a href="/confessions?user={{ $confession->student->user->username }}">
                                                     {{ $confession->student->user->full_name }}
@@ -187,7 +194,8 @@
                                     <p class="card-text">{{ $confession->excerpt }}</p>
 
                                     <div class="mt-4">
-                                        <a class="btn btn-color text-white" href="/confessions/{{ $confession->slug }}">
+                                        <a class="btn btn-color text-white"
+                                            href="/confessions/{{ $confession->slug }}/comments/create">
                                             Selengkapnya ...
                                         </a>
                                     </div>
@@ -209,4 +217,10 @@
             </div>
         </div>
     </section>
+@endsection
+
+{{-- --------------------------------- Scripts --}}
+@section('additional_scripts')
+    {{-- realrashid/sweetalert --}}
+    @include('sweetalert::alert')
 @endsection

@@ -245,7 +245,7 @@
 
                                 <div class="row">
                                     <div class="col-12 mb-1">
-                                        <fieldset class="form-group">
+                                        <fieldset class="form-group mandatory">
                                             <label for="status" class="form-label">Status</label>
                                             <select class="form-select" id="status" name="status">
                                                 <option value="process"

@@ -49,7 +49,8 @@ class RecConfession extends Model
 
     public function comments()
     {
-        return $this->hasMany(RecConfessionComment::class, "id_confession", "id_confession");
+        return $this->hasMany(RecConfessionComment::class, "id_confession", "id_confession")
+            ->latest();
     }
 
 
