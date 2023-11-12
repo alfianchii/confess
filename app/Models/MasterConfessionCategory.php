@@ -43,6 +43,19 @@ class MasterConfessionCategory extends Model
         return "slug";
     }
 
+    public function scopeFilter($query, array $filters)
+    {
+        /* SEARCH: CATEGORY */
+        $query->when(
+            $filters["search"] ?? false,
+            fn ($query, $search) =>
+            $query->where(
+                fn ($query) =>
+                $query->Where("category_name", "like", "%" . $search . "%")
+            )
+        );
+    }
+
 
     // ---------------------------------
     // UTILITIES

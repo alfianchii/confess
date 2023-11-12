@@ -5,6 +5,10 @@
 
 {{-- --------------------------------- Links --}}
 @section('additional_links')
+@endsection
+
+{{-- --------------------------------- Content --}}
+@section('content')
     <section class="container px-4">
         <div class="page-heading">
             <div class="page-title">
@@ -31,10 +35,9 @@
                                 @endif
 
                                 <div class="input-group mb-3">
-                                    <input type="text" name="search" class="form-control" placeholder="Cari ..."
-                                        value="{{ request('search') }}">
-                                    <button class="btn btn-color text-white" id="search-button"
-                                        type="submit">Search</button>
+                                    <input type="text" name="search" class="form-control"
+                                        placeholder="e.g. Kemarin siang aku ..." value="{{ request('search') }}">
+                                    <button class="btn btn-color text-white" id="search-button" type="submit">Cari</button>
                                 </div>
 
                                 {{-- Reset Filters --}}
@@ -217,10 +220,6 @@
             </div>
         </div>
     </section>
-@endsection
-
-{{-- --------------------------------- Content --}}
-@section('content')
 @endsection
 
 {{-- --------------------------------- Scripts --}}

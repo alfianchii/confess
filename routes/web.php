@@ -41,6 +41,10 @@ Route::group(["middleware" => "auth"], function () {
     // Destroy (attachment)
     Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Home\CommentController@destroyAttachment");
 
+    // ---------------------------------
+    // Confession's Categories Routes
+    Route::match(["get", "post"], '/confessions/categories', "\App\Http\Controllers\Home\ConfessionCategoryController@index");
+
 
     // ---------------------------------
     // Dashboard Routes

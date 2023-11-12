@@ -26,7 +26,8 @@ class ConfessionService extends Service
     $data = $request->only(["user", "search", "category", "status", "privacy"]);
 
     // Title
-    $confessions = RecConfession::with(["category", "student.user", "comments"])->latest()
+    $confessions = RecConfession::with(["category", "student.user", "comments"])
+      ->latest()
       ->filter($data)
       ->paginate(7)
       ->withQueryString();
