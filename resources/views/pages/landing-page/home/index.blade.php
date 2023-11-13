@@ -107,7 +107,7 @@
                             <h2 class="text-center">Keuntungan Menggunakan {{ config('web_config')['TEXT_WEB_TITLE'] }}</h2>
                         </div>
                         <div class="row card-keuntungan d-block d-md-flex justify-content-center text-center mx-auto">
-                            <div class="col">
+                            <div class="col-12 col-lg-4">
                                 <div class="card ms-auto">
                                     <div class="card-body">
                                         <div class="ellipse">
@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12 col-lg-4">
                                 <div class="card mx-auto">
                                     <div class="card-body">
                                         <div class="ellipse">
@@ -139,7 +139,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12 col-lg-4">
                                 <div class="card me-auto">
                                     <div class="card-body">
                                         <div class="ellipse">
