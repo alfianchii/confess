@@ -15,7 +15,7 @@
 <body>
     <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
 
-    <div id="app">
+    <div id="app" style="overflow-x: hidden;">
         {{-- Base layouts --}}
         @include('pages.landing-page.layouts.navbar')
         @yield('content')
