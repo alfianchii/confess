@@ -22,7 +22,7 @@
                 <div class="container mt-4 text-center ">
                     <p class="fs-5 px-sm-5">
                         {{ config('web_config')['TEXT_WEB_TITLE'] }} adalah wadah khusus bagi kamu, siswa/i
-                        {{ config('web_config')['TEXT_FOOTER_DASHBOARD'] }}, buat
+                        {{ config('web_config')['TEXT_FOOTER'] }}, buat
                         berbagi pengakuan, laporan, kritik, saran, atau aspirasi selama berada di sekolah ini. Dengan
                         hadirnya aplikasi {{ config('web_config')['TEXT_WEB_TITLE'] }}, harapannya kamu jadi lebih berani
                         dan terbuka ketika berkomunikasi dengan
@@ -43,7 +43,7 @@
                         menghadang hal-hal seperti itu. {{ config('web_config')['TEXT_WEB_TITLE'] }} juga bisa menjadi
                         tempat buat kamu yang punya ide-ide
                         kreatif
-                        untuk membangun karakteristik {{ config('web_config')['TEXT_FOOTER_DASHBOARD'] }} agar bisa
+                        untuk membangun karakteristik {{ config('web_config')['TEXT_FOOTER'] }} agar bisa
                         berkembang menjadi lebih baik lagi!
                     </p>
 
