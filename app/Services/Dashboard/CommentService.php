@@ -94,9 +94,6 @@ class CommentService extends Service
     // Insert comment
     $comment = RecConfessionComment::setComment($user, $confession, $credentials["comment"], $credentials["privacy"], $optFields);
 
-    // Update confession
-    $confession->update($credentials);
-
     // Success
     return redirect($this->createCommentsURLWithParam($confession->slug) . base64_encode($comment->id_confession_comment))->withSuccess("Komentar kamu berhasil dibuat.");
   }
