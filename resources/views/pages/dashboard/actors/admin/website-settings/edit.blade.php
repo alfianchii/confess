@@ -321,6 +321,30 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-12 mb-1">
+                                            <div
+                                                class="form-group has-icon-left mandatory @error('LINK_SOCMED_INSTAGRAM'){{ 'is-invalid' }}@enderror">
+                                                <label for="LINK_SOCMED_INSTAGRAM" class="form-label">Link Social Media
+                                                    Instagram</label>
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder="https://instagram.com/smkn4kotatangerang"
+                                                        id="LINK_SOCMED_INSTAGRAM" name="LINK_SOCMED_INSTAGRAM"
+                                                        value="{{ old('LINK_SOCMED_INSTAGRAM', config('web_config')['LINK_SOCMED_INSTAGRAM']) }}"
+                                                        maxlength="255" />
+                                                    <div class="form-control-icon">
+                                                        <i class="bi bi-instagram py-2"></i>
+                                                    </div>
+                                                    @error('LINK_SOCMED_INSTAGRAM')
+                                                        <div class="invalid-feedback d-block">
+                                                            {{ $message }}
+                                                        </div>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-12 mt-3 d-flex justify-content-start">
                                             <button type="submit" class="btn btn-primary me-1 mb-1">
                                                 Submit

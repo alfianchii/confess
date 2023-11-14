@@ -28,6 +28,7 @@ class WebsiteService extends Service
     "IMAGE_WEB_FAVICON" => ["nullable", "file", "image", "mimes:png,jpg", "max:5120"],
     "IMAGE_FOOTER" => ["nullable", "file", "image", "mimes:png,jpg", "max:5120"],
     "IMAGE_FOOTER_DASHBOARD" => ["nullable", "file", "image", "mimes:png,jpg", "max:5120"],
+    "LINK_SOCMED_INSTAGRAM" => ["required", "string", "max:255"],
   ];
 
   protected array $messages = [
@@ -63,6 +64,10 @@ class WebsiteService extends Service
     "IMAGE_WEB_FAVICON.file" => "Favicon website harus berupa file.",
     "IMAGE_WEB_FAVICON.image" => "Favicon website harus berupa gambar.",
     "IMAGE_WEB_FAVICON.mimes" => "Favicon website harus berupa file dengan format: :values.",
+
+    "LINK_SOCMED_INSTAGRAM.required" => "Link medsos Instagram tidak boleh kosong.",
+    "LINK_SOCMED_INSTAGRAM.string" => "Link medsos Instagram harus berupa string.",
+    "LINK_SOCMED_INSTAGRAM.max" => "Link medsos Instagram tidak boleh lebih dari :max karakter.",
   ];
 
 

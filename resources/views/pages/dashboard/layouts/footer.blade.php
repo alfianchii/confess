@@ -17,7 +17,7 @@
                     <p class="fs-5 fw-semibold">Media Sosial</p>
                 </div>
                 <div class="col-12 mt-md-4">
-                    <a target="_blank" class="text-white" href="https://www.instagram.com/smkn4kotatangerang/">
+                    <a target="_blank" class="text-white" href="{{ config('web_config')['LINK_SOCMED_INSTAGRAM'] }}">
                         <i class="bi bi-instagram fs-1"></i>
                     </a>
                 </div>
