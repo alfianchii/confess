@@ -47,7 +47,7 @@
                     <li>
                         <a class="dropdown-item @if (Request::is('dashboard/users/account')) active @endif"
                             href="/dashboard/users/account"><i class="icon-mid bi bi-person me-2"></i>
-                            Profil Saya</a>
+                            Profil Kamu</a>
                     </li>
                     <li>
                         <a class="dropdown-item @if (Request::is('dashboard/users/account/settings*')) active @endif"

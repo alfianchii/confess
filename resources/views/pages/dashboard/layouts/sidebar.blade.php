@@ -80,20 +80,28 @@
 
                 <li class="sidebar-item {{ str_contains(request()->url(), 'responses') ? 'active' : '' }}">
                     <a href="/dashboard/confessions/responses" class="sidebar-link">
-                        <i class="bi bi-chat-text-fill"></i>
+                        <i class="bi bi-chat-left-heart"></i>
                         <span>Tanggapan</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item {{ Request::is('dashboard/confessions/comments*') ? 'active' : '' }}">
                     <a href="/dashboard/confessions/comments" class="sidebar-link">
-                        <i class="bi bi-chat-left-heart"></i>
+                        <i class="bi bi-chat-text-fill"></i>
                         <span>Komentar</span>
                     </a>
                 </li>
 
                 @can('admin')
                     <li class="sidebar-title">Admin</li>
+                    <li
+                        class="sidebar-item {{ Request::is('dashboard/confessions/confession-categories*') ? 'active' : '' }}">
+                        <a href="/dashboard/confessions/confession-categories" class="sidebar-link">
+                            <i class="bi bi-card-list"></i>
+                            <span>Kategori Pengakuan</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-item has-sub @if (Request::is('dashboard/users*') and !str_contains(request()->url(), 'account')) {{ 'active' }} @endif">
                         <a href="#" class="sidebar-link">
                             <i class="bi bi-person-circle"></i>
@@ -112,14 +120,6 @@
                                 <a class="submenu-link" href="/dashboard/users/history-logins">Riwayat Login</a>
                             </li>
                         </ul>
-                    </li>
-
-                    <li
-                        class="sidebar-item {{ Request::is('dashboard/confessions/confession-categories*') ? 'active' : '' }}">
-                        <a href="/dashboard/confessions/confession-categories" class="sidebar-link">
-                            <i class="bi bi-card-list"></i>
-                            <span>Kategori Pengakuan</span>
-                        </a>
                     </li>
                 @endcan
 
