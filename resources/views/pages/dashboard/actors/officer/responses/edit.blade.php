@@ -52,7 +52,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/responses">Tanggapan</a>
+                                <a href="/dashboard/confessions/responses">Tanggapan</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Sunting
@@ -68,8 +68,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title d-inline-block">Tanggapan</h3> <a
-                                href="/dashboard/confessions/{{ $confession->slug }}/responses/create?response={{ base64_encode($response->id_confession_response) }}"><small>({{ $confession->privacy }})</small></a>
+                            <h3 class="card-title d-inline-block">Tanggapan</h3>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -87,8 +86,7 @@
                                                     <label for="response" class="form-label">Isi Tanggapan</label>
 
                                                     <input id="response" name="response"
-                                                        value="{{ old('response') ?? $response->response }}"
-                                                        type="hidden">
+                                                        value="{{ old('response') ?? $response->response }}" type="hidden">
                                                     <div id="editor">
                                                         {!! old('response') ?? $response->response !!}
                                                     </div>

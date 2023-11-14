@@ -2,10 +2,12 @@
 
 namespace App\Models\Traits\Helpers;
 
-use App\Models\{User, RecConfession, HistoryConfessionResponse};
+use App\Models\{User, HistoryConfessionResponse};
 
 trait Responsible
 {
+  // ---------------------------------
+  // METHODS
   public function isYourResponse(User $user, HistoryConfessionResponse $response, $message = "Tanggapan tidak ditemukan.")
   {
     if ($response->id_user !== $user->id_user) throw new \Exception($message);

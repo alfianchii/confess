@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - {{ config('web_config')['TEXT_WEB_TITLE'] }}</title>
     {{-- Base styles --}}
     @include('pages.landing-page.partials.link')
@@ -14,7 +15,7 @@
 <body>
     <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
 
-    <div id="app">
+    <div id="app" style="overflow-x: hidden;">
         {{-- Base layouts --}}
         @include('pages.landing-page.layouts.navbar')
         @yield('content')

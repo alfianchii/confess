@@ -14,6 +14,6 @@ class RecConfessionCommentSeeder extends Seeder
      */
     public function run()
     {
-        RecConfessionComment::factory(100)->create();
+        RecConfessionComment::factory(1000)->create();
     }
 }

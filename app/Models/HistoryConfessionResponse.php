@@ -6,7 +6,6 @@ use App\Models\Traits\Daily;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 use function PHPUnit\Framework\isEmpty;
 
 class HistoryConfessionResponse extends Model
@@ -206,7 +205,7 @@ class HistoryConfessionResponse extends Model
         $responseFields = [
             "id_confession" => $confession->id_confession,
             "id_user" => $user["id_user"],
-            "response" => $response ?? $confession->body,
+            "response" => $response,
             "confession_status" => $status ?? $confession->status,
             "created_by" => $user["full_name"],
             "system_response" => $bySystem,

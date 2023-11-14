@@ -6,6 +6,7 @@ use App\Models\Traits\Daily;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use function PHPUnit\Framework\isEmpty;
 
 class RecConfessionComment extends Model
 {
@@ -147,6 +148,67 @@ class RecConfessionComment extends Model
         }
 
         return $axises;
+    }
+
+    public static function setComment(User $user, RecConfession $confession, $comment = null, string $privacy, $params = [])
+    {
+        // Response
+        $commentFields = [
+            "id_confession" => $confession->id_confession,
+            "id_user" => $user["id_user"],
+            "comment" => $comment,
+            "privacy" => $privacy,
+            "created_by" => $user["full_name"],
+        ];
+
+        // Set another field
+        if (isEmpty($params)) {
+            foreach ($params as $key => $value) {
+                $commentFields[$key] = $value;
+            }
+        };
+
+        return RecConfessionComment::create($commentFields);
+    }
+
+    // Populate the data based on the per page
+    public function scopePaginateCommentsFromConfession($query, int $perPage)
+    {
+        return $query
+            ->with(["confession.comments"])
+            ->get()
+            ->each(function ($comment) use ($perPage) {
+                // Get the confession's comments
+                $commentsFromConfession = $comment->confession->comments;
+
+                // Take the sum of confession's comments
+                $total = $commentsFromConfession->count();
+                // Take the page numbers for the pagination's number
+                $pageNumbers = (int) ceil($total / $perPage);
+
+                // Slice the comments based on the $perPage
+                $confessionComments = [];
+                // If more than $perPage (more than 1 page)
+                if ($total >= $perPage)
+                    for ($index = 0; $index < $pageNumbers; $index++)
+                        $confessionComments[] = $commentsFromConfession
+                            ->skip($index * $perPage)
+                            ->take($perPage)
+                            ->all();
+                // If less than $perPage (1 page)
+                else
+                    $confessionComments[] = $commentsFromConfession->all();
+
+                foreach ($confessionComments as $items_index => $items) {
+                    // Set the page
+                    $page = $items_index + 1;
+
+                    foreach ($items as $item)
+                        // Regist the comment's page to eachcomment 
+                        if ($item->id_confession_comment === $comment->id_confession_comment)
+                            $comment->page = $page;
+                }
+            });
     }
 
 

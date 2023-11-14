@@ -129,12 +129,27 @@ html[data-bs-theme="dark"] * .sidebar-header .logo span {
 .logo-login img {
     width: 50%;
 }
+
+.login-1 {
+    top: -35%;
+    right: 0;
+    z-index: -2;
+}
+.login-2 {
+    bottom: 9.5%;
+    transform: scaleX(-1);
+    z-index: -2;
+}
 .illus-login img {
     width: 60%;
 }
 
 .header-about {
     padding-top: 100px;
+}
+
+.login-card-header {
+    border-top: 2px solid #435ebe;
 }
 
 .alur-lapor {
@@ -406,6 +421,10 @@ html[data-bs-theme="dark"] .ql-editor p {
 }
 
 @media only screen and (max-width: 374px) {
+    .login-2 {
+        left: 450px;
+        display: none;
+    }
     .margin-form {
         margin: 0 15px;
     }
@@ -492,6 +511,17 @@ html[data-bs-theme="dark"] .ql-editor p {
         right: 0;
     }
 }
+@media only screen and (max-width: 576px) {
+    .login-2 {
+        display: none;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .login-2 {
+        display: none;
+    }
+}
+
 @media only screen and (min-width: 360px) and (max-width: 360.9px) {
     .dropdown-menu[data-bs-popper] {
         top: 12%;
@@ -799,6 +829,12 @@ html[data-bs-theme="dark"] .ql-editor p {
     }
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .login-1 {
+        right: 45%;
+    }
+    .login-2 {
+        left: 45%;
+    }
     p.fs-5 {
         font-size: 1.2rem !important;
     }
@@ -880,6 +916,12 @@ html[data-bs-theme="dark"] .ql-editor p {
     }
 }
 @media only screen and (min-width: 991px) and (max-width: 1200px) {
+    .login-1 {
+        right: 55%;
+    }
+    .login-2 {
+        left: 55%;
+    }
     .garis {
         margin-top: 3.5%;
         width: 70%;
@@ -902,6 +944,12 @@ html[data-bs-theme="dark"] .ql-editor p {
     }
 }
 @media only screen and (min-width: 1200px) and (max-width: 1440px) {
+    .login-1 {
+        right: 60%;
+    }
+    .login-2 {
+        left: 60%;
+    }
     .garis {
         margin-top: 2.8%;
         width: 70%;
@@ -921,6 +969,12 @@ html[data-bs-theme="dark"] .ql-editor p {
     }
 }
 @media only screen and (min-width: 1440px) and (max-width: 1700px) {
+    .login-1 {
+        right: 65%;
+    }
+    .login-2 {
+        left: 65%;
+    }
     .garis {
         margin-top: 2.5%;
         width: 69%;
@@ -946,6 +1000,12 @@ html[data-bs-theme="dark"] .ql-editor p {
     }
 }
 @media only screen and (min-width: 1700px) {
+    .login-1 {
+        right: 70%;
+    }
+    .login-2 {
+        left: 70%;
+    }
     .garis {
         margin-top: 1.5%;
         left: 29%;

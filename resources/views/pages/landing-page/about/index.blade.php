@@ -20,33 +20,36 @@
 
             <div class="col-12">
                 <div class="container mt-4 text-center ">
-                    <p class="fs-5 px-sm-5"> {{ config('web_config')['TEXT_WEB_TITLE'] }} merupakan tempat bagi kamu yang
-                        menjadi
-                        bagian siswa/i {{ config('web_config')['TEXT_FOOTER_DASHBOARD'] }} untuk membuat pengakuan, laporan,
-                        kritik, saran,
-                        ataupun aspirasi selama menjadi siswa/i di sekolah ini. Dengan dibuatnya aplikasi
-                        {{ config('web_config')['TEXT_WEB_TITLE'] }}, kami berharap
-                        bahwa kamu akan menjadi lebih berani dan terbuka kepada sekolah untuk mengatasi
-                        permasalahan-permasalahan yang ada. </p>
+                    <p class="fs-5 px-sm-5">
+                        {{ config('web_config')['TEXT_WEB_TITLE'] }} adalah wadah khusus bagi kamu, siswa/i
+                        {{ config('web_config')['TEXT_FOOTER'] }}, buat
+                        berbagi pengakuan, laporan, kritik, saran, atau aspirasi selama berada di sekolah ini. Dengan
+                        hadirnya aplikasi {{ config('web_config')['TEXT_WEB_TITLE'] }}, harapannya kamu jadi lebih berani
+                        dan terbuka ketika berkomunikasi dengan
+                        sekolah untuk menangani berbagai permasalahan yang mungkin ada.
+                    </p>
                     <h2 class="mt-5 mb-4">
                         Kenapa Diciptakannya {{ config('web_config')['TEXT_WEB_TITLE'] }}?
                     </h2>
-                    <p class="fs-5 px-sm-5">Karena kami melihat banyak sekali tindakan-tindakan yang tidak mencerminkan
-                        seorang siswa/i sekolah seperti pemalakan, pembulian, pencurian dan masih banyak lagi yang terjadi
-                        di sekolah ini, dengan adanya {{ config('web_config')['TEXT_WEB_TITLE'] }} kami ingin membantu
-                        siswa/i
-                        yang menjadi korban untuk melaporkan masalah ini ke guru ataupun staff yang ada di sekolah ini
-                        melalui
-                        {{ config('web_config')['TEXT_WEB_TITLE'] }}. Jadi kami bisa
-                        sedikit demi sedikit memberantas tindakan-tindakan seperti itu. Selain itu
-                        {{ config('web_config')['TEXT_WEB_TITLE'] }} juga bisa
-                        digunakan sebagai wadah untuk kamu yang mempunyai ide-ide kreatif yang dapat membangun
-                        karakteristik {{ config('web_config')['TEXT_FOOTER_DASHBOARD'] }}.
+                    <p class="fs-5 px-sm-5">
+                        Pihak sekolah melihat banyak sekali tingkah laku di sekolah yang kurang menyenangkan, seperti
+                        pemalakan,
+                        penindasan,
+                        dan lain sebagainya. Maka dari itu, pihak sekolah harap dengan adanya
+                        {{ config('web_config')['TEXT_WEB_TITLE'] }}, akan
+                        membantu
+                        kamu yang menjadi korban untuk melapor ke
+                        guru atau staff melalui {{ config('web_config')['TEXT_WEB_TITLE'] }}. Agar kita bisa bersama-sama
+                        menghadang hal-hal seperti itu. {{ config('web_config')['TEXT_WEB_TITLE'] }} juga bisa menjadi
+                        tempat buat kamu yang punya ide-ide
+                        kreatif
+                        untuk membangun karakteristik {{ config('web_config')['TEXT_FOOTER'] }} agar bisa
+                        berkembang menjadi lebih baik lagi!
                     </p>
 
                     <div class="text-center">
                         <h2 class=" my-5">
-                            Lokasi Kami
+                            Lokasi
                         </h2>
 
                         {!! config('web_config')['TEXT_WEB_LOCATION'] !!}

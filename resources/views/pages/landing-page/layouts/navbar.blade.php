@@ -28,12 +28,12 @@
                 </li>
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ Request::is('confessions*') ? 'border-bottom border-3 fw-bold' : '' }}"
+                        <a class="nav-link text-white {{ Request::is('confessions*') && !str_contains(request()->url(), 'categories') ? 'border-bottom border-3 fw-bold' : '' }}"
                             href="/confessions">Pengakuan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ Request::is('categories') ? 'border-bottom border-3 fw-bold' : '' }}"
-                            href="/categories">Kategori</a>
+                        <a class="nav-link text-white {{ Request::is('confessions/categories') ? 'border-bottom border-3 fw-bold' : '' }}"
+                            href="/confessions/categories">Kategori</a>
                     </li>
                 @endauth
             </ul>
@@ -42,7 +42,7 @@
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle text-white" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false"> Selamat datang,
+                            data-bs-toggle="dropdown" aria-expanded="false"> Hai,
                             {{ $userData->full_name }}!</a>
                         <ul class="dropdown-menu">
                             <li>

@@ -46,35 +46,39 @@
                                 <img src="{{ asset('images/icon/edit-property.svg') }}" alt="icon" width="32">
                             </div>
                             <h5 class="mt-2">Tulis Pengakuan</h5>
-                            <p class="d-md-block d-none">Tuliskan pengakuan kamu secara menyeluruh.</p>
+                            <p class="d-md-block d-none">Bagikan ceritamu dengan lengkap dan detail.</p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/in-progress.svg') }}" alt="icon" width="36">
                             </div>
                             <h5 class="mt-2">Proses Verifikasi</h5>
-                            <p class="d-md-block d-none">Pengakuan kamu akan diverifikasi dan diteruskan.</p>
+                            <p class="d-md-block d-none">Pengakuan kamu akan dicek dan diverifikasi terlebih dahulu.
+                            </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/Messaging.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Tindak Lanjut</h5>
-                            <p class="d-md-block d-none">Petugas akan menindaklanjuti pengakuan kamu.</p>
+                            <p class="d-md-block d-none">Petugas akan melanjutkan dan mengurus dengan sigap
+                                pengakuannya.
+                            </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/chat-bubble.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Dapat Tanggapan</h5>
-                            <p class="d-md-block d-none">Pengakuan kamu akan di tanggapi oleh petugas.</p>
+                            <p class="d-md-block d-none">Setelahnya, pengakuanmu akan mendapatkan tanggapan dari petugas.
+                            </p>
                         </div>
                         <div class="col">
                             <div class="ellipse">
                                 <img src="{{ asset('images/icon/Done.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Selesai</h5>
-                            <p class="d-md-block d-none">Selamat, pengakuan kamu sudah terselesaikan!</p>
+                            <p class="d-md-block d-none">Selamat! Pengakuanmu udah selesai diproses oleh petugas~</p>
                         </div>
                     </div>
                 </div>
@@ -103,7 +107,7 @@
                             <h2 class="text-center">Keuntungan Menggunakan {{ config('web_config')['TEXT_WEB_TITLE'] }}</h2>
                         </div>
                         <div class="row card-keuntungan d-block d-md-flex justify-content-center text-center mx-auto">
-                            <div class="col">
+                            <div class="col-12 col-lg-4">
                                 <div class="card ms-auto">
                                     <div class="card-body">
                                         <div class="ellipse">
@@ -111,13 +115,15 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Privasi Terjaga</h5>
-                                        <p>Aplikasi ini didesain untuk menjaga kerahasiaan informasi pribadi kamu. Dengan
-                                            demikian, kamu dapat merasa tenang dan percaya diri saat menggunakan aplikasi
-                                            ini, karena privasi kamu menjadi prioritas utama.</p>
+                                        <p>
+                                            Aplikasi ini spesial diciptakan untuk menjaga data pribadi kamu tetap aman dan
+                                            privasi. Jadi, bisa dipakai tanpa was-was, deh! Privasi kamu menjadi yang paling
+                                            utama di sini. Nikmatin pengalaman pakai aplikasi tanpa khawatir, yuk~
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12 col-lg-4">
                                 <div class="card mx-auto">
                                     <div class="card-body">
                                         <div class="ellipse">
@@ -125,14 +131,15 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Melapor dengan Aman</h5>
-                                        <p>{{ config('web_config')['TEXT_WEB_TITLE'] }} menyediakan pengalaman melapor yang
-                                            aman dan terjamin. kamu dapat
-                                            mengungkapkan berbagai permasalahan, pengalaman, atau pikiran tanpa khawatir
-                                            tentang kebocoran identitas kamu.</p>
+                                        <p>{{ config('web_config')['TEXT_WEB_TITLE'] }} memberikan platform melapor
+                                            yang aman dan terpercaya. Di sini, kamu bebas mengungkapkan berbagai
+                                            permasalahan, pengalaman, atau pikiranmu tanpa perlu risau tentang kebocoran
+                                            identitasmu. Kebebasan berbicara, aman, dan nyaman.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
+                            <div class="col-12 col-lg-4">
                                 <div class="card me-auto">
                                     <div class="card-body">
                                         <div class="ellipse">
@@ -140,10 +147,12 @@
                                                 class="icon-keuntungan">
                                         </div>
                                         <h5 class="my-3">Ditanggapi Secara Cepat</h5>
-                                        <p>Pengakuan yang kamu buat akan cepat ditanggapi. Dengan demikian, kamu dapat
-                                            merasa didengar dan
-                                            mendapatkan tanggapan yang relevan terhadap keluhan, saran, atau masukan yang
-                                            kamu berikan.</p>
+                                        <p>
+                                            Setiap pengakuan yang kamu bagikan akan segera direspon. Jadi, kamu tidak hanya
+                                            bisa 'berbicara', tapi juga merasa 'didengar' dengan tanggapan yang pas terhadap
+                                            keluhan, saran, atau masukan yang kamu berikan. Ayo, sampaikan pendapatmu, kita
+                                            siap dengerin!
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -163,5 +172,13 @@
             json_decode(session('alert')['config'], true)['icon'] === 'error')
         {{-- realrashid/sweetalert --}}
         @include('sweetalert::alert')
+    @endif
+
+    {{-- If alert success exists --}}
+    @if (session()->has('alert') &&
+            array_key_exists('config', session('alert')) &&
+            json_decode(session('alert')['config'], true)['icon'] === 'success')
+        {{-- Unset the "alert" session variable --}}
+        {{ Session::forget('alert') }}
     @endif
 @endsection

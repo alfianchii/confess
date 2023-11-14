@@ -22,7 +22,7 @@ class WebsiteService extends Service
     "TEXT_WEB_LOCATION" => ["required", "string"],
     "TEXT_HERO_HEADER" => ["required", "string", "max:125"],
     "TEXT_HERO_DESCRIPTION" => ["required", "string", "max:255"],
-    "TEXT_FOOTER_DASHBOARD" => ["required", "string", "max:125"],
+    "TEXT_FOOTER" => ["required", "string", "max:125"],
     "IMAGE_WEB_LOGO_WHITE" => ["nullable", "file", "image", "mimes:png,jpg", "max:5120"],
     "IMAGE_WEB_LOGO" => ["nullable", "file", "image", "mimes:png,jpg", "max:5120"],
     "IMAGE_WEB_FAVICON" => ["nullable", "file", "image", "mimes:png,jpg", "max:5120"],
@@ -46,9 +46,9 @@ class WebsiteService extends Service
     "TEXT_HERO_DESCRIPTION.string" => "Deskripsi teks hero harus berupa string.",
     "TEXT_HERO_DESCRIPTION.max" => "Deskripsi teks hero tidak boleh lebih dari :max karakter.",
 
-    "TEXT_FOOTER_DASHBOARD.required" => "Teks footer dashboard tidak boleh kosong.",
-    "TEXT_FOOTER_DASHBOARD.string" => "Teks footer dashboard harus berupa string.",
-    "TEXT_FOOTER_DASHBOARD.max" => "Teks footer dashboard tidak boleh lebih dari :max karakter.",
+    "TEXT_FOOTER.required" => "Teks footer dashboard tidak boleh kosong.",
+    "TEXT_FOOTER.string" => "Teks footer dashboard harus berupa string.",
+    "TEXT_FOOTER.max" => "Teks footer dashboard tidak boleh lebih dari :max karakter.",
 
     "IMAGE_WEB_LOGO_WHITE.file" => "Logo website harus berupa file.",
     "IMAGE_WEB_LOGO_WHITE.image" => "Logo website harus berupa gambar.",

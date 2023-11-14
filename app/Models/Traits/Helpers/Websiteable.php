@@ -6,6 +6,8 @@ use App\Models\{SettingWebsite, User};
 
 trait Websiteable
 {
+  // ---------------------------------
+  // METHODS
   public function settingWebsiteRules(array $rules, array $data)
   {
     unset($data["_method"], $data["_token"]);

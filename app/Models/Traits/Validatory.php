@@ -4,6 +4,8 @@ namespace App\Models\Traits;
 
 trait Validatory
 {
+  // ---------------------------------
+  // METHODS
   public function idDecrypted($unique)
   {
     try {

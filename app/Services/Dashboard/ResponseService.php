@@ -29,8 +29,8 @@ class ResponseService extends Service
 
   protected array $messages = [
     "response.required" => "Tanggapan tidak boleh kosong.",
-    "attachment_file.file" => "Tanggapan harus berupa :file.",
-    "attachment_file.mimes" => "Tanggapan harus berupa file dengan format: :values.",
+    "attachment_file.file" => "File tanggapan harus berupa :file.",
+    "attachment_file.mimes" => "File tanggapan harus berupa file dengan format: :values.",
     "attachment_file.max" => "File pendukung tidak boleh lebih dari :max KiB.",
   ];
 

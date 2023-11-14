@@ -146,18 +146,18 @@
                                         </div>
                                         <div class="col-md-6 col-12 mb-1">
                                             <div
-                                                class="form-group has-icon-left mandatory @error('TEXT_FOOTER_DASHBOARD'){{ 'is-invalid' }}@enderror">
-                                                <label for="TEXT_FOOTER_DASHBOARD" class="form-label">Footer Text
+                                                class="form-group has-icon-left mandatory @error('TEXT_FOOTER'){{ 'is-invalid' }}@enderror">
+                                                <label for="TEXT_FOOTER" class="form-label">Footer Text
                                                     (Dashboard)</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
-                                                        placeholder='SMK Negeri 4 Tangerang' id="TEXT_FOOTER_DASHBOARD"
-                                                        name="TEXT_FOOTER_DASHBOARD"
-                                                        value="{{ old('TEXT_FOOTER_DASHBOARD', config('web_config')['TEXT_FOOTER_DASHBOARD']) }}" />
+                                                        placeholder='SMK Negeri 4 Tangerang' id="TEXT_FOOTER"
+                                                        name="TEXT_FOOTER"
+                                                        value="{{ old('TEXT_FOOTER', config('web_config')['TEXT_FOOTER']) }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-chat-left-quote py-2"></i>
                                                     </div>
-                                                    @error('TEXT_FOOTER_DASHBOARD')
+                                                    @error('TEXT_FOOTER')
                                                         <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>

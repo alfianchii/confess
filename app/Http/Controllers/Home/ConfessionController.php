@@ -3,42 +3,30 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-use App\Models\{User, MasterConfessionCategory, RecConfession};
+use App\Services\Home\ConfessionService;
 use Illuminate\Http\Request;
 
 class ConfessionController extends Controller
 {
     // ---------------------------------
     // PROPERTIES
+    protected ConfessionService $confessionService;
+
+
+    // ---------------------------------
+    // MAGIC FUNCTIONS
+    public function __construct(ConfessionService $confessionService)
+    {
+        parent::__construct();
+        $this->confessionService = $confessionService;
+    }
+
 
     // ---------------------------------
     // CORES
-    public function index()
+    public function index(Request $request)
     {
-        $title = '';
-
-        $confessions = RecConfession::latest()->filter(request(["user", "search", "category", "status", "privacy"]))->paginate(7)->withQueryString();
-
-        $category = MasterConfessionCategory::firstWhere("slug", request("category"))->name ?? '';
-        $username = User::firstWhere("username", request("user"))->name ?? "";
-
-        $title = request("category") ? "dengan " . $category : '';
-        $title = request("user") ? "oleh " . $username : $title;
-        $title = request("status") ? "dengan " . request("status") : $title;
-        $title = request("privacy") ? "dengan " . request("privacy") : $title;
-
-        return view("pages.landing-page.confessions.index", [
-            "title" => "Pengakuan $title",
-            "confessions" => $confessions,
-        ]);
-    }
-
-    public function show(RecConfession $confession)
-    {
-        return view("complaints.show", [
-            "title" => $confession->title,
-            "confession" => $confession,
-        ]);
+        return $this->confessionService->index($request);
     }
 
 

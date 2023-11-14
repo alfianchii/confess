@@ -3,26 +3,29 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-use App\Models\RecConfession;
+use App\Services\Home\HomeService;
 
 class HomeController extends Controller
 {
     // ---------------------------------
     // PROPERTIES
+    protected HomeService $homeService;
+
+
+    // ---------------------------------
+    // MAGIC FUNCTIONS
+    public function __construct(HomeService $homeService)
+    {
+        parent::__construct();
+        $this->homeService = $homeService;
+    }
 
 
     // ---------------------------------
     // CORES
     public function index()
     {
-        $title = "Selamat Datang";
-        
-        $confessionsCount = RecConfession::count();
-        
-        return view('pages.landing-page.home.index', [
-            "title" => $title,
-            "confessionsCount" => $confessionsCount,
-        ]);
+        return $this->homeService->index();
     }
 
 

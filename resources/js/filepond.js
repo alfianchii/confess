@@ -76,7 +76,7 @@ export function basicFile() {
         FilePond.create(file, {
             name: "file",
             credits: null,
-            allowImagePreview: false,
+            allowImagePreview: true,
             allowMultiple: false,
             allowFileEncode: false,
             required: false,

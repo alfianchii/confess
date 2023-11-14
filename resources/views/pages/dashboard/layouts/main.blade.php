@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="UTF-8" />
@@ -15,7 +15,7 @@
 <body>
     <script src="{{ asset('assets/static/js/initTheme.js') }}"></script>
 
-    <div id="app">
+    <div id="app" style="overflow-x: hidden;">
         {{-- Base Sidebar --}}
         @include('pages.dashboard.layouts.sidebar')
 

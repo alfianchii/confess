@@ -24,13 +24,31 @@ Route::get("/login", "\App\Http\Controllers\Auth\CredentialController@index")->n
 Route::post("/login", "\App\Http\Controllers\Auth\CredentialController@authenticate")->middleware("guest");
 Route::post("/logout", "\App\Http\Controllers\Auth\CredentialController@logout")->middleware("auth");
 
+
 // ---------------------------------
 // Authentications Routes
 Route::group(["middleware" => "auth"], function () {
     // ---------------------------------
     // Homepage Routes
-    Route::match(['get', 'post'], '/confessions', "\App\Http\Controllers\Home\ConfessionController@index");
-    Route::get('/categories', "\App\Http\Controllers\Home\CategoryController@index");
+    // Route: /
+    // ---------------------------------
+    // Confession Routes
+    Route::match(["get", "post"], "/confessions", "\App\Http\Controllers\Home\ConfessionController@index");
+
+    // ---------------------------------
+    // Comment Routes
+    Route::resource("confessions.comments", "\App\Http\Controllers\Home\CommentController")->shallow()->except(["show", "index"]);
+    // Destroy (attachment)
+    Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@destroyAttachment");
+
+    // ---------------------------------
+    // Confession's Categories Routes
+    Route::match(["get", "post"], '/confessions/categories', "\App\Http\Controllers\Home\ConfessionCategoryController@index");
+
+    // ---------------------------------
+    // Profile Routes
+    Route::get('/users/{user:username}', "\App\Http\Controllers\Home\UserController@index");
+
 
     // ---------------------------------
     // Dashboard Routes
@@ -104,7 +122,7 @@ Route::group(["middleware" => "auth"], function () {
 
         // ---------------------------------
         // Response Routes
-        Route::resource('confessions.responses', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController")->shallow()->except(["show", "index"]);
+        Route::resource("confessions.responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController")->shallow()->except(["show", "index"]);
         // Index
         Route::get("/confessions/responses", "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@index");
         // Destroy (attachment)
@@ -112,7 +130,11 @@ Route::group(["middleware" => "auth"], function () {
 
         // ---------------------------------
         // Comment Routes
-        Route::get("/comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@index");
+        Route::resource("confessions.comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController")->shallow()->except(["show", "index"]);
+        // Index
+        Route::get("/confessions/comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@index");
+        // Destroy (attachment)
+        Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@destroyAttachment");
 
         // ---------------------------------
         // Website settings
@@ -129,6 +151,8 @@ Route::group(["middleware" => "auth"], function () {
         Route::post('/confessions/export', "\App\Http\Controllers\Dashboard\RecConfessionController@export");
         // Confession's responses
         Route::post('/confessions/responses/export', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@export");
+        // Confession's comments
+        Route::post('/confessions/comments/export', "\App\Http\Controllers\Dashboard\RecConfessionCommentController@export");
 
         // ---------------------------------
         // IMPORTS
