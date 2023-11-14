@@ -6,8 +6,8 @@ use App\Models\RecConfession;
 use Maatwebsite\Excel\Concerns\{
     Exportable,
     WithProperties,
-    FromCollection,
     WithTitle,
+    FromCollection,
     WithHeadings,
     WithMapping,
     WithStyles,
@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AllOfConfessionsExport
-implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
 {
     // ---------------------------------
     // TRAITS

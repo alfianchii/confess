@@ -16,7 +16,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ConfessionCategoriesExport
-implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithStyles, WithStrictNullComparison
 {
   // ---------------------------------
   // TRAITS

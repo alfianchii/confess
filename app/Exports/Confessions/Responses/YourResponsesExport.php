@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\{
   Exportable,
   WithProperties,
   FromCollection,
+  WithTitle,
   WithHeadings,
   WithMapping,
   WithStyles,
@@ -14,7 +15,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class YourResponsesExport
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithStyles
 {
   // ---------------------------------
   // TRAITS

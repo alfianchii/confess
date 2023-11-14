@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\{
     Exportable,
     WithProperties,
     FromCollection,
+    WithTitle,
     WithHeadings,
     WithMapping,
     WithStyles,
@@ -14,7 +15,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AllOfResponsesExport
-implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithStyles
 {
     // ---------------------------------
     // TRAITS
@@ -53,6 +54,10 @@ implements WithProperties, FromCollection, WithHeadings, WithMapping, WithStyles
 
     // ---------------------------------
     // UTILITIES
+    public function title(): string
+    {
+        return "All of Responses";
+    }
     public function headings(): array
     {
         return [

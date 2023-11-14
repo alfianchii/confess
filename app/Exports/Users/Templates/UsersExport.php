@@ -21,7 +21,7 @@ use PhpOffice\PhpSpreadsheet\Cell\{
 };
 
 class UsersExport extends DefaultValueBinder
-implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithCustomValueBinder, WithStyles
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithCustomValueBinder, WithStyles
 {
   // ---------------------------------
   // TRAITS

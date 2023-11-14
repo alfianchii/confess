@@ -6,8 +6,8 @@ use App\Models\User;
 use Maatwebsite\Excel\Concerns\{
     Exportable,
     WithProperties,
-    FromCollection,
     WithTitle,
+    FromCollection,
     WithHeadings,
     WithMapping,
     WithCustomValueBinder,
@@ -21,7 +21,7 @@ use PhpOffice\PhpSpreadsheet\Cell\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class AllOfUsersExport extends DefaultValueBinder
-implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithCustomValueBinder, WithStyles
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithCustomValueBinder, WithStyles
 {
     // ---------------------------------
     // TRAITS

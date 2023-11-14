@@ -15,7 +15,7 @@ use Maatwebsite\Excel\Concerns\{
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class HistoryLoginsExport
-implements WithProperties, WithTitle, FromCollection, WithHeadings, WithMapping, WithStyles
+implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping, WithStyles
 {
   // ---------------------------------
   // TRAITS
