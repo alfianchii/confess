@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
+    {{-- File preview --}}
+    <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
+    <link rel="stylesheet"
+        href="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/extensions/toastify-js/src/toastify.css') }}">
 @endsection
 
 {{-- --------------------------------- Content --}}
@@ -17,9 +22,9 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Sunting Tanggapan</h3>
+                    <h2>Sunting Komentar</h2>
                     <p class="text-subtitle text-muted">
-                        Lakukan penyuntingan terhadap suatu tanggapan.
+                        Lakukan penyuntingan terhadap suatu komentar.
                     </p>
                     <hr>
                     <div class="mb-4">
@@ -29,13 +34,13 @@
                             <span class="fa-fw fa-lg select-all fas text-white"></span>
                             Kembali
                         </a>
-                        <a data-bs-toggle="tooltip" data-bs-original-title="Unsend tanggapan yang sudah kamu berikan."
-                            class="btn btn-danger px-2 pt-2" data-confirm-confession-response-destroy="true"
-                            data-unique="{{ base64_encode($response->id_confession_response) }}"
+                        <a data-bs-toggle="tooltip" data-bs-original-title="Unsend komentar yang sudah kamu berikan."
+                            class="btn btn-danger px-2 pt-2" data-confirm-confession-comment-destroy="true"
+                            data-unique="{{ base64_encode($comment->id_confession_comment) }}"
                             data-redirect="{{ base64_encode($confession->slug) }}">
-                            <span data-confirm-confession-response-destroy="true"
+                            <span data-confirm-confession-comment-destroy="true"
                                 data-redirect="{{ base64_encode($confession->slug) }}"
-                                data-unique="{{ base64_encode($response->id_confession_response) }}"
+                                data-unique="{{ base64_encode($comment->id_confession_comment) }}"
                                 class="fa-fw fa-lg select-all fas"></span>
                         </a>
                     </div>
@@ -47,7 +52,7 @@
                                 <a href="/dashboard">Dashboard</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="/dashboard/confessions/responses">Tanggapan</a>
+                                <a href="/dashboard/confessions/comments">Komentar</a>
                             </li>
                             <li class="breadcrumb-item active" aria-current="page">
                                 Sunting
@@ -63,30 +68,48 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title d-inline-block">Tanggapan</h3>
+                            <h3 class="card-title d-inline-block">Komentar</h3> <a
+                                href="/confessions/{{ $confession->slug }}/comments/create?comment={{ base64_encode($comment->id_confession_comment) }}"><small>({{ $comment->privacy }})</small></a>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 <form class="form"
-                                    action="/dashboard/responses/{{ base64_encode($response->id_confession_response) }}"
+                                    action="/dashboard/comments/{{ base64_encode($comment->id_confession_comment) }}"
                                     method="POST" enctype="multipart/form-data">
                                     @method('PUT')
                                     @csrf
 
                                     <div class="row">
                                         <div class="col-12 mb-1">
-                                            <div
-                                                class="form-group mandatory @error('response'){{ 'is-invalid' }}@enderror">
-                                                <div class="position-relative">
-                                                    <label for="response" class="form-label">Isi Tanggapan</label>
+                                            <fieldset class="form-group">
+                                                <label for="privacy" class="form-label">Privasi Komentar</label>
+                                                <select class="form-select" id="privacy" name="privacy">
+                                                    <option @if (old('privacy', $comment->privacy) === 'public') selected @endif value="public"
+                                                        @if (old('privacy') === 'public') {{ 'selected' }} @endif>
+                                                        Public
+                                                    </option>
+                                                    <option @if (old('privacy', $comment->privacy) === 'anonymous') selected @endif
+                                                        value="anonymous"
+                                                        @if (old('privacy') === 'anonymous') {{ 'selected' }} @endif>
+                                                        Anonymous
+                                                    </option>
+                                                </select>
+                                            </fieldset>
+                                        </div>
 
-                                                    <input id="response" name="response"
-                                                        value="{{ old('response') ?? $response->response }}" type="hidden">
+                                        <div class="col-12 mb-1">
+                                            <div
+                                                class="form-group mandatory @error('comment'){{ 'is-invalid' }}@enderror">
+                                                <div class="position-relative">
+                                                    <label for="comment" class="form-label">Komentar</label>
+
+                                                    <input id="comment" name="comment"
+                                                        value="{{ old('comment') ?? $comment->comment }}" type="hidden">
                                                     <div id="editor">
-                                                        {!! old('response') ?? $response->response !!}
+                                                        {!! old('comment') ?? $comment->comment !!}
                                                     </div>
 
-                                                    @error('response')
+                                                    @error('comment')
                                                         <div class="invalid-feedback d-block">
                                                             {{ $message }}
                                                         </div>
@@ -100,8 +123,10 @@
                                         <div class="col-12 mb-2">
                                             <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
                                                 <label for="attachment_file" class="form-label">File Pendukung</label>
-                                                <input class="form-control" name="attachment_file" type="file"
-                                                    id="attachment_file">
+
+                                                <!-- File preview -->
+                                                <input type="file" id="attachment_file" class="basic-file-filepond"
+                                                    name="attachment_file" />
 
                                                 @error('attachment_file')
                                                     <div class="invalid-feedback d-block">
@@ -112,17 +137,17 @@
                                         </div>
                                     </div>
 
-                                    @if ($response->attachment_file)
+                                    @if ($comment->attachment_file)
                                         <div class="mb-4">
                                             <div class="attachment-file">
                                                 <a class="btn btn-danger px-2 pt-2 position-absolute"
                                                     data-bs-toggle="tooltip"
                                                     data-bs-original-title="Unsend file pendukung yang sudah kamu berikan."
-                                                    data-confirm-confession-response-attachment-destroy="true"
-                                                    data-unique="{{ base64_encode($response->id_confession_response) }}"
+                                                    data-confirm-confession-comment-attachment-destroy="true"
+                                                    data-unique="{{ base64_encode($comment->id_confession_comment) }}"
                                                     data-redirect="{{ base64_encode($confession->slug) }}">
-                                                    <span data-confirm-confession-response-attachment-destroy="true"
-                                                        data-unique="{{ base64_encode($response->id_confession_response) }}"
+                                                    <span data-confirm-confession-comment-attachment-destroy="true"
+                                                        data-unique="{{ base64_encode($comment->id_confession_comment) }}"
                                                         data-redirect="{{ base64_encode($confession->slug) }}"
                                                         class="fa-fw fa-lg select-all fas"></span>
                                                 </a>
@@ -131,7 +156,7 @@
                                                     <i class="far fa-file-alt icon-9x"></i>
                                                 </div>
                                                 <div class="attachment-file-footer">
-                                                    <a href="{{ asset("storage/$response->attachment_file") }}"
+                                                    <a href="{{ asset("storage/$comment->attachment_file") }}"
                                                         target="_blank" class="btn btn-primary">
                                                         <i class="far fas fa-box-open me-2"></i> Open it up!
                                                     </a>
@@ -167,10 +192,29 @@
         {{ Session::forget('alert') }}
     @endif
 
+    {{-- Filepond: file preview --}}
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js') }}"></script>
+    <script
+        src="{{ asset('assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
+    </script>
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
+    @vite(['resources/js/filepond/basic-file.js'])
     {{-- Quill --}}
+    @vite(['resources/js/quill/confession/comment/comment.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
-    @vite(['resources/js/quill/confession/response/response.js'])
     {{-- SweetAlert --}}
+    @vite(['resources/js/sweetalert/confession/comment/comment.js'])
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
-    @vite(['resources/js/sweetalert/confession/response/response.js'])
 @endsection

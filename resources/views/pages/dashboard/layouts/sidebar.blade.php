@@ -69,7 +69,9 @@
                 </li>
 
                 <li class="sidebar-item @if (Request::is('dashboard/confession*') &&
-                        (!str_contains(request()->url(), 'response') && !str_contains(request()->url(), 'confession-categories'))) {{ 'active' }} @endif">
+                        (!str_contains(request()->url(), 'confession-categories') &&
+                            !str_contains(request()->url(), 'response') &&
+                            !str_contains(request()->url(), 'comment'))) {{ 'active' }} @endif">
                     <a href="/dashboard/confessions" class="sidebar-link">
                         <i class="bi bi-chat-heart-fill"></i>
                         <span>Pengakuan</span>
@@ -83,8 +85,8 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item {{ Request::is('dashboard/comments*') ? 'active' : '' }}">
-                    <a href="/dashboard/comments" class="sidebar-link">
+                <li class="sidebar-item {{ Request::is('dashboard/confessions/comments*') ? 'active' : '' }}">
+                    <a href="/dashboard/confessions/comments" class="sidebar-link">
                         <i class="bi bi-chat-left-heart"></i>
                         <span>Komentar</span>
                     </a>

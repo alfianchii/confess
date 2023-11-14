@@ -39,7 +39,7 @@ Route::group(["middleware" => "auth"], function () {
     // Comment Routes
     Route::resource("confessions.comments", "\App\Http\Controllers\Home\CommentController")->shallow()->except(["show", "index"]);
     // Destroy (attachment)
-    Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Home\CommentController@destroyAttachment");
+    Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@destroyAttachment");
 
     // ---------------------------------
     // Confession's Categories Routes
@@ -130,7 +130,11 @@ Route::group(["middleware" => "auth"], function () {
 
         // ---------------------------------
         // Comment Routes
-        Route::get("/comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@index");
+        Route::resource("confessions.comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController")->shallow()->except(["show", "index"]);
+        // Index
+        Route::get("/confessions/comments", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@index");
+        // Destroy (attachment)
+        Route::delete("/comments/{comment:id_confession_comment}/attachment", "\App\Http\Controllers\Dashboard\RecConfessionCommentController@destroyAttachment");
 
         // ---------------------------------
         // Website settings
@@ -147,6 +151,8 @@ Route::group(["middleware" => "auth"], function () {
         Route::post('/confessions/export', "\App\Http\Controllers\Dashboard\RecConfessionController@export");
         // Confession's responses
         Route::post('/confessions/responses/export', "\App\Http\Controllers\Dashboard\HistoryConfessionResponseController@export");
+        // Confession's comments
+        Route::post('/confessions/comments/export', "\App\Http\Controllers\Dashboard\RecConfessionCommentController@export");
 
         // ---------------------------------
         // IMPORTS

@@ -56,8 +56,4 @@ class CommentController extends Controller
 
   // ---------------------------------
   // UTILITIES
-  public function destroyAttachment($idConfessionComment)
-  {
-    return $this->dashboardCommentService->destroyAttachment($this->userData, $idConfessionComment);
-  }
 }

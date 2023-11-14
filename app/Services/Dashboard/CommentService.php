@@ -2,8 +2,10 @@
 
 namespace App\Services\Dashboard;
 
+use App\Exports\Confessions\Comments\{AllOfCommentsExport, YourCommentsExport};
 use App\Services\Service;
-use App\Models\{RecConfession, RecConfessionComment, User};
+use App\Models\{MasterRole, RecConfession, RecConfessionComment, User};
+use App\Models\Traits\Exportable;
 use App\Models\Traits\Helpers\{Commentable, Homeable};
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
@@ -14,7 +16,7 @@ class CommentService extends Service
 {
   // ---------------------------------
   // TRAITS
-  use Homeable, Commentable;
+  use Homeable, Commentable, Exportable;
 
 
   // ---------------------------------
@@ -36,12 +38,37 @@ class CommentService extends Service
 
   // ---------------------------------
   // CORES
+  public function index(User $user, MasterRole $userRole)
+  {
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminIndex($user);
+    if ($roleName === "officer") return $this->officerIndex($user);
+    if ($roleName === "student") return $this->studentIndex($user);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+
   public function store(Request $request, User $user,  RecConfession $confession)
   {
     // Data processing
     $data = $request->all();
 
     return $this->allStore($data, $user, $confession);
+  }
+
+  public function edit(User $user, $idConfessionComment)
+  {
+    // Data processing
+    $id = $this->idDecrypted($idConfessionComment);
+    $comment = RecConfessionComment::where("id_confession_comment", $id)->first();
+    $confession = RecConfession::with(["student.user", "category"])
+      ->where("id_confession", $comment->id_confession)
+      ->first();
+    if (!$comment || !$confession) return view("errors.404");
+
+    return $this->allEdit($user, $confession, $comment);
   }
 
   public function update(Request $request, User $user, $idConfessionComment)
@@ -70,6 +97,28 @@ class CommentService extends Service
     return $this->allDestroy($user, $comment);
   }
 
+  public function export(Request $request, User $user, MasterRole $userRole)
+  {
+    // Data processing
+    $data = $request->all();
+    $validator = $this->exportValidates($data);
+    if ($validator->fails()) return view("errors.403");
+    $creds = $validator->validate();
+
+    // Validates
+    $fileName = $this->getExportFileName($creds["type"]);
+    $writterType = $this->getWritterType($creds["type"]);
+
+    // Roles checking
+    $roleName = $userRole->role_name;
+    if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
+    if ($roleName === "officer") return $this->officerExport($creds["table"], $fileName, $writterType, $user);
+    if ($roleName === "student") return $this->studentExport($creds["table"], $fileName, $writterType, $user);
+
+    // Redirect to unauthorized page
+    return view("errors.403");
+  }
+
   public function destroyAttachment(User $user, $idConfessionComment)
   {
     // Data processing
@@ -96,6 +145,25 @@ class CommentService extends Service
 
     // Success
     return redirect($this->createCommentsURLWithParam($confession->slug) . base64_encode($comment->id_confession_comment))->withSuccess("Komentar kamu berhasil dibuat.");
+  }
+  // Edit
+  private function allEdit(User $user, RecConfession $confession, RecConfessionComment $comment)
+  {
+    try {
+      // ---------------------------------
+      // Validations
+      $this->isYourComment($user, $comment);
+    } catch (\Exception $e) {
+      return redirect("/dashboard/confessions/comments")->withErrors($e->getMessage());
+    }
+
+    // Passing out a view
+    $viewVariables = [
+      "title" => "Sunting Komentar",
+      "comment" => $comment,
+      "confession" => $confession,
+    ];
+    return view("pages.dashboard.actors.custom.comment.edit", $viewVariables);
   }
   public function allUpdate($data, User $user, RecConfessionComment $comment)
   {
@@ -163,5 +231,99 @@ class CommentService extends Service
 
     // Success
     return $this->responseJsonMessage("File pendukung berhasil dihapus.");
+  }
+
+
+  // ADMIN
+  // Index
+  public function adminIndex(User $user)
+  {
+    $allComments = RecConfessionComment::with(["confession", "user"])
+      ->latest()
+      ->paginateCommentsFromConfession(self::PER_PAGE);
+
+    $yourComments = $allComments->where("id_user", $user->id_user);
+
+    // Passing out a view
+    $viewVariables = [
+      "title" => "Komentar",
+      "allComments" => $allComments,
+      "yourComments" => $yourComments,
+    ];
+    return view("pages.dashboard.actors.admin.comments.index", $viewVariables);
+  }
+  // Export
+  public function adminExport(string $table, string $fileName, $writterType, User $user)
+  {
+    // Table
+    if ($table === "all-of-comments")
+      return $this->exports((new AllOfCommentsExport), $fileName, $writterType);
+    if ($table === "your-comments")
+      return $this->exports((new YourCommentsExport)->forIdUser($user->id_user), $fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
+  }
+
+
+  // OFFICER
+  // Index
+  public function officerIndex(User $user)
+  {
+    $allComments = RecConfessionComment::with(["confession", "user"])
+      ->latest()
+      ->paginateCommentsFromConfession(self::PER_PAGE);
+
+    $yourComments = $allComments->where("id_user", $user->id_user);
+
+    // Passing out a view
+    $viewVariables = [
+      "title" => "Komentar",
+      "allComments" => $allComments,
+      "yourComments" => $yourComments,
+    ];
+    return view("pages.dashboard.actors.officer.comments.index", $viewVariables);
+  }
+  // Export
+  public function officerExport(string $table, string $fileName, $writterType, User $user)
+  {
+    // Table
+    if ($table === "all-of-comments")
+      return $this->exports((new AllOfCommentsExport), $fileName, $writterType);
+    if ($table === "your-comments")
+      return $this->exports((new YourCommentsExport)->forIdUser($user->id_user), $fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
+  }
+
+
+  // STUDENT
+  // Index
+  public function studentIndex(User $user)
+  {
+    $yourComments = RecConfessionComment::with([
+      "confession",
+    ])
+      ->where("id_user", $user->id_user)
+      ->latest()
+      ->paginateCommentsFromConfession(self::PER_PAGE);
+
+    // Passing out a view
+    $viewVariables = [
+      "title" => "Komentar",
+      "yourComments" => $yourComments,
+    ];
+    return view("pages.dashboard.actors.student.comments.index", $viewVariables);
+  }
+  // Export
+  public function studentExport(string $table, string $fileName, $writterType, User $user)
+  {
+    // Table
+    if ($table === "your-comments")
+      return $this->exports((new YourCommentsExport)->forIdUser($user->id_user), $fileName, $writterType);
+
+    // Redirect to not found page
+    return view("errors.404");
   }
 }

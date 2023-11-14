@@ -173,4 +173,12 @@
         {{-- realrashid/sweetalert --}}
         @include('sweetalert::alert')
     @endif
+
+    {{-- If alert success exists --}}
+    @if (session()->has('alert') &&
+            array_key_exists('config', session('alert')) &&
+            json_decode(session('alert')['config'], true)['icon'] === 'success')
+        {{-- Unset the "alert" session variable --}}
+        {{ Session::forget('alert') }}
+    @endif
 @endsection
