@@ -20,64 +20,63 @@ Confess is a school complaint reporting application that enables students to sub
     -   Homepage
     -   About
     -   Confession
-    -   Confession's Category
+    -   Comment
+    -   Confession's category
 -   Authentication
     -   Registration
     -   Login
 -   Multi User
     -   Admin
-        -   Confession Statistics
-        -   Response Statistics
-        -   Confession and Response Statistics
-        -   Create and manage responses
-        -   Respond to confessions
-        -   Manage categories
-        -   Manage users
-        -   Account
+        -   History login, confession, response, and comment statistics (full overview)
+        -   Manageable users
+        -   Manageable confession's categories
+        -   Manageable website informations
+        -   Deactivate their own account
     -   Officer
-        -   Response Statistics
-        -   Respond to confessions
-        -   Account
+        -   History login, confession, response, and comment statistics (half overview)
+        -   Handling student's confessions
     -   Student
-        -   Create and manage complaints
+        -   History login, confession, response, and comment statistics (shallow overview)
+        -   Submit confessions
+    -   All
+        -   Comment to a confession on Landing Page
         -   Account
+        -   Export and import
 -   Account
     -   Profile
     -   Setting
     -   Change Password
--   CRUD (Create, Read, Update, and Delete)
-    -   Confession
-    -   Response
-    -   Category
-    -   User
--   Confession search on the Homepage
+-   Searchable Landing Page
+    -   Confessions
+    -   Confession's categories
 
 <h2 id="testing-account">👤 Default Account for Testing</h2>
 
 #### Admin
 
 -   Username: alfianchii
--   Password: password
+-   Password: admin123
 
 #### Officer
 
 -   Username: moepoi
--   Password: password
+-   Password: officer123
 
 #### Student
 
 -   Username: nata.ardhana
--   Password: password
+-   Password: student123
 
 <h2 id="demo">🏠 Demo Page</h2>
 
 <p>The demo page is currently unavailable. Therefore, it is advisable for you to try it locally by following the installation steps below.</p>
 
-<h2 id="syarat">💾 Pre-requisite</h2>
+<h2 id="pre-requisite">💾 Pre-requisite</h2>
 
 <p>Here are the prerequisites required for installing and running the application.</p>
 
--   PHP ^8.0 & Web Server (Apache, Lighttpd, or NGinx)
+-   PHP ^8.0 & Web Server (Apache, Lighttpd, or NGINX)
+-   Database (MySQL or PostgreSQL)
 -   Web Browser (Firefox, Safari, Opera, or Brave)
 
 <h2 id="download">💻 Installation</h2>
@@ -96,12 +95,12 @@ copy .env.example .env
 
 ```
 DB_PORT=3306
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=
+DB_DATABASE=confess
+DB_USERNAME=yourUsername
+DB_PASSWORD=yourPassword
 ```
 
-3. Migrations and symlinks
+3. Migration and symlink
 
 ```bash
 php artisan key:generate
@@ -119,7 +118,7 @@ php artisan serve
 
 <h2 id="dukungan">💌 Support Me</h2>
 
-<p>You can support me on the Trakteer platform! Your support will be very meaningful. just giving a star to this project is already greatly appreciated~!</p>
+<p>You can support me on the Trakteer platform! Your support will be very meaningful. Like, just giving a star to this project is already greatly appreciated~!</p>
 
 <a href="https://trakteer.id/alfianchii/tip" target="_blank"><img id="wse-buttons-preview" src="https://cdn.trakteer.id/images/embed/trbtn-red-5.png" height="40" style="border:0px;height:40px;" alt="Trakteer Me"></a>
 
@@ -130,7 +129,7 @@ Contributions, issues, and feature requests are highly appreciated as this appli
 
 <h2 id="lisensi">📝 License</h2>
 
-<p>Confess is open-sourced software licensed under the MIT license.</p>
+Confess is open-sourced software licensed under the [MIT License](./LICENSE).
 
 <h2 id="pembuat">🧍 Author</h2>
 
