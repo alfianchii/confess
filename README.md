@@ -1,6 +1,6 @@
 <h1 align="center">Welcome to Confess! 👋</h1>
 
-![Landing Page](https://github.com/alfianchii/confess/blob/main/public/images/Confess-Welcome.png?raw=true)
+![Landing Page](https://github.com/alfianchii/confess/blob/main/public/images/confess-welcome.png?raw=true)
 
 [![All Contributors](https://img.shields.io/github/contributors/alfianchii/confess)](https://github.com/alfianchii/confess/graphs/contributors)
 ![GitHub last commit](https://img.shields.io/github/last-commit/alfianchii/confess)
