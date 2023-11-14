@@ -22,7 +22,7 @@ class RecConfessionCommentFactory extends Factory
         return [
             "id_confession" => mt_rand(1, 200),
             "id_user" => $this->faker->randomElement([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
-            "comment" => collect($this->faker->paragraphs(mt_rand(5, 10)))
+            "comment" => collect($this->faker->paragraphs(mt_rand(1, 1)))
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
             "privacy" => $this->faker->randomElement(["anonymous", "public"]),

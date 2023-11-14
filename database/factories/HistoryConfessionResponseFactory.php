@@ -20,7 +20,7 @@ class HistoryConfessionResponseFactory extends Factory
     public function definition()
     {
         return [
-            "response" => collect($this->faker->paragraphs(mt_rand(2, 5)))
+            "response" => collect($this->faker->paragraphs(mt_rand(1, 1)))
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
             "confession_status" => $this->faker->randomElement(["process"]),

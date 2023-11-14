@@ -23,7 +23,7 @@ class RecConfessionFactory extends Factory
             "date" => $this->faker->date("Y-m-d"),
             "title" => $this->faker->sentence(mt_rand(1, 3)),
             "slug" => $this->faker->slug(),
-            "body" => collect($this->faker->paragraphs(mt_rand(5, 10)))
+            "body" => collect($this->faker->paragraphs(mt_rand(1, 3)))
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
             "excerpt" => $this->faker->sentence(mt_rand(3, 5)),
