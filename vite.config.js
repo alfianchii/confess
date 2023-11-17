@@ -29,7 +29,7 @@ const files = resourceFiles(root);
 
 // Configs
 export default (mode) => {
-    process.env = { ...process.env, ...loadEnv(mode, process.pwd()) };
+    process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
 
     return defineConfig({
         // Server
@@ -38,7 +38,7 @@ export default (mode) => {
             host: "0.0.0.0",
             hmr: {
                 clientPort: process.env.VITE_APP_PORT,
-                host: process.env.VITE_APP_PORT,
+                host: process.env.VITE_APP_HOST,
                 // ws = websocket
                 protocol: "ws",
             },
