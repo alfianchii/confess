@@ -184,4 +184,4 @@ Confess is open-sourced software licensed under the [MIT License](./LICENSE).
 
 <h2 id="pembuat">🧍 Author</h2>
 
-<p>Confess is created by <a href="https://instagram.com/alfianchii">Alfian</a> and <a href="https://instagram.com/nata_ardhana">Surya</a>.</p>
+<p>Confess is created by <a href="https://instagram.com/alfianchii">Alfian</a>.</p>
