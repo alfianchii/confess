@@ -79,16 +79,17 @@ Confess is a school complaint reporting application that enables students to sub
 -   Database (MySQL or PostgreSQL)
 -   Web Browser (Firefox, Safari, Opera, or Brave)
 
-<h2 id="download">💻 Installation</h2>
+<h2 id="installation">💻 Installation</h2>
 
+<h3 id="building-yourself">Building yourself</h3>
 1. Clone repository
 
 ```bash
-git clone https://github.com/alfianchii/confess.git
+git clone https://github.com/alfianchii/confess
 cd confess
 composer install
 npm install
-copy .env.example .env
+cp .env.example .env
 ```
 
 2. Database configuration through the `.env` file
@@ -104,8 +105,8 @@ DB_PASSWORD=yourPassword
 
 ```bash
 php artisan key:generate
-php artisan migrate --seed
 php artisan storage:link
+php artisan migrate --seed
 ```
 
 4. Launch the website
@@ -115,6 +116,56 @@ npm run dev
 # Run in different terminal
 php artisan serve
 ```
+
+<h3 id="building-yourself">Building w/ Docker</h3>
+
+-   Clone the repository:
+
+```bash
+git clone https://github.com/alfianchii/confess
+cd confess
+```
+
+-   Copy `.env.example` file with `cp .env.example .env` and configure database:
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=confess
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
+```
+
+-   Make sure you have Docker installed and run:
+
+```bash
+docker compose build
+docker compose up -d
+```
+
+-   Install dependencies:
+
+```bash
+docker compose exec app composer install
+docker compose exec app npm install
+```
+
+-   Laravel setups:
+
+```bash
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan storage:link
+docker compose exec app php artisan migrate --seed
+```
+
+-   Run locally:
+
+```bash
+docker compose exec app npm run watch
+```
+
+-   Open `http://localhost:8000`
 
 <h2 id="dukungan">💌 Support Me</h2>
 
