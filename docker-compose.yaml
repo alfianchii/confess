@@ -130,6 +130,52 @@ services:
     networks:
       - confess-network
 
+  # Custom services
+  laravel-setup:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: laravel-setup
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - mariadb
+    profiles: ["setup"]
+    working_dir: /var/www/html
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        php artisan key:generate
+        php artisan storage:link
+        php artisan migrate --seed
+    networks:
+      - confess-network
+
+  artisan:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: artisan
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - mariadb
+    working_dir: /var/www/html
+    profiles: ["artisan"]
+    entrypoint: ["php", "/var/www/html/artisan"]
+    networks:
+      - confess-network
+
 # Networks
 networks:
   confess-network:
