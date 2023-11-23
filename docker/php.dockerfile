@@ -21,8 +21,16 @@ RUN sed -i "s/user = www-data/user = '${USER}'/g" /usr/local/etc/php-fpm.d/www.c
 RUN sed -i "s/group = www-data/group = '${USER}'/g" /usr/local/etc/php-fpm.d/www.conf
 RUN echo "php_admin_flag[log_errors] = on" >> /usr/local/etc/php-fpm.d/www.conf
 
-# Installing PHP extensions
+# Install libs and extensions
 RUN apk update && apk upgrade
-RUN docker-php-ext-install pdo pdo_mysql bcmath
+RUN apk add --no-cache freetype freetype-dev \
+  libpng libpng-dev \
+  libjpeg-turbo libjpeg-turbo-dev \
+  libwebp libwebp-dev \
+  curl curl-dev \
+  libzip-dev postgresql-dev oniguruma-dev
+RUN docker-php-ext-configure gd --enable-gd --with-webp --with-jpeg --with-freetype 
+RUN docker-php-ext-install pdo pdo_mysql bcmath pgsql pdo_pgsql mysqli gd curl zip mbstring
+RUN docker-php-ext-enable mysqli
 
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
