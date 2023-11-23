@@ -140,8 +140,7 @@ DB_PASSWORD=your-password
 -   Make sure you have Docker installed and run:
 
 ```bash
-docker compose build
-docker compose up -d
+docker compose up --build -d
 ```
 
 -   Install dependencies:
