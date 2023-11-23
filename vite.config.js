@@ -32,6 +32,10 @@ export default defineConfig({
     plugins: [laravel({ input: files })],
     server: {
         host: "0.0.0.0",
+        hmr: {
+            clientPort: 3000,
+            host: "127.0.0.1",
+        },
         port: 3000,
         open: false,
     },
