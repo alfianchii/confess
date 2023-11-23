@@ -1,4 +1,4 @@
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 import fs from "fs";
 import path, { resolve } from "path";
@@ -28,27 +28,11 @@ const resourceFiles = (dirPath, filesArray = []) => {
 const files = resourceFiles(root);
 
 // Configs
-export default (mode) => {
-    process.env = { ...process.env, ...loadEnv(mode, process.cwd()) };
-
-    return defineConfig({
-        // Server
-        server: {
-            // Serve all host
-            host: "0.0.0.0",
-            hmr: {
-                clientPort: process.env.VITE_APP_PORT,
-                host: process.env.VITE_APP_HOST,
-                // ws = websocket
-                protocol: "ws",
-            },
-            port: process.env.VITE_APP_PORT,
-            watch: {
-                usePolling: true,
-            },
-        },
-
-        // Plugins
-        plugins: [laravel({ input: files, refresh: true })],
-    });
-};
+export default defineConfig({
+    plugins: [laravel({ input: files })],
+    server: {
+        host: "0.0.0.0",
+        port: 3000,
+        open: false,
+    },
+});

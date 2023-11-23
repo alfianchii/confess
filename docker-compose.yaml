@@ -92,6 +92,44 @@ services:
     networks:
       - confess-network
 
+  # Composer
+  composer:
+    build:
+      context: ./docker
+      dockerfile: composer.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: composer
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    user: ${USER:-confess}
+    profiles: ["composer"]
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+    networks:
+      - confess-network
+
+  # NPM
+  npm:
+    image: node:21.1.0-alpine
+    container_name: npm
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    ports:
+      - 3000:3000
+      - 3001:3001
+    working_dir: /var/www/html
+    profiles: ["npm"]
+    entrypoint: ["npm"]
+    networks:
+      - confess-network
+
 # Networks
 networks:
   confess-network:
