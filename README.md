@@ -81,7 +81,7 @@ Confess is a school complaint reporting application that enables students to sub
 
 <h2 id="installation">💻 Installation</h2>
 
-<h3 id="building-yourself">Building yourself</h3>
+<h3 id="building-yourself">🏃‍♂️ Building yourself</h3>
 1. Clone repository
 
 ```bash
@@ -117,7 +117,7 @@ npm run dev
 php artisan serve
 ```
 
-<h3 id="building-yourself">Building w/ Docker</h3>
+<h3 id="building-yourself">🐳 Building w/ Docker</h3>
 
 -   Clone the repository:
 
@@ -130,7 +130,7 @@ cd confess
 
 ```bash
 DB_CONNECTION=mysql
-DB_HOST=db
+DB_HOST=mariadb
 DB_PORT=3306
 DB_DATABASE=confess
 DB_USERNAME=your-username
@@ -146,25 +146,39 @@ docker compose up --build -d
 -   Install dependencies:
 
 ```bash
-docker compose exec app composer install
-docker compose exec app npm install
+docker compose run --rm composer install && npm install
 ```
 
 -   Laravel setups:
 
 ```bash
-docker compose exec app php artisan key:generate
-docker compose exec app php artisan storage:link
-docker compose exec app php artisan migrate --seed
+docker compose run --rm laravel-setup
 ```
 
 -   Run locally:
 
 ```bash
-docker compose exec app npm run watch
+docker compose run --rm --service-ports npm run dev
 ```
 
--   Open `http://localhost:8000`
+-   Pages
+-   -   App: `http://127.0.0.1:8000`
+-   -   PhpMyAdmin: `http://127.0.0.1:8888`
+-   -   MailHog: `http://127.0.0.1:8025`
+
+<h4 id="docker-commands">🔐 Commands</h4>
+
+-   Composer
+-   -   `docker-compose run --rm composer install`
+-   -   `docker-compose run --rm composer require laravel/breeze --dev`
+
+-   NPM
+-   -   `docker-compose run --rm npm install`
+-   -   `docker-compose run --rm --service-ports npm run dev`
+
+-   Artisan
+-   -   `docker-compose run --rm artisan serve`
+-   -   `docker-compose run --rm artisan route:list`
 
 <h2 id="dukungan">💌 Support Me</h2>
 
