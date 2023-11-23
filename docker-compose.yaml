@@ -1,6 +1,30 @@
 version: "3.8"
 
 services:
+  # Nginx
+  nginx:
+    build:
+      context: ./docker
+      dockerfile: nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    restart: unless-stopped
+    container_name: nginx
+    ports:
+      - 8000:8000
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - php
+      - mariadb
+      - phpmyadmin
+      - mailhog
+    networks:
+      - confess-network
+
   # PHP
   php:
     build:
