@@ -1,65 +1,28 @@
 version: "3.8"
 services:
   # PHP
-  app:
+  php:
     build:
       context: ./docker
-      dockerfile: Dockerfile
-    image: digitalocean.com/php
-    container_name: app
-    restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www:rw
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - app-network
-
-  # Nginx
-  webserver:
-    image: nginx:1.24.0-alpine
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: php
     ports:
-      - "8000:8000"
-      - "443:443"
+      - "9000:9000"
     volumes:
-      - ./:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
     networks:
-      - app-network
+      - confess-network
 
-  # MariaDB
-  db:
-    image: mariadb:11.0.3
-    container_name: db
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
-    environment:
-      MARIADB_DATABASE: ${DB_DATABASE}
-      MARIADB_USER: ${DB_USERNAME}
-      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
-      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    volumes:
-      - dbdata:/var/lib/mysql/
-      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
-    networks:
-      - app-network
-
-#Docker Networks
+# Networks
 networks:
-  app-network:
+  confess-network:
     driver: bridge
-#Volumes
+# Volumes
 volumes:
-  dbdata:
+  confess-dbdata:
     driver: local
