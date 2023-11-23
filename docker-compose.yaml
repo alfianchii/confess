@@ -1,4 +1,5 @@
 version: "3.8"
+
 services:
   # PHP
   php:
@@ -18,10 +19,31 @@ services:
     networks:
       - confess-network
 
+  # MariaDB
+  mariadb:
+    image: mariadb:11.0.3
+    container_name: mariadb
+    restart: unless-stopped
+    tty: true
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_DATABASE: ${DB_DATABASE}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mariadb
+    volumes:
+      - confess-dbdata:/var/lib/mysql
+    networks:
+      - confess-network
+
 # Networks
 networks:
   confess-network:
     driver: bridge
+
 # Volumes
 volumes:
   confess-dbdata:
