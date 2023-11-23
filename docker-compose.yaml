@@ -63,6 +63,35 @@ services:
     networks:
       - confess-network
 
+  # Mailhog
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    logging:
+      driver: "none"
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - confess-network
+
+  # PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      PMA_PORT: ${DB_PORT}
+    depends_on:
+      - mariadb
+    ports:
+      - 8888:80
+    networks:
+      - confess-network
+
 # Networks
 networks:
   confess-network:
