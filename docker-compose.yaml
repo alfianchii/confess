@@ -1,65 +1,187 @@
 version: "3.8"
+
 services:
-  # PHP
-  app:
+  # Nginx
+  nginx:
     build:
       context: ./docker
-      dockerfile: Dockerfile
-    image: digitalocean.com/php
-    container_name: app
+      dockerfile: nginx.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
     restart: unless-stopped
-    tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
-    working_dir: /var/www
-    volumes:
-      - ./:/var/www:rw
-      - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    networks:
-      - app-network
-
-  # Nginx
-  webserver:
-    image: nginx:1.24.0-alpine
-    container_name: webserver
-    restart: unless-stopped
-    tty: true
+    container_name: nginx
     ports:
-      - "8000:8000"
-      - "443:443"
+      - 8000:8000
     volumes:
-      - ./:/var/www
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - php
+      - mariadb
+      - phpmyadmin
+      - mailhog
     networks:
-      - app-network
+      - confess-network
+
+  # PHP
+  php:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: php
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    networks:
+      - confess-network
 
   # MariaDB
-  db:
+  mariadb:
     image: mariadb:11.0.3
-    container_name: db
+    container_name: mariadb
     restart: unless-stopped
     tty: true
     ports:
-      - "3306:3306"
+      - 3306:3306
     environment:
       MARIADB_DATABASE: ${DB_DATABASE}
       MARIADB_USER: ${DB_USERNAME}
       MARIADB_ROOT_PASSWORD: ${DB_PASSWORD}
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 1
       SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
+      SERVICE_NAME: mariadb
     volumes:
-      - dbdata:/var/lib/mysql/
-      - ./docker/mysql/my.cnf:/etc/mysql/my.cnf
+      - confess-dbdata:/var/lib/mysql
     networks:
-      - app-network
+      - confess-network
 
-#Docker Networks
+  # Mailhog
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: mailhog
+    logging:
+      driver: "none"
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - confess-network
+
+  # PhpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: phpmyadmin
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: ${DB_HOST}
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      PMA_PORT: ${DB_PORT}
+    depends_on:
+      - mariadb
+    ports:
+      - 8888:80
+    networks:
+      - confess-network
+
+  # Composer
+  composer:
+    build:
+      context: ./docker
+      dockerfile: composer.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: composer
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    working_dir: /var/www/html
+    depends_on:
+      - php
+    user: ${USER:-confess}
+    profiles: ["composer"]
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+    networks:
+      - confess-network
+
+  # NPM
+  npm:
+    image: node:21.1.0-alpine
+    container_name: npm
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    ports:
+      - 3000:3000
+      - 3001:3001
+    working_dir: /var/www/html
+    profiles: ["npm"]
+    entrypoint: ["npm"]
+    networks:
+      - confess-network
+
+  # Custom services
+  laravel-setup:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: laravel-setup
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - mariadb
+    profiles: ["setup"]
+    working_dir: /var/www/html
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        php artisan key:generate
+        php artisan storage:link
+        php artisan migrate --seed
+    networks:
+      - confess-network
+
+  artisan:
+    build:
+      context: ./docker
+      dockerfile: php.dockerfile
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+        - USER=${USER:-confess}
+    container_name: artisan
+    volumes:
+      - ./:/var/www/html
+      - .env:/var/www/html/.env
+    depends_on:
+      - mariadb
+    working_dir: /var/www/html
+    profiles: ["artisan"]
+    entrypoint: ["php", "/var/www/html/artisan"]
+    networks:
+      - confess-network
+
+# Networks
 networks:
-  app-network:
+  confess-network:
     driver: bridge
-#Volumes
+
+# Volumes
 volumes:
-  dbdata:
+  confess-dbdata:
     driver: local
