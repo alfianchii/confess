@@ -41,7 +41,7 @@ Confess is a school complaint reporting application that enables students to sub
     -   All
         -   Comment to a confession on Landing Page
         -   Account
-        -   Export and import
+        -   Export data
 -   Account
     -   Profile
     -   Setting
@@ -50,24 +50,24 @@ Confess is a school complaint reporting application that enables students to sub
     -   Confessions
     -   Confession's categories
 
-<h2 id="testing-account">👤 Default Account for Testing</h2>
+<h2 id="testing-account">👤 Default account for testing</h2>
 
-#### Admin
+### 👨‍🏫 Admin
 
 -   Username: alfianchii
 -   Password: admin123
 
-#### Officer
+### 🧖 Officer
 
 -   Username: moepoi
 -   Password: officer123
 
-#### Student
+### 🧗 Student
 
 -   Username: nata.ardhana
 -   Password: student123
 
-<h2 id="demo">🏠 Demo Page</h2>
+<h2 id="demo">🏠 Demo page</h2>
 
 <p>The demo page is currently unavailable. Therefore, it is advisable for you to try it locally by following the installation steps below.</p>
 
@@ -75,8 +75,8 @@ Confess is a school complaint reporting application that enables students to sub
 
 <p>Here are the prerequisites required for installing and running the application.</p>
 
--   PHP ^8.0 & Web Server (Apache, Lighttpd, or NGINX)
--   Database (MySQL or PostgreSQL)
+-   PHP 8.2.8 & Web Server (Apache, Lighttpd, or Nginx)
+-   Database (MariaDB w/ v11.0.3 or PostgreSQL)
 -   Web Browser (Firefox, Safari, Opera, or Brave)
 
 <h2 id="installation">💻 Installation</h2>
@@ -95,7 +95,6 @@ cp .env.example .env
 2. Database configuration through the `.env` file
 
 ```
-DB_PORT=3306
 DB_DATABASE=confess
 DB_USERNAME=yourUsername
 DB_PASSWORD=yourPassword
@@ -129,9 +128,7 @@ cd confess
 -   Copy `.env.example` file with `cp .env.example .env` and configure database:
 
 ```bash
-DB_CONNECTION=mysql
 DB_HOST=mariadb
-DB_PORT=3306
 DB_DATABASE=confess
 DB_USERNAME=your-username
 DB_PASSWORD=your-password
@@ -171,16 +168,19 @@ docker compose run --rm --service-ports npm run dev
 -   Composer
 -   -   `docker-compose run --rm composer install`
 -   -   `docker-compose run --rm composer require laravel/breeze --dev`
+-   -   Etc
 
 -   NPM
 -   -   `docker-compose run --rm npm install`
 -   -   `docker-compose run --rm --service-ports npm run dev`
+-   -   Etc
 
 -   Artisan
 -   -   `docker-compose run --rm artisan serve`
 -   -   `docker-compose run --rm artisan route:list`
+-   -   Etc
 
-<h2 id="dukungan">💌 Support Me</h2>
+<h2 id="dukungan">💌 Support me</h2>
 
 <p>You can support me on the Trakteer platform! Your support will be very meaningful. Like, just giving a star to this project is already greatly appreciated~!</p>
 
@@ -188,8 +188,7 @@ docker compose run --rm --service-ports npm run dev
 
 <h2 id="kontribusi">🤝 Contributing</h2>
 
-<p>
-Contributions, issues, and feature requests are highly appreciated as this application is far from perfect. Please do not hesitate to make a pull request and make changes to this project!</p>
+<p>Contributions, issues, and feature requests are highly appreciated as this application is far from perfect. Please do not hesitate to make a pull request and make changes to this project!</p>
 
 <h2 id="lisensi">📝 License</h2>
 
