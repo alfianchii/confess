@@ -33,4 +33,7 @@ RUN docker-php-ext-configure gd --enable-gd --with-webp --with-jpeg --with-freet
 RUN docker-php-ext-install pdo pdo_mysql bcmath pgsql pdo_pgsql mysqli gd curl zip mbstring
 RUN docker-php-ext-enable mysqli
 
+# Copies PHP configurations to override the default
+ADD ./php/php.ini /usr/local/etc/php/conf.d/php.ini
+
 CMD ["php-fpm", "-y", "/usr/local/etc/php-fpm.conf", "-R"]
