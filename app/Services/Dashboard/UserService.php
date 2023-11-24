@@ -330,7 +330,7 @@ class UserService extends Service
     $roleName = $userRole->role_name;
     if ($roleName) {
       // Rules and messages
-      $arr = $this->getRulesMessagesPassword(true, true);
+      $arr = $this->getRulesMessagesPassword();
 
       // Validates
       $credentials = Validator::make($data, $arr["rules"], $arr["messages"])->validate();
