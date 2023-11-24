@@ -6,8 +6,15 @@
                     <p class="fs-5 fw-semibold">Dikelola Oleh</p>
                 </div>
                 <div class="col-12">
-                    <img class="w-25" src="{{ asset('images/' . config('web_config')['IMAGE_FOOTER']) }}"
-                        alt="Footer Website">
+                    {{-- Default --}}
+                    @if (File::exists(public_path('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD'])))
+                        <img class="w-25" src="{{ asset('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD']) }}"
+                            alt="Footer Website">
+                    @else
+                        <img class="w-25"
+                            src="{{ asset('storage/' . config('web_config')['IMAGE_FOOTER_DASHBOARD']) }}"
+                            alt="Footer Website">
+                    @endif
                 </div>
             </div>
         </div>
