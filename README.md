@@ -143,7 +143,8 @@ docker compose up --build -d
 -   Install dependencies:
 
 ```bash
-docker compose run --rm composer install && npm install
+docker compose run --rm composer install
+docker compose run --rm npm install
 ```
 
 -   Laravel setups:
