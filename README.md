@@ -159,7 +159,7 @@ docker compose run --rm --service-ports npm run dev
 ```
 
 -   Pages
--   -   App: `http://127.0.0.1:8000`
+-   -   App: `http://127.0.0.1`
 -   -   PhpMyAdmin: `http://127.0.0.1:8888`
 -   -   MailHog: `http://127.0.0.1:8025`
 
