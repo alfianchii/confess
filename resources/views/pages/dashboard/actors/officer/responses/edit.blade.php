@@ -86,7 +86,8 @@
                                                     <label for="response" class="form-label">Isi Tanggapan</label>
 
                                                     <input id="response" name="response"
-                                                        value="{{ old('response') ?? $response->response }}" type="hidden">
+                                                        value="{{ old('response') ?? $response->response }}"
+                                                        type="hidden">
                                                     <div id="editor">
                                                         {!! old('response') ?? $response->response !!}
                                                     </div>
@@ -175,6 +176,7 @@
     @endif
 
     {{-- Filepond: file preview --}}
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     <script
         src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
     </script>
@@ -191,7 +193,6 @@
     </script>
     <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
     </script>
-    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     @vite(['resources/js/filepond/basic-file.js'])
     {{-- Quill --}}
     @vite(['resources/js/quill/confession/response/response.js'])

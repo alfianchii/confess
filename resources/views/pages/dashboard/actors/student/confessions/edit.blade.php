@@ -337,6 +337,7 @@
     <script src="{{ asset('assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
     <script src="{{ asset('assets/static/js/pages/form-element-select.js') }}"></script>
     {{-- Image and Sluggable --}}
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     <script
         src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
     </script>
@@ -353,7 +354,6 @@
     </script>
     <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
     </script>
-    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     @vite(['resources/js/filepond/image-preview.js'])
     @vite(['resources/js/sluggable/confession/confession.js'])
     {{-- SweetAlert --}}

@@ -289,6 +289,7 @@
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
     {{-- Filepond: image auto crop --}}
+    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     <script
         src="{{ asset('assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js') }}">
     </script>
@@ -305,7 +306,6 @@
     </script>
     <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
     </script>
-    <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     @vite(['resources/js/filepond/image-crop.js'])
     {{-- Display password --}}
     @vite(['resources/js/display-password/password-confirmation.js'])
