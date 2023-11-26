@@ -80,7 +80,6 @@ services:
     image: phpmyadmin:5.2.1
     container_name: phpmyadmin
     environment:
-      PMA_ARBITRARY: 1
       PMA_HOST: ${DB_HOST}
       PMA_USER: ${DB_USERNAME}
       PMA_PASSWORD: ${DB_PASSWORD}
