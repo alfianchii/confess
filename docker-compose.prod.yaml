@@ -148,8 +148,8 @@ services:
     command:
       - |
         php artisan config:cache
+        php artisan event:cache
         php artisan view:cache
-        php artisan config:cache
         php artisan key:generate
         php artisan storage:link
         php artisan migrate --seed
