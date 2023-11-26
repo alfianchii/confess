@@ -374,7 +374,7 @@
     };
     const has$1 = (obj, key) => hasOwnProperty.call(obj, key);
     const hasNonNullableKey = (obj, key) => has$1(obj, key) && obj[key] !== undefined && obj[key] !== null;
-    const !empty = r => {
+    const isEmpty = r => {
       for (const x in r) {
         if (hasOwnProperty.call(r, x)) {
           return false;
@@ -2656,7 +2656,7 @@
         }
         return contains$2(TagBoundaries, name(element));
       };
-      const !emptyTag = element => {
+      const isEmptyTag = element => {
         if (!isElement(element)) {
           return false;
         }
@@ -2749,7 +2749,7 @@
           getText: get$6,
           setText: set,
           isBoundary,
-          !emptyTag,
+          isEmptyTag,
           isNonEditable
         }),
         eq: eq$1,
@@ -4401,7 +4401,7 @@
       const tagName = universe.property().name(item);
       return contains$2(blockList, tagName);
     };
-    const !emptyTag$1 = (universe, item) => {
+    const isEmptyTag$1 = (universe, item) => {
       return contains$2([
         'br',
         'img',
@@ -4417,8 +4417,8 @@
     const isList = element => {
       return isList$1(universe$1, element);
     };
-    const !emptyTag = element => {
-      return !emptyTag$1(universe$1, element);
+    const isEmptyTag = element => {
+      return isEmptyTag$1(universe$1, element);
     };
 
     const merge = cells => {
@@ -4436,7 +4436,7 @@
           if (isBlock(rightSibling)) {
             return true;
           }
-          if (!emptyTag(rightSibling)) {
+          if (isEmptyTag(rightSibling)) {
             return name(rightSibling) === 'img' ? false : true;
           }
           return false;
@@ -5338,7 +5338,7 @@
           const cursor = SugarElement.fromText('');
           after$5(table, cursor);
           remove$6(table);
-          if (editor.dom.!empty(editor.getBody())) {
+          if (editor.dom.isEmpty(editor.getBody())) {
             editor.setContent('');
             editor.selection.setCursorLocation();
           } else {
@@ -5482,7 +5482,7 @@
           return;
         }
         const validArgs = filter$1(args, (value, style) => editor.formatter.has(getFormatName(style)) && isString(value));
-        if (!empty(validArgs)) {
+        if (isEmpty(validArgs)) {
           return;
         }
         each$1(validArgs, (value, style) => {

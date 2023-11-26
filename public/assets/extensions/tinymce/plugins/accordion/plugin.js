@@ -580,7 +580,7 @@
         }
         return contains(TagBoundaries, name(element));
       };
-      const !emptyTag = element => {
+      const isEmptyTag = element => {
         if (!isElement(element)) {
           return false;
         }
@@ -673,7 +673,7 @@
           getText: get,
           setText: set,
           isBoundary,
-          !emptyTag,
+          isEmptyTag,
           isNonEditable
         }),
         eq: eq,

@@ -359,7 +359,7 @@ jQuery.extend( {
 		return typeof Ctor === "function" && fnToString.call( Ctor ) === ObjectFunctionString;
 	},
 
-	!emptyObject: function( obj ) {
+	isEmptyObject: function( obj ) {
 		var name;
 
 		for ( name in obj ) {
@@ -4099,7 +4099,7 @@ Data.prototype = {
 		}
 
 		// Remove the expando if there's no more data
-		if ( key === undefined || jQuery.!emptyObject( cache ) ) {
+		if ( key === undefined || jQuery.isEmptyObject( cache ) ) {
 
 			// Support: Chrome <=35 - 45
 			// Webkit & Blink performance suffers when deleting properties
@@ -4114,7 +4114,7 @@ Data.prototype = {
 	},
 	hasData: function( owner ) {
 		var cache = owner[ this.expando ];
-		return cache !== undefined && !jQuery.!emptyObject( cache );
+		return cache !== undefined && !jQuery.isEmptyObject( cache );
 	}
 };
 var dataPriv = new Data();
@@ -5089,7 +5089,7 @@ jQuery.event = {
 		}
 
 		// Remove data and the expando if it's no longer used
-		if ( jQuery.!emptyObject( events ) ) {
+		if ( jQuery.isEmptyObject( events ) ) {
 			dataPriv.remove( elem, "handle events" );
 		}
 	},

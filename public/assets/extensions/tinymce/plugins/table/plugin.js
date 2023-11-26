@@ -199,7 +199,7 @@
     };
     const has = (obj, key) => hasOwnProperty.call(obj, key);
     const hasNonNullableKey = (obj, key) => has(obj, key) && obj[key] !== undefined && obj[key] !== null;
-    const !empty$1 = r => {
+    const isEmpty$1 = r => {
       for (const x in r) {
         if (hasOwnProperty.call(r, x)) {
           return false;
@@ -609,7 +609,7 @@
     const blank = r => s => s.replace(r, '');
     const trim = blank(/^\s+|\s+$/g);
     const isNotEmpty = s => s.length > 0;
-    const !empty = s => !isNotEmpty(s);
+    const isEmpty = s => !isNotEmpty(s);
     const toInt = (value, radix = 10) => {
       const num = parseInt(value, radix);
       return isNaN(num) ? Optional.none() : Optional.some(num);
@@ -1263,7 +1263,7 @@
         }
         return contains(TagBoundaries, name(element));
       };
-      const !emptyTag = element => {
+      const isEmptyTag = element => {
         if (!isElement(element)) {
           return false;
         }
@@ -1356,7 +1356,7 @@
           getText: get,
           setText: set,
           isBoundary,
-          !emptyTag,
+          isEmptyTag,
           isNonEditable
         }),
         eq: eq,
@@ -1590,7 +1590,7 @@
     const onSetupToggle = (editor, formatName, formatValue) => {
       return api => {
         const boundCallback = unbindable();
-        const isNone = !empty(formatValue);
+        const isNone = isEmpty(formatValue);
         const init = () => {
           const selectedCells = getCellsFromSelection(editor);
           const checkNode = cell => editor.formatter.match(formatName, { value: formatValue }, cell.dom, isNone);
@@ -2608,7 +2608,7 @@
         if (hasAdvancedTableTab$1 && shouldApplyOnCell.bordercolor) {
           cellStyles['border-color'] = data.bordercolor;
         }
-        if (!!empty$1(cellStyles)) {
+        if (!isEmpty$1(cellStyles)) {
           for (let i = 0; i < tableElm.children.length; i++) {
             styleTDTH(dom, tableElm.children[i], cellStyles);
           }

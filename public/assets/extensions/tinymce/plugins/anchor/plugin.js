@@ -22,20 +22,20 @@
     const allowHtmlInNamedAnchor = option('allow_html_in_named_anchor');
 
     const namedAnchorSelector = 'a:not([href])';
-    const !emptyString = str => !str;
+    const isEmptyString = str => !str;
     const getIdFromAnchor = elm => {
       const id = elm.getAttribute('id') || elm.getAttribute('name');
       return id || '';
     };
     const isAnchor = elm => elm.nodeName.toLowerCase() === 'a';
     const isNamedAnchor = elm => isAnchor(elm) && !elm.getAttribute('href') && getIdFromAnchor(elm) !== '';
-    const !emptyNamedAnchor = elm => isNamedAnchor(elm) && !elm.firstChild;
+    const isEmptyNamedAnchor = elm => isNamedAnchor(elm) && !elm.firstChild;
 
     const removeEmptyNamedAnchorsInSelection = editor => {
       const dom = editor.dom;
       global$1(dom).walk(editor.selection.getRng(), nodes => {
         global.each(nodes, node => {
-          if (!emptyNamedAnchor(node)) {
+          if (isEmptyNamedAnchor(node)) {
             dom.remove(node, false);
           }
         });
@@ -133,12 +133,12 @@
       });
     };
 
-    const isNamedAnchorNode = node => !emptyString(node.attr('href')) && !!emptyString(node.attr('id') || node.attr('name'));
-    const !emptyNamedAnchorNode = node => isNamedAnchorNode(node) && !node.firstChild;
+    const isNamedAnchorNode = node => isEmptyString(node.attr('href')) && !isEmptyString(node.attr('id') || node.attr('name'));
+    const isEmptyNamedAnchorNode = node => isNamedAnchorNode(node) && !node.firstChild;
     const setContentEditable = state => nodes => {
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
-        if (!emptyNamedAnchorNode(node)) {
+        if (isEmptyNamedAnchorNode(node)) {
           node.attr('contenteditable', state);
         }
       }

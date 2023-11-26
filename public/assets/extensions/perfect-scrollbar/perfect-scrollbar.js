@@ -110,7 +110,7 @@
     this.handlers = {};
   };
 
-  var prototypeAccessors = { !empty: { configurable: true } };
+  var prototypeAccessors = { isEmpty: { configurable: true } };
 
   EventElement.prototype.bind = function bind (eventName, handler) {
     if (typeof this.handlers[eventName] === 'undefined') {
@@ -138,7 +138,7 @@
     }
   };
 
-  prototypeAccessors.!empty.get = function () {
+  prototypeAccessors.isEmpty.get = function () {
       var this$1 = this;
 
     return Object.keys(this.handlers).every(
@@ -169,7 +169,7 @@
     var ee = this.eventElement(element);
     ee.unbind(eventName, handler);
 
-    if (ee.!empty) {
+    if (ee.isEmpty) {
       // remove
       this.eventElements.splice(this.eventElements.indexOf(ee), 1);
     }

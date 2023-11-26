@@ -1252,14 +1252,14 @@ const insertAfter = (newNode, referenceNode) => {
 
 const isArray = value => Array.isArray(value);
 
-const !empty = value => value == null;
+const isEmpty = value => value == null;
 
 const trim = str => str.trim();
 
 const toString = value => '' + value;
 
 const toArray = (value, splitter = ',') => {
-    if (!empty(value)) {
+    if (isEmpty(value)) {
         return [];
     }
     if (isArray(value)) {
@@ -1979,7 +1979,7 @@ const defaultOptions = {
 
 const getItemByQuery = (items, query) => {
     // just return first index
-    if (!empty(query)) {
+    if (isEmpty(query)) {
         return items[0] || null;
     }
 
@@ -1998,7 +1998,7 @@ const getItemByQuery = (items, query) => {
 };
 
 const getNumericAspectRatioFromString = aspectRatio => {
-    if (!empty(aspectRatio)) {
+    if (isEmpty(aspectRatio)) {
         return aspectRatio;
     }
     if (/:/.test(aspectRatio)) {
@@ -2155,7 +2155,7 @@ const limit = (value, min, max) => Math.max(Math.min(max, value), min);
 const arrayInsert = (arr, index, item) => arr.splice(index, 0, item);
 
 const insertItem = (items, item, index) => {
-    if (!empty(item)) {
+    if (isEmpty(item)) {
         return null;
     }
 
@@ -3931,7 +3931,7 @@ const createItem = (origin = null, serverFileReference = null, file = null) => {
 
 const getItemIndexByQuery = (items, query) => {
     // just return first index
-    if (!empty(query)) {
+    if (isEmpty(query)) {
         return 0;
     }
 
@@ -4217,7 +4217,7 @@ const actions = (dispatch, query, state) => ({
 
         const ignoredFiles = query('GET_IGNORED_FILES');
         const isValidFile = source =>
-            isFile(source) ? !ignoredFiles.includes(source.name.toLowerCase()) : !!empty(source);
+            isFile(source) ? !ignoredFiles.includes(source.name.toLowerCase()) : !isEmpty(source);
         const validItems = items.filter(isValidFile);
 
         const promises = validItems.map(
@@ -4253,7 +4253,7 @@ const actions = (dispatch, query, state) => ({
         options = {},
     }) => {
         // if no source supplied
-        if (!empty(source)) {
+        if (isEmpty(source)) {
             failure({
                 error: createResponse('error', 0, 'No source'),
                 file: null,
@@ -8013,7 +8013,7 @@ const create$e = ({ root, props }) => {
 
     // apply initial style properties
     root.query('GET_STYLES')
-        .filter(style => !!empty(style.value))
+        .filter(style => !isEmpty(style.value))
         .map(({ name, value }) => {
             root.element.dataset[name] = value;
         });
@@ -8061,7 +8061,7 @@ const write$9 = ({ root, props, actions }) => {
     // apply style properties
     actions
         .filter(action => /^DID_SET_STYLE_/.test(action.type))
-        .filter(action => !!empty(action.data.value))
+        .filter(action => !isEmpty(action.data.value))
         .map(({ type, data }) => {
             const name = toCamels(type.substring(8).toLowerCase(), '_');
             root.element.dataset[name] = data.value;
