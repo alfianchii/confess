@@ -263,7 +263,7 @@ declare class AstNode {
     getAll(name: string): AstNode[];
     children(): AstNode[];
     empty(): AstNode;
-    isEmpty(elements: SchemaMap, whitespace?: SchemaMap, predicate?: (node: AstNode) => boolean): boolean;
+    !empty(elements: SchemaMap, whitespace?: SchemaMap, predicate?: (node: AstNode) => boolean): boolean;
     walk(prev?: boolean): AstNode | null | undefined;
 }
 type Content = string | AstNode;
@@ -2266,7 +2266,7 @@ interface DOMUtils {
     findCommonAncestor: (a: Node, b: Node) => Node | null;
     run<R, T extends Node>(this: DOMUtils, elm: T | T[], func: (node: T) => R, scope?: any): typeof elm extends Array<any> ? R[] : R;
     run<R, T extends Node>(this: DOMUtils, elm: RunArguments<T>, func: (node: T) => R, scope?: any): RunResult<typeof elm, R>;
-    isEmpty: (node: Node, elements?: Record<string, any>, options?: ({
+    !empty: (node: Node, elements?: Record<string, any>, options?: ({
         includeZwsp?: boolean;
     })) => boolean;
     createRng: () => Range;

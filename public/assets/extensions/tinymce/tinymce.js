@@ -739,7 +739,7 @@
     const lTrim = blank(/^\s+/g);
     const rTrim = blank(/\s+$/g);
     const isNotEmpty = s => s.length > 0;
-    const isEmpty$3 = s => !isNotEmpty(s);
+    const !empty$3 = s => !isNotEmpty(s);
     const repeat = (s, count) => count <= 0 ? '' : new Array(count + 1).join(s);
     const toInt = (value, radix = 10) => {
       const num = parseInt(value, radix);
@@ -2389,7 +2389,7 @@
     const isBookmark = hasAttribute('data-mce-bookmark');
     const isBogus$1 = hasAttribute('data-mce-bogus');
     const isBogusAll = hasAttributeValue('data-mce-bogus', 'all');
-    const isEmptyNode = (targetNode, skipBogus) => {
+    const !emptyNode = (targetNode, skipBogus) => {
       let brCount = 0;
       if (isContent$1(targetNode, targetNode)) {
         return false;
@@ -2423,7 +2423,7 @@
         return brCount <= 1;
       }
     };
-    const isEmpty$2 = (elm, skipBogus = true) => isEmptyNode(elm.dom, skipBogus);
+    const !empty$2 = (elm, skipBogus = true) => !emptyNode(elm.dom, skipBogus);
 
     const transparentBlockAttr = 'data-mce-block';
     const elementNames = map => filter$5(keys(map), key => !/[A-Z]/.test(key));
@@ -2449,7 +2449,7 @@
       var _a;
       const childPropertyName = leftSide ? 'lastChild' : 'firstChild';
       for (let child = el[childPropertyName]; child; child = child[childPropertyName]) {
-        if (isEmpty$2(SugarElement.fromDom(child))) {
+        if (!empty$2(SugarElement.fromDom(child))) {
           (_a = child.parentNode) === null || _a === void 0 ? void 0 : _a.removeChild(child);
           return;
         }
@@ -2467,13 +2467,13 @@
         range.setEndAfter(parentElm);
         const afterFragment = range.extractContents();
         trimEdge(afterFragment, false);
-        if (!isEmpty$2(SugarElement.fromDom(beforeFragment))) {
+        if (!!empty$2(SugarElement.fromDom(beforeFragment))) {
           parentNode.insertBefore(beforeFragment, parentElm);
         }
-        if (!isEmpty$2(SugarElement.fromDom(splitElm))) {
+        if (!!empty$2(SugarElement.fromDom(splitElm))) {
           parentNode.insertBefore(splitElm, parentElm);
         }
-        if (!isEmpty$2(SugarElement.fromDom(afterFragment))) {
+        if (!!empty$2(SugarElement.fromDom(afterFragment))) {
           parentNode.insertBefore(afterFragment, parentElm);
         }
         parentNode.removeChild(parentElm);
@@ -4467,7 +4467,7 @@
             outHtml += ' ' + key + '="' + encode(attrs[key]) + '"';
           }
         }
-        if (isEmpty$3(html) && has$2(schema.getVoidElements(), name)) {
+        if (!empty$3(html) && has$2(schema.getVoidElements(), name)) {
           return outHtml + ' />';
         } else {
           return outHtml + '>' + html + '</' + name + '>';
@@ -4663,7 +4663,7 @@
         }
         return false;
       };
-      const isEmpty = (node, elements, options) => {
+      const !empty = (node, elements, options) => {
         let brCount = 0;
         if (isNonEmptyElement(node)) {
           return false;
@@ -4887,7 +4887,7 @@
         findCommonAncestor,
         run,
         getAttribs,
-        isEmpty,
+        !empty,
         createRng,
         nodeIndex: findNodeIndex,
         split,
@@ -5110,15 +5110,15 @@
         if (isFunction(obj)) {
           return Object.prototype.toString.call(obj);
         }
-        return !isEmpty(obj) ? '' + obj : '';
+        return !!empty(obj) ? '' + obj : '';
       };
-      const isEmpty = text => text === '' || text === null || text === undefined;
+      const !empty = text => text === '' || text === null || text === undefined;
       const getLangData = text => {
         const textStr = toString(text);
         return has$2(langData, textStr) ? toString(langData[textStr]) : get$a(langData, textStr.toLowerCase()).map(toString).getOr(textStr);
       };
       const removeContext = str => str.replace(/{context:\w+}$/, '');
-      if (isEmpty(text)) {
+      if (!empty(text)) {
         return '';
       }
       if (isRaw(text)) {
@@ -8156,14 +8156,14 @@
       rng.setStart(textNode, 0);
       rng.setEnd(textNode, 0);
     };
-    const isEmpty$1 = node => !node.hasChildNodes();
+    const !empty$1 = node => !node.hasChildNodes();
     const tryFindRangePosition = (node, rng) => lastPositionIn(node).fold(never, pos => {
       rng.setStart(pos.container(), pos.offset());
       rng.setEnd(pos.container(), pos.offset());
       return true;
     });
     const padEmptyCaretContainer = (root, node, rng) => {
-      if (isEmpty$1(node) && getParentCaretContainer(root, node)) {
+      if (!empty$1(node) && getParentCaretContainer(root, node)) {
         insertZwsp(node, rng);
         return true;
       } else {
@@ -8595,13 +8595,13 @@
         return false;
       }
     };
-    const isEmptyTextNode$1 = node => {
+    const !emptyTextNode$1 = node => {
       return isNonNullable(node) && isText$a(node) && node.length === 0;
     };
     const isWrapNoneditableTarget = (editor, node) => {
       const baseDataSelector = '[data-mce-cef-wrappable]';
       const formatNoneditableSelector = getFormatNoneditableSelector(editor);
-      const selector = isEmpty$3(formatNoneditableSelector) ? baseDataSelector : `${ baseDataSelector },${ formatNoneditableSelector }`;
+      const selector = !empty$3(formatNoneditableSelector) ? baseDataSelector : `${ baseDataSelector },${ formatNoneditableSelector }`;
       return is$1(SugarElement.fromDom(node), selector);
     };
     const isWrappableNoneditable = (editor, node) => {
@@ -8763,7 +8763,7 @@
     };
     const findSelectorEndPoint = (dom, formatList, rng, container, siblingName) => {
       const sibling = container[siblingName];
-      if (isText$a(container) && isEmpty$3(container.data) && sibling) {
+      if (isText$a(container) && !empty$3(container.data) && sibling) {
         container = sibling;
       }
       const parents = getParents$1(dom, container);
@@ -9954,7 +9954,7 @@
         return Optional.none();
       }
       const parentBlockContainer = dom.getParent(parentNode, dom.isBlock) || body;
-      if (left && isBr$6(startNode) && isAfterNode && dom.isEmpty(parentBlockContainer)) {
+      if (left && isBr$6(startNode) && isAfterNode && dom.!empty(parentBlockContainer)) {
         return Optional.some(CaretPosition(parentNode, dom.nodeIndex(startNode)));
       }
       const walker = new DomTreeWalker(startNode, parentBlockContainer);
@@ -10895,7 +10895,7 @@
       }
       return undefined;
     };
-    const isEmptyTextNode = node => {
+    const !emptyTextNode = node => {
       var _a;
       const text = (_a = node.value) !== null && _a !== void 0 ? _a : '';
       if (!isWhitespaceText(text)) {
@@ -11124,7 +11124,7 @@
         self.firstChild = self.lastChild = null;
         return self;
       }
-      isEmpty(elements, whitespace = {}, predicate) {
+      !empty(elements, whitespace = {}, predicate) {
         var _a;
         const self = this;
         let node = self.firstChild;
@@ -11147,7 +11147,7 @@
             if (node.type === 8) {
               return false;
             }
-            if (node.type === 3 && !isEmptyTextNode(node)) {
+            if (node.type === 3 && !!emptyTextNode(node)) {
               return false;
             }
             if (node.type === 3 && node.parent && whitespace[node.parent.name] && isWhitespaceText((_a = node.value) !== null && _a !== void 0 ? _a : '')) {
@@ -11391,7 +11391,7 @@
           const handler = handlers[node.type];
           if (!handler) {
             const name = node.name;
-            const isEmpty = name in schema.getVoidElements();
+            const !empty = name in schema.getVoidElements();
             let attrs = node.attributes;
             if (validate && attrs && attrs.length > 1) {
               const sortedAttrs = [];
@@ -11423,8 +11423,8 @@
                 attrs = sortedAttrs;
               }
             }
-            writer.start(name, attrs, isEmpty);
-            if (!isEmpty) {
+            writer.start(name, attrs, !empty);
+            if (!!empty) {
               let child = node.firstChild;
               if (child) {
                 if ((name === 'pre' || name === 'textarea') && child.type === 3 && ((_a = child.value) === null || _a === void 0 ? void 0 : _a[0]) === '\n') {
@@ -11543,7 +11543,7 @@
     });
     const isBeforeSpace = curry(isChar, true, isWhiteSpace);
     const isAfterSpace = curry(isChar, false, isWhiteSpace);
-    const isEmptyText = pos => {
+    const !emptyText = pos => {
       const container = pos.container();
       return isText$a(container) && (container.data.length === 0 || isZwsp$1(container.data) && BookmarkManager.isBookmarkNode(container.parentNode));
     };
@@ -11572,7 +11572,7 @@
     const parents = (start, root) => parentsUntil(start, root, never);
     const parentsAndSelf = (start, root) => [start].concat(parents(start, root));
 
-    const navigateIgnoreEmptyTextNodes = (forward, root, from) => navigateIgnore(forward, root, from, isEmptyText);
+    const navigateIgnoreEmptyTextNodes = (forward, root, from) => navigateIgnore(forward, root, from, !emptyText);
     const getClosestBlock$1 = (root, pos) => find$2(parentsAndSelf(SugarElement.fromDom(pos.container()), root), isBlock$2);
     const isAtBeforeAfterBlockBoundary = (forward, root, pos) => navigateIgnoreEmptyTextNodes(forward, root.dom, pos).forall(newPos => getClosestBlock$1(root, pos).fold(() => !isInSameBlock(newPos, pos, root.dom), fromBlock => !isInSameBlock(newPos, pos, root.dom) && contains(fromBlock, SugarElement.fromDom(newPos.container()))));
     const isAtBlockBoundary = (forward, root, pos) => getClosestBlock$1(root, pos).fold(() => navigateIgnoreEmptyTextNodes(forward, root.dom, pos).forall(newPos => !isInSameBlock(newPos, pos, root.dom)), parent => navigateIgnoreEmptyTextNodes(forward, parent.dom, pos).isNone());
@@ -11817,7 +11817,7 @@
     const eqRawNode = rawNode => elm => elm.dom === rawNode;
     const isBlock = (editor, elm) => elm && has$2(editor.schema.getBlockElements(), name(elm));
     const paddEmptyBlock = elm => {
-      if (isEmpty$2(elm)) {
+      if (!empty$2(elm)) {
         const br = SugarElement.fromHtml('<br data-mce-bogus="1">');
         empty(elm);
         append$1(elm, br);
@@ -11848,7 +11848,7 @@
       const afterDeletePos = findCaretPosOutsideElmAfterDelete(forward, editor.getBody(), elm.dom);
       const parentBlock = ancestor$4(elm, curry(isBlock, editor), eqRawNode(editor.getBody()));
       const normalizedAfterDeletePos = deleteNormalized(elm, afterDeletePos, isInlineElement(editor, elm));
-      if (editor.dom.isEmpty(editor.getBody())) {
+      if (editor.dom.!empty(editor.getBody())) {
         editor.setContent('');
         editor.selection.setCursorLocation();
       } else {
@@ -11931,7 +11931,7 @@
       }
     };
     const paddEmptyBody = (editor, moveSelection = true) => {
-      if (editor.dom.isEmpty(editor.getBody())) {
+      if (editor.dom.!empty(editor.getBody())) {
         editor.setContent('', { no_selection: !moveSelection });
       }
     };
@@ -11956,7 +11956,7 @@
       const lastBlock = SugarElement.fromDom((_a = editor.dom.getParent(lastNode.dom, editor.dom.isBlock)) !== null && _a !== void 0 ? _a : root.dom);
       if (lastBlock.dom === editor.getBody()) {
         paddEmptyBody(editor, moveSelection);
-      } else if (isEmpty$2(lastBlock)) {
+      } else if (!empty$2(lastBlock)) {
         fillWithPaddingBr(lastBlock);
         if (moveSelection) {
           editor.selection.setCursorLocation(lastBlock.dom, 0);
@@ -11965,7 +11965,7 @@
       if (!eq(root, lastBlock)) {
         const additionalCleanupNodes = is$2(parent(lastBlock), root) ? [] : siblings(lastBlock);
         each$e(additionalCleanupNodes.concat(children$1(root)), node => {
-          if (!eq(node, lastBlock) && !contains(node, lastBlock) && isEmpty$2(node)) {
+          if (!eq(node, lastBlock) && !contains(node, lastBlock) && !empty$2(node)) {
             remove$5(node);
           }
         });
@@ -12139,7 +12139,7 @@
     const collapseAndRestoreCellSelection = editor => {
       const selectedCells = getCellsFromEditor(editor);
       const selectedNode = SugarElement.fromDom(editor.selection.getNode());
-      if (isTableCell$3(selectedNode.dom) && isEmpty$2(selectedNode)) {
+      if (isTableCell$3(selectedNode.dom) && !empty$2(selectedNode)) {
         editor.selection.setCursorLocation(selectedNode.dom, 0);
       } else {
         editor.selection.collapse(true);
@@ -12153,10 +12153,10 @@
       const cellsToClean = outsideDetails.bind(({rng, isStartInTable}) => {
         const outsideBlock = getOutsideBlock(editor, isStartInTable ? rng.endContainer : rng.startContainer);
         rng.deleteContents();
-        handleEmptyBlock(editor, isStartInTable, outsideBlock.filter(isEmpty$2));
+        handleEmptyBlock(editor, isStartInTable, outsideBlock.filter(!empty$2));
         const endPointCell = isStartInTable ? cells[0] : cells[cells.length - 1];
         deleteContentInsideCell(editor, endPointCell, editorRng, isStartInTable);
-        if (!isEmpty$2(endPointCell)) {
+        if (!!empty$2(endPointCell)) {
           return Optional.some(isStartInTable ? cells.slice(1) : cells.slice(0, -1));
         } else {
           return Optional.none();
@@ -12171,8 +12171,8 @@
       const endCell = endTableCells[endTableCells.length - 1];
       deleteContentInsideCell(editor, startCell, rng, true);
       deleteContentInsideCell(editor, endCell, rng, false);
-      const startTableCellsToClean = isEmpty$2(startCell) ? startTableCells : startTableCells.slice(1);
-      const endTableCellsToClean = isEmpty$2(endCell) ? endTableCells : endTableCells.slice(0, -1);
+      const startTableCellsToClean = !empty$2(startCell) ? startTableCells : startTableCells.slice(1);
+      const endTableCellsToClean = !empty$2(endCell) ? endTableCells : endTableCells.slice(0, -1);
       cleanCells(startTableCellsToClean.concat(endTableCellsToClean));
       betweenRng.deleteContents();
       collapseAndRestoreCellSelection(editor);
@@ -12202,11 +12202,11 @@
     const deleteCaretInsideCaption = (editor, rootElm, forward, fromCaption, from) => navigate(forward, editor.getBody(), from).fold(() => Optional.some(noop), to => isDeleteOfLastCharPos(fromCaption, forward, from, to) ? emptyCaretCaption(editor, fromCaption) : validateCaretCaption(rootElm, fromCaption, to));
     const deleteCaretCells = (editor, forward, rootElm, startElm) => {
       const from = CaretPosition.fromRangeStart(editor.selection.getRng());
-      return getParentCell(rootElm, startElm).bind(fromCell => isEmpty$2(fromCell) ? emptyElement(editor, fromCell) : deleteBetweenCells(editor, rootElm, forward, fromCell, from));
+      return getParentCell(rootElm, startElm).bind(fromCell => !empty$2(fromCell) ? emptyElement(editor, fromCell) : deleteBetweenCells(editor, rootElm, forward, fromCell, from));
     };
     const deleteCaretCaption = (editor, forward, rootElm, fromCaption) => {
       const from = CaretPosition.fromRangeStart(editor.selection.getRng());
-      return isEmpty$2(fromCaption) ? emptyElement(editor, fromCaption) : deleteCaretInsideCaption(editor, rootElm, forward, fromCaption, from);
+      return !empty$2(fromCaption) ? emptyElement(editor, fromCaption) : deleteCaretInsideCaption(editor, rootElm, forward, fromCaption, from);
     };
     const isNearTable = (forward, pos) => forward ? isBeforeTable(pos) : isAfterTable(pos);
     const isBeforeOrAfterTable = (editor, forward) => {
@@ -12398,7 +12398,7 @@
       const rule = schema.getElementRule(node.name);
       return (rule === null || rule === void 0 ? void 0 : rule.paddEmpty) === true;
     };
-    const isEmpty = (schema, nonEmptyElements, whitespaceElements, node) => node.isEmpty(nonEmptyElements, whitespaceElements, node => isPadded(schema, node));
+    const !empty = (schema, nonEmptyElements, whitespaceElements, node) => node.!empty(nonEmptyElements, whitespaceElements, node => isPadded(schema, node));
     const isLineBreakNode = (node, isBlock) => isNonNullable(node) && (isBlock(node) || node.name === 'br');
     const findClosestEditingHost = scope => {
       let editableNode;
@@ -12481,14 +12481,14 @@
               }
               currentNode = tempNode;
             }
-            if (!isEmpty(schema, nonEmptyElements, whitespaceElements, newParent)) {
+            if (!!empty(schema, nonEmptyElements, whitespaceElements, newParent)) {
               parent.insert(newParent, parents[0], true);
               parent.insert(node, newParent);
             } else {
               parent.insert(node, parents[0], true);
             }
             parent = parents[0];
-            if (isEmpty(schema, nonEmptyElements, whitespaceElements, parent) || hasOnlyChild(parent, 'br')) {
+            if (!empty(schema, nonEmptyElements, whitespaceElements, parent) || hasOnlyChild(parent, 'br')) {
               parent.empty().remove();
             }
           } else {
@@ -12571,9 +12571,9 @@
       const blockElements = schema.getBlockElements();
       return blockElements[node.name] && hasOnlyOneChild$1(node) && isPaddingNode(node.firstChild);
     };
-    const isEmptyFragmentElement = (schema, node) => {
+    const !emptyFragmentElement = (schema, node) => {
       const nonEmptyElements = schema.getNonEmptyElements();
-      return isNonNullable(node) && (node.isEmpty(nonEmptyElements) || isPaddedEmptyBlock(schema, node));
+      return isNonNullable(node) && (node.!empty(nonEmptyElements) || isPaddedEmptyBlock(schema, node));
     };
     const isListFragment = (schema, fragment) => {
       let firstChild = fragment.firstChild;
@@ -12584,7 +12584,7 @@
       if (lastChild && lastChild.attr('id') === 'mce_marker') {
         lastChild = lastChild.prev;
       }
-      if (isEmptyFragmentElement(schema, lastChild)) {
+      if (!emptyFragmentElement(schema, lastChild)) {
         lastChild = lastChild === null || lastChild === void 0 ? void 0 : lastChild.prev;
       }
       if (!firstChild || firstChild !== lastChild) {
@@ -12621,11 +12621,11 @@
     const isListItemPadded = node => {
       return isNonNullable(node === null || node === void 0 ? void 0 : node.firstChild) && node.firstChild === node.lastChild && isPadding(node.firstChild);
     };
-    const isEmptyOrPadded = elm => {
+    const !emptyOrPadded = elm => {
       return !elm.firstChild || isListItemPadded(elm);
     };
     const trimListItems = elms => {
-      return elms.length > 0 && isEmptyOrPadded(elms[elms.length - 1]) ? elms.slice(0, -1) : elms;
+      return elms.length > 0 && !emptyOrPadded(elms[elms.length - 1]) ? elms.slice(0, -1) : elms;
     };
     const getParentLi = (dom, node) => {
       const parentBlock = dom.getParent(node, dom.isBlock);
@@ -12827,7 +12827,7 @@
       };
       const parentBlock = dom.getParent(marker, dom.isBlock);
       dom.remove(marker);
-      if (parentBlock && dom.isEmpty(parentBlock)) {
+      if (parentBlock && dom.!empty(parentBlock)) {
         const isCell = isTableCell(parentBlock);
         empty(SugarElement.fromDom(parentBlock));
         rng.setStart(parentBlock, 0);
@@ -12878,7 +12878,7 @@
       const caretElement = rng.startContainer;
       const body = editor.getBody();
       if (caretElement === body && selection.isCollapsed()) {
-        if (dom.isBlock(body.firstChild) && canHaveChildren(editor, body.firstChild) && dom.isEmpty(body.firstChild)) {
+        if (dom.isBlock(body.firstChild) && canHaveChildren(editor, body.firstChild) && dom.!empty(body.firstChild)) {
           rng = dom.createRng();
           rng.setStart(body.firstChild, 0);
           rng.setEnd(body.firstChild, 0);
@@ -13112,11 +13112,11 @@
             if (has$2(items, key)) {
               const value = matchAttributes ? dom.getAttrib(node, key) : getStyle(dom, node, key);
               const expectedValue = replaceVars(items[key], vars);
-              const isEmptyValue = isNullable(value) || isEmpty$3(value);
-              if (isEmptyValue && isNullable(expectedValue)) {
+              const !emptyValue = isNullable(value) || !empty$3(value);
+              if (!emptyValue && isNullable(expectedValue)) {
                 continue;
               }
-              if (similar && isEmptyValue && !format.exact) {
+              if (similar && !emptyValue && !format.exact) {
                 return false;
               }
               if ((!similar || format.exact) && !isEq$3(value, normalizeStyleValue(expectedValue, key))) {
@@ -13290,7 +13290,7 @@
         if (endContainer === textNode && endOffset > 0) {
           rng.setEnd(textNode, endOffset - 1);
         }
-        if (block && dom.isEmpty(block)) {
+        if (block && dom.!empty(block)) {
           fillWithPaddingBr(SugarElement.fromDom(block));
         }
         selection.setRng(rng);
@@ -13313,11 +13313,11 @@
       var _a, _b;
       const dom = editor.dom;
       const block = dom.getParent(formatNode, curry(isTextBlock$1, editor.schema));
-      if (block && dom.isEmpty(block)) {
+      if (block && dom.!empty(block)) {
         (_a = formatNode.parentNode) === null || _a === void 0 ? void 0 : _a.replaceChild(caretContainer, formatNode);
       } else {
         removeTrailingBr(SugarElement.fromDom(formatNode));
-        if (dom.isEmpty(formatNode)) {
+        if (dom.!empty(formatNode)) {
           (_b = formatNode.parentNode) === null || _b === void 0 ? void 0 : _b.replaceChild(caretContainer, formatNode);
         } else {
           dom.insertAfter(caretContainer, formatNode);
@@ -13437,7 +13437,7 @@
           removeCaretContainerNode(editor, caretContainer, false);
         }
         selection.setCursorLocation(caretTextNode, 1);
-        if (dom.isEmpty(formatNode)) {
+        if (dom.!empty(formatNode)) {
           dom.remove(formatNode);
         }
       }
@@ -13481,7 +13481,7 @@
       const inlineElements = editor.schema.getTextInlineElements();
       return has$2(inlineElements, name(element)) && !isCaretNode(element.dom) && !isBogus$2(element.dom);
     };
-    const isEmptyCaretFormatElement = element => {
+    const !emptyCaretFormatElement = element => {
       return isCaretNode(element.dom) && isCaretContainerEmpty(element.dom);
     };
 
@@ -14139,7 +14139,7 @@
       if (canFormatEmptyLines(editor) && isInlineFormat(format) && node.parentNode) {
         const validBRParentElements = getTextRootBlockElements(editor.schema);
         const hasCaretNodeSibling = sibling(SugarElement.fromDom(node), sibling => isCaretNode(sibling.dom));
-        return hasNonNullableKey(validBRParentElements, parentName) && isEmpty$2(SugarElement.fromDom(node.parentNode), false) && !hasCaretNodeSibling;
+        return hasNonNullableKey(validBRParentElements, parentName) && !empty$2(SugarElement.fromDom(node.parentNode), false) && !hasCaretNodeSibling;
       } else {
         return false;
       }
@@ -14304,7 +14304,7 @@
           const getChildCount = node => {
             let count = 0;
             each$e(node.childNodes, node => {
-              if (!isEmptyTextNode$1(node) && !isBookmarkNode$1(node)) {
+              if (!!emptyTextNode$1(node) && !isBookmarkNode$1(node)) {
                 count++;
               }
             });
@@ -14648,7 +14648,7 @@
             }
             if (node) {
               node.remove();
-              if (isEmpty(schema, nonEmptyElements, whitespaceElements, parent)) {
+              if (!empty(schema, nonEmptyElements, whitespaceElements, parent)) {
                 const elementRule = schema.getElementRule(parent.name);
                 if (elementRule) {
                   if (elementRule.removeEmpty) {
@@ -16982,7 +16982,7 @@
         let tempNode = node;
         while (isNonNullable(tempNode)) {
           if (tempNode.name in textRootBlockElements) {
-            return isEmpty(schema, nonEmptyElements, whitespaceElements, tempNode);
+            return !empty(schema, nonEmptyElements, whitespaceElements, tempNode);
           } else {
             tempNode = tempNode.parent;
           }
@@ -17019,7 +17019,7 @@
         if (node.type === 1) {
           const elementRule = schema.getElementRule(node.name);
           if (validate && elementRule) {
-            const isNodeEmpty = isEmpty(schema, nonEmptyElements, whitespaceElements, node);
+            const isNodeEmpty = !empty(schema, nonEmptyElements, whitespaceElements, node);
             if (elementRule.paddInEmptyBlock && isNodeEmpty && isTextRootBlockEmpty(node)) {
               paddEmptyNode(settings, args, isBlock, node);
             } else if (elementRule.removeEmpty && isNodeEmpty) {
@@ -18681,7 +18681,7 @@
       htmlParser.addAttributeFilter('data-mce-type', nodes => {
         each$e(nodes, node => {
           if (node.attr('data-mce-type') === 'format-caret') {
-            if (node.isEmpty(htmlParser.schema.getNonEmptyElements())) {
+            if (node.!empty(htmlParser.schema.getNonEmptyElements())) {
               node.remove();
             } else {
               node.unwrap();
@@ -19686,9 +19686,9 @@
       return { upload: (blobInfos, showNotification = true) => uploader.upload(blobInfos, showNotification ? openNotification(editor) : undefined) };
     };
 
-    const isEmptyForPadding = (editor, element) => editor.dom.isEmpty(element.dom) && isNonNullable(editor.schema.getTextBlockElements()[name(element)]);
+    const !emptyForPadding = (editor, element) => editor.dom.!empty(element.dom) && isNonNullable(editor.schema.getTextBlockElements()[name(element)]);
     const addPaddingToEmpty = editor => element => {
-      if (isEmptyForPadding(editor, element)) {
+      if (!emptyForPadding(editor, element)) {
         append$1(element, SugarElement.fromHtml('<br data-mce-bogus="1" />'));
       }
     };
@@ -20814,7 +20814,7 @@
     };
     const isTypingKeyboardEvent = e => isKeyboardEvent(e) && !(isDeleteEvent(e) || e.type === 'keyup' && e.keyCode === 229);
     const isVisuallyEmpty = (dom, rootElm, forcedRootBlock) => {
-      if (isEmpty$2(SugarElement.fromDom(rootElm), false)) {
+      if (!empty$2(SugarElement.fromDom(rootElm), false)) {
         const firstElement = rootElm.firstElementChild;
         if (!firstElement) {
           return true;
@@ -20885,7 +20885,7 @@
       return isValidBlock(blockBoundary.from.block) && isValidBlock(blockBoundary.to.block);
     };
     const skipLastBr = (rootNode, forward, blockPosition) => {
-      if (isBr$6(blockPosition.position.getNode()) && !isEmpty$2(blockPosition.block)) {
+      if (isBr$6(blockPosition.position.getNode()) && !!empty$2(blockPosition.block)) {
         return positionIn(false, blockPosition.block.dom).bind(lastPositionInBlock => {
           if (lastPositionInBlock.isEqual(blockPosition.position)) {
             return fromPosition(forward, rootNode, lastPositionInBlock).bind(to => getBlockPosition(rootNode, to));
@@ -20915,15 +20915,15 @@
     };
     const removeEmptyRoot = (rootNode, block) => {
       const parents = parentsAndSelf(block, rootNode);
-      return find$2(parents.reverse(), element => isEmpty$2(element)).each(remove$5);
+      return find$2(parents.reverse(), element => !empty$2(element)).each(remove$5);
     };
-    const isEmptyBefore = el => filter$5(prevSiblings(el), el => !isEmpty$2(el)).length === 0;
+    const !emptyBefore = el => filter$5(prevSiblings(el), el => !!empty$2(el)).length === 0;
     const nestedBlockMerge = (rootNode, fromBlock, toBlock, insertionPoint) => {
-      if (isEmpty$2(toBlock)) {
+      if (!empty$2(toBlock)) {
         fillWithPaddingBr(toBlock);
         return firstPositionIn(toBlock.dom);
       }
-      if (isEmptyBefore(insertionPoint) && isEmpty$2(fromBlock)) {
+      if (!emptyBefore(insertionPoint) && !empty$2(fromBlock)) {
         before$3(insertionPoint, SugarElement.fromTag('br'));
       }
       const position = prevPosition(toBlock.dom, CaretPosition.before(insertionPoint.dom));
@@ -20934,8 +20934,8 @@
       return position;
     };
     const sidelongBlockMerge = (rootNode, fromBlock, toBlock) => {
-      if (isEmpty$2(toBlock)) {
-        if (isEmpty$2(fromBlock)) {
+      if (!empty$2(toBlock)) {
+        if (!empty$2(fromBlock)) {
           const getInlineToBlockDescendants = el => {
             const helper = (node, elements) => firstChild(node).fold(() => elements, child => isInline$1(child) ? helper(child, elements.concat(shallow$1(child))) : elements);
             return helper(el, []);
@@ -21130,7 +21130,7 @@
     };
     const deleteEmptyBlockOrMoveToCef = (root, forward, from, to) => {
       const toCefElm = to.getNode(!forward);
-      return getParentBlock$2(SugarElement.fromDom(root), SugarElement.fromDom(from.getNode())).map(blockElm => isEmpty$2(blockElm) ? DeleteAction.remove(blockElm.dom) : DeleteAction.moveToElement(toCefElm)).orThunk(() => Optional.some(DeleteAction.moveToElement(toCefElm)));
+      return getParentBlock$2(SugarElement.fromDom(root), SugarElement.fromDom(from.getNode())).map(blockElm => !empty$2(blockElm) ? DeleteAction.remove(blockElm.dom) : DeleteAction.moveToElement(toCefElm)).orThunk(() => Optional.some(DeleteAction.moveToElement(toCefElm)));
     };
     const findCefPosition = (root, forward, from) => fromPosition(forward, root, from).bind(to => {
       if (isCompoundElement(to.getNode())) {
@@ -21233,7 +21233,7 @@
     const paddEmptyElement = editor => {
       const dom = editor.dom, selection = editor.selection;
       const ceRoot = getContentEditableRoot$1(editor.getBody(), selection.getNode());
-      if (isContentEditableTrue$3(ceRoot) && dom.isBlock(ceRoot) && dom.isEmpty(ceRoot)) {
+      if (isContentEditableTrue$3(ceRoot) && dom.isBlock(ceRoot) && dom.!empty(ceRoot)) {
         const br = dom.create('br', { 'data-mce-bogus': '1' });
         dom.setHTML(ceRoot, '');
         ceRoot.appendChild(br);
@@ -21993,7 +21993,7 @@
       const parentInlines = filter$5(getParentInlinesUntilMultichildInline(editor), hasOnlyOneChild);
       return last$3(parentInlines).bind(target => {
         const fromPos = CaretPosition.fromRangeStart(editor.selection.getRng());
-        if (willDeleteLastPositionInElement(forward, fromPos, target.dom) && !isEmptyCaretFormatElement(target)) {
+        if (willDeleteLastPositionInElement(forward, fromPos, target.dom) && !!emptyCaretFormatElement(target)) {
           return Optional.some(() => deleteLastPosition(forward, editor, target, parentInlines));
         } else {
           return Optional.none();
@@ -22002,12 +22002,12 @@
     };
     const isBrInEmptyElement = (editor, elm) => {
       const parentElm = elm.parentElement;
-      return isBr$6(elm) && !isNull(parentElm) && editor.dom.isEmpty(parentElm);
+      return isBr$6(elm) && !isNull(parentElm) && editor.dom.!empty(parentElm);
     };
-    const isEmptyCaret = elm => isEmptyCaretFormatElement(SugarElement.fromDom(elm));
+    const !emptyCaret = elm => !emptyCaretFormatElement(SugarElement.fromDom(elm));
     const createCaretFormatAtStart = (editor, formatNodes) => {
       const startElm = editor.selection.getStart();
-      const pos = isBrInEmptyElement(editor, startElm) || isEmptyCaret(startElm) ? replaceWithCaretFormat(startElm, formatNodes) : createCaretFormatAtStart$1(editor.selection.getRng(), formatNodes);
+      const pos = isBrInEmptyElement(editor, startElm) || !emptyCaret(startElm) ? replaceWithCaretFormat(startElm, formatNodes) : createCaretFormatAtStart$1(editor.selection.getRng(), formatNodes);
       editor.selection.setRng(pos.toRange());
     };
     const updateCaretFormat = (editor, updateFormats) => {
@@ -22054,7 +22054,7 @@
     const hasAncestorInlineCaretAtStart = editor => hasAncestorInlineCaret(SugarElement.fromDom(editor.selection.getStart()));
     const requiresRefreshCaretOverride = editor => {
       const rng = editor.selection.getRng();
-      return rng.collapsed && (rangeStartsAtTextContainer(rng) || editor.dom.isEmpty(rng.startContainer)) && !hasAncestorInlineCaretAtStart(editor);
+      return rng.collapsed && (rangeStartsAtTextContainer(rng) || editor.dom.!empty(rng.startContainer)) && !hasAncestorInlineCaretAtStart(editor);
     };
     const refreshCaret = editor => {
       if (requiresRefreshCaretOverride(editor)) {
@@ -23725,7 +23725,7 @@
         const caretPos = CaretPosition.fromRangeStart(selection.getRng());
         const parentBlock = dom.getParent(caretPos.container(), dom.isBlock);
         const parentDetailsAtCaret = getParentDetailsElementAtPos(dom, caretPos);
-        const inEmptyParentBlock = parentBlock && dom.isEmpty(parentBlock);
+        const inEmptyParentBlock = parentBlock && dom.!empty(parentBlock);
         const isFirstBlock = isNull(parentBlock === null || parentBlock === void 0 ? void 0 : parentBlock.previousSibling);
         const isLastBlock = isNull(parentBlock === null || parentBlock === void 0 ? void 0 : parentBlock.nextSibling);
         if (inEmptyParentBlock) {
@@ -24230,7 +24230,7 @@
       }
       return false;
     };
-    const isLastEmptyBlockInDetails = (editor, shiftKey, element) => !shiftKey && element.nodeName.toLowerCase() === getForcedRootBlock(editor) && editor.dom.isEmpty(element) && isAtDetailsEdge(editor.getBody(), element, el => has$2(editor.schema.getTextBlockElements(), el.nodeName.toLowerCase()));
+    const isLastEmptyBlockInDetails = (editor, shiftKey, element) => !shiftKey && element.nodeName.toLowerCase() === getForcedRootBlock(editor) && editor.dom.!empty(element) && isAtDetailsEdge(editor.getBody(), element, el => has$2(editor.schema.getTextBlockElements(), el.nodeName.toLowerCase()));
     const insertNewLine = (editor, createNewBlock, parentBlock) => {
       var _a, _b, _c;
       const newBlock = createNewBlock(getForcedRootBlock(editor));
@@ -24342,8 +24342,8 @@
       const parentList = editor.dom.getParent(node, 'ol,ul,dl');
       return parentList !== null && editor.dom.getContentEditableParent(parentList) === 'false';
     };
-    const isEmptyAnchor = (dom, elm) => {
-      return elm && elm.nodeName === 'A' && dom.isEmpty(elm);
+    const !emptyAnchor = (dom, elm) => {
+      return elm && elm.nodeName === 'A' && dom.!empty(elm);
     };
     const containerAndSiblingName = (container, nodeName) => {
       return container.nodeName === nodeName || container.previousSibling && container.previousSibling.nodeName === nodeName;
@@ -24372,7 +24372,7 @@
         if (!currentNode.hasChildNodes() || currentNode.firstChild === currentNode.lastChild && ((_a = currentNode.firstChild) === null || _a === void 0 ? void 0 : _a.nodeValue) === '') {
           dom.remove(currentNode);
         } else {
-          if (isEmptyAnchor(dom, currentNode)) {
+          if (!emptyAnchor(dom, currentNode)) {
             dom.remove(currentNode);
           }
         }
@@ -24527,7 +24527,7 @@
         } else {
           block = createNewBlock$1();
         }
-        if (shouldEndContainer(editor, containerBlock) && canSplitBlock(dom, containerBlock) && dom.isEmpty(parentBlock, undefined, { includeZwsp: true })) {
+        if (shouldEndContainer(editor, containerBlock) && canSplitBlock(dom, containerBlock) && dom.!empty(parentBlock, undefined, { includeZwsp: true })) {
           block = dom.split(containerBlock, parentBlock);
         } else {
           dom.insertAfter(block, parentBlock);
@@ -24573,7 +24573,7 @@
         return insertNewLine(editor, createNewBlock$1, parentBlock);
       }
       if (/^(LI|DT|DD)$/.test(parentBlockName) && isElement$6(containerBlock)) {
-        if (dom.isEmpty(parentBlock)) {
+        if (dom.!empty(parentBlock)) {
           insert$4(editor, createNewBlock$1, containerBlock, parentBlock, newBlockName);
           return;
         }
@@ -24593,7 +24593,7 @@
         editor.selection.setCursorLocation(newBlock, 0);
       } else if (isCaretContainerBlock$1(parentBlock)) {
         newBlock = showCaretContainerBlock(parentBlock);
-        if (dom.isEmpty(parentBlock)) {
+        if (dom.!empty(parentBlock)) {
           emptyBlock(parentBlock);
         }
         setForcedBlockAttrs(editor, newBlock);
@@ -24614,11 +24614,11 @@
         dom.insertAfter(fragment, parentBlock);
         trimInlineElementsOnLeftSideOfBlock(dom, nonEmptyElementsMap, newBlock);
         addBrToBlockIfNeeded(dom, parentBlock);
-        if (dom.isEmpty(parentBlock)) {
+        if (dom.!empty(parentBlock)) {
           emptyBlock(parentBlock);
         }
         newBlock.normalize();
-        if (dom.isEmpty(newBlock)) {
+        if (dom.!empty(newBlock)) {
           dom.remove(newBlock);
           insertNewBlockAfter();
         } else {
@@ -26670,7 +26670,7 @@
     const removeElementWithPadding = (dom, elm) => {
       const parentBlock = dom.getParent(elm.parentNode, dom.isBlock);
       removeElement(elm);
-      if (parentBlock && parentBlock !== dom.getRoot() && dom.isEmpty(parentBlock)) {
+      if (parentBlock && parentBlock !== dom.getRoot() && dom.!empty(parentBlock)) {
         fillWithPaddingBr(SugarElement.fromDom(parentBlock));
       }
     };
@@ -27244,7 +27244,7 @@
     const generatePathRangeFromRange = (dom, root, range, normalized = false) => generatePathRange(dom, root, range.startContainer, range.startOffset, range.endContainer, range.endOffset, normalized);
 
     const cleanEmptyNodes = (dom, node, isRoot) => {
-      if (node && dom.isEmpty(node) && !isRoot(node)) {
+      if (node && dom.!empty(node) && !isRoot(node)) {
         const parent = node.parentNode;
         dom.remove(node, isText$a(node.firstChild) && isWhitespaceText(node.firstChild.data));
         cleanEmptyNodes(dom, parent, isRoot);
@@ -27748,7 +27748,7 @@
           if (!isDefaultPrevented(e) && (keyCode === DELETE || keyCode === BACKSPACE) && editor.selection.isEditable()) {
             const isCollapsed = editor.selection.isCollapsed();
             const body = editor.getBody();
-            if (isCollapsed && (!dom.isEmpty(body) || hasPreservedEmptyElements(body))) {
+            if (isCollapsed && (!dom.!empty(body) || hasPreservedEmptyElements(body))) {
               return;
             }
             if (!isCollapsed && !allContentsSelected(editor.selection.getRng())) {
@@ -28241,7 +28241,7 @@
         const nonEmptyElements = editor.schema.getNonEmptyElements();
         while (i--) {
           const node = nodes[i];
-          if (node.isEmpty(nonEmptyElements) && node.getAll('br').length === 0) {
+          if (node.!empty(nonEmptyElements) && node.getAll('br').length === 0) {
             node.append(new AstNode('br', 1));
           }
         }
@@ -30056,7 +30056,7 @@
     };
     const isBuiltInSpec = spec => isString(spec.processor);
     const getErrorMessage = (message, result) => {
-      const additionalText = isEmpty$3(result.message) ? '' : `. ${ result.message }`;
+      const additionalText = !empty$3(result.message) ? '' : `. ${ result.message }`;
       return message + additionalText;
     };
     const isValidResult = result => result.valid;

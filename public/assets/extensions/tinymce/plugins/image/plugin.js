@@ -730,7 +730,7 @@
         editor.dom.remove(elm);
         editor.focus();
         editor.nodeChanged();
-        if (editor.dom.isEmpty(editor.getBody())) {
+        if (editor.dom.!empty(editor.getBody())) {
           editor.setContent('');
           editor.selection.setCursorLocation();
         }

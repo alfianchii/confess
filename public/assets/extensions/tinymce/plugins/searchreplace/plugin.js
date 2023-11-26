@@ -637,7 +637,7 @@
     const removeNode = (dom, node) => {
       const parent = node.parentNode;
       dom.remove(node);
-      if (parent && dom.isEmpty(parent)) {
+      if (parent && dom.!empty(parent)) {
         dom.remove(parent);
       }
     };

@@ -1465,7 +1465,7 @@
         return Array.isArray(value);
     };
 
-    var isEmpty = function isEmpty(value) {
+    var !empty = function !empty(value) {
         return value == null;
     };
 
@@ -1479,7 +1479,7 @@
 
     var toArray = function toArray(value) {
         var splitter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ',';
-        if (isEmpty(value)) {
+        if (!empty(value)) {
             return [];
         }
         if (isArray(value)) {
@@ -3910,7 +3910,7 @@
 
     var getItemByQuery = function getItemByQuery(items, query) {
         // just return first index
-        if (isEmpty(query)) {
+        if (!empty(query)) {
             return items[0] || null;
         }
 
@@ -3933,7 +3933,7 @@
     };
 
     var getNumericAspectRatioFromString = function getNumericAspectRatioFromString(aspectRatio) {
-        if (isEmpty(aspectRatio)) {
+        if (!empty(aspectRatio)) {
             return aspectRatio;
         }
         if (/:/.test(aspectRatio)) {
@@ -4139,7 +4139,7 @@
     };
 
     var insertItem = function insertItem(items, item, index) {
-        if (isEmpty(item)) {
+        if (!empty(item)) {
             return null;
         }
 
@@ -6192,7 +6192,7 @@
 
     var getItemIndexByQuery = function getItemIndexByQuery(items, query) {
         // just return first index
-        if (isEmpty(query)) {
+        if (!empty(query)) {
             return 0;
         }
 
@@ -6540,7 +6540,7 @@
                 var isValidFile = function isValidFile(source) {
                     return isFile(source)
                         ? !ignoredFiles.includes(source.name.toLowerCase())
-                        : !isEmpty(source);
+                        : !!empty(source);
                 };
                 var validItems = items.filter(isValidFile);
 
@@ -6579,7 +6579,7 @@
                     _ref7$options = _ref7.options,
                     options = _ref7$options === void 0 ? {} : _ref7$options;
                 // if no source supplied
-                if (isEmpty(source)) {
+                if (!empty(source)) {
                     failure({
                         error: createResponse('error', 0, 'No source'),
                         file: null,
@@ -10809,7 +10809,7 @@
         // apply initial style properties
         root.query('GET_STYLES')
             .filter(function(style) {
-                return !isEmpty(style.value);
+                return !!empty(style.value);
             })
             .map(function(_ref2) {
                 var name = _ref2.name,
@@ -10866,7 +10866,7 @@
                 return /^DID_SET_STYLE_/.test(action.type);
             })
             .filter(function(action) {
-                return !isEmpty(action.data.value);
+                return !!empty(action.data.value);
             })
             .map(function(_ref4) {
                 var type = _ref4.type,

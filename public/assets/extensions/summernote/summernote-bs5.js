@@ -679,7 +679,7 @@ function from(collection) {
  */
 
 
-function isEmpty(array) {
+function !empty(array) {
   return !array || !array.length;
 }
 /**
@@ -796,7 +796,7 @@ function prev(array, item) {
   all: lists_all,
   sum: sum,
   from: from,
-  isEmpty: isEmpty,
+  !empty: !empty,
   clusterBy: clusterBy,
   compact: compact,
   unique: unique
@@ -1015,7 +1015,7 @@ function deepestChildIsEmpty(node) {
     if (node.firstElementChild === null || node.firstElementChild.innerHTML === '') break;
   } while (node = node.firstElementChild);
 
-  return dom_isEmpty(node);
+  return dom_!empty(node);
 }
 /**
  * returns whether node is empty or not.
@@ -1025,7 +1025,7 @@ function deepestChildIsEmpty(node) {
  */
 
 
-function dom_isEmpty(node) {
+function dom_!empty(node) {
   var len = nodeLength(node);
 
   if (len === 0) {
@@ -1472,7 +1472,7 @@ function nextPointWithEmptyNode(point, isSkipInnerOffset) {
   var node,
       offset = 0; // if node is empty string node, return current node's sibling.
 
-  if (dom_isEmpty(point.node)) {
+  if (dom_!empty(point.node)) {
     if (point.node === null) {
       return null;
     }
@@ -1501,8 +1501,8 @@ function nextPointWithEmptyNode(point, isSkipInnerOffset) {
     node = point.node.childNodes[point.offset];
     offset = 0;
 
-    if (dom_isEmpty(node)) {
-      if (!dom_isEmpty(point.node.nextSibling)) {
+    if (dom_!empty(node)) {
+      if (!dom_!empty(point.node.nextSibling)) {
         return {
           node: point.node.nextSibling,
           offset: offset
@@ -1515,7 +1515,7 @@ function nextPointWithEmptyNode(point, isSkipInnerOffset) {
     node = point.node;
     offset = isSkipInnerOffset ? nodeLength(point.node) : point.offset + 1;
 
-    if (dom_isEmpty(node)) {
+    if (dom_!empty(node)) {
       return null;
     }
   }
@@ -1556,7 +1556,7 @@ function isSamePoint(pointA, pointB) {
 
 
 function isVisiblePoint(point) {
-  if (isText(point.node) || !hasChildren(point.node) || dom_isEmpty(point.node)) {
+  if (isText(point.node) || !hasChildren(point.node) || dom_!empty(point.node)) {
     return true;
   }
 
@@ -1748,11 +1748,11 @@ function splitNode(point, options) {
     }
 
     if (isDiscardEmptySplits) {
-      if (dom_isEmpty(point.node)) {
+      if (dom_!empty(point.node)) {
         remove(point.node);
       }
 
-      if (dom_isEmpty(clone)) {
+      if (dom_!empty(clone)) {
         remove(clone);
         return point.node.nextSibling;
       }
@@ -2050,8 +2050,8 @@ function isCustomStyleTag(node) {
   isImg: makePredByNodeName('IMG'),
   isTextarea: isTextarea,
   deepestChildIsEmpty: deepestChildIsEmpty,
-  isEmpty: dom_isEmpty,
-  isEmptyAnchor: func.and(isAnchor, dom_isEmpty),
+  !empty: dom_!empty,
+  !emptyAnchor: func.and(isAnchor, dom_!empty),
   isClosestSibling: isClosestSibling,
   withClosestSiblings: withClosestSiblings,
   nodeLength: nodeLength,
@@ -2696,7 +2696,7 @@ var WrappedRange = /*#__PURE__*/function () {
 
 
         if (dom.isVisiblePoint(point)) {
-          if (!dom.isEdgePoint(point) || dom.isRightEdgePoint(point) && !isLeftToRight || dom.isLeftEdgePoint(point) && isLeftToRight || dom.isRightEdgePoint(point) && isLeftToRight && dom.isVoid(point.node.nextSibling) || dom.isLeftEdgePoint(point) && !isLeftToRight && dom.isVoid(point.node.previousSibling) || dom.isBlock(point.node) && dom.isEmpty(point.node)) {
+          if (!dom.isEdgePoint(point) || dom.isRightEdgePoint(point) && !isLeftToRight || dom.isLeftEdgePoint(point) && isLeftToRight || dom.isRightEdgePoint(point) && isLeftToRight && dom.isVoid(point.node.nextSibling) || dom.isLeftEdgePoint(point) && !isLeftToRight && dom.isVoid(point.node.previousSibling) || dom.isBlock(point.node) && dom.!empty(point.node)) {
             return point;
           }
         } // point on block's edge
@@ -2951,7 +2951,7 @@ var WrappedRange = /*#__PURE__*/function () {
   }, {
     key: "wrapBodyInlineWithPara",
     value: function wrapBodyInlineWithPara() {
-      if (dom.isBodyContainer(this.sc) && dom.isEmpty(this.sc)) {
+      if (dom.isBodyContainer(this.sc) && dom.!empty(this.sc)) {
         this.sc.innerHTML = dom.emptyPara;
         return new WrappedRange(this.sc.firstChild, 0, this.sc.firstChild, 0);
       }
@@ -3016,7 +3016,7 @@ var WrappedRange = /*#__PURE__*/function () {
       if (info.rightNode) {
         info.rightNode.parentNode.insertBefore(node, info.rightNode);
 
-        if (dom.isEmpty(info.rightNode) && dom.isPara(node)) {
+        if (dom.!empty(info.rightNode) && dom.isPara(node)) {
           info.rightNode.parentNode.removeChild(info.rightNode);
         }
       } else {
@@ -4257,7 +4257,7 @@ var Typing = /*#__PURE__*/function () {
 
       if (splitRoot) {
         // if it is an empty line with li
-        if (dom.isLi(splitRoot) && (dom.isEmpty(splitRoot) || dom.deepestChildIsEmpty(splitRoot))) {
+        if (dom.isLi(splitRoot) && (dom.!empty(splitRoot) || dom.deepestChildIsEmpty(splitRoot))) {
           // toggle UL/OL and escape
           this.bullet.toggleList(splitRoot.parentNode.nodeName);
           return;
@@ -4291,13 +4291,13 @@ var Typing = /*#__PURE__*/function () {
           } else {
             nextPara = dom.splitTree(splitRoot, rng.getStartPoint()); // not a blockquote, just insert the paragraph
 
-            var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
-            emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
+            var emptyAnchors = dom.listDescendant(splitRoot, dom.!emptyAnchor);
+            emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.!emptyAnchor));
             external_jQuery_default().each(emptyAnchors, function (idx, anchor) {
               dom.remove(anchor);
             }); // replace empty heading, pre or custom-made styleTag with P tag
 
-            if ((dom.isHeading(nextPara) || dom.isPre(nextPara) || dom.isCustomStyleTag(nextPara)) && dom.isEmpty(nextPara)) {
+            if ((dom.isHeading(nextPara) || dom.isPre(nextPara) || dom.isCustomStyleTag(nextPara)) && dom.!empty(nextPara)) {
               nextPara = dom.replace(nextPara, 'p');
             }
           }
@@ -6127,9 +6127,9 @@ var Editor = /*#__PURE__*/function () {
      */
 
   }, {
-    key: "isEmpty",
-    value: function isEmpty() {
-      return dom.isEmpty(this.$editable[0]) || dom.emptyPara === this.$editable.html();
+    key: "!empty",
+    value: function !empty() {
+      return dom.!empty(this.$editable[0]) || dom.emptyPara === this.$editable.html();
     }
     /**
      * Removes all contents and restores the editable instance to an _emptyPara_.
@@ -7187,7 +7187,7 @@ var Placeholder = /*#__PURE__*/function () {
   }, {
     key: "update",
     value: function update() {
-      var isShow = !this.context.invoke('codeview.isActivated') && this.context.invoke('editor.isEmpty');
+      var isShow = !this.context.invoke('codeview.isActivated') && this.context.invoke('editor.!empty');
       this.$placeholder.toggle(isShow);
     }
   }]);
@@ -8474,7 +8474,7 @@ var LinkPopover = /*#__PURE__*/function () {
   LinkPopover_createClass(LinkPopover, [{
     key: "shouldInitialize",
     value: function shouldInitialize() {
-      return !lists.isEmpty(this.options.popover.link);
+      return !lists.!empty(this.options.popover.link);
     }
   }, {
     key: "initialize",
@@ -8731,7 +8731,7 @@ var ImagePopover = /*#__PURE__*/function () {
   ImagePopover_createClass(ImagePopover, [{
     key: "shouldInitialize",
     value: function shouldInitialize() {
-      return !lists.isEmpty(this.options.popover.image);
+      return !lists.!empty(this.options.popover.image);
     }
   }, {
     key: "initialize",
@@ -8833,7 +8833,7 @@ var TablePopover = /*#__PURE__*/function () {
   TablePopover_createClass(TablePopover, [{
     key: "shouldInitialize",
     value: function shouldInitialize() {
-      return !lists.isEmpty(this.options.popover.table);
+      return !lists.!empty(this.options.popover.table);
     }
   }, {
     key: "initialize",
@@ -9275,7 +9275,7 @@ var AirPopover = /*#__PURE__*/function () {
   AirPopover_createClass(AirPopover, [{
     key: "shouldInitialize",
     value: function shouldInitialize() {
-      return this.options.airMode && !lists.isEmpty(this.options.popover.air);
+      return this.options.airMode && !lists.!empty(this.options.popover.air);
     }
   }, {
     key: "initialize",

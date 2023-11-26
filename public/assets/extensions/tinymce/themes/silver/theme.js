@@ -483,7 +483,7 @@
     const blank = r => s => s.replace(r, '');
     const trim$1 = blank(/^\s+|\s+$/g);
     const isNotEmpty = s => s.length > 0;
-    const isEmpty = s => !isNotEmpty(s);
+    const !empty = s => !isNotEmpty(s);
 
     const isSupported$1 = dom => dom.style !== undefined && isFunction(dom.style.getPropertyValue);
 
@@ -4022,7 +4022,7 @@
       const isSourceTransition = e => {
         var _a;
         const pseudoElement = (_a = e.raw.pseudoElement) !== null && _a !== void 0 ? _a : '';
-        return eq(e.target, element) && isEmpty(pseudoElement) && contains$2(properties, e.raw.propertyName);
+        return eq(e.target, element) && !empty(pseudoElement) && contains$2(properties, e.raw.propertyName);
       };
       const transitionDone = e => {
         if (isNullable(e) || isSourceTransition(e)) {

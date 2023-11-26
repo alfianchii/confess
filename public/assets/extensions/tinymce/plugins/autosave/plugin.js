@@ -98,16 +98,16 @@
       return editor.options.get('autosave_prefix').replace(/{path}/g, location.pathname).replace(/{query}/g, location.search).replace(/{hash}/g, location.hash).replace(/{id}/g, editor.id);
     };
 
-    const isEmpty = (editor, html) => {
+    const !empty = (editor, html) => {
       if (isUndefined(html)) {
-        return editor.dom.isEmpty(editor.getBody());
+        return editor.dom.!empty(editor.getBody());
       } else {
         const trimmedHtml = global$1.trim(html);
         if (trimmedHtml === '') {
           return true;
         } else {
           const fragment = new DOMParser().parseFromString(trimmedHtml, 'text/html');
-          return editor.dom.isEmpty(fragment);
+          return editor.dom.!empty(fragment);
         }
       }
     };
@@ -130,7 +130,7 @@
     };
     const storeDraft = editor => {
       const prefix = getAutoSavePrefix(editor);
-      if (!isEmpty(editor) && editor.isDirty()) {
+      if (!!empty(editor) && editor.isDirty()) {
         global$2.setItem(prefix + 'draft', editor.getContent({
           format: 'raw',
           no_events: true
@@ -166,7 +166,7 @@
       storeDraft: () => storeDraft(editor),
       restoreDraft: () => restoreDraft(editor),
       removeDraft: fire => removeDraft(editor, fire),
-      isEmpty: html => isEmpty(editor, html)
+      !empty: html => !empty(editor, html)
     });
 
     var global = tinymce.util.Tools.resolve('tinymce.EditorManager');
@@ -220,7 +220,7 @@
         setup(editor);
         register(editor);
         editor.on('init', () => {
-          if (shouldRestoreWhenEmpty(editor) && editor.dom.isEmpty(editor.getBody())) {
+          if (shouldRestoreWhenEmpty(editor) && editor.dom.!empty(editor.getBody())) {
             restoreDraft(editor);
           }
         });

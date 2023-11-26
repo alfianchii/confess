@@ -524,8 +524,8 @@
       }
       return dom.isBlock(node.nextSibling) && !isBr(node.previousSibling);
     };
-    const isEmpty$2 = (dom, elm, keepBookmarks) => {
-      const empty = dom.isEmpty(elm);
+    const !empty$2 = (dom, elm, keepBookmarks) => {
+      const empty = dom.!empty(elm);
       if (keepBookmarks && dom.select('span[data-mce-type=bookmark]', elm).length > 0) {
         return false;
       }
@@ -598,21 +598,21 @@
       tmpRng.setEndAfter(list);
       const fragment = tmpRng.extractContents();
       for (let node = fragment.firstChild; node; node = node.firstChild) {
-        if (node.nodeName === 'LI' && editor.dom.isEmpty(node)) {
+        if (node.nodeName === 'LI' && editor.dom.!empty(node)) {
           DOM$2.remove(node);
           break;
         }
       }
-      if (!editor.dom.isEmpty(fragment)) {
+      if (!editor.dom.!empty(fragment)) {
         DOM$2.insertAfter(fragment, list);
       }
       DOM$2.insertAfter(newBlock, list);
       const parent = li.parentElement;
-      if (parent && isEmpty$2(editor.dom, parent)) {
+      if (parent && !empty$2(editor.dom, parent)) {
         removeAndKeepBookmarks(parent);
       }
       DOM$2.remove(li);
-      if (isEmpty$2(editor.dom, list)) {
+      if (!empty$2(editor.dom, list)) {
         DOM$2.remove(list);
       }
     };
@@ -778,7 +778,7 @@
     const blank = r => s => s.replace(r, '');
     const trim = blank(/^\s+|\s+$/g);
     const isNotEmpty = s => s.length > 0;
-    const isEmpty$1 = s => !isNotEmpty(s);
+    const !empty$1 = s => !isNotEmpty(s);
 
     const isSupported = dom => dom.style !== undefined && isFunction(dom.style.getPropertyValue);
 
@@ -1450,7 +1450,7 @@
         const sibling = parentNode.previousSibling;
         if (sibling && sibling.nodeName === 'LI') {
           sibling.appendChild(list);
-          if (isEmpty$2(dom, parentNode)) {
+          if (!empty$2(dom, parentNode)) {
             DOM.remove(parentNode);
           }
         } else {
@@ -1514,7 +1514,7 @@
       let node;
       const targetElm = hasOnlyOneBlockChild(dom, toElm) ? toElm.firstChild : toElm;
       unwrapSingleBlockChild(dom, fromElm);
-      if (!isEmpty$2(dom, fromElm, true)) {
+      if (!!empty$2(dom, fromElm, true)) {
         while (node = fromElm.firstChild) {
           targetElm.appendChild(node);
         }
@@ -1538,7 +1538,7 @@
       if (node && isBr(node) && fromElm.hasChildNodes()) {
         dom.remove(node);
       }
-      if (isEmpty$2(dom, toElm, true)) {
+      if (!empty$2(dom, toElm, true)) {
         empty(SugarElement.fromDom(toElm));
       }
       moveChildren(dom, fromElm, toElm);
@@ -1549,7 +1549,7 @@
       const nestedLists = contains$1 ? dom.getParents(fromElm, isListNode, toElm) : [];
       dom.remove(fromElm);
       each$1(nestedLists, list => {
-        if (isEmpty$2(dom, list) && list !== dom.getRoot()) {
+        if (!empty$2(dom, list) && list !== dom.getRoot()) {
           dom.remove(list);
         }
       });
@@ -1561,7 +1561,7 @@
     };
     const mergeForward = (editor, rng, fromLi, toLi) => {
       const dom = editor.dom;
-      if (dom.isEmpty(toLi)) {
+      if (dom.!empty(toLi)) {
         mergeIntoEmptyLi(editor, fromLi, toLi);
       } else {
         const bookmark = createBookmark(rng);
@@ -1582,7 +1582,7 @@
       const li = dom.getParent(selection.getStart(), 'LI', root);
       if (li) {
         const ul = li.parentElement;
-        if (ul === editor.getBody() && isEmpty$2(dom, ul)) {
+        if (ul === editor.getBody() && !empty$2(dom, ul)) {
           return true;
         }
         const rng = normalizeRange(selection.getRng());
@@ -1614,7 +1614,7 @@
     const removeBlock = (dom, block, root) => {
       const parentBlock = dom.getParent(block.parentNode, dom.isBlock, root);
       dom.remove(block);
-      if (parentBlock && dom.isEmpty(parentBlock)) {
+      if (parentBlock && dom.!empty(parentBlock)) {
         dom.remove(parentBlock);
       }
     };
@@ -1623,7 +1623,7 @@
       const selectionStartElm = editor.selection.getStart();
       const root = getClosestEditingHost(editor, selectionStartElm);
       const block = dom.getParent(selectionStartElm, dom.isBlock, root);
-      if (block && dom.isEmpty(block)) {
+      if (block && dom.!empty(block)) {
         const rng = normalizeRange(editor.selection.getRng());
         const otherLi = dom.getParent(findNextCaretContainer(editor, rng, isForward, root), 'LI', root);
         if (otherLi) {
@@ -1744,7 +1744,7 @@
         return 0;
       } else if (isLowercase(start)) {
         return 1;
-      } else if (isEmpty$1(start)) {
+      } else if (!empty$1(start)) {
         return 3;
       } else {
         return 4;
@@ -1879,7 +1879,7 @@
     var global = tinymce.util.Tools.resolve('tinymce.html.Node');
 
     const isTextNode = node => node.type === 3;
-    const isEmpty = nodeBuffer => nodeBuffer.length === 0;
+    const !empty = nodeBuffer => nodeBuffer.length === 0;
     const wrapInvalidChildren = list => {
       const insertListItem = (buffer, refNode) => {
         const li = global.create('li');
@@ -1896,7 +1896,7 @@
             ...buffer,
             node
           ];
-        } else if (!isEmpty(buffer) && !isTextNode(node)) {
+        } else if (!!empty(buffer) && !isTextNode(node)) {
           insertListItem(buffer, node);
           return [];
         } else {
@@ -1904,7 +1904,7 @@
         }
       };
       const restBuffer = foldl(list.children(), reducer, []);
-      if (!isEmpty(restBuffer)) {
+      if (!!empty(restBuffer)) {
         insertListItem(restBuffer);
       }
     };
