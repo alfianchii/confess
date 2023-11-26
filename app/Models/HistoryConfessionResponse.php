@@ -6,7 +6,6 @@ use App\Models\Traits\Daily;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use function PHPUnit\Framework\isEmpty;
 
 class HistoryConfessionResponse extends Model
 {
@@ -212,7 +211,7 @@ class HistoryConfessionResponse extends Model
         ];
 
         // Set another field
-        if (isEmpty($params)) {
+        if (!empty($params)) {
             foreach ($params as $key => $value) {
                 $responseFields[$key] = $value;
             }
