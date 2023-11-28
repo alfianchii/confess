@@ -22,6 +22,9 @@ RUN sed -i "s/user nginx/user '${USER}'/g" /etc/nginx/nginx.conf
 # Copies nginx configurations to override the default
 ADD ./nginx/*.conf /etc/nginx/conf.d/
 
+# Install Vim for debugging
+RUN apt-get update && apt-get install -y vim
+
 # Certbot
 # RUN apt-get update && apt-get install -y certbot
 # RUN echo "ssl_session_cache shared:le_nginx_SSL:1m;\
