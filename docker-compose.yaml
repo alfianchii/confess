@@ -149,11 +149,11 @@ services:
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
+        php artisan key:generate
+        php artisan storage:link
         php artisan config:cache
         php artisan event:cache
         php artisan view:cache
-        php artisan key:generate
-        php artisan storage:link
         php artisan migrate --seed
     networks:
       - confess-network
