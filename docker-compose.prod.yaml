@@ -25,7 +25,7 @@ services:
       # - mailhog
     networks:
       - confess-network
-    command: /bin/sh -c "certbot certonly --renew-by-default --standalone --agree-tos --email your-email@gmail.com --no-eff-email -d your-domain.com && nginx -g 'daemon off;'"
+    command: /bin/sh -c "certbot certonly -d your-domain.com -m your-email@gmail.com --renew-with-new-domains --keep-until-expiring --staging --rsa-key-size 4096 --standalone --agree-tos --no-eff-email && nginx -g 'daemon off;'"
 
   # PHP
   php:
