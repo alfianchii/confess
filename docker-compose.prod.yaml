@@ -5,7 +5,7 @@ services:
   nginx:
     build:
       context: ./docker
-      dockerfile: nginx.dockerfile
+      dockerfile: nginx.prod.dockerfile
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
