@@ -201,9 +201,9 @@
                                     <div class="recent-message d-flex px-4 py-3">
                                         <div class="name ms-4">
                                             <h5 class="mb-1">{{ $confession->title }}</h5>
-                                            <h6 class="text-muted mb-0">
+                                            <p class="text-muted mb-0">
                                                 {{ $confession->excerpt }}
-                                            </h6>
+                                            </p>
                                         </div>
                                     </div>
                                 </a>
