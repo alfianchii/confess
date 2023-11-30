@@ -137,6 +137,7 @@ services:
       - mariadb
     profiles: ["setup"]
     working_dir: /var/www/html
+    user: ${USER:-confess}
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
@@ -165,6 +166,7 @@ services:
       - mariadb
     working_dir: /var/www/html
     profiles: ["artisan"]
+    user: ${USER:-confess}
     entrypoint: ["php", "/var/www/html/artisan"]
     networks:
       - confess-network
