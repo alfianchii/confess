@@ -16,6 +16,9 @@ RUN delgroup dialout
 RUN addgroup -g ${GID} --system ${USER}
 RUN adduser -G ${USER} --system -D -s /bin/sh -u ${UID} ${USER}
 
+# Set permissions for the new user
+RUN chown -R ${USER}:${USER} /var/www/html
+
 # Modify php-fpm configuration to use the new user's privileges
 RUN sed -i "s/user = www-data/user = '${USER}'/g" /usr/local/etc/php-fpm.d/www.conf
 RUN sed -i "s/group = www-data/group = '${USER}'/g" /usr/local/etc/php-fpm.d/www.conf
