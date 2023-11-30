@@ -15,6 +15,9 @@ services:
     ports:
       - 80:80
       - 443:443
+    environment:
+      DOMAIN: ${DOMAIN}
+      EMAIL: ${EMAIL}
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
@@ -22,11 +25,10 @@ services:
       - php
       - mariadb
       - phpmyadmin
-      # - mailhog
     networks:
       - confess-network
     # Remove --staging option to get real certificates
-    command: /bin/sh -c "certbot certonly -d your-domain.com -m your-email@gmail.com --staging --renew-with-new-domains --keep-until-expiring --rsa-key-size 4096 --standalone --agree-tos --no-eff-email && nginx -g 'daemon off;'"
+    command: /bin/sh -c "certbot certonly -d ${DOMAIN} -m ${EMAIL} --staging --renew-with-new-domains --keep-until-expiring --rsa-key-size 4096 --standalone --agree-tos --no-eff-email && nginx -g 'daemon off;'"
 
   # PHP
   php:
@@ -65,18 +67,6 @@ services:
       - confess-dbdata:/var/lib/mysql
     networks:
       - confess-network
-
-  # Mailhog
-  # mailhog:
-  #   image: mailhog/mailhog:latest
-  #   container_name: mailhog
-  #   logging:
-  #     driver: "none"
-  #   ports:
-  #     - 1025:1025
-  #     - 8025:8025
-  #   networks:
-  #     - confess-network
 
   # PhpMyAdmin
   phpmyadmin:
