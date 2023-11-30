@@ -155,6 +155,7 @@ services:
         php artisan event:cache
         php artisan view:cache
         php artisan migrate --seed
+        chown -R ${USER-confess}:${USER:-confess} /var/www/html
     networks:
       - confess-network
 
