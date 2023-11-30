@@ -146,6 +146,7 @@ services:
       - mariadb
     profiles: ["setup"]
     working_dir: /var/www/html
+    user: ${USER:-confess}
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
@@ -155,7 +156,6 @@ services:
         php artisan event:cache
         php artisan view:cache
         php artisan migrate --seed
-        chown -R ${USER-confess}:${USER:-confess} /var/www/html
     networks:
       - confess-network
 
@@ -175,6 +175,7 @@ services:
       - mariadb
     working_dir: /var/www/html
     profiles: ["artisan"]
+    user: ${USER:-confess}
     entrypoint: ["php", "/var/www/html/artisan"]
     networks:
       - confess-network
