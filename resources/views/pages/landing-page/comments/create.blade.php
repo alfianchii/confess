@@ -239,7 +239,7 @@
                                     <div class="col-12 mb-1">
                                         <div class="form-group mandatory @error('comment'){{ 'is-invalid' }}@enderror">
                                             <div class="position-relative">
-                                                <label for="comment" class="form-label">Komentar</label>
+                                                <label class="form-label">Komentar</label>
 
                                                 <input id="comment" name="comment" value="{{ old('comment') }}"
                                                     type="hidden">
@@ -257,7 +257,7 @@
                                     </div>
                                     <div class="col-12 mb-1">
                                         <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
-                                            <label for="attachment_file" class="form-label">File Pendukung</label>
+                                            <label class="form-label">File Pendukung</label>
 
                                             <!-- File preview -->
                                             <input type="file" id="attachment_file" class="basic-file-filepond"

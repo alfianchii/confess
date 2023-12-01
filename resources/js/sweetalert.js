@@ -5,8 +5,8 @@ export function handleClick({ data, event, uri, redirect = uri }) {
         icon: "question",
         showDenyButton: true,
         showCancelButton: false,
-        confirmButtonText: "Yup, do it!",
-        denyButtonText: `Nope ...`,
+        confirmButtonText: "Iya, gapapa kok~",
+        denyButtonText: `Jangan ...`,
     };
 
     // If unique is string, don't decode

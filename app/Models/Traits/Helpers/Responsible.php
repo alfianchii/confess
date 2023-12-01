@@ -12,7 +12,7 @@ trait Responsible
   {
     if ($response->id_user !== $user->id_user) throw new \Exception($message);
   }
-  public function isSystemResponse(HistoryConfessionResponse $response, $message = "Tanggapan sistem tidak bisa dihapus.")
+  public function isSystemResponse(HistoryConfessionResponse $response, $message = "Tanggapan sistem tidak bisa di-unsend.")
   {
     if ($response->system_response === "Y") throw new \Exception($message);
   }

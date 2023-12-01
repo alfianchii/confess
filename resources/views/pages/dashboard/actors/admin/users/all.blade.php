@@ -53,12 +53,12 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column flex-md-row justify-content-between" style="row-gap: 1rem;">
                         <h3>Pengguna</h3>
 
                         <div class="d-flex" style="column-gap: 1rem;">
                             {{-- Import --}}
-                            <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                            <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-start">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="export"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="fa-fw select-all fas me-1"></span> Import
@@ -71,7 +71,7 @@
                             </div>
 
                             {{-- Export --}}
-                            <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                            <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-start">
                                 <button class="btn btn-primary dropdown-toggle" type="button" id="export"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="fa-fw select-all fas me-1"></span> Export
@@ -284,7 +284,7 @@
 
                         <div class="form-group">
                             <div class="position-relative">
-                                <label for="file" class="form-label">Template</label>
+                                <label class="form-label">Template</label>
 
                                 <button type="submit" class="btn btn-primary w-100">
                                     <span class="fa-fw select-all far text-light"></span> Excel
@@ -300,7 +300,7 @@
                     <div class="modal-body">
                         <div class="form-group mandatory">
                             <div class="position-relative">
-                                <label for="file" class="form-label">File</label>
+                                <label class="form-label">File</label>
 
                                 <!-- File preview -->
                                 <input type="file" id="file" class="basic-file-filepond" name="file" />

@@ -43,10 +43,10 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column flex-md-row justify-content-between" style="row-gap: 1rem;">
                         <h3>All of Confessions</h3>
 
-                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-start">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="export"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="fa-fw select-all fas me-1"></span> Export
@@ -216,10 +216,10 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column flex-md-row justify-content-between" style="row-gap: 1rem;">
                         <h3>Confessions Handled by You</h3>
 
-                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-start">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="export"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="fa-fw select-all fas me-1"></span> Export
@@ -336,10 +336,10 @@
         <section class="section">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-column flex-md-row justify-content-between" style="row-gap: 1rem;">
                         <h3>Unprocessed Confessions</h3>
 
-                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-end">
+                        <div class="dropdown dropdown-color-icon mb-3 d-flex justify-content-start">
                             <button class="btn btn-primary dropdown-toggle" type="button" id="export"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="fa-fw select-all fas me-1"></span> Export

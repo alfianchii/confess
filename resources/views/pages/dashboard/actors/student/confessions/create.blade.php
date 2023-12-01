@@ -133,7 +133,7 @@
                                         <div class="col-md-6 col-12 mb-1">
                                             <div class="form-group mandatory">
                                                 <label for="categories" class="form-label">Kategori</label>
-                                                <select class="choices form-select" id="id_confession_category"
+                                                <select class="choices form-select" id="categories"
                                                     name="id_confession_category">
                                                     <optgroup label="Kategori">
                                                         @forelse ($confessionCategories as $category)
@@ -236,7 +236,7 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group">
                                                 <div class="position-relative">
-                                                    <label for="image"
+                                                    <label
                                                         class="form-label @error('image'){{ 'text-danger' }}@enderror">Foto</label>
 
                                                     <!-- File uploader with image preview -->
@@ -256,7 +256,7 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group mandatory @error('body'){{ 'is-invalid' }}@enderror">
                                                 <div class="position-relative">
-                                                    <label for="body" class="form-label">Isi Pengakuan</label>
+                                                    <label class="form-label">Isi Pengakuan</label>
 
                                                     <input id="body" name="body" value="{{ old('body') }}"
                                                         type="hidden">

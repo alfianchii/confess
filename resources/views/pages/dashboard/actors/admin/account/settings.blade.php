@@ -164,7 +164,7 @@
                         <div class="row">
                             <div class="col-12 mb-1">
                                 <div class="form-group">
-                                    <label for="profile_picture"
+                                    <label
                                         class="@if ($userData->profile_picture) {{ 'd-block' }} @endif{{ 'form-label' }} @error('profile_picture'){{ 'text-danger' }}@enderror">Foto</label>
                                     <div class="position-relative">
                                         <!-- Image preview -->
@@ -193,7 +193,7 @@
                                         @endif
 
                                         <!-- Auto crop image file uploader -->
-                                        <input type="file" class="image-crop-filepond" name="profile_picture" />
+                                        <input type="file" id="profile_picture" class="image-crop-filepond" name="profile_picture" />
 
                                         @error('profile_picture')
                                             <div class="invalid-feedback d-block">
