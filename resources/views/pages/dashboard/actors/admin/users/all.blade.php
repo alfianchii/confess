@@ -284,7 +284,7 @@
 
                         <div class="form-group">
                             <div class="position-relative">
-                                <label for="file" class="form-label">Template</label>
+                                <label class="form-label">Template</label>
 
                                 <button type="submit" class="btn btn-primary w-100">
                                     <span class="fa-fw select-all far text-light"></span> Excel
@@ -300,7 +300,7 @@
                     <div class="modal-body">
                         <div class="form-group mandatory">
                             <div class="position-relative">
-                                <label for="file" class="form-label">File</label>
+                                <label class="form-label">File</label>
 
                                 <!-- File preview -->
                                 <input type="file" id="file" class="basic-file-filepond" name="file" />

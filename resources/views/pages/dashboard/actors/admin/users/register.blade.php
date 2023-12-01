@@ -254,7 +254,7 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group">
                                                 <div class="position-relative">
-                                                    <label for="profile_picture" class="form-label">Foto</label>
+                                                    <label class="form-label">Foto</label>
 
                                                     <!-- Auto crop image file uploader -->
                                                     <input type="file" id="profile_picture"

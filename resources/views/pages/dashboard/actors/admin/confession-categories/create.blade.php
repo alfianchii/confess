@@ -135,11 +135,11 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group">
                                                 <div class="position-relative">
-                                                    <label for="image"
+                                                    <label
                                                         class="form-label @error('image'){{ 'text-danger' }}@enderror">Foto</label>
 
                                                     <!-- File uploader with image preview -->
-                                                    <input type="file" class="image-crop-filepond" name="image"
+                                                    <input id="image" type="file" class="image-crop-filepond" name="image"
                                                         id="image" />
 
                                                     @error('image')

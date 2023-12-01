@@ -244,7 +244,7 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group">
                                                 <div class="position-relative">
-                                                    <label for="image"
+                                                    <label
                                                         class="@if ($confession->image) {{ 'd-block' }} @endif{{ 'form-label' }} @error('image'){{ 'text-danger' }}@enderror">Foto</label>
 
                                                     <!-- Image preview -->
@@ -284,7 +284,7 @@
                                         <div class="col-12 mb-1">
                                             <div class="form-group mandatory @error('body'){{ 'is-invalid' }}@enderror">
                                                 <div class="position-relative">
-                                                    <label for="body" class="form-label">Isi Pengakuan</label>
+                                                    <label class="form-label">Isi Pengakuan</label>
 
                                                     <input id="body" name="body"
                                                         value="{{ old('body') ?? $confession->body }}" type="hidden">

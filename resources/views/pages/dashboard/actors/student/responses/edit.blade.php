@@ -83,7 +83,7 @@
                                             <div
                                                 class="form-group mandatory @error('response'){{ 'is-invalid' }}@enderror">
                                                 <div class="position-relative">
-                                                    <label for="response" class="form-label">Isi Tanggapan</label>
+                                                    <label class="form-label">Isi Tanggapan</label>
 
                                                     <input id="response" name="response"
                                                         value="{{ old('response') ?? $response->response }}"
@@ -105,7 +105,7 @@
                                     <div class="row">
                                         <div class="col-12 mb-2">
                                             <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
-                                                <label for="attachment_file" class="form-label">File Pendukung</label>
+                                                <label class="form-label">File Pendukung</label>
 
                                                 <!-- File preview -->
                                                 <input type="file" id="attachment_file" class="basic-file-filepond"
