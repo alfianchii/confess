@@ -94,10 +94,11 @@ cp .env.example .env
 
 2. Database configuration through the `.env` file
 
-```
+```bash
+APP_DEBUG=true
 DB_DATABASE=confess
-DB_USERNAME=yourUsername
-DB_PASSWORD=yourPassword
+DB_USERNAME=your-username
+DB_PASSWORD=your-password
 ```
 
 3. Migration and symlink
@@ -128,6 +129,8 @@ cd confess
 -   Copy `.env.example` file with `cp .env.example .env` and configure database:
 
 ```bash
+APP_DEBUG=true
+DB_HOST=mariadb
 DB_HOST=mariadb
 DB_DATABASE=confess
 DB_USERNAME=your-username
@@ -180,6 +183,48 @@ docker compose run --rm --service-ports npm run dev
 -   -   `docker-compose run --rm artisan serve`
 -   -   `docker-compose run --rm artisan route:list`
 -   -   Etc
+
+<h2 id="production">🌐 Production</h2>
+
+<h3 id="deployment-docker-vps">🐳 Deployment w/ Docker (use Virtual Private Server)</h3>
+
+-   Clone the repository w/ SSH method `git clone git@github.com:alfianchii/confess` and go to the directory with `cd confess` command.
+
+- Copy `.env.example` file to `.env` and do configs.
+
+```bash
+# Replace its values to your actual domain and your active email
+DOMAIN=your-domain.com
+EMAIL=your-email@gmail.com
+# App
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=${DOMAIN}
+# DB
+DB_HOST=mariadb
+DB_DATABASE=confess
+DB_USERNAME=your-vps-username
+DB_PASSWORD=your-vps-password
+```
+
+- Open `./docker-compose.prod.yaml`, remove `--staging` option on `nginx` service.
+
+- On `./docker/nginx/default.prod.conf`, set your own domain.
+
+- Let's build with `docker compose -f ./docker-compose.prod.yaml up -d --build` command.
+
+- Install its dependencies.
+
+```bash
+docker compose run --rm composer install --optimize-autoloader --no-dev
+docker compose run --rm npm install
+```
+
+- Build the assets with dockerized Vite.js command: `docker compose run --rm npm run build`.
+
+- Do Laravel setups with existing Docker's custom command: `docker compose run --rm laravel-setup`.
+
+- Congrats! Your app is ready to be served. You can access it on your domain and with HTTPS protocol~
 
 <h2 id="dukungan">💌 Support me</h2>
 
