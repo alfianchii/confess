@@ -94,7 +94,7 @@ cp .env.example .env
 
 2. Database configuration through the `.env` file
 
-```bash
+```conf
 APP_DEBUG=true
 DB_DATABASE=confess
 DB_USERNAME=your-username
@@ -128,7 +128,7 @@ cd confess
 
 -   Copy `.env.example` file with `cp .env.example .env` and configure database:
 
-```bash
+```conf
 APP_DEBUG=true
 DB_HOST=mariadb
 DB_HOST=mariadb
@@ -192,7 +192,7 @@ docker compose run --rm --service-ports npm run dev
 
 - Copy `.env.example` file to `.env` and do configs.
 
-```bash
+```conf
 # Replace its values to your actual domain and your active email
 DOMAIN=your-domain.com
 EMAIL=your-email@gmail.com
