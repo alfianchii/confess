@@ -31,7 +31,12 @@
                                 </div>
 
                                 {{-- Reset Filters --}}
-                                @if (!empty(request()->all()))
+                                {{-- If just "page" on params, don't display --}}
+                                @if (count(request()->all()) === 1 && array_key_exists('page', request()->all()))
+                                    <div class="mb-3 text-center d-none">
+                                        <a class="btn btn-color text-white">Tidak ada filters :(</a>
+                                    </div>
+                                @elseif (!empty(request()->all()))
                                     <div class="mb-3 text-center">
                                         <a class="btn btn-color text-white" href="{{ url()->current([]) }}">Reset
                                             Filters</a>
