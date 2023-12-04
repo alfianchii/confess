@@ -149,7 +149,6 @@
                                                 <div>
                                                     <form action="/confessions/{{ $confession->slug }}/like-dislike"
                                                         method="POST">
-                                                        @csrf
                                                         <button type="submit"
                                                             class="btn btn-link text-decoration-none p-0 d-flex align-items-center text-reset">
                                                             <i
