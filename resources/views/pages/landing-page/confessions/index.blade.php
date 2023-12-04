@@ -21,8 +21,8 @@
                         <hr>
                     </div>
 
-                    <div class="row justify-content-center">
-                        <div class="col-md-6">
+                    <div class="row justify-content-start">
+                        <div class="col-12">
                             <form action="/confessions">
                                 @if (request('user'))
                                     <input type="hidden" name="user" value="{{ request('user') }}">
@@ -60,165 +60,156 @@
         </div>
 
         <div class="page-content">
-            @if ($confessions->count())
-                {{-- First --}}
-                <div class="row">
-                    <div class="col mb-3">
-                        <div class="card">
-                            @if ($confessions[0]->image)
-                                <img class="img-fluid rounded" src="{{ asset('storage/' . $confessions[0]->image) }}"
-                                    alt="{{ $confessions[0]->category->category_name }}">
-                            @else
-                                <img class="img-fluid rounded" src="{{ asset('images/no-image-2.jpg') }}"
-                                    alt="{{ $confessions[0]->category->category_name }}">
-                            @endif
+            {{-- All --}}
+            <div class="row">
+                @forelse($confessions as $confession)
+                    <div class="col-12">
+                        <div class="card mb-3 shadow-sm">
+                            {{-- Heading --}}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex flex-row px-4 pt-4">
+                                        {{-- Image --}}
+                                        <div style="margin-right: 12px;">
+                                            @if ($confession->privacy === 'anonymous')
+                                                <img class="rounded-circle" width="48" height="48"
+                                                    src="{{ asset('images/user-images/default-avatar.png') }}"
+                                                    alt="User Avatar" />
+                                            @else
+                                                <a href="/users/{{ $confession->student->user->username }}">
+                                                    @if ($isUserImageExist($confession->student->user->profile_picture))
+                                                        @if (File::exists(public_path('images/' . $confession->student->user->profile_picture)))
+                                                            <img class="rounded-circle" width="48" height="48"
+                                                                style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                                                src="{{ asset('images/' . $confession->student->user->profile_picture) }}"
+                                                                alt="User Avatar" />
+                                                        @else
+                                                            <img class="rounded-circle" width="48" height="48"
+                                                                style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                                                src="{{ asset('storage/' . $confession->student->user->profile_picture) }}"
+                                                                alt="User Avatar" />
+                                                        @endif
+                                                    @else
+                                                        @if ($confession->student->user->gender === 'L')
+                                                            <img class="rounded-circle" width="48" height="48"
+                                                                style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                                                src="{{ asset('assets/static/images/faces/2.jpg') }}"
+                                                                alt="User Avatar" />
+                                                        @else
+                                                            <img class="rounded-circle" width="48" height="48"
+                                                                style="cursor: pointer;"
+                                                                onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
+                                                                src="{{ asset('assets/static/images/faces/5.jpg') }}"
+                                                                alt="User Avatar" />
+                                                        @endif
+                                                    @endif
+                                                </a>
+                                            @endif
+                                        </div>
 
-                            <div class="card-body text-center">
-                                <h3 class="card-title d-inline-block">{{ $confessions[0]->title }}</h3>
-                                <a href="{{ url('/confessions?privacy=' . $confessions[0]->privacy) }}">
-                                    <small>({{ $confessions[0]->privacy }})</small>
-                                </a>
-                                <p>
-                                    <small class="text-muted">
-                                        By
+                                        {{-- Text --}}
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <span class="fw-semibold">
+                                                @if ($confession->privacy == 'anonymous')
+                                                    <i>Rahasia</i> 🤫
+                                                @else
+                                                    <a href="/confessions?user={{ $confession->student->user->username }}">
+                                                        {{ $confession->student->user->full_name }}
+                                                    </a>
+                                                @endif
+                                            </span>
 
-                                        @if ($confessions[0]->privacy == 'anonymous')
-                                            <i>"rahasia"</i>
-                                        @elseif($confessions[0]->privacy == 'public')
-                                            <a href="/confessions?user={{ $confessions[0]->student->user->username }}">
-                                                {{ $confessions[0]->student->user->full_name }}
-                                            </a>
-                                        @endif
+                                            <span class="fw-normal text-muted">
+                                                <p class="mb-0" style="font-size: 0.875rem">
+                                                    {{ $confession->created_at->diffForHumans() }}</p>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        in
-
-                                        <a href="/confessions?category={{ $confessions[0]->category->slug }}">
-                                            {{ $confessions[0]->category->category_name }}
+                            {{-- Content --}}
+                            <div class="row ms-md-5">
+                                {{-- Main --}}
+                                <div class="col-12">
+                                    <div class="card-body pt-3">
+                                        <a href="/confessions/{{ $confession->slug }}/comments/create"
+                                            class="text-reset d-block">
+                                            <h5 class="card-title">{{ $confession->title }}</h5>
+                                            <p class="card-text">{{ $confession->excerpt }}</p>
                                         </a>
 
-                                        {{ $confessions[0]->created_at->diffForHumans() }}
-                                    </small>
-                                </p>
+                                        {{-- Footer --}}
+                                        <div
+                                            class="d-flex flex-md-row flex-column-reverse justify-content-between mt-3 row-gap-4">
+                                            <div class="btn-group align-items-center column-gap-4">
+                                                <div>
+                                                    <form action="/confessions/{{ $confession->slug }}/like-dislike"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-link text-decoration-none p-0 d-flex align-items-center text-reset">
+                                                            <i
+                                                                class="bi @if ($confession->is_liked) {{ 'bi-heart-fill' }} @else {{ 'bi-heart' }} @endif d-flex align-items-center justify-content-center text-secondary me-2"></i>
+                                                            <span class="me-1">{{ $confession->likes->count() }}</span>
+                                                            <span class="d-none d-sm-inline">suka</span>
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <div>
+                                                    <a href="/confessions/{{ $confession->slug }}/comments/create?scroll-to=comments"
+                                                        class="btn btn-link text-decoration-none p-0 d-flex align-items-center text-reset">
+                                                        <i
+                                                            class="bi bi-chat d-flex align-items-center justify-content-center text-secondary me-2"></i>
+                                                        <span class="me-1">{{ $confession->comments->count() }}</span>
+                                                        <span class="d-none d-sm-inline">komentar</span>
+                                                    </a>
+                                                </div>
+                                            </div>
 
-                                <div class="mb-4">
-                                    <a href="{{ url('/confessions?status=' . $confessions[0]->status) }}">
-                                        @if ($confessions[0]->status == 'unprocess')
-                                            <span class="badge bg-light-danger">
-                                                Belum diproses
-                                            </span>
-                                        @elseif ($confessions[0]->status == 'process')
-                                            <span class="badge bg-light-info">
-                                                Sedang diproses
-                                            </span>
-                                        @elseif ($confessions[0]->status == 'release')
-                                            <span class="badge bg-light">
-                                                Release
-                                            </span>
-                                        @elseif ($confessions[0]->status == 'close')
-                                            <span class="badge bg-light-success">
-                                                Selesai
-                                            </span>
-                                        @endif
-                                    </a>
+                                            <div class="d-flex column-gap-3">
+                                                <a class="badge btn-color"
+                                                    href="/confessions?category={{ $confession->category->slug }}">
+                                                    {{ $confession->category->category_name }}
+                                                </a>
+
+                                                <a href="{{ url('/confessions?status=' . $confession->status) }}">
+                                                    @if ($confession->status == 'unprocess')
+                                                        <span class="badge bg-light-danger">
+                                                            Belum diproses
+                                                        </span>
+                                                    @elseif ($confession->status == 'process')
+                                                        <span class="badge bg-light-info">
+                                                            Sedang diproses
+                                                        </span>
+                                                    @elseif ($confession->status == 'release')
+                                                        <span class="badge bg-light">
+                                                            Release
+                                                        </span>
+                                                    @elseif ($confession->status == 'close')
+                                                        <span class="badge bg-light-success">
+                                                            Selesai
+                                                        </span>
+                                                    @endif
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <hr>
-
-                                <div class="mb-4">
-                                    <p class="card-text">{{ $confessions[0]->excerpt }}</p>
-                                </div>
-
-                                <a class="btn btn-color text-white"
-                                    href="/confessions/{{ $confessions[0]->slug }}/comments/create">
-                                    Selengkapnya ...
-                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                @empty
+                    <div class="my-5">
+                        <h3 class="text-center ">Tidak ada pengakuan :(</h3>
+                    </div>
+                @endforelse
+            </div>
 
-                {{-- All --}}
-                <div class="row">
-                    @foreach ($confessions->skip(1) as $confession)
-                        <div class="col-md-4 mb-3">
-                            <div class="card">
-                                <div class="position-absolute px-3 py-2 bg-nav">
-                                    <a class="text-white" href="/confessions?category={{ $confession->category->slug }}">
-                                        {{ $confession->category->category_name }}
-                                    </a>
-                                </div>
-
-                                @if ($confession->image)
-                                    <img class="img-fluid rounded" src="{{ asset("storage/$confession->image") }}"
-                                        alt="{{ $confession->category->category_name }}">
-                                @else
-                                    <img class="img-fluid rounded" src="{{ asset('images/no-image-2.jpg') }}"
-                                        alt="{{ $confession->category->category_name }}">
-                                @endif
-
-                                <div class="card-body">
-                                    <h5 class="card-title d-inline-block">{{ $confession->title }}</h5>
-                                    <a href="{{ url('/confessions?privacy=' . $confession->privacy) }}">
-                                        <small>({{ $confession->privacy }})</small>
-                                    </a>
-                                    <p>
-                                        <small class="text-muted">By
-                                            @if ($confession->privacy == 'anonymous')
-                                                <i>"rahasia"</i>
-                                            @else
-                                                <a href="/confessions?user={{ $confession->student->user->username }}">
-                                                    {{ $confession->student->user->full_name }}
-                                                </a>
-                                            @endif
-
-                                            {{ $confession->created_at->diffForHumans() }}
-                                        </small>
-                                    </p>
-
-                                    <div class="mb-4">
-                                        <a href="{{ url('/confessions?status=' . $confession->status) }}">
-                                            @if ($confession->status == 'unprocess')
-                                                <span class="badge bg-light-danger">
-                                                    Belum diproses
-                                                </span>
-                                            @elseif ($confession->status == 'process')
-                                                <span class="badge bg-light-info">
-                                                    Sedang diproses
-                                                </span>
-                                            @elseif ($confession->status == 'release')
-                                                <span class="badge bg-light">
-                                                    Release
-                                                </span>
-                                            @elseif ($confession->status == 'close')
-                                                <span class="badge bg-light-success">
-                                                    Selesai
-                                                </span>
-                                            @endif
-                                        </a>
-                                    </div>
-
-                                    <hr>
-
-                                    <p class="card-text">{{ $confession->excerpt }}</p>
-
-                                    <div class="mt-4">
-                                        <a class="btn btn-color text-white"
-                                            href="/confessions/{{ $confession->slug }}/comments/create">
-                                            Selengkapnya ...
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @else
-                <div class="my-5">
-                    <h3 class="text-center ">Tidak ada pengakuan :(</h3>
-                </div>
-            @endif
-
-            <div class="row">
+            <div class="row mt-4">
                 <div class="col d-flex justify-content-center" id="pagin-links">
                     {{ $confessions->links('vendor.pagination.bootstrap') }}
                 </div>

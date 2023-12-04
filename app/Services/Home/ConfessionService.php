@@ -20,15 +20,16 @@ class ConfessionService extends Service
 
   // ---------------------------------
   // CORES
-  public function index(Request $request)
+  public function index(Request $request, User $user)
   {
     // Data processing
     $data = $request->only(["user", "search", "category", "status", "privacy"]);
 
     // Title
-    $confessions = RecConfession::with(["category", "student.user", "comments"])
+    $confessions = RecConfession::with(["category", "student.user", "comments", "likes"])
       ->latest()
       ->filter($data)
+      ->isLiked($user)
       ->paginate(7)
       ->withQueryString();
     $category = MasterConfessionCategory::firstWhere("slug", request("category"))->category_name ?? '';

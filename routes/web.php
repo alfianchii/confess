@@ -35,6 +35,9 @@ Route::group(["middleware" => "auth"], function () {
     // Confession Routes
     Route::match(["get", "post"], "/confessions", "\App\Http\Controllers\Home\ConfessionController@index");
 
+    // Confession's Likes/Dislike Routes
+    Route::post("/confessions/{confession:slug}/like-dislike", "\App\Http\Controllers\Home\ConfessionLikeController@likeDislike");
+
     // ---------------------------------
     // Comment Routes
     Route::resource("confessions.comments", "\App\Http\Controllers\Home\CommentController")->shallow()->except(["show", "index"]);

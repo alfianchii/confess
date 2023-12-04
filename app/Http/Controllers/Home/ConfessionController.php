@@ -26,7 +26,7 @@ class ConfessionController extends Controller
     // CORES
     public function index(Request $request)
     {
-        return $this->confessionService->index($request);
+        return $this->confessionService->index($request, $this->userData);
     }
 
 
