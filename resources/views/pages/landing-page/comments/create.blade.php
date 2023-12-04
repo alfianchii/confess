@@ -25,7 +25,7 @@
                     <div class="col-12 mb-3 header-about mt-3">
                         <h2>Pengakuan dari
                             @if ($confession->privacy == 'anonymous')
-                                <i>"rahasia"</i>
+                                <i>Rahasia</i> 🤫
                             @else
                                 <a href="/users/{{ $confession->student->user->username }}">
                                     {{ $confession->student->user->full_name }}
@@ -210,7 +210,7 @@
                 </div>
 
                 {{-- Made a comment --}}
-                <div class="card">
+                <div class="card" id="comments">
                     <div class="card-header">
                         <h3 class="card-title">Berikan Komentar</h3>
                     </div>
@@ -284,7 +284,7 @@
                 </div>
 
                 {{-- Comments --}}
-                <div class="card" id="comments">
+                <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Komentar</h3>
                     </div>

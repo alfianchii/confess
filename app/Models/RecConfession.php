@@ -53,6 +53,11 @@ class RecConfession extends Model
             ->latest();
     }
 
+    public function likes()
+    {
+        return $this->hasMany(HistoryConfessionLike::class, "id_confession", "id_confession");
+    }
+
 
     // ---------------------------------
     // HELPERS
@@ -309,6 +314,16 @@ class RecConfession extends Model
             fn ($query, $privacy) =>
             $query->where("privacy", $privacy)
         );
+    }
+
+    public function scopeIsLiked($query, User $user)
+    {
+        return $query->addSelect([
+            'is_liked' => HistoryConfessionLike::select('id_user')
+                ->whereColumn('history_confession_likes.id_confession', 'rec_confessions.id_confession')
+                ->where('id_user', $user->id_user)
+                ->limit(1)
+        ])->withCasts(['is_liked' => 'boolean']);
     }
 
 

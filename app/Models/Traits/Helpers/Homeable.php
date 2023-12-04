@@ -6,12 +6,6 @@ trait Homeable
 {
   // ---------------------------------
   // PROPERTIES
-  protected const CONFESSION_REQUESTS = [
-    "user",
-    "category",
-    "status",
-    "privacy",
-  ];
 
 
   // ---------------------------------
