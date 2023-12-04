@@ -69,7 +69,7 @@ Confess is a school complaint reporting application that enables students to sub
 
 <h2 id="demo">🏠 Demo page</h2>
 
-To view further details, please visit [demo page](https://alfianchii.my.id).
+To view further details, please visit [demo page](https://alfianxi.net).
 
 <h2 id="pre-requisite">💾 Pre-requisite</h2>
 
@@ -190,7 +190,7 @@ docker compose run --rm --service-ports npm run dev
 
 -   Clone the repository w/ SSH method `git clone git@github.com:alfianchii/confess` and go to the directory with `cd confess` command.
 
-- Copy `.env.example` file to `.env` and do configs.
+-   Copy `.env.example` file to `.env` and do configs.
 
 ```conf
 # Replace its values to your actual domain and your active email
@@ -207,24 +207,24 @@ DB_USERNAME=your-vps-username
 DB_PASSWORD=your-vps-password
 ```
 
-- Open `./docker-compose.prod.yaml`, remove `--staging` option on `nginx` service.
+-   Open `./docker-compose.prod.yaml`, remove `--staging` option on `nginx` service.
 
-- On `./docker/nginx/default.prod.conf`, set your own domain.
+-   On `./docker/nginx/default.prod.conf`, set your own domain.
 
-- Let's build with `docker compose -f ./docker-compose.prod.yaml up -d --build` command.
+-   Let's build with `docker compose -f ./docker-compose.prod.yaml up -d --build` command.
 
-- Install its dependencies.
+-   Install its dependencies.
 
 ```bash
 docker compose run --rm composer install --optimize-autoloader --no-dev
 docker compose run --rm npm install
 ```
 
-- Build the assets with dockerized Vite.js command: `docker compose run --rm npm run build`.
+-   Build the assets with dockerized Vite.js command: `docker compose run --rm npm run build`.
 
-- Do Laravel setups with existing Docker's custom command: `docker compose run --rm laravel-setup`.
+-   Do Laravel setups with existing Docker's custom command: `docker compose run --rm laravel-setup`.
 
-- Congrats! Your app is ready to be served. You can access it on your domain and with HTTPS protocol~
+-   Congrats! Your app is ready to be served. You can access it on your domain and with HTTPS protocol~
 
 <h2 id="dukungan">💌 Support me</h2>
 
