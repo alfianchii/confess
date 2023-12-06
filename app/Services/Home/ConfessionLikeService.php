@@ -43,6 +43,6 @@ class ConfessionLikeService extends Service
     if ($isLiked) $this->disliked($confession, $user);
     else $this->liked($this->fields($confession, $user));
 
-    return redirect()->back();
+    return back();
   }
 }
