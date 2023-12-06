@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Services\Dashboard\WebsiteService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\Dashboard\WebsiteService;
 
 class SettingWebsiteController extends Controller
 {

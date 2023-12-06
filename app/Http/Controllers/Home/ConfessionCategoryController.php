@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Home\ConfessionCategoryService;
-use Illuminate\Http\Request;
 
 class ConfessionCategoryController extends Controller
 {
@@ -28,8 +28,4 @@ class ConfessionCategoryController extends Controller
   {
     return $this->confessionCategoryService->index($request);
   }
-
-
-  // ---------------------------------
-  // UTILITIES
 }

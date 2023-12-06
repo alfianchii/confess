@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Home\ConfessionService;
-use Illuminate\Http\Request;
 
 class ConfessionController extends Controller
 {
@@ -28,8 +28,4 @@ class ConfessionController extends Controller
     {
         return $this->confessionService->index($request, $this->userData);
     }
-
-
-    // ---------------------------------
-    // UTILITIES
 }

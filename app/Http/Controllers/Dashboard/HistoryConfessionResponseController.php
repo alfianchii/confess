@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Services\Dashboard\ResponseService;
 use App\Http\Controllers\Controller;
-use App\Models\RecConfession;
+use App\Models\{RecConfession};
 use Illuminate\Http\Request;
 
 class HistoryConfessionResponseController extends Controller

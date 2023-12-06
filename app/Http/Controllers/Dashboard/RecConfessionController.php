@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
-use App\Models\RecConfession;
-use App\Http\Controllers\Controller;
 use App\Services\Dashboard\ConfessionService;
+use App\Http\Controllers\Controller;
+use App\Models\{RecConfession};
+use Illuminate\Http\Request;
 
 class RecConfessionController extends Controller
 {
@@ -59,6 +59,7 @@ class RecConfessionController extends Controller
     {
         return $this->confessionService->export($request, $this->userData, $this->userRole);
     }
+
 
     // ---------------------------------
     // UTILITIES

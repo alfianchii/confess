@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Home;
 
-use App\Models\User;
-use App\Services\Home\UserService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\{User};
+use App\Services\Home\UserService;
 
 class UserController extends Controller
 {
@@ -29,8 +28,4 @@ class UserController extends Controller
   {
     return $this->userService->index($user);
   }
-
-
-  // ---------------------------------
-  // UTILITIES
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
 use App\Services\Dashboard\CommentService as DashboardCommentService;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class RecConfessionCommentController extends Controller

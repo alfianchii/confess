@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Models\MasterConfessionCategory;
 use App\Services\Dashboard\ConfessionCategoryService;
+use App\Http\Controllers\Controller;
+use App\Models\{MasterConfessionCategory};
 use Illuminate\Http\Request;
 
 class MasterConfessionCategoryController extends Controller
 {
-    // ---------------------------------
-    // TRAITS
-
-
     // ---------------------------------
     // PROPERTIES
     protected ConfessionCategoryService $confessionCategoryService;
@@ -71,6 +67,7 @@ class MasterConfessionCategoryController extends Controller
     {
         return $this->confessionCategoryService->checkSlug($request, $this->userRole);
     }
+
     public function destroyImage(string $slug)
     {
         return $this->confessionCategoryService->destroyImage($this->userData, $this->userRole, $slug);
