@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 
 class DTStudent extends Model
 {
@@ -43,12 +42,4 @@ class DTStudent extends Model
     {
         return $this->hasMany(RecConfessionComment::class, "id_user", "id_user");
     }
-
-
-    // ---------------------------------
-    // HELPERS
-
-
-    // ---------------------------------
-    // UTILITIES
 }

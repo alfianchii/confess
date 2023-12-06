@@ -12,7 +12,7 @@ trait Likeable
 
   // ---------------------------------
   // METHODS
-  public function fields(RecConfession $confession, User $user)
+  public static function likeFields(RecConfession $confession, User $user)
   {
     return [
       "id_user" => $user->id_user,

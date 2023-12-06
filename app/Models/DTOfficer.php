@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 
 class DTOfficer extends Model
 {
@@ -55,8 +54,4 @@ class DTOfficer extends Model
             ->where("mst_users_role.flag_active", "Y")
             ->where("dt_officers.flag_active", "Y");
     }
-
-
-    // ---------------------------------
-    // UTILITIES
 }

@@ -3,9 +3,8 @@
 namespace App\Services\Home;
 
 use App\Services\Service;
-use App\Models\{User, RecConfession, HistoryConfessionLike};
+use App\Models\{User, RecConfession};
 use App\Models\Traits\Helpers\{Likeable};
-use Illuminate\Http\Request;
 
 class ConfessionLikeService extends Service
 {
@@ -41,7 +40,7 @@ class ConfessionLikeService extends Service
 
     // Like or dislike
     if ($isLiked) $this->disliked($confession, $user);
-    else $this->liked($this->fields($confession, $user));
+    else $this->liked(self::likeFields($confession, $user));
 
     return back();
   }

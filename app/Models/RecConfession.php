@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use App\Models\Traits\Daily;
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
+use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Traits\{Daily};
 
 class RecConfession extends Model
 {
@@ -61,37 +60,20 @@ class RecConfession extends Model
 
     // ---------------------------------
     // HELPERS
-    public function getRouteKeyName()
-    {
-        return "slug";
-    }
-
-    /*
-        Data Scheme:
-            xAxis
-            yAxis
-    */
     public static function yourConfessionAxises(User $user)
     {
-        // Your confessions
-        $yourConfessions = RecConfession::where("id_user", $user->id_user)
-            ->whereBetween("created_at", [now()->startOfMonth(), now()->endOfMonth()])
-            // Select the date of creation and count of confessions for each day
-            ->selectRaw("DATE(created_at) as date, COUNT(*) as count")
-            // Group the results by the date of creation
-            ->groupBy("date", "created_at")
-            // Order the results by date in ascending order
-            ->oldest("date")
-            // Execute the query and retrieve the results
-            ->get();
-
-        // Create an array to store the confessions counts for each day
         $axises = [
             'xAxis' => [],
             'yAxis' => [],
         ];
 
-        // Loop through the date range and populate the counts array with the confessions counts
+        $yourConfessions = RecConfession::where("id_user", $user->id_user)
+            ->whereBetween("created_at", [now()->startOfMonth(), now()->endOfMonth()])
+            ->selectRaw("DATE(created_at) as date, COUNT(*) as count")
+            ->groupBy("date", "created_at")
+            ->oldest("date")
+            ->get();
+
         foreach (now()->startOfMonth()->toPeriod(now()->endOfMonth()) as $date) {
             $counts = 0;
 
@@ -106,36 +88,8 @@ class RecConfession extends Model
         return $axises;
     }
 
-    /*
-        Data Scheme:
-            data
-                xAxis
-                yAxis
-            genders
-                male
-                female
-    */
     public static function confessionAxises()
     {
-        // All Confessions
-        $confessions = RecConfession::whereBetween("rec_confessions.created_at", [now()->startOfMonth(), now()->endOfMonth()])
-            // Select the date of creation and count of confessions for each day
-            ->selectRaw("DATE(rec_confessions.created_at) as date, COUNT(*) as count")
-            // Group the results by the date of creation
-            ->groupBy("date", "rec_confessions.created_at")
-            // Order the results by date in ascending order
-            ->oldest("date")
-            // Execute the query and retrieve the results
-            ->get();
-
-        // Genders
-        $genders = RecConfession::leftJoin("dt_students", "rec_confessions.id_user", "=", "dt_students.id_user")
-            ->leftJoin("mst_users", "dt_students.id_user", "=", "mst_users.id_user")
-            ->selectRaw("SUM(CASE WHEN mst_users.gender = 'L' THEN 1 ELSE 0 END) as male")
-            ->selectRaw("SUM(CASE WHEN mst_users.gender = 'P' THEN 1 ELSE 0 END) as female")
-            ->first()->attributes;
-
-        // Create an array to store the all confessions' data
         $axises = [
             "data" => [
                 'xAxis' => [],
@@ -147,7 +101,18 @@ class RecConfession extends Model
             ],
         ];
 
-        // Loop through the date range and populate the counts array with the confession counts
+        $confessions = RecConfession::whereBetween("rec_confessions.created_at", [now()->startOfMonth(), now()->endOfMonth()])
+            ->selectRaw("DATE(rec_confessions.created_at) as date, COUNT(*) as count")
+            ->groupBy("date", "rec_confessions.created_at")
+            ->oldest("date")
+            ->get();
+
+        $genders = RecConfession::leftJoin("dt_students", "rec_confessions.id_user", "=", "dt_students.id_user")
+            ->leftJoin("mst_users", "dt_students.id_user", "=", "mst_users.id_user")
+            ->selectRaw("SUM(CASE WHEN mst_users.gender = 'L' THEN 1 ELSE 0 END) as male")
+            ->selectRaw("SUM(CASE WHEN mst_users.gender = 'P' THEN 1 ELSE 0 END) as female")
+            ->first()->attributes;
+
         foreach (now()->startOfMonth()->toPeriod(now()->endOfMonth()) as $date) {
             $counts = 0;
 
@@ -159,7 +124,6 @@ class RecConfession extends Model
             $axises['data']['xAxis'][] = $date->format("Y-m-d");
         }
 
-        // Convert string to int
         foreach ($genders as $key => $value) {
             $axises['genders'][$key] = (int) $value;
         }
@@ -175,13 +139,10 @@ class RecConfession extends Model
             ->where("status", "!=", 'close')
             ->latest();
 
-        // Filter by user
         if ($user) $query->where("rec_confessions.id_user", $user->id_user);
 
-        // Return the filtered results
         if (!$limit) return $query;
 
-        // Return limited results
         return $query->limit($limit);
     }
 
@@ -222,31 +183,16 @@ class RecConfession extends Model
 
         /* SEARCH: CONFESSION AND STATUS */
         if (isset($filters["search"]) && isset($filters["status"])) {
-            $str = "";
-
-            // Convert enum
-            if ($filters["status"] == "not") $str = "0";
-            if ($filters["status"] == "proc") $str = "1";
-            if ($filters["status"] == "done") $str = "2";
-
-
             return $query->with("student")->where(
                 fn ($query) =>
                 $query->where("title", "like", "%" . $filters["search"] . "%")
                     ->orWhere("body", "like", "%" . $filters["search"] . "%")
             )
-                ->where('status', $str);
+                ->where('status', $filters["status"]);
         }
 
         /* SEARCH: CONFESSION AND PRIVACY */
         if (isset($filters["search"]) && isset($filters["privacy"])) {
-            $str = "";
-
-            // Convert enum
-            if ($filters["privacy"] == "anyone") $str = "public";
-            if ($filters["privacy"] == "private") $str = "anonymous";
-
-            // Do query
             return $query->with("student")->where(
                 fn ($query) =>
                 $query->where("title", "like", "%" . $filters["search"] . "%")
@@ -258,7 +204,7 @@ class RecConfession extends Model
                     $query->with("student")->whereHas(
                         "confessions",
                         fn ($query) =>
-                        $query->with("confessions")->where("privacy", $str)
+                        $query->with("confessions")->where("privacy", $filters["privacy"])
                     )
                 );
         }
@@ -329,6 +275,11 @@ class RecConfession extends Model
 
     // ---------------------------------
     // UTILITIES
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
     public function sluggable(): array
     {
         return [
