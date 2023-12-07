@@ -15,7 +15,6 @@ class DTOfficersSeeder extends Seeder
      */
     public function run()
     {
-        // Define an array of data to be updated or inserted
         $records = [
             // Admins
             [
@@ -56,11 +55,10 @@ class DTOfficersSeeder extends Seeder
             ],
         ];
 
-        // Loop through the data and update or insert as needed
         foreach ($records as $record) {
             DTOfficer::updateOrInsert(
-                ['id_user' => $record['id_user']], // Condition for updating
-                $record, // Data to be updated or inserted
+                ['id_user' => $record['id_user']],
+                $record,
             );
         }
     }
