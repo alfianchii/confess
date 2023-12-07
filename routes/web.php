@@ -77,7 +77,7 @@ Route::group(["middleware" => "auth"], function () {
         Route::get("/users/account/settings", [DashboardUser::class, "settings"]);
         Route::put("/users/account/settings/{user:username}", [DashboardUser::class, "settingsUpdate"]);
         Route::get("/users/account/password", [DashboardUser::class, "changePassword"]);
-        Route::put("/users/account/password/update", [DashboardUser::class, "passwordUpdate"]);
+        Route::put("/users/account/password/update", [DashboardUser::class, "changePasswordUpdate"]);
         Route::delete("/users/account/settings/{user:username}/profile-picture", [DashboardUser::class, "destroyProfilePicture"]);
         Route::put("/users/{user:id_user}/activate", [DashboardUser::class, "activate"]);
         Route::delete("/users/account/{user:id_user}/non-active-your-account", [DashboardUser::class, "nonActiveYourAccount"]);
