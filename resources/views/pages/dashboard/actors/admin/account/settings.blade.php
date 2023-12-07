@@ -167,7 +167,7 @@
                                     <label
                                         class="@if ($userData->profile_picture) {{ 'd-block' }} @endif{{ 'form-label' }} @error('profile_picture'){{ 'text-danger' }}@enderror">Foto</label>
                                     <div class="position-relative">
-                                        <!-- Image preview -->
+                                        {{-- Image preview --}}
                                         @if ($isUserImageExist($userData->profile_picture))
                                             <div class="mb-2">
                                                 <a data-bs-toggle="tooltip"
@@ -192,8 +192,9 @@
                                             @endif
                                         @endif
 
-                                        <!-- Auto crop image file uploader -->
-                                        <input type="file" id="profile_picture" class="image-crop-filepond" name="profile_picture" />
+                                        {{-- Auto crop image file uploader --}}
+                                        <input type="file" id="profile_picture" class="image-crop-filepond"
+                                            name="profile_picture" />
 
                                         @error('profile_picture')
                                             <div class="invalid-feedback d-block">
@@ -220,6 +221,13 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
+    {{-- Forget error alert config --}}
+    @if (session()->has('alert') &&
+            array_key_exists('config', session('alert')) &&
+            json_decode(session('alert')['config'], true)['icon'] === 'error')
+        {{ Session::forget('alert') }}
+    @endif
+
     {{-- Filepond: image auto crop --}}
     <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     <script

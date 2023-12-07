@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\{Model};
 
 class HistoryConfessionLike extends Model
 {
     // ---------------------------------
     // TRAITS
     use HasFactory;
+
 
     // ---------------------------------
     // PROPERTIES
@@ -18,6 +19,7 @@ class HistoryConfessionLike extends Model
     protected $guarded = [
         'id_confession_like',
     ];
+
 
     // ---------------------------------
     // RELATIONSHIPS

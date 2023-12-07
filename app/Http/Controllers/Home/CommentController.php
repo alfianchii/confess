@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Home;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{RecConfession};
 use App\Services\Dashboard\CommentService as DashboardCommentService;
 use App\Services\Home\CommentService;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -52,8 +52,4 @@ class CommentController extends Controller
   {
     return $this->dashboardCommentService->destroy($this->userData, $idConfessionComment);
   }
-
-
-  // ---------------------------------
-  // UTILITIES
 }

@@ -30,7 +30,6 @@
                                     <button class="btn btn-color text-white" id="search-button" type="submit">Cari</button>
                                 </div>
 
-                                {{-- Reset Filters --}}
                                 {{-- If just "page" on params, don't display --}}
                                 @if (count(request()->all()) === 1 && array_key_exists('page', request()->all()))
                                     <div class="mb-3 text-center d-none">

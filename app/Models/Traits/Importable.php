@@ -2,18 +2,10 @@
 
 namespace App\Models\Traits;
 
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\{Validator};
 
 trait Importable
 {
-  // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
-  // MAGIC FUNCTIONS
-
-
   // ---------------------------------
   // METHODS
   public function getImportRules()
@@ -23,6 +15,7 @@ trait Importable
       "table" => ['required'],
     ];
   }
+
   public function getImportMessages()
   {
     return [
@@ -33,10 +26,12 @@ trait Importable
       "table.required" => "Data table tidak boleh kosong.",
     ];
   }
+
   public function importValidates(array $data)
   {
     return Validator::make($data, $this->getImportRules(), $this->getImportMessages());
   }
+
   public function imports($instance, $file, $writterType, string $message)
   {
     $instance->import($file, $writterType);

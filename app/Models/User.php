@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
+
 
     // ---------------------------------
     // RELATIONSHIPS
@@ -54,10 +55,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(RecConfessionComment::class, "id_user", "id_user");
     }
-
-
-    // ---------------------------------
-    // HELPERS
 
 
     // ---------------------------------

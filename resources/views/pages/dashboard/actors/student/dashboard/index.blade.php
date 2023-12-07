@@ -324,12 +324,12 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    <!-- Need: Apexcharts -->
+    {{-- Apexcharts --}}
     <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     {{-- Admin Dashboard --}}
     @vite(['resources/js/dashboard/student.js'])
     {{-- To scrollable --}}
     @vite(['resources/js/scrollable/dashboard-student.js'])
-    {{-- realrashid/sweetalert --}}
+    {{-- SweetAlert --}}
     @include('sweetalert::alert')
 @endsection

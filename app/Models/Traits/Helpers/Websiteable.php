@@ -16,24 +16,26 @@ trait Websiteable
       if (!$item) return view("errors.404");
       if ($item->value === $data_value) unset($rules[$data_key]);
     }
+
     return $rules;
   }
+
   public function generateFields(array $credentials, User $user)
   {
     $fields = [];
     foreach ($credentials as $key => $value) {
       $item = SettingWebsite::where("key", $key)->first();
 
-      // Images
       if (strstr($key, "IMAGE"))
         $credentials = $this->file($item->value, $credentials, $key, "website-setting/$key");
 
-      // Fields
       $fields[$key]["value"] = $credentials[$key];
       $fields[$key]["updated_by"] = $user->id_user;
     }
+
     return $fields;
   }
+
   public function updateWebsite(array $fields)
   {
     foreach ($fields as $field_key => $field_value) {

@@ -107,7 +107,7 @@
                                             <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
                                                 <label class="form-label">File Pendukung</label>
 
-                                                <!-- File preview -->
+                                                {{-- File preview --}}
                                                 <input type="file" id="attachment_file" class="basic-file-filepond"
                                                     name="attachment_file" />
 
@@ -167,11 +167,10 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- If alert error exists --}}
+    {{-- Forget error alert config --}}
     @if (session()->has('alert') &&
             array_key_exists('config', session('alert')) &&
             json_decode(session('alert')['config'], true)['icon'] === 'error')
-        {{-- Unset the "alert" session variable --}}
         {{ Session::forget('alert') }}
     @endif
 

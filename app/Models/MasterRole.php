@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 
 class MasterRole extends Model
 {
@@ -34,12 +33,4 @@ class MasterRole extends Model
         return $this->hasMany(MasterUserRole::class, 'id_role', 'id_role')
             ->where("flag_active", "Y");
     }
-
-
-    // ---------------------------------
-    // HELPERS
-
-
-    // ---------------------------------
-    // UTILITIES
 }

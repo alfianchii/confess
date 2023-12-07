@@ -24,10 +24,6 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
 
 
   // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // CORES
   public function properties(): array
   {
@@ -54,6 +50,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
   {
     return "Confession's Categories";
   }
+
   public function headings(): array
   {
     return [
@@ -66,6 +63,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       "Created at",
     ];
   }
+
   public function map($category): array
   {
     return [
@@ -78,6 +76,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       $category->created_at->format('j F Y, \a\t H.i'),
     ];
   }
+
   public function styles(Worksheet $sheet)
   {
     $sheet->getStyle("1")->getFont()->setBold(true);

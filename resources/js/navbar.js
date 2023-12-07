@@ -12,7 +12,7 @@ function scroll() {
     }
 }
 
-//panggil saat inisialisasi
+// Panggil saat inisialisasi
 // scroll();
 
 // panggil saat discroll

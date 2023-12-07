@@ -1,7 +1,6 @@
 import axios from "axios";
 import userSession from "./helpers/user-session";
 
-// Sluggable
 export function sluggable(input, sluggable, uri) {
     let slug = document.querySelector("#slug");
 

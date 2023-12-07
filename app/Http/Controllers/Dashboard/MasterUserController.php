@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Services\Dashboard\UserService;
+use App\Http\Controllers\Controller;
+use App\Models\{User};
 use Illuminate\Http\Request;
 
 class MasterUserController extends Controller
@@ -82,46 +82,57 @@ class MasterUserController extends Controller
     {
         return $this->userService->profile($this->userRole);
     }
+
     public function settings()
     {
         return $this->userService->settings($this->userRole);
     }
+
     public function settingsUpdate(Request $request, User $user)
     {
         return $this->userService->settingsUpdate($request, $this->userData, $this->userRole, $this->userUnique, $user);
     }
+
     public function changePassword()
     {
         return $this->userService->changePassword($this->userRole);
     }
+
     public function changePasswordUpdate(Request $request)
     {
         return $this->userService->changePasswordUpdate($request, $this->userData, $this->userRole);
     }
+
     public function destroyProfilePicture($idUser)
     {
         return $this->userService->destroyProfilePicture($this->userData, $this->userRole, $idUser);
     }
+
     public function activate($idUser)
     {
         return $this->userService->activate($this->userData, $this->userRole, $idUser);
     }
+
     public function nonActiveYourAccount($idUser)
     {
         return $this->userService->nonActiveYourAccount($this->userRole, $idUser);
     }
+
     public function historyLogins()
     {
         return $this->userService->historyLogins($this->userRole);
     }
+
     public function role(User $user)
     {
         return $this->userService->role($this->userRole, $user);
     }
+
     public function roleUpdate(Request $request, User $user)
     {
         return $this->userService->roleUpdate($request, $this->userData, $this->userRole, $user);
     }
+
     public function mutateUserPassword(Request $request, User $user)
     {
         return $this->userService->mutateUserPassword($request, $this->userRole, $user);

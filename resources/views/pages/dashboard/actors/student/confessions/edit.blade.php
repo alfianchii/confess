@@ -7,13 +7,10 @@
 @section('additional_links')
     {{-- SweetAlert --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.css') }}" />
-
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
-
     {{-- Form: select option --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/choices.js/public/assets/styles/choices.css') }}">
-
     {{-- Image preview --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
     <link rel="stylesheet"
@@ -247,7 +244,7 @@
                                                     <label
                                                         class="@if ($confession->image) {{ 'd-block' }} @endif{{ 'form-label' }} @error('image'){{ 'text-danger' }}@enderror">Foto</label>
 
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if ($confession->image)
                                                         <div class="mb-2">
                                                             <a data-bs-toggle="tooltip"
@@ -267,7 +264,7 @@
                                                             class="img-preview img-fluid mb-3 col-sm-5 rounded">
                                                     @endif
 
-                                                    <!-- File uploader with image preview -->
+                                                    {{-- File uploader with image preview --}}
                                                     <input type="file" class="image-preview-filepond" name="image"
                                                         id="image" />
 
@@ -320,11 +317,10 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- If alert error exists --}}
+    {{-- Forget error alert config --}}
     @if (session()->has('alert') &&
             array_key_exists('config', session('alert')) &&
             json_decode(session('alert')['config'], true)['icon'] === 'error')
-        {{-- Unset the "alert" session variable --}}
         {{ Session::forget('alert') }}
     @endif
 

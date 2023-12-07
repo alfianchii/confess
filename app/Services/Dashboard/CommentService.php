@@ -2,15 +2,15 @@
 
 namespace App\Services\Dashboard;
 
-use App\Exports\Confessions\Comments\{AllOfCommentsExport, YourCommentsExport};
-use App\Services\Service;
-use App\Models\{MasterRole, RecConfession, RecConfessionComment, User};
-use App\Models\Traits\Exportable;
-use App\Models\Traits\Helpers\{Commentable, Homeable};
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Storage, Validator};
+use Illuminate\Http\Request;
+use App\Services\Service;
+use App\Models\{MasterRole, RecConfession, RecConfessionComment, User};
+use App\Models\Traits\{Exportable};
+use App\Models\Traits\Helpers\{Commentable, Homeable};
+use App\Exports\Confessions\Comments\{AllOfCommentsExport, YourCommentsExport};
 
 class CommentService extends Service
 {
@@ -40,13 +40,11 @@ class CommentService extends Service
   // CORES
   public function index(User $user, MasterRole $userRole)
   {
-    // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminIndex($user);
     if ($roleName === "officer") return $this->officerIndex($user);
     if ($roleName === "student") return $this->studentIndex($user);
 
-    // Redirect to unauthorized page
     return view("errors.403");
   }
 
@@ -105,17 +103,14 @@ class CommentService extends Service
     if ($validator->fails()) return view("errors.403");
     $creds = $validator->validate();
 
-    // Validates
     $fileName = $this->getExportFileName($creds["type"]);
     $writterType = $this->getWritterType($creds["type"]);
 
-    // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminExport($creds["table"], $fileName, $writterType, $user);
     if ($roleName === "officer") return $this->officerExport($creds["table"], $fileName, $writterType, $user);
     if ($roleName === "student") return $this->studentExport($creds["table"], $fileName, $writterType, $user);
 
-    // Redirect to unauthorized page
     return view("errors.403");
   }
 
@@ -135,29 +130,23 @@ class CommentService extends Service
   // ALL
   public function allStore($data, User $user, RecConfession $confession)
   {
-    // Validates
     $credentials = Validator::make($data, $this->rules, $this->messages)->validate();
     $credentials = $this->file(null, $credentials, "attachment_file", "confession/comment/attachment-files");
     $optFields = ["attachment_file" => $credentials["attachment_file"] ?? null];
 
-    // Insert comment
     $comment = RecConfessionComment::setComment($user, $confession, $credentials["comment"], $credentials["privacy"], $optFields);
 
-    // Success
     return redirect($this->createCommentsURLWithParam($confession->slug) . base64_encode($comment->id_confession_comment))->withSuccess("Komentar kamu berhasil dibuat.");
   }
-  // Edit
+
   private function allEdit(User $user, RecConfession $confession, RecConfessionComment $comment)
   {
     try {
-      // ---------------------------------
-      // Validations
       $this->isYourComment($user, $comment);
     } catch (\Exception $e) {
-      return redirect("/dashboard/confessions/comments")->withErrors($e->getMessage());
+      return redirect(self::DASHBOARD_URL)->withErrors($e->getMessage());
     }
 
-    // Passing out a view
     $viewVariables = [
       "title" => "Sunting Komentar",
       "comment" => $comment,
@@ -165,77 +154,62 @@ class CommentService extends Service
     ];
     return view("pages.dashboard.actors.custom.comment.edit", $viewVariables);
   }
+
   public function allUpdate($data, User $user, RecConfessionComment $comment)
   {
     try {
-      // ---------------------------------
-      // Validations
       $this->isYourComment($user, $comment);
     } catch (\Exception $e) {
-      return redirect("/confessions")->withErrors($e->getMessage());
+      return redirect(self::DASHBOARD_URL)->withErrors($e->getMessage());
     }
 
-    // Page
     $page = $comment->page;
     unset($comment->page);
 
-    // Validates
     $credentials = Validator::make($data, $this->rules, $this->messages)->validate();
 
-    // Confession
     $confession = RecConfession::where("id_confession", $comment->id_confession)->first();
     $credentials = $this->file($comment->attachment_file, $credentials, "attachment_file", "confession/comment/attachment-files");
 
-    return $this->modify($comment, $credentials, $user->id_user, "komentar", $this->createCommentsURLWithParam($confession->slug) . base64_encode($comment->id_confession_comment) . "&page=$page");
+    $url = $this->createCommentsURLWithParam($confession->slug) . base64_encode($comment->id_confession_comment) . "&page=$page";
+    return $this->modify($comment, $credentials, $user->id_user, "komentar", $url);
   }
+
   public function allDestroy(User $user, RecConfessionComment $comment)
   {
     try {
-      // ---------------------------------
-      // Validations
       $this->isYourComment($user, $comment);
 
-      // Destroy the comment
       if (!RecConfessionComment::destroy($comment->id_confession_comment)) throw new \Exception('Error unsend comment.');
-      // Update by
       $comment->update(["updated_by" => $user->id_user]);
-      // Destroy the attachment file if exists
       if ($comment->attachment_file) Storage::delete($comment->attachment_file);
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
-      // Catch all exceptions here
       return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
     }
 
-    // Success
     return $this->responseJsonMessage("Komentar kamu berhasil di-unsend!");
   }
+
   public function allDestroyAttachment(User $user, RecConfessionComment $comment)
   {
     try {
-      // ---------------------------------
-      // Validations
       $this->isYourComment($user, $comment);
 
-      // Destroy the attachment file
       if (!Storage::delete($comment->attachment_file)) throw new \Exception('Error unsend attachment file.');
-      // Update the attachment file and update by
       $comment->update(["attachment_file" => null, "updated_by" => $user->id_user]);
     } catch (\PDOException | ModelNotFoundException | QueryException | \Exception $e) {
       return $this->responseJsonMessage($e->getMessage(), 500);
     } catch (\Throwable $e) {
-      // Catch all exceptions here
       return $this->responseJsonMessage("An error occurred: " . $e->getMessage(), 500);
     }
 
-    // Success
     return $this->responseJsonMessage("File pendukung berhasil di-unsend.");
   }
 
 
   // ADMIN
-  // Index
   public function adminIndex(User $user)
   {
     $allComments = RecConfessionComment::with(["confession", "user"])
@@ -244,7 +218,6 @@ class CommentService extends Service
 
     $yourComments = $allComments->where("id_user", $user->id_user);
 
-    // Passing out a view
     $viewVariables = [
       "title" => "Komentar",
       "allComments" => $allComments,
@@ -252,22 +225,19 @@ class CommentService extends Service
     ];
     return view("pages.dashboard.actors.admin.comments.index", $viewVariables);
   }
-  // Export
+
   public function adminExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Table
     if ($table === "all-of-comments")
       return $this->exports((new AllOfCommentsExport), $fileName, $writterType);
     if ($table === "your-comments")
       return $this->exports((new YourCommentsExport)->forIdUser($user->id_user), $fileName, $writterType);
 
-    // Redirect to not found page
     return view("errors.404");
   }
 
 
   // OFFICER
-  // Index
   public function officerIndex(User $user)
   {
     $allComments = RecConfessionComment::with(["confession", "user"])
@@ -276,7 +246,6 @@ class CommentService extends Service
 
     $yourComments = $allComments->where("id_user", $user->id_user);
 
-    // Passing out a view
     $viewVariables = [
       "title" => "Komentar",
       "allComments" => $allComments,
@@ -284,22 +253,19 @@ class CommentService extends Service
     ];
     return view("pages.dashboard.actors.officer.comments.index", $viewVariables);
   }
-  // Export
+
   public function officerExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Table
     if ($table === "all-of-comments")
       return $this->exports((new AllOfCommentsExport), $fileName, $writterType);
     if ($table === "your-comments")
       return $this->exports((new YourCommentsExport)->forIdUser($user->id_user), $fileName, $writterType);
 
-    // Redirect to not found page
     return view("errors.404");
   }
 
 
   // STUDENT
-  // Index
   public function studentIndex(User $user)
   {
     $yourComments = RecConfessionComment::with([
@@ -309,21 +275,18 @@ class CommentService extends Service
       ->latest()
       ->paginateCommentsFromConfession(self::PER_PAGE);
 
-    // Passing out a view
     $viewVariables = [
       "title" => "Komentar",
       "yourComments" => $yourComments,
     ];
     return view("pages.dashboard.actors.student.comments.index", $viewVariables);
   }
-  // Export
+
   public function studentExport(string $table, string $fileName, $writterType, User $user)
   {
-    // Table
     if ($table === "your-comments")
       return $this->exports((new YourCommentsExport)->forIdUser($user->id_user), $fileName, $writterType);
 
-    // Redirect to not found page
     return view("errors.404");
   }
 }

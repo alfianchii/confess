@@ -3,8 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 
 class MasterUserRole extends Model
 {
@@ -33,12 +32,4 @@ class MasterUserRole extends Model
     {
         return $this->belongsTo(MasterRole::class, 'id_role', 'id_role');
     }
-
-
-    // ---------------------------------
-    // HELPERS
-
-
-    // ---------------------------------
-    // UTILITIES
 }

@@ -7,14 +7,6 @@ use App\Services\Service;
 class AboutService extends Service
 {
   // ---------------------------------
-  // TRAITS
-
-
-  // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // CORES
   public function index()
   {
@@ -26,7 +18,6 @@ class AboutService extends Service
   // UTILITIES
   public function allIndex()
   {
-    // Passing out a view
     $viewVariables = [
       "title" => "Tentang " . config('web_config')['TEXT_WEB_TITLE'],
     ];

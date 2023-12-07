@@ -123,7 +123,7 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- realrashid/sweetalert --}}
+    {{-- SweetAlert --}}
     @include('sweetalert::alert')
     {{-- Display password --}}
     @vite(['resources/js/display-password/password-confirmation.js'])

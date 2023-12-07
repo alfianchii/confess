@@ -172,7 +172,7 @@
                                                 <label class="form-label">Logo Website
                                                     (Homepage)</label>
                                                 <div class="position-relative">
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE'])))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO_WHITE']) }}"
@@ -183,7 +183,7 @@
                                                             alt="Logo Website">
                                                     @endif
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" class="image-preview-filepond"
                                                         name="IMAGE_WEB_LOGO_WHITE" />
 
@@ -203,7 +203,7 @@
                                                 <label class="form-label">Logo Website
                                                     (Dashboard)</label>
                                                 <div class="position-relative">
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO'])))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO']) }}"
@@ -214,7 +214,7 @@
                                                             alt="Logo Website">
                                                     @endif
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" class="image-preview-filepond"
                                                         name="IMAGE_WEB_LOGO" />
 
@@ -233,7 +233,7 @@
                                             <div class="form-group">
                                                 <label class="form-label">Favicon Website</label>
                                                 <div class="position-relative">
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_FAVICON'])))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['IMAGE_WEB_FAVICON']) }}"
@@ -244,7 +244,7 @@
                                                             alt="Favicon Website">
                                                     @endif
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" class="image-preview-filepond"
                                                         name="IMAGE_WEB_FAVICON" />
 
@@ -264,7 +264,7 @@
                                                 <label class="form-label">Footer Website
                                                     (Homepage)</label>
                                                 <div class="position-relative">
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if (File::exists(public_path('images/' . config('web_config')['IMAGE_FOOTER'])))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['IMAGE_FOOTER']) }}"
@@ -275,7 +275,7 @@
                                                             alt="Footer Website">
                                                     @endif
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" class="image-preview-filepond"
                                                         name="IMAGE_FOOTER" />
 
@@ -295,7 +295,7 @@
                                                 <label class="form-label">Footer Website
                                                     (Dashboard)</label>
                                                 <div class="position-relative">
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if (File::exists(public_path('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD'])))
                                                         <img class="img-fluid rounded mb-3 col-sm-5"
                                                             src="{{ asset('images/' . config('web_config')['IMAGE_FOOTER_DASHBOARD']) }}"
@@ -306,7 +306,7 @@
                                                             alt="Footer Website">
                                                     @endif
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" class="image-preview-filepond"
                                                         name="IMAGE_FOOTER_DASHBOARD" />
 
@@ -382,6 +382,6 @@
     <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
     </script>
     @vite(['resources/js/filepond/image-preview.js'])
-    {{-- realrashid/sweetalert --}}
+    {{-- SweetAlert --}}
     @include('sweetalert::alert')
 @endsection

@@ -64,6 +64,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
   {
     return "Confessions Handled by You";
   }
+
   public function headings(): array
   {
     return [
@@ -83,6 +84,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       "Created at",
     ];
   }
+
   public function map($confession): array
   {
     return [
@@ -102,6 +104,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       $confession->created_at->format('j F Y, \a\t H.i'),
     ];
   }
+
   public function styles(Worksheet $sheet)
   {
     $sheet->getStyle("1")->getFont()->setBold(true);

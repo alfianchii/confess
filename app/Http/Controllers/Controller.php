@@ -17,6 +17,7 @@ class Controller extends BaseController
     // TRAITS
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+
     // ---------------------------------
     // PROPERTIES
     const HOME_URL = RouteServiceProvider::HOME;
@@ -24,6 +25,8 @@ class Controller extends BaseController
     protected MasterRole $userRole;
     protected $userUnique;
 
+
+    // MAGIC FUNCTIONS
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
@@ -32,12 +35,10 @@ class Controller extends BaseController
                 $this->userRole = $this->getUserRole($this->userData);
                 $this->userUnique = $this->getUserUnique($this->userData, $this->userRole);
 
-                // Share properties to all views
                 View::share('userData', $this->userData);
                 View::share('userRole', $this->userRole);
                 View::share('userUnique', $this->userUnique);
 
-                // Share methods to all views
                 View::share('isUserImageExist', [$this, 'isUserImageExist']);
             }
 
@@ -47,20 +48,20 @@ class Controller extends BaseController
 
 
     // ---------------------------------
-    // HELPERS
+    // UTILITIES
     public function getUserData()
     {
         $user = Auth::user();
-        // If non-active
         if ($user->flag_active === "N") return $this->logoutUserImmediately();
+
         return $user;
     }
 
     public function getUserRole(User $user)
     {
         if (!$user->userRole) return $this->logoutUserImmediately();
-        // If non-active
         if ($user->userRole->flag_active === "N") return $this->logoutUserImmediately();
+
         return $user->userRole->role;
     }
 
@@ -68,21 +69,15 @@ class Controller extends BaseController
     {
         $unique = null;
         if (!empty($role)) {
-            // Admin or officer
             if ($role->role_name === "admin" || $role->role_name === "officer")
                 $unique = DTOfficer::where("id_user", $user->id_user)->first();
-            // Student
             if ($role->role_name === "student")
                 $unique = DTStudent::where("id_user", $user->id_user)->first();
-            // Check if the user's unique is not exist, then logout immediately
             if (empty($unique))
                 return $this->logoutUserImmediately();
-        }
-        // If no role, then logout immediately
-        else return $this->logoutUserImmediately();
-        // If non-active
+        } else return $this->logoutUserImmediately();
         if ($unique->flag_active === "N") return $this->logoutUserImmediately();
-        // Return the unique
+
         return $unique;
     }
 
@@ -91,12 +86,14 @@ class Controller extends BaseController
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
+
         return redirect()->intended(self::HOME_URL);
     }
 
     public function isUserImageExist(string $path = null)
     {
         if (!$path) return false;
+
         return
             File::exists(public_path('images/' . $path))
             ||

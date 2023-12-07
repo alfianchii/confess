@@ -539,10 +539,10 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    <!-- Need: Apexcharts -->
+    {{-- Apexcharts --}}
     <script src="{{ asset('assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     {{-- Admin Dashboard --}}
     @vite(['resources/js/dashboard/admin.js'])
-    {{-- realrashid/sweetalert --}}
+    {{-- SweetAlert --}}
     @include('sweetalert::alert')
 @endsection

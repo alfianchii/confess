@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
-use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\{Model, SoftDeletes};
+use Cviebrock\EloquentSluggable\Sluggable;
 
 class MasterConfessionCategory extends Model
 {
@@ -38,11 +37,6 @@ class MasterConfessionCategory extends Model
         return $query->where("flag_active", "Y");
     }
 
-    public function getRouteKeyName()
-    {
-        return "slug";
-    }
-
     public function scopeFilter($query, array $filters)
     {
         /* SEARCH: CATEGORY */
@@ -59,6 +53,11 @@ class MasterConfessionCategory extends Model
 
     // ---------------------------------
     // UTILITIES
+    public function getRouteKeyName()
+    {
+        return "slug";
+    }
+
     public function sluggable(): array
     {
         return [

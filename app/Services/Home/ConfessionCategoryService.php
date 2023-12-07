@@ -2,20 +2,12 @@
 
 namespace App\Services\Home;
 
-use App\Models\MasterConfessionCategory;
-use App\Services\Service;
 use Illuminate\Http\Request;
+use App\Services\Service;
+use App\Models\{MasterConfessionCategory};
 
 class ConfessionCategoryService extends Service
 {
-  // ---------------------------------
-  // TRAITS
-
-
-  // ---------------------------------
-  // PROPERTIES
-
-
   // ---------------------------------
   // CORES
   public function index(Request $request)
@@ -36,7 +28,6 @@ class ConfessionCategoryService extends Service
   // UTILITIES
   public function allIndex($confessionCategories)
   {
-    // Passing out a view
     $viewVariables = [
       "title" => "Kategori Pengakuan",
       "confessionCategories" => $confessionCategories,

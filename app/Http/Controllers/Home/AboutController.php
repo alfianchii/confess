@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
-use App\Services\Home\AboutService;
+use App\Services\Home\{AboutService};
 
 class AboutController extends Controller
 {
@@ -27,8 +27,4 @@ class AboutController extends Controller
     {
         return $this->aboutService->index();
     }
-
-
-    // ---------------------------------
-    // UTILITIES
 }

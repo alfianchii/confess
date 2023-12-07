@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\HistoryLogin;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
+use App\Models\{HistoryLogin};
+use Illuminate\Support\Facades\{Auth};
+use App\Models\Traits\Helpers\{Loginable};
 
 class CredentialController extends Controller
 {
+    // ---------------------------------
+    // TRAITS
+    use Loginable;
+
+
     // ---------------------------------
     // PROPERTIES
     protected $rules = [
@@ -28,8 +33,8 @@ class CredentialController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate($this->rules);
-        $baseFields = $this->baseFields($request);
-        $historyLogin = $this->authAttempt($request, $credentials, $baseFields);
+        $baseFields = $this->loginFields($request);
+        $historyLogin = $this->authAttempt($request, $credentials, $baseFields, self::HOME_URL);
         HistoryLogin::create($historyLogin["fields"]);
         return redirect($historyLogin["redirect"])->with($historyLogin["status"], $historyLogin["message"]);
     }
@@ -40,62 +45,5 @@ class CredentialController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect("/login")->with("success", "Logout berhasil!");
-    }
-
-
-    // ---------------------------------
-    // UTILITIES
-    public function baseFields(Request $request)
-    {
-        $serverInformations = $request->server();
-        return [
-            "username" => $request->username,
-            "operating_system" => $serverInformations["HTTP_SEC_CH_UA_PLATFORM"] ?? "Unknown",
-            "remote_address" => $request->ip(),
-            "user_agent" => $request->userAgent(),
-            "browser" => $serverInformations["HTTP_SEC_CH_UA"] ?? "Unknown",
-            "attempt_result" => "N",
-        ];
-    }
-    public function authAttempt(Request $request, array $credentials, array $fields)
-    {
-        $redirect = "/login";
-        $status = "error";
-        $message = "Username atau password salah!";
-        $attempted = Auth::attempt([
-            "username" => $credentials["username"],
-            "password" => $credentials['password'],
-        ]);
-
-        if ($attempted) {
-            $user = User::where("username", $credentials["username"])->first();
-            if ($user->flag_active === "N") {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-
-                return [
-                    "fields" => $fields,
-                    "redirect" => $redirect,
-                    "status" => $status,
-                    "message" => "Akun kamu dinonaktifkan!",
-                ];
-            }
-
-            $user->update(["last_login_at" => now()]);
-            $fields["attempt_result"] = "Y";
-            $request->session()->regenerate();
-            session(['issued_time' => time()]);
-            $status = "success";
-            $message = "Login berhasil!";
-            $redirect = self::HOME_URL;
-        }
-
-        return [
-            "fields" => $fields,
-            "redirect" => $redirect,
-            "status" => $status,
-            "message" => $message,
-        ];
     }
 }

@@ -262,7 +262,7 @@
         </section>
     </div>
 
-    <!-- Modal Import Users -->
+    {{-- Modal Import Users --}}
     <div class="modal fade" id="import-users" tabindex="-1" role="dialog" aria-labelledby="modal-import-users"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -302,9 +302,9 @@
                             <div class="position-relative">
                                 <label class="form-label">File</label>
 
-                                <!-- File preview -->
+                                {{-- File preview --}}
                                 <input type="file" id="file" class="basic-file-filepond" name="file" />
-                                <!-- Unique -->
+                                {{-- Unique --}}
                                 <input type="hidden" name="table" value="users-import" />
 
                                 @error('file')
@@ -357,9 +357,8 @@
     <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
     </script>
     @vite(['resources/js/filepond/basic-file.js'])
-    {{-- realrashid/sweetalert --}}
-    @include('sweetalert::alert')
     {{-- SweetAlert --}}
+    @include('sweetalert::alert')
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/user/user.js'])
     {{-- Simple DataTable --}}

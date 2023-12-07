@@ -1,4 +1,3 @@
-{{-- Base scripts --}}
 {{-- --------------------------------- Landing Page --}}
 <script src="{{ asset('assets/static/js/components/dark.js') }}"></script>
 <script src="{{ asset('assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
@@ -11,8 +10,6 @@
 
 {{-- --------------------------------- Auth Page --}}
 @if (Route::is('login'))
-    {{-- Display password --}}
     @vite('resources/js/display-password/login.js')
-    {{-- Tooltip globally --}}
     @vite(['resources/js/tooltip/globalTooltip.js'])
 @endif
