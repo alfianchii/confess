@@ -1,11 +1,7 @@
 import { initDashboard } from "../dashboard";
 
-// Init
 initDashboard().then((res) => {
-    // Response
     const body = res;
-
-    // Set user role
     const userRole = body.authentication.data.role;
 
     if (userRole === "admin") {
@@ -66,7 +62,7 @@ initDashboard().then((res) => {
                         ...allConfessions.data.yAxis,
                         ...allResponses.data.yAxis,
                         ...allComments.data.yAxis,
-                        ...allHistoryLogins.data.yAxis,
+                        ...allHistoryLogins.data.yAxis
                     ) + 1,
             },
             tooltip: {
@@ -251,31 +247,31 @@ initDashboard().then((res) => {
         // Instance chart
         const chartConfessionResponseCommentLogin = new ApexCharts(
             document.getElementById("chart-confession-response-comment-log-in"),
-            optionsConfessionResponseCommentLogIn,
+            optionsConfessionResponseCommentLogIn
         );
         const chartYourComments = new ApexCharts(
             document.querySelector("#chart-your-comments"),
-            optionsYourComments,
+            optionsYourComments
         );
         const chartYourHistoryLogins = new ApexCharts(
             document.querySelector("#chart-your-log-in"),
-            optionsYourHistoryLogins,
+            optionsYourHistoryLogins
         );
         const chartAllConfessionsGender = new ApexCharts(
             document.getElementById("chart-confession-genders"),
-            optionsAllConfessionsGender,
+            optionsAllConfessionsGender
         );
         const chartAllResponsesGender = new ApexCharts(
             document.getElementById("chart-response-genders"),
-            optionsAllResponsesGender,
+            optionsAllResponsesGender
         );
         const chartAllCommentsGender = new ApexCharts(
             document.getElementById("chart-comment-genders"),
-            optionsAllCommentsGender,
+            optionsAllCommentsGender
         );
         const chartAllHistoryLoginsGender = new ApexCharts(
             document.getElementById("chart-log-in-genders"),
-            optionsAllHistoryLoginsGender,
+            optionsAllHistoryLoginsGender
         );
 
         // Render

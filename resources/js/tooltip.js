@@ -2,7 +2,7 @@
 // instead of a "per-page" level.
 export function tooltip() {
     var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]'),
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);

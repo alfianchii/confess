@@ -1,10 +1,7 @@
 import { initDashboard } from "../dashboard";
 
 initDashboard().then((res) => {
-    // Response
     const body = res;
-
-    // Set user role
     const userRole = body.authentication.data.role;
 
     if (userRole === "student") {

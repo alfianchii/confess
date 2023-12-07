@@ -1,11 +1,7 @@
 import { initDashboard } from "../dashboard";
 
-// Init
 initDashboard().then((res) => {
-    // Response
     const body = res;
-
-    // Set user role
     const userRole = body.authentication.data.role;
 
     if (userRole === "officer") {
@@ -59,7 +55,7 @@ initDashboard().then((res) => {
                     Math.max(
                         ...yourResponses.yAxis,
                         ...yourComments.yAxis,
-                        ...yourHistoryLogins.yAxis,
+                        ...yourHistoryLogins.yAxis
                     ) + 1,
             },
             tooltip: {
@@ -92,11 +88,11 @@ initDashboard().then((res) => {
         // Instance chart
         const chartYourResponseCommentLogIn = new ApexCharts(
             document.getElementById("chart-your-response-comment-log-in"),
-            optionsYourResponseCommentLogIn,
+            optionsYourResponseCommentLogIn
         );
         const chartConfessionGenders = new ApexCharts(
             document.getElementById("chart-confession-genders"),
-            optionsConfessionGenders,
+            optionsConfessionGenders
         );
 
         // Render
