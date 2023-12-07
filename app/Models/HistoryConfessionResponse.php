@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\{Model, SoftDeletes};
-use App\Models\Traits\Helpers\{Responsible};
 use App\Models\Traits\{Daily, Setable};
+use App\Models\Traits\Helpers\{Responsible};
 
 class HistoryConfessionResponse extends Model
 {

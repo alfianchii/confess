@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 use App\Models\Traits\{Daily, Setable};
+use App\Models\Traits\Helpers\{Commentable};
 
 class RecConfessionComment extends Model
 {
     // ---------------------------------
     // TRAITS
-    use HasFactory, SoftDeletes, Daily, Setable;
+    use HasFactory, SoftDeletes, Daily, Commentable, Setable;
 
 
     // ---------------------------------
