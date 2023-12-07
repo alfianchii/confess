@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Traits\Daily;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Arr;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RecConfessionCommentModel>
@@ -23,7 +24,7 @@ class RecConfessionCommentFactory extends Factory
 
         return [
             "id_confession" => mt_rand(1, 200),
-            "id_user" => $this->faker->randomElement($randomnessOfUsers),
+            "id_user" => Arr::random($randomnessOfUsers),
             "comment" => collect($this->faker->paragraphs(mt_rand(1, 1)))
                 ->map(fn ($p) => "<p>$p</p>")
                 ->implode(""),
