@@ -24,10 +24,6 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
 
 
   // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // CORES
   public function properties(): array
   {
@@ -57,6 +53,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
   {
     return "Unprocessed Confessions";
   }
+
   public function headings(): array
   {
     return [
@@ -75,6 +72,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       "Created at",
     ];
   }
+
   public function map($confession): array
   {
     return [

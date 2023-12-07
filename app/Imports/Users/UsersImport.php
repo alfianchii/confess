@@ -24,15 +24,12 @@ class UsersImport implements ToCollection, WithValidation, WithHeadingRow
 
 
     // ---------------------------------
-    // PROPERTIES
-
-
-    // ---------------------------------
     // HELPERS
     public function getRoleId(string $roleName)
     {
         return MasterRole::where("role_name", $roleName)->value("id_role");
     }
+
     public function makeCredentials($data)
     {
         $uniqueLength = strlen($data["Unique"]);
@@ -139,8 +136,4 @@ class UsersImport implements ToCollection, WithValidation, WithHeadingRow
             "Active.required" => "Active tidak boleh kosong.",
         ];
     }
-
-
-    // ---------------------------------
-    // UTILITIES
 }

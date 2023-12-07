@@ -23,10 +23,6 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
 
 
     // ---------------------------------
-    // PROPERTIES
-
-
-    // ---------------------------------
     // CORES
     public function properties(): array
     {
@@ -58,6 +54,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
     {
         return "All of Responses";
     }
+
     public function headings(): array
     {
         return [
@@ -73,6 +70,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
             "Confession's status",
         ];
     }
+
     public function map($response): array
     {
         return [
@@ -88,6 +86,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
             $response->confession->status,
         ];
     }
+
     public function styles(Worksheet $sheet)
     {
         $sheet->getStyle("1")->getFont()->setBold(true);
