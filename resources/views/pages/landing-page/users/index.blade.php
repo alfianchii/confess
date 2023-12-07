@@ -126,5 +126,4 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-
 @endsection

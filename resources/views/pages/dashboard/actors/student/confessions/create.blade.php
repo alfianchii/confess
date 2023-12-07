@@ -7,10 +7,8 @@
 @section('additional_links')
     {{-- Quill --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/quill/quill.snow.css') }}" />
-
     {{-- Form: select option --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/choices.js/public/assets/styles/choices.css') }}">
-
     {{-- Image preview --}}
     <link rel="stylesheet" href="{{ asset('assets/extensions/filepond/filepond.css') }}" />
     <link rel="stylesheet"
@@ -239,7 +237,7 @@
                                                     <label
                                                         class="form-label @error('image'){{ 'text-danger' }}@enderror">Foto</label>
 
-                                                    <!-- File uploader with image preview -->
+                                                    {{-- File uploader with image preview --}}
                                                     <input type="file" class="image-preview-filepond" name="image"
                                                         id="image" />
                                                 </div>
@@ -292,17 +290,16 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- If alert error exists --}}
+    {{-- Forget error alert config --}}
     @if (session()->has('alert') &&
             array_key_exists('config', session('alert')) &&
             json_decode(session('alert')['config'], true)['icon'] === 'error')
-        {{-- Unset the "alert" session variable --}}
         {{ Session::forget('alert') }}
     @endif
 
     {{-- Quill --}}
-    @vite(['resources/js/quill/confession/confession.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
+    @vite(['resources/js/quill/confession/confession.js'])
     {{-- Jquery --}}
     <script src="{{ asset('assets/extensions/jquery/jquery.min.js') }}"></script>
     {{-- Form: select option --}}

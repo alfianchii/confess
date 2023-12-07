@@ -231,7 +231,6 @@
                                                     <label for="role"
                                                         class="form-label @error('role'){{ 'text-danger' }}@enderror">Role</label>
                                                     <select class="form-select" id="role" name="role">
-                                                        {{-- <option label="Pilih role user ..."></option> --}}
                                                         @foreach ($roles as $role)
                                                             @if ($role->role_name != 'admin')
                                                                 <option value="{{ $role->role_name }}"
@@ -256,7 +255,7 @@
                                                 <div class="position-relative">
                                                     <label class="form-label">Foto</label>
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" id="profile_picture"
                                                         class="image-crop-filepond" name="profile_picture" />
 

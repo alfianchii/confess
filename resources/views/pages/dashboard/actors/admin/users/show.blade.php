@@ -184,9 +184,8 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- realrashid/sweetalert --}}
-    @include('sweetalert::alert')
     {{-- SweetAlert --}}
+    @include('sweetalert::alert')
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/user/user.js'])
 @endsection

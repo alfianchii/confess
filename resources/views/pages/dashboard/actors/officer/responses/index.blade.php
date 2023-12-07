@@ -362,12 +362,11 @@
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
     {{-- SweetAlert --}}
+    @include('sweetalert::alert')
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/confession/response/response.js'])
     {{-- Simple DataTable --}}
     <script src="{{ asset('assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
     @vite(['resources/js/simple-datatable/confession/response/response.js'])
     @vite(['resources/js/simple-datatable/officer/responses/all-responses.js'])
-    {{-- realrashid/sweetalert --}}
-    @include('sweetalert::alert')
 @endsection

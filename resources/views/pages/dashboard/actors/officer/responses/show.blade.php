@@ -18,6 +18,6 @@
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
     {{-- SweetAlert --}}
-    @vite(['resources/js/sweetalert/swalSingle.js'])
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    @vite(['resources/js/sweetalert/swalSingle.js'])
 @endsection

@@ -101,7 +101,7 @@
                                         <div class="form-group @error('attachment_file'){{ 'is-invalid' }}@enderror">
                                             <label class="form-label">File Pendukung</label>
 
-                                            <!-- File preview -->
+                                            {{-- File preview --}}
                                             <input type="file" id="attachment_file" class="basic-file-filepond"
                                                 name="attachment_file" />
 
@@ -159,11 +159,10 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- If alert error exists --}}
+    {{-- Forget error alert config --}}
     @if (session()->has('alert') &&
             array_key_exists('config', session('alert')) &&
             json_decode(session('alert')['config'], true)['icon'] === 'error')
-        {{-- Unset the "alert" session variable --}}
         {{ Session::forget('alert') }}
     @endif
 
@@ -186,14 +185,13 @@
     <script src="{{ asset('assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js') }}">
     </script>
     @vite(['resources/js/filepond/basic-file.js'])
-    {{-- realrashid/sweetalert --}}
-    @include('sweetalert::alert')
     {{-- SweetAlert --}}
+    @include('sweetalert::alert')
     <script src="{{ asset('assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     @vite(['resources/js/sweetalert/confession/comment/comment.js'])
     {{-- Quill --}}
-    @vite(['resources/js/quill/confession/comment/comment.js'])
     <script src="{{ asset('assets/extensions/quill/quill.min.js') }}"></script>
+    @vite(['resources/js/quill/confession/comment/comment.js'])
     {{-- To scrollable --}}
     @vite(['resources/js/scrollable/scroll-to-a-comment.js'])
     @vite(['resources/js/scrollable/scroll-to-comments.js'])

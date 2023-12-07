@@ -234,7 +234,7 @@
                                                 <label
                                                     class="@if ($theUser->profile_picture) {{ 'd-block' }} @endif{{ 'form-label' }} @error('profile_picture'){{ 'text-danger' }}@enderror">Foto</label>
                                                 <div class="position-relative">
-                                                    <!-- Image preview -->
+                                                    {{-- Image preview --}}
                                                     @if ($isUserImageExist($theUser->profile_picture))
                                                         <div class="mb-2">
                                                             <a data-bs-toggle="tooltip"
@@ -259,7 +259,7 @@
                                                         @endif
                                                     @endif
 
-                                                    <!-- Auto crop image file uploader -->
+                                                    {{-- Auto crop image file uploader --}}
                                                     <input type="file" class="image-crop-filepond"
                                                         name="profile_picture" id="profile_picture" />
 

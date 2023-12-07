@@ -98,8 +98,7 @@
                                             <input type="password"
                                                 class="form-control @error('password'){{ 'is-invalid' }}@enderror"
                                                 id="password" name="password" placeholder="e.g. 4kuBu7uhM3dk1t" />
-                                            <button type="button" class="btn bg-transparent show-password" id="show-btn"
-                                                data-bs-toggle="tooltip" data-bs-title="Tampilkan/sembunyikan password.">
+                                            <button type="button" class="btn bg-transparent show-password" id="show-btn">
                                                 <i class="bi bi-eye-slash-fill"></i>
                                             </button>
                                         </div>
@@ -135,7 +134,6 @@
             </div>
         </div>
 
-        {{-- Base layouts: footer --}}
         <div class="row">
             <div class="col-12">
                 @include('pages.auth.layouts.footer')

@@ -78,7 +78,7 @@
                                 <img src="{{ asset('images/icon/Done.svg') }}" alt="icon" width="37">
                             </div>
                             <h5 class="mt-2">Selesai</h5>
-                            <p class="d-md-block d-none">Selamat! Pengakuanmu udah selesai diproses oleh petugas~</p>
+                            <p class="d-md-block d-none">Selamat! Pengakuanmu udah selesai diproses oleh petugas!</p>
                         </div>
                     </div>
                 </div>
@@ -166,19 +166,17 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
-    {{-- If alert error exists --}}
+    {{-- Apply sweetalert for error --}}
     @if (session()->has('alert') &&
             array_key_exists('config', session('alert')) &&
             json_decode(session('alert')['config'], true)['icon'] === 'error')
-        {{-- realrashid/sweetalert --}}
         @include('sweetalert::alert')
     @endif
 
-    {{-- If alert success exists --}}
+    {{-- Forget success alert config --}}
     @if (session()->has('alert') &&
             array_key_exists('config', session('alert')) &&
             json_decode(session('alert')['config'], true)['icon'] === 'success')
-        {{-- Unset the "alert" session variable --}}
         {{ Session::forget('alert') }}
     @endif
 @endsection
