@@ -14,10 +14,6 @@ class ConfessionLikeService extends Service
 
 
   // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // CORES
   public function likeDislike(RecConfession $confession, User $user)
   {
@@ -35,10 +31,8 @@ class ConfessionLikeService extends Service
   // UTILITIES
   public function allLikeDislike(RecConfession $confession, User $user)
   {
-    // Check if user is liked this confession
     $isLiked = $this->isLiked($confession, $user);
 
-    // Like or dislike
     if ($isLiked) $this->disliked($confession, $user);
     else $this->liked(self::likeFields($confession, $user));
 

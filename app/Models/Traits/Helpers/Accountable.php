@@ -9,6 +9,28 @@ trait Accountable
 {
   // ---------------------------------
   // METHODS
+  public function getRulesMessagesPassword($currentPassword = false, $newPassword = false)
+  {
+    $array = [
+      "rules" => [
+        "current_password" => ["required", "min:6"],
+        "new_password" => ["required", "min:6"],
+      ],
+      "messages" => [
+        "current_password.required" => "Password saat ini tidak boleh kosong.",
+        "current_password.min" => "Password saat ini tidak boleh kurang dari :min karakter.",
+        "new_password.required" => "Password baru tidak boleh kosong.",
+        "new_password.min" => "Password baru tidak boleh kurang dari :min karakter."
+      ],
+    ];
+
+    if ($currentPassword)
+      unset($array["rules"]["new_password"], $array["messages"]["new_password.required"], $array["messages"]["new_password.min"]);
+    if ($newPassword)
+      unset($array["rules"]["current_password"], $array["messages"]["current_password.required"], $array["messages"]["current_password.min"]);
+
+    return $array;
+  }
   public function updateUserRules(array $rules, User $theUser, array $data)
   {
     $theUserRole = $theUser->userRole->role->role_name;
@@ -61,6 +83,12 @@ trait Accountable
     // Success
     $theUser->refresh();
     return redirect("/dashboard/users")->withSuccess("Pengguna @$theUser->username berhasil diubah.");
+  }
+  public function alterYourPassword(User $user, $credentials, $url = "/dashboard/users/account", $message = "Password kamu berhasil diganti!")
+  {
+    $fields["password"] = Hash::make($credentials["new_password"]);
+    $user->update($fields);
+    return redirect($url)->withSuccess($message);
   }
   public function isYourAccount(User $yourAccount, User $user, string $message = "Akun tidak ditemukan.")
   {

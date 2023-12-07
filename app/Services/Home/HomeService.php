@@ -3,18 +3,10 @@
 namespace App\Services\Home;
 
 use App\Services\Service;
-use App\Models\RecConfession;
+use App\Models\{RecConfession};
 
 class HomeService extends Service
 {
-  // ---------------------------------
-  // TRAITS
-
-
-  // ---------------------------------
-  // PROPERTIES
-
-
   // ---------------------------------
   // CORES
   public function index()
@@ -30,7 +22,6 @@ class HomeService extends Service
   // UTILITIES
   public function allIndex($confessionsCount)
   {
-    // Passing out a view
     $viewVariables = [
       "title" => "Selamat Datang",
       "confessionsCount" => $confessionsCount,

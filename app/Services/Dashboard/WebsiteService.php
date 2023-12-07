@@ -2,11 +2,11 @@
 
 namespace App\Services\Dashboard;
 
-use App\Models\{MasterRole, User, SettingWebsite};
-use App\Models\Traits\Helpers\Websiteable;
 use Illuminate\Support\Facades\{Validator};
-use App\Services\Service;
 use Illuminate\Http\Request;
+use App\Services\Service;
+use App\Models\{MasterRole, User, SettingWebsite};
+use App\Models\Traits\Helpers\{Websiteable};
 
 class WebsiteService extends Service
 {
@@ -75,11 +75,9 @@ class WebsiteService extends Service
   // CORES
   public function edit(MasterRole $userRole)
   {
-    // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminEdit();
 
-    // Redirect to unauthorized page
     return view("errors.403");
   }
 
@@ -88,11 +86,9 @@ class WebsiteService extends Service
     // Data processing
     $data = $request->all();
 
-    // Roles checking
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminUpdate($data, $user);
 
-    // Redirect to unauthorized page
     return view("errors.403");
   }
 
@@ -100,28 +96,25 @@ class WebsiteService extends Service
   // ---------------------------------
   // UTILITIES
   // ADMIN
-  // Edit
   private function adminEdit()
   {
     $settings = SettingWebsite::all()->pluck("value", "key");
 
-    // View variables
     $viewVariables = [
       "title" => "Pengaturan Website",
       "settings" => $settings,
     ];
     return view("pages.dashboard.actors.admin.website-settings.edit", $viewVariables);
   }
-  // Update
+
   private function adminUpdate($data, User $user)
   {
-    // Rules
     $rules = $this->settingWebsiteRules($this->rules, $data);
-    // Validates
     $credentials = Validator::make($data, $rules, $this->messages)->validate();
+
     if (empty($credentials)) return redirect("/dashboard/website")
       ->withInfo("Kamu tidak melakukan editing pada website.");
-    // Update
+
     $fields = $this->generateFields($credentials, $user);
     return $this->updateWebsite($fields);
   }

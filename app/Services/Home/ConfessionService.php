@@ -2,10 +2,10 @@
 
 namespace App\Services\Home;
 
+use Illuminate\Http\Request;
 use App\Services\Service;
 use App\Models\{User, MasterConfessionCategory, RecConfession};
 use App\Models\Traits\Helpers\{Homeable};
-use Illuminate\Http\Request;
 
 class ConfessionService extends Service
 {
@@ -15,17 +15,12 @@ class ConfessionService extends Service
 
 
   // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // CORES
   public function index(Request $request, User $user)
   {
     // Data processing
     $data = $request->only(["user", "search", "category", "status", "privacy"]);
 
-    // Title
     $confessions = RecConfession::with(["category", "student.user", "comments", "likes"])
       ->latest()
       ->filter($data)
@@ -44,7 +39,6 @@ class ConfessionService extends Service
   // UTILITIES
   public function allIndex(string $title, $confessions)
   {
-    // Passing out a view
     $viewVariables = [
       "title" => "Pengakuan $title",
       "confessions" => $confessions,

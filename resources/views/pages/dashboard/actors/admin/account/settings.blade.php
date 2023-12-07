@@ -193,7 +193,8 @@
                                         @endif
 
                                         <!-- Auto crop image file uploader -->
-                                        <input type="file" id="profile_picture" class="image-crop-filepond" name="profile_picture" />
+                                        <input type="file" id="profile_picture" class="image-crop-filepond"
+                                            name="profile_picture" />
 
                                         @error('profile_picture')
                                             <div class="invalid-feedback d-block">
@@ -220,6 +221,14 @@
 
 {{-- --------------------------------- Scripts --}}
 @section('additional_scripts')
+    {{-- If alert error exists --}}
+    @if (session()->has('alert') &&
+            array_key_exists('config', session('alert')) &&
+            json_decode(session('alert')['config'], true)['icon'] === 'error')
+        {{-- Unset the "alert" session variable --}}
+        {{ Session::forget('alert') }}
+    @endif
+
     {{-- Filepond: image auto crop --}}
     <script src="{{ asset('assets/extensions/filepond/filepond.js') }}"></script>
     <script

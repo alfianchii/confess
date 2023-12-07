@@ -2,7 +2,8 @@
 
 namespace App\Models\Traits\Helpers;
 
-use App\Models\{User, RecConfession, MasterConfessionCategory};
+use App\Models\{HistoryConfessionLike, HistoryConfessionResponse, User, RecConfession, MasterConfessionCategory, RecConfessionComment};
+use Illuminate\Support\Facades\Storage;
 
 trait Confessable
 {
@@ -25,5 +26,25 @@ trait Confessable
     $confessionCategory = MasterConfessionCategory::where('slug', $slug)->active()->value('id_confession_category');
     if (!$confessionCategory) throw new \Exception("Kategori pengakuan tidak ada.");
     return $confessionCategory;
+  }
+  public function deleteConfessionResponses(HistoryConfessionResponse $responses)
+  {
+    foreach ($responses as $response) {
+      if ($response->attachment_file) Storage::delete($response->attachment_file);
+      if (!HistoryConfessionResponse::destroy($response->id_confession_response)) throw new \Exception('Error unsend confession.');
+    };
+  }
+  public function deleteConfessionComments(RecConfessionComment $comments)
+  {
+    foreach ($comments as $comment) {
+      if ($comment->attachment_file) Storage::delete($comment->attachment_file);
+      if (!RecConfessionComment::destroy($comment->id_confession_comment)) throw new \Exception('Error unsend confession.');
+    };
+  }
+  public function deleteConfessionLikes(HistoryConfessionLike $likes)
+  {
+    foreach ($likes as $like) {
+      if (!HistoryConfessionLike::destroy($like->id_confession_like)) throw new \Exception('Error unsend confession.');
+    };
   }
 }

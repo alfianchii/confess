@@ -2,20 +2,11 @@
 
 namespace App\Services\Home;
 
-use App\Models\User;
 use App\Services\Service;
-use Illuminate\Http\Request;
+use App\Models\{User};
 
 class UserService extends Service
 {
-  // ---------------------------------
-  // TRAITS
-
-
-  // ---------------------------------
-  // PROPERTIES
-
-
   // ---------------------------------
   // CORES
   public function index(User $theUser)
@@ -32,7 +23,6 @@ class UserService extends Service
   // UTILITIES
   public function allIndex(User $theUser)
   {
-    // Passing out a view
     $viewVariables = [
       "title" => "Pengguna @$theUser->username",
       "theUser" => $theUser,

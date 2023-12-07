@@ -14,10 +14,6 @@ class CommentService extends Service
 
 
   // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // CORES
   public function create(RecConfession $confession)
   {
@@ -47,19 +43,14 @@ class CommentService extends Service
 
   // ---------------------------------
   // UTILITIES
-  // ALL
   public function allCreate(RecConfession $confession)
   {
-    // ---------------------------------
-    // Pagination
-    // Short the comments based on a confession (created at)
     $sortedComments = $confession
       ->comments()
       ->with(["user"])
       ->latest()
       ->paginate(self::PER_PAGE);
 
-    // Passing out a view
     $viewVariables = [
       "title" => $confession->title,
       "confession" => $confession,
@@ -67,17 +58,15 @@ class CommentService extends Service
     ];
     return view("pages.landing-page.comments.create", $viewVariables);
   }
+
   public function allEdit(User $user, RecConfession $confession, RecConfessionComment $comment)
   {
     try {
-      // ---------------------------------
-      // Validations
       $this->isYourComment($user, $comment);
     } catch (\Exception $e) {
       return redirect("/confessions")->withErrors($e->getMessage());
     }
 
-    // Passing out a view
     $viewVariables = [
       "title" => "Sunting Komentar",
       "comment" => $comment,
