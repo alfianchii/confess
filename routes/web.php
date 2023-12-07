@@ -56,7 +56,7 @@ Route::group(["middleware" => "auth"], function () {
 
     Route::post("/confessions/{confession:slug}/like-dislike", [HomeConfessionLike::class, "likeDislike"]);
 
-    Route::resource("confessions.comments", [HomeConfessionComment::class])->shallow()->except(["show", "index"]);
+    Route::resource("confessions.comments", HomeConfessionComment::class)->shallow()->except(["show", "index"]);
     Route::delete("/comments/{comment:id_confession_comment}/attachment", [DashboardConfessionComment::class, "destroyAttachment"]);
 
     Route::match(["get", "post"], '/confessions/categories', [HomeConfessionCategory::class, "index"]);
