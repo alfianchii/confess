@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Services\Service;
 use App\Models\{HistoryLogin, MasterRole, User};
 use App\Models\Traits\{Exportable, Importable};
-use App\Models\Traits\Helpers\{Accountable};
+use App\Models\Traits\Helpers\{Accountable, Loginable};
 use App\Exports\Users\{AllOfUsersExport, HistoryLoginsExport};
 use App\Exports\Users\Templates\{UsersExport};
 use App\Imports\Users\{UsersImport};
@@ -18,7 +18,7 @@ class UserService extends Service
 {
   // ---------------------------------
   // TRAITS
-  use Accountable, Exportable, Importable;
+  use Loginable, Accountable, Exportable, Importable;
 
 
   // ---------------------------------

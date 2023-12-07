@@ -19,14 +19,17 @@ trait Responsible
       "system_response" => $system,
     ];
   }
+
   public static function setResponseSystem(User $user, $status)
   {
     $response = '<p>' . $user['full_name'];
     if ($status === "process") $response .= " picked this confession." . '</p>';
     if ($status === "release") $response .= " was released the confession." . '</p>';
     if ($status === "close") $response .= " closed this confession immediately. Thank you!" . '</p>';
+
     return $response;
   }
+
   public function setResponsePage($confessionResponses, HistoryConfessionResponse $response)
   {
     foreach ($confessionResponses as $items_index => $items) {
@@ -39,6 +42,7 @@ trait Responsible
 
     return $response->page;
   }
+
   public function getPagedConfessionResponses($total, $perPage, $pageNumbers, $responses)
   {
     $confessionResponses = [];
@@ -54,10 +58,12 @@ trait Responsible
 
     return $confessionResponses;
   }
+
   public function isYourResponse(User $user, HistoryConfessionResponse $response, $message = "Tanggapan tidak ditemukan.")
   {
     if ($response->id_user !== $user->id_user) throw new \Exception($message);
   }
+
   public function isSystemResponse(HistoryConfessionResponse $response, $message = "Tanggapan sistem tidak bisa di-unsend.")
   {
     if ($response->system_response === "Y") throw new \Exception($message);
@@ -66,6 +72,7 @@ trait Responsible
   {
     return "/dashboard/confessions/$slug/responses/create";
   }
+
   public function createResponsesURLWithParam(string $slug)
   {
     return "/dashboard/confessions/$slug/responses/create?response=";

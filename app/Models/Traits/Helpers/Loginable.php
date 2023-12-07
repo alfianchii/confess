@@ -2,9 +2,9 @@
 
 namespace App\Models\Traits\Helpers;
 
-use App\Models\{User};
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth};
+use Illuminate\Http\Request;
+use App\Models\{User};
 
 trait Loginable
 {
@@ -35,18 +35,8 @@ trait Loginable
 
     if ($attempted) {
       $user = User::where("username", $credentials["username"])->first();
-      if ($user->flag_active === "N") {
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return [
-          "fields" => $fields,
-          "redirect" => $redirect,
-          "status" => $status,
-          "message" => "Akun kamu dinonaktifkan!",
-        ];
-      }
+      if ($user->flag_active === "N")
+        return $this->loginFailed($fields, $redirect, $status);
 
       $user->update(["last_login_at" => now()]);
       $fields["attempt_result"] = "Y";
@@ -63,5 +53,24 @@ trait Loginable
       "status" => $status,
       "message" => $message,
     ];
+  }
+
+  public function loginFailed($fields, $url, $status)
+  {
+    $this->breakUserSession();
+
+    return [
+      "fields" => $fields,
+      "redirect" => $url,
+      "status" => $status,
+      "message" => "Akun kamu dinonaktifkan!",
+    ];
+  }
+
+  public function breakUserSession()
+  {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
   }
 }

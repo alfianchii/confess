@@ -100,11 +100,4 @@ class Service
 
     return $rules;
   }
-
-  public function breakUserSession()
-  {
-    Auth::logout();
-    request()->session()->invalidate();
-    request()->session()->regenerateToken();
-  }
 }

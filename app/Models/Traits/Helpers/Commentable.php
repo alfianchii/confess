@@ -7,10 +7,6 @@ use App\Models\{RecConfession, RecConfessionComment, User};
 trait Commentable
 {
   // ---------------------------------
-  // PROPERTIES
-
-
-  // ---------------------------------
   // METHODS
   public static function getCommentFields(User $user, RecConfession $confession, $comment, $privacy)
   {
@@ -22,6 +18,7 @@ trait Commentable
       "created_by" => $user["full_name"],
     ];
   }
+
   public function setResponsePage($confessionComments, RecConfessionComment $comment)
   {
     foreach ($confessionComments as $items_index => $items) {
@@ -34,6 +31,7 @@ trait Commentable
 
     return $comment->page;
   }
+
   public function getPagedConfessionResponses($total, $perPage, $pageNumbers, $comments)
   {
     $confessionComments = [];
@@ -49,10 +47,12 @@ trait Commentable
 
     return $confessionComments;
   }
+
   public function isYourComment(User $user, RecConfessionComment $comment, $message = "Komentar ini bukan milikmu.")
   {
     if ($comment->id_user !== $user->id_user) throw new \Exception($message);
   }
+
   public function createCommentsURLWithParam(string $slug)
   {
     return "/confessions/$slug/comments/create?comment=";

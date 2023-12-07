@@ -10,6 +10,7 @@ trait Activeable
   {
     if ($flagActive === "N") throw new \Exception($message);
   }
+
   public function isNonActiveData(string $flagActive, $message = "Data sudah aktif.")
   {
     if ($flagActive === "Y") throw new \Exception($message);
