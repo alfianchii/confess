@@ -19,6 +19,8 @@ class RecConfessionCommentFactory extends Factory
      */
     public function definition()
     {
+        $randomnessOfUsers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
         return [
             "id_confession" => mt_rand(1, 200),
             "id_user" => $this->faker->randomElement($randomnessOfUsers),

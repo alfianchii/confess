@@ -19,6 +19,9 @@ class RecConfessionFactory extends Factory
      */
     public function definition()
     {
+        $students = [3, 4, 5];
+        $officers = [6, 7, 8, 9, 10];
+
         return [
             "date" => $this->faker->date("Y-m-d"),
             "title" => $this->faker->sentence(mt_rand(1, 3)),
@@ -32,8 +35,8 @@ class RecConfessionFactory extends Factory
             "privacy" => $this->faker->randomElement(["anonymous", "public"]),
             "created_at" => $this->faker->dateTimeBetween("-" . self::getTotalDays() . " days", "now"),
             "id_confession_category" => mt_rand(1, 11),
-            "id_user" => $this->faker->randomElement([3, 4, 5]),
-            "assigned_to" => $this->faker->randomElement([6, 7, 8, 9, 10]),
+            "id_user" => $this->faker->randomElement($students),
+            "assigned_to" => $this->faker->randomElement($officers),
         ];
     }
 }
