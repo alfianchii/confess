@@ -12,7 +12,7 @@ trait Websiteable
   {
     unset($data["_method"], $data["_token"]);
     foreach ($data as $data_key => $data_value) {
-      $item = SettingWebsite::where("key", $data_key)->first();
+      $item = SettingWebsite::firstWhere("key", $data_key);
       if (!$item) return view("errors.404");
       if ($item->value === $data_value) unset($rules[$data_key]);
     }
@@ -24,7 +24,7 @@ trait Websiteable
   {
     $fields = [];
     foreach ($credentials as $key => $value) {
-      $item = SettingWebsite::where("key", $key)->first();
+      $item = SettingWebsite::firstWhere("key", $key);
 
       if (strstr($key, "IMAGE"))
         $credentials = $this->file($item->value, $credentials, $key, "website-setting/$key");
@@ -39,7 +39,7 @@ trait Websiteable
   public function updateWebsite(array $fields)
   {
     foreach ($fields as $field_key => $field_value) {
-      $item = SettingWebsite::where("key", $field_key)->first();
+      $item = SettingWebsite::firstWhere("key", $field_key);
       $item->update($field_value);
     }
 

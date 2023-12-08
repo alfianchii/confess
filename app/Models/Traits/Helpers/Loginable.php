@@ -34,7 +34,7 @@ trait Loginable
     ]);
 
     if ($attempted) {
-      $user = User::where("username", $credentials["username"])->first();
+      $user = User::firstWhere("username", $credentials["username"]);
       if ($user->flag_active === "N")
         return $this->loginFailed($fields, $redirect, $status);
 

@@ -131,7 +131,7 @@ class UserService extends Service
   public function show(User $user, MasterRole $userRole, User $theUser)
   {
     // Data processing
-    $theUser = User::with(["userRole.role", "student", "officer"])->where("username", $theUser->username)->first();
+    $theUser = User::with(["userRole.role", "student", "officer"])->firstWhere("username", $theUser->username);
 
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminShow($user, $theUser);
@@ -142,7 +142,7 @@ class UserService extends Service
   public function edit(MasterRole $userRole, User $theUser)
   {
     // Data processing
-    $theUser = User::with(["userRole.role", "student", "officer"])->where("username", $theUser->username)->first();
+    $theUser = User::with(["userRole.role", "student", "officer"])->firstWhere("username", $theUser->username);
 
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminEdit($theUser);
@@ -154,7 +154,7 @@ class UserService extends Service
   {
     // Data processing
     $data = $request->all();
-    $theUser = User::with(["userRole.role", "student", "officer"])->where("username", $theUser->username)->first();
+    $theUser = User::with(["userRole.role", "student", "officer"])->firstWhere("username", $theUser->username);
 
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminUpdate($data, $user, $theUser);
@@ -166,7 +166,7 @@ class UserService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idUser);
-    $theUser = User::with(["userRole.role"])->where("id_user", $id)->first();
+    $theUser = User::with(["userRole.role"])->firstWhere("id_user", $id);
     if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -301,7 +301,7 @@ class UserService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idUser);
-    $yourAccount = User::where("id_user", $id)->first();
+    $yourAccount = User::firstWhere("id_user", $id);
     if (!$yourAccount->profile_picture) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -316,7 +316,7 @@ class UserService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idUser);
-    $theUser = User::with(["userRole.role", "officer.confessions", "student"])->where("id_user", $id)->first();
+    $theUser = User::with(["userRole.role", "officer.confessions", "student"])->firstWhere("id_user", $id);
     if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -329,7 +329,7 @@ class UserService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idUser);
-    $yourAccount = User::with(["userRole.role.anotherUsersBasedYourRole"])->where("id_user", $id)->first();
+    $yourAccount = User::with(["userRole.role.anotherUsersBasedYourRole"])->firstWhere("id_user", $id);
     if (!$yourAccount) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -358,7 +358,7 @@ class UserService extends Service
   {
     // Data processing
     $data = $request->all();
-    $theUser = User::with(["userRole.role"])->where("id_user", $theUser->id_user)->first();
+    $theUser = User::with(["userRole.role"])->firstWhere("id_user", $theUser->id_user);
     if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -371,7 +371,7 @@ class UserService extends Service
   {
     // Data processing
     $data = $request->all();
-    $theUser = User::where("id_user", $theUser->id_user)->first();
+    $theUser = User::firstWhere("id_user", $theUser->id_user);
     if (!$theUser) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;

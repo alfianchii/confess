@@ -91,7 +91,7 @@ class ConfessionCategoryService extends Service
   public function destroy(User $user, MasterRole $userRole, string $slug)
   {
     // Data processing
-    $confessionCategory = MasterConfessionCategory::where("slug", $slug)->first();
+    $confessionCategory = MasterConfessionCategory::firstWhere("slug", $slug);
     if (!$confessionCategory) $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -120,7 +120,7 @@ class ConfessionCategoryService extends Service
   public function destroyImage(User $user, MasterRole $userRole, string $slug)
   {
     // Data processing
-    $confessionCategory = MasterConfessionCategory::where("slug", $slug)->first();
+    $confessionCategory = MasterConfessionCategory::firstWhere("slug", $slug);
     if (!$confessionCategory->image) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -132,7 +132,7 @@ class ConfessionCategoryService extends Service
   public function activate(User $user, MasterRole $userRole, string $slug)
   {
     // Data processing
-    $confessionCategory = MasterConfessionCategory::where("slug", $slug)->first();
+    $confessionCategory = MasterConfessionCategory::firstWhere("slug", $slug);
     if (!$confessionCategory) $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;

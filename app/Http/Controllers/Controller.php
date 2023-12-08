@@ -70,9 +70,9 @@ class Controller extends BaseController
         $unique = null;
         if (!empty($role)) {
             if ($role->role_name === "admin" || $role->role_name === "officer")
-                $unique = DTOfficer::where("id_user", $user->id_user)->first();
+                $unique = DTOfficer::firstWhere("id_user", $user->id_user);
             if ($role->role_name === "student")
-                $unique = DTStudent::where("id_user", $user->id_user)->first();
+                $unique = DTStudent::firstWhere("id_user", $user->id_user);
             if (empty($unique))
                 return $this->logoutUserImmediately();
         } else return $this->logoutUserImmediately();

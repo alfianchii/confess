@@ -60,10 +60,9 @@ class CommentService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idConfessionComment);
-    $comment = RecConfessionComment::where("id_confession_comment", $id)->first();
+    $comment = RecConfessionComment::firstWhere("id_confession_comment", $id);
     $confession = RecConfession::with(["student.user", "category"])
-      ->where("id_confession", $comment->id_confession)
-      ->first();
+      ->firstWhere("id_confession", $comment->id_confession);
     if (!$comment || !$confession) return view("errors.404");
 
     return $this->allEdit($user, $confession, $comment);
@@ -88,8 +87,7 @@ class CommentService extends Service
     // Data processing
     $id = $this->idDecrypted($idConfessionComment);
     $comment = RecConfessionComment::with(["confession.student.user"])
-      ->where("id_confession_comment", $id)
-      ->first();
+      ->firstWhere("id_confession_comment", $id);
     if (!$comment) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     return $this->allDestroy($user, $comment);
@@ -168,7 +166,7 @@ class CommentService extends Service
 
     $credentials = Validator::make($data, $this->rules, $this->messages)->validate();
 
-    $confession = RecConfession::where("id_confession", $comment->id_confession)->first();
+    $confession = RecConfession::firstWhere("id_confession", $comment->id_confession);
     $credentials = $this->file($comment->attachment_file, $credentials, "attachment_file", "confession/comment/attachment-files");
 
     $url = $this->createCommentsURLWithParam($confession->slug) . base64_encode($comment->id_confession_comment) . "&page=$page";

@@ -89,8 +89,7 @@ class ConfessionService extends Service
     $id = $confession->id_confession;
     $confession = $confession
       ->with(['category'])
-      ->where("id_confession", $id)
-      ->first();
+      ->firstWhere("id_confession", $id);
 
     $roleName = $userRole->role_name;
     if ($roleName === "student") return $this->studentEdit($user, $confession);
@@ -112,7 +111,7 @@ class ConfessionService extends Service
   public function destroy(User $user, MasterRole $userRole, $slug)
   {
     // Data processing
-    $confession = RecConfession::with(["responses", "comments", "likes"])->where("slug", $slug)->first();
+    $confession = RecConfession::with(["responses", "comments", "likes"])->firstWhere("slug", $slug);
     if (!$confession) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -143,7 +142,7 @@ class ConfessionService extends Service
   public function destroyImage(User $user, MasterRole $userRole, $slug)
   {
     // Data processing
-    $confession = RecConfession::where("slug", $slug)->first();
+    $confession = RecConfession::firstWhere("slug", $slug);
     if (!$confession) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;

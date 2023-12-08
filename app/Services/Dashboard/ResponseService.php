@@ -53,8 +53,7 @@ class ResponseService extends Service
     $idConfession = $confession->id_confession;
     $confession = $confession
       ->with(["student.user", "category", "officer.user"])
-      ->where("id_confession", $idConfession)
-      ->first();
+      ->firstWhere("id_confession", $idConfession);
 
     $roleName = $userRole->role_name;
     if ($roleName === "admin") return $this->adminCreate($confession);
@@ -80,10 +79,9 @@ class ResponseService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idConfessionResponse);
-    $response = HistoryConfessionResponse::where("id_confession_response", $id)->first();
+    $response = HistoryConfessionResponse::firstWhere("id_confession_response", $id);
     $confession = RecConfession::with(["student.user", "category"])
-      ->where("id_confession", $response->id_confession)
-      ->first();
+      ->firstWhere("id_confession", $response->id_confession);
     if (!$response || !$confession) return view("errors.404");
 
     $roleName = $userRole->role_name;
@@ -116,8 +114,7 @@ class ResponseService extends Service
     // Data processing
     $id = $this->idDecrypted($idConfessionResponse);
     $response = HistoryConfessionResponse::with(["confession.student.user"])
-      ->where("id_confession_response", $id)
-      ->first();
+      ->firstWhere("id_confession_response", $id);
     if (!$response) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -151,8 +148,7 @@ class ResponseService extends Service
     // Data processing
     $id = $this->idDecrypted($idConfessionResponse);
     $response = HistoryConfessionResponse::with(["confession.student.user"])
-      ->where("id_confession_response", $id)
-      ->first();
+      ->firstWhere("id_confession_response", $id);
     if (!$response->attachment_file) return $this->responseJsonMessage("The data you are looking not found.", 404);
 
     $roleName = $userRole->role_name;
@@ -316,7 +312,7 @@ class ResponseService extends Service
 
       $credentials = Validator::make($data, $rules, $this->messages)->validate();
 
-      $confession = RecConfession::where("id_confession", $response->id_confession)->first();
+      $confession = RecConfession::firstWhere("id_confession", $response->id_confession);
       $credentials = $this->file($response->attachment_file, $credentials, "attachment_file", "confession/response/attachment-files");
 
       return $this->modify($response, $credentials, $user->id_user, "tanggapan", $this->createResponsesURLWithParam($confession->slug) . base64_encode($response->id_confession_response) . "&page=$page");

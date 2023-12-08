@@ -21,8 +21,7 @@ class CommentService extends Service
     $id = $confession->id_confession;
     $confession = $confession
       ->with(["category", "student.user", "comments.user"])
-      ->where("id_confession", $id)
-      ->first();
+      ->firstWhere("id_confession", $id);
 
     return $this->allCreate($confession);
   }
@@ -31,10 +30,9 @@ class CommentService extends Service
   {
     // Data processing
     $id = $this->idDecrypted($idConfessionComment);
-    $comment = RecConfessionComment::where("id_confession_comment", $id)->first();
+    $comment = RecConfessionComment::firstWhere("id_confession_comment", $id);
     $confession = RecConfession::with(["student.user", "category"])
-      ->where("id_confession", $comment->id_confession)
-      ->first();
+      ->firstWhere("id_confession", $comment->id_confession);
     if (!$comment || !$confession) return view("errors.404");
 
     return $this->allEdit($user, $confession, $comment);
