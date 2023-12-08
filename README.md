@@ -69,7 +69,7 @@ Confess is a school complaint reporting application that enables students to sub
 
 <h2 id="demo">🏠 Demo page</h2>
 
-To view further details, please visit [demo page](https://alfianxi.net).
+To view further details, please visit [demo page](https://alfianxi.my.id).
 
 <h2 id="pre-requisite">💾 Pre-requisite</h2>
 
