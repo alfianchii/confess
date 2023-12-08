@@ -2,10 +2,38 @@
 
 namespace App\Models\Traits\Helpers;
 
+use App\Models\{User, RecConfession};
+
 trait Homeable
 {
   // ---------------------------------
   // METHODS
+  public function filteredConfessions(array $data, User $user)
+  {
+    $confessions = $this->getFilteredConfessions($data, $user);
+    return $confessions->paginate(7)->withQueryString();
+  }
+
+  public function getFilteredConfessions(array $data, User $user)
+  {
+    $confessions = RecConfession::with(["category", "student.user", "comments", "likes"])
+      ->latest()
+      ->filter($data)
+      ->isLiked($user);
+    $confessions = $this->filterdConfessions($confessions);
+
+    return $confessions;
+  }
+
+  public function filterdConfessions($confessions)
+  {
+    $uri = request()->getUri();
+    if (str_contains($uri, "/confessions/top"))
+      $confessions = $confessions->orderByDesc("total_likes");
+
+    return $confessions;
+  }
+
   public function confessionRequests(array $data, string $username, string $category)
   {
     $title = "";

@@ -4,7 +4,7 @@ namespace App\Services\Home;
 
 use Illuminate\Http\Request;
 use App\Services\Service;
-use App\Models\{User, MasterConfessionCategory, RecConfession};
+use App\Models\{User, MasterConfessionCategory};
 use App\Models\Traits\Helpers\{Homeable};
 
 class ConfessionService extends Service
@@ -15,20 +15,19 @@ class ConfessionService extends Service
 
 
   // ---------------------------------
+  // PROPERTIES
+  protected const REQUEST = ["user", "search", "category", "status", "privacy"];
+
+
+  // ---------------------------------
   // CORES
   public function index(Request $request, User $user)
   {
     // Data processing
-    $data = $request->only(["user", "search", "category", "status", "privacy"]);
-
-    $confessions = RecConfession::with(["category", "student.user", "comments", "likes"])
-      ->latest()
-      ->filter($data)
-      ->isLiked($user)
-      ->paginate(7)
-      ->withQueryString();
-    $category = MasterConfessionCategory::firstWhere("slug", request("category"))->category_name ?? '';
-    $username = User::firstWhere("username", request("user"))->full_name ?? "";
+    $data = $request->only(self::REQUEST);
+    $category = MasterConfessionCategory::firstWhere("slug", $request->category)->category_name ?? '';
+    $username = User::firstWhere("username", $request->user)->full_name ?? "";
+    $confessions = $this->filteredConfessions($data, $user);
     $title = $this->confessionRequests($data, $username, $category);
 
     return $this->allIndex($title, $confessions);
