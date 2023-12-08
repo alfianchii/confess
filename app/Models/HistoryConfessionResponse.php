@@ -95,8 +95,7 @@ class HistoryConfessionResponse extends Model
             ->oldest("date")
             ->get();
 
-        $genders = HistoryConfessionResponse::leftJoin("dt_officers", "history_confession_responses.id_user", "=", "dt_officers.id_user")
-            ->leftJoin("mst_users", "dt_officers.id_user", "=", "mst_users.id_user")
+        $genders = HistoryConfessionResponse::leftJoin("mst_users", "history_confession_responses.id_user", "=", "mst_users.id_user")
             ->selectRaw("SUM(CASE WHEN mst_users.gender = 'L' THEN 1 ELSE 0 END) as male")
             ->selectRaw("SUM(CASE WHEN mst_users.gender = 'P' THEN 1 ELSE 0 END) as female")
             ->first()->attributes;
