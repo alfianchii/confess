@@ -54,6 +54,7 @@ Route::group(["middleware" => "auth"], function () {
     // ---------------------------------
     // Homepage Routes
     Route::match(["get", "post"], "/confessions", [HomeConfession::class, "index"]);
+    Route::match(["get", "post"], "/confessions/top", [HomeConfession::class, "index"]);
 
     Route::post("/confessions/{confession:slug}/like-dislike", [HomeConfessionLike::class, "likeDislike"]);
 

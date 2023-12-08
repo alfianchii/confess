@@ -59,6 +59,24 @@
         </div>
 
         <div class="page-content">
+            {{-- Filters --}}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <nav class="py-4 px-4">
+                            <ul class="d-flex px-2 column-gap-4 mb-0">
+                                <li class="subnav {{ Request::is('confessions') ? 'subnav-active' : '' }}">
+                                    <a class="text-reset" href="/confessions">Latest</a>
+                                </li>
+                                <li class="subnav {{ Request::is('confessions/top') ? 'subnav-active' : '' }}">
+                                    <a class="text-reset" href="/confessions/top">Top</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
             {{-- All --}}
             <div class="row">
                 @forelse($confessions as $confession)

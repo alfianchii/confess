@@ -372,6 +372,24 @@ html[data-bs-theme="dark"] .navbar .navbar-collapse .nav .nav-item .nav-link {
     left: auto;
 }
 
+.subnav {
+    text-decoration: none;
+    list-style-type: none;
+    font-size: 1.125rem;
+}
+
+.subnav-active {
+    font-weight: bold;
+    border-bottom: 2px solid #1e97af;
+    padding-bottom: 0.5rem;
+    transition: 0.5s ease-in-out;
+    border-radius: 0.5rem;
+}
+
+.subnav:hover {
+    color: #1e97af;
+}
+
 .attachment-file {
     -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
     box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);

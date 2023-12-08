@@ -268,7 +268,9 @@ class RecConfession extends Model
             'is_liked' => HistoryConfessionLike::select('id_user')
                 ->whereColumn('history_confession_likes.id_confession', 'rec_confessions.id_confession')
                 ->where('id_user', $user->id_user)
-                ->limit(1)
+                ->limit(1),
+            "total_likes" => HistoryConfessionLike::selectRaw("COUNT(*)")
+                ->whereColumn('history_confession_likes.id_confession', 'rec_confessions.id_confession')
         ])->withCasts(['is_liked' => 'boolean']);
     }
 
