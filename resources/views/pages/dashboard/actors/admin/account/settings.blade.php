@@ -182,11 +182,11 @@
                                             </div>
 
                                             @if (File::exists(public_path('images/' . $userData->profile_picture)))
-                                                <img class="img-fluid bg-nav box-gradient rounded mb-3 col-sm-5"
+                                                <img class="img-fluid rounded mb-3 col-sm-5"
                                                     src="{{ asset('images/' . $userData->profile_picture) }}"
                                                     alt="User Avatar" />
                                             @else
-                                                <img class="img-fluid bg-nav box-gradient rounded mb-3 col-sm-5"
+                                                <img class="img-fluid rounded mb-3 col-sm-5"
                                                     src="{{ asset('storage/' . $userData->profile_picture) }}"
                                                     alt="User Avatar" />
                                             @endif
