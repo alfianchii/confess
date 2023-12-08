@@ -102,12 +102,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Dibuat Pada</th>
+                                <th>Dibuat</th>
                                 <th>Judul</th>
                                 <th>Kategori</th>
                                 <th>Tanggapan</th>
-                                <th>Sunting</th>
-                                <th>Foto</th>
+                                <th>Suka</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -120,20 +119,7 @@
                                     <td>{{ $confession->title }}</td>
                                     <td>{{ $confession->category->category_name }}</td>
                                     <td>{{ $confession->responses->count() }}</td>
-                                    <td>
-                                        @if ($confession->updated_by)
-                                            <span class="badge bg-light-warning">Ya</span>
-                                        @else
-                                            <span class="badge bg-light-dark">Tidak</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($confession->image)
-                                            <span class="badge bg-light-warning">Ya</span>
-                                        @else
-                                            <span class="badge bg-light-dark">Tidak</span>
-                                        @endif
-                                    </td>
+                                    <td>{{ $confession->likes->count() }}</td>
                                     <td>
                                         @if ($confession->status == 'unprocess')
                                             <span class="badge bg-light-danger">

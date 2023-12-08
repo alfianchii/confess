@@ -9,10 +9,11 @@ initDashboard().then((res) => {
         const yourConfessions = body.chart.data.yourConfessions;
         const yourResponses = body.chart.data.yourResponses;
         const yourComments = body.chart.data.yourComments;
+        const yourLikes = body.chart.data.yourLikes;
         const yourHistoryLogins = body.chart.data.yourHistoryLogins;
 
         // Set options
-        const optionsYourConfessionResponseCommentLogIn = {
+        const optionsYourStatistics = {
             series: [
                 {
                     name: "Pengakuan",
@@ -25,6 +26,10 @@ initDashboard().then((res) => {
                 {
                     name: "Komentar",
                     data: yourComments.yAxis,
+                },
+                {
+                    name: "Suka",
+                    data: yourLikes.yAxis,
                 },
                 {
                     name: "Log-in",
@@ -46,7 +51,7 @@ initDashboard().then((res) => {
                 curve: "smooth",
             },
             xaxis: {
-                categories: yourResponses.xAxis,
+                categories: yourConfessions.xAxis,
                 type: "datetime",
             },
             yaxis: {
@@ -60,6 +65,7 @@ initDashboard().then((res) => {
                         ...yourConfessions.yAxis,
                         ...yourResponses.yAxis,
                         ...yourComments.yAxis,
+                        ...yourLikes.yAxis,
                         ...yourHistoryLogins.yAxis
                     ) + 1,
             },
@@ -71,14 +77,12 @@ initDashboard().then((res) => {
         };
 
         // Instance chart
-        const chartYourResponseCommentLogIn = new ApexCharts(
-            document.getElementById(
-                "chart-your-confession-response-comment-log-in"
-            ),
-            optionsYourConfessionResponseCommentLogIn
+        const chartYourStatistics = new ApexCharts(
+            document.getElementById("chart-your-statistics"),
+            optionsYourStatistics
         );
 
         // Render
-        chartYourResponseCommentLogIn.render();
+        chartYourStatistics.render();
     }
 });

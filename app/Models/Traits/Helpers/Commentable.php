@@ -19,7 +19,7 @@ trait Commentable
     ];
   }
 
-  public function setResponsePage($confessionComments, RecConfessionComment $comment)
+  public function setCommentPage($confessionComments, RecConfessionComment $comment)
   {
     foreach ($confessionComments as $items_index => $items) {
       $page = $items_index + 1;
@@ -32,7 +32,7 @@ trait Commentable
     return $comment->page;
   }
 
-  public function getPagedConfessionResponses($total, $perPage, $pageNumbers, $comments)
+  public function getPagedConfessionComments($total, $perPage, $pageNumbers, $comments)
   {
     $confessionComments = [];
 

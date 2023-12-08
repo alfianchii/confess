@@ -174,10 +174,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>Statistik Tanggapan, Komentar, dan Log-in Kamu</h3>
+                                    <h3>Statistik Kamu</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div id="chart-your-response-comment-log-in">
+                                    <div id="chart-your-statistics">
                                         <div class="d-flex justify-content-center skeleton-loading">
                                             <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
                                                 <span class="visually-hidden">Loading...</span>

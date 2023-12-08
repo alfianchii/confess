@@ -50,7 +50,7 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
 
   public function collection()
   {
-    return RecConfession::with(["category", "student.user", "officer.user", "responses", "comments"])
+    return RecConfession::with(["category", "student.user", "officer.user", "responses", "comments", "likes"])
       ->latest("updated_at")
       ->where("status", "process")
       ->whereAssignedTo($this->idUser)
@@ -81,6 +81,8 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       "Status",
       "Assigned to",
       "Response(s)",
+      "Comment(s)",
+      "Like(s)",
       "Created at",
     ];
   }
@@ -101,6 +103,8 @@ implements WithProperties, FromCollection, WithTitle, WithHeadings, WithMapping,
       $confession->status,
       $confession->officer?->user->full_name ?? '-',
       $confession->responses->count(),
+      $confession->comments->count(),
+      $confession->likes->count(),
       $confession->created_at->format('j F Y, \a\t H.i'),
     ];
   }

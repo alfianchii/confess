@@ -91,6 +91,11 @@ trait Accountable
     if ($yourAccount->id_user !== $user->id_user) throw new \Exception($message);
   }
 
+  public function isNotYourAccount(User $yourAccount, User $user, string $message = "Ini merupakan akun kamu.")
+  {
+    if ($yourAccount->id_user === $user->id_user) throw new \Exception($message);
+  }
+
   public function createRoleUser(User $theUser, array $credentials)
   {
     $theUser->userRole()->create(["id_role" => $credentials["role"]]);

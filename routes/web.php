@@ -19,6 +19,7 @@ use App\Http\Controllers\Dashboard\{
     MasterConfessionCategoryController as DashboardConfessionCategory,
     HistoryConfessionResponseController as DashboardConfessionResponse,
     RecConfessionCommentController as DashboardConfessionComment,
+    HistoryConfessionLikeController as DashboardConfessionLike,
     SettingWebsiteController as DashboardWebsite,
 };
 use Illuminate\Support\Facades\Route;
@@ -122,6 +123,10 @@ Route::group(["middleware" => "auth"], function () {
         Route::delete("/comments/{comment:id_confession_comment}/attachment", [DashboardConfessionComment::class, "destroyAttachment"]);
 
         // ---------------------------------
+        // Like Routes
+        Route::get("/confessions/likes", [DashboardConfessionLike::class, "index"]);
+
+        // ---------------------------------
         // Website settings
         Route::get("/website", [DashboardWebsite::class, "edit"]);
         Route::put("/website", [DashboardWebsite::class, "update"]);
@@ -133,6 +138,7 @@ Route::group(["middleware" => "auth"], function () {
         Route::post('/confessions/export', [DashboardConfession::class, "export"]);
         Route::post('/confessions/responses/export', [DashboardConfessionResponse::class, "export"]);
         Route::post('/confessions/comments/export', [DashboardConfessionComment::class, "export"]);
+        Route::post('/confessions/likes/export', [DashboardConfessionLike::class, "export"]);
 
         // ---------------------------------
         // IMPORTS

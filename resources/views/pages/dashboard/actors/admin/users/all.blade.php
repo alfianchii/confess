@@ -125,7 +125,7 @@
                                 <th>Foto</th>
                                 <th>Nama</th>
                                 <th>Status</th>
-                                <th>Dibuat Pada</th>
+                                <th>Dibuat</th>
                                 <th>Data</th>
                                 <th>Terakhir Login</th>
                                 <th>Aksi</th>

@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\{Model, SoftDeletes};
 use App\Models\Traits\{Daily, Setable};
+use App\Models\Traits\Helpers\{Commentable};
 
 class RecConfessionComment extends Model
 {
     // ---------------------------------
     // TRAITS
-    use HasFactory, SoftDeletes, Daily, Setable;
+    use HasFactory, SoftDeletes, Daily, Commentable, Setable;
 
 
     // ---------------------------------
@@ -94,8 +95,7 @@ class RecConfessionComment extends Model
             ->oldest("date")
             ->get();
 
-        $genders = RecConfessionComment::leftJoin("dt_officers", "rec_confession_comments.id_user", "=", "dt_officers.id_user")
-            ->leftJoin("mst_users", 'dt_officers.id_user', "=", "mst_users.id_user")
+        $genders = RecConfessionComment::leftJoin("mst_users", 'rec_confession_comments.id_user', "=", "mst_users.id_user")
             ->selectRaw("SUM(CASE WHEN mst_users.gender = 'L' THEN 1 ELSE 0 END) as male")
             ->selectRaw("SUM(CASE WHEN mst_users.gender = 'P' THEN 1 ELSE 0 END) as female")
             ->first()->attributes;

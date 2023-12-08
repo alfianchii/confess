@@ -128,13 +128,13 @@ class UserService extends Service
     return view("errors.403");
   }
 
-  public function show(MasterRole $userRole, User $theUser)
+  public function show(User $user, MasterRole $userRole, User $theUser)
   {
     // Data processing
     $theUser = User::with(["userRole.role", "student", "officer"])->where("username", $theUser->username)->first();
 
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminShow($theUser);
+    if ($roleName === "admin") return $this->adminShow($user, $theUser);
 
     return view("errors.403");
   }
@@ -346,10 +346,10 @@ class UserService extends Service
     return view("errors.403");
   }
 
-  public function role(MasterRole $userRole, User $theUser)
+  public function role(User $user, MasterRole $userRole, User $theUser)
   {
     $roleName = $userRole->role_name;
-    if ($roleName === "admin") return $this->adminRole($theUser);
+    if ($roleName === "admin") return $this->adminRole($user, $theUser);
 
     return view("errors.403");
   }
@@ -429,8 +429,14 @@ class UserService extends Service
     return redirect("/dashboard/users/details/$theUser->username")->withSuccess("Pengguna @$theUser->username berhasil diregistrasi!");
   }
 
-  public function adminShow(User $theUser)
+  public function adminShow(User $user, User $theUser)
   {
+    try {
+      $this->isNotYourAccount($user, $theUser);
+    } catch (\Exception $e) {
+      return redirect(self::DASHBOARD_URL)->withErrors($e->getMessage());
+    }
+
     $viewVariables = [
       "title" => "Pengguna $theUser->username",
       "theUser" => $theUser,
@@ -628,8 +634,14 @@ class UserService extends Service
     return view("pages.dashboard.actors.admin.users.history-logins", $viewVariables);
   }
 
-  public function adminRole(User $theUser)
+  public function adminRole(User $user, User $theUser)
   {
+    try {
+      $this->isNotYourAccount($user, $theUser);
+    } catch (\Exception $e) {
+      return redirect(self::DASHBOARD_URL)->withErrors($e->getMessage());
+    }
+
     $theUserRole = $theUser->userRole->role->role_name;
 
     // ---------------------------------
@@ -650,6 +662,12 @@ class UserService extends Service
 
   public function adminRoleUpdate($data, User $user, User $theUser)
   {
+    try {
+      $this->isNotYourAccount($user, $theUser);
+    } catch (\Exception $e) {
+      return redirect(self::DASHBOARD_URL)->withErrors($e->getMessage());
+    }
+
     $theUserRole = $theUser->userRole->role->role_name;
     $inputRole = $data["role"];
 

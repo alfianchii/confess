@@ -66,6 +66,7 @@ class DashboardService extends Service
         return view("pages.dashboard.actors.admin.dashboard.index", $viewVariables);
     }
 
+
     // OFFICER
     private function officerIndex(User $user)
     {
@@ -92,6 +93,7 @@ class DashboardService extends Service
         ];
         return view("pages.dashboard.actors.officer.dashboard.index", $viewVariables);
     }
+
 
     // STUDENT
     private function studentIndex(User $user)

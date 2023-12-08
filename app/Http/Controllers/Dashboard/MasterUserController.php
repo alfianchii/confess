@@ -42,7 +42,7 @@ class MasterUserController extends Controller
 
     public function show(User $user)
     {
-        return $this->userService->show($this->userRole, $user);
+        return $this->userService->show($this->userData, $this->userRole, $user);
     }
 
     public function edit(User $user)
@@ -125,7 +125,7 @@ class MasterUserController extends Controller
 
     public function role(User $user)
     {
-        return $this->userService->role($this->userRole, $user);
+        return $this->userService->role($this->userData, $this->userRole, $user);
     }
 
     public function roleUpdate(Request $request, User $user)

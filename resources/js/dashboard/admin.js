@@ -9,12 +9,14 @@ initDashboard().then((res) => {
         const allConfessions = body.chart.data.allConfessions;
         const allResponses = body.chart.data.allResponses;
         const allComments = body.chart.data.allComments;
+        const allLikes = body.chart.data.allLikes;
         const allHistoryLogins = body.chart.data.allHistoryLogins;
         const yourComments = body.chart.data.yourComments;
+        const yourLikes = body.chart.data.yourLikes;
         const yourHistoryLogins = body.chart.data.yourHistoryLogins;
 
         // Set options
-        const optionsConfessionResponseCommentLogIn = {
+        const optionsStatistics = {
             series: [
                 {
                     name: "Pengakuan",
@@ -27,6 +29,10 @@ initDashboard().then((res) => {
                 {
                     name: "Komentar",
                     data: allComments.data.yAxis,
+                },
+                {
+                    name: "Suka",
+                    data: allLikes.data.yAxis,
                 },
                 {
                     name: "Log-in",
@@ -62,6 +68,7 @@ initDashboard().then((res) => {
                         ...allConfessions.data.yAxis,
                         ...allResponses.data.yAxis,
                         ...allComments.data.yAxis,
+                        ...allLikes.data.yAxis,
                         ...allHistoryLogins.data.yAxis
                     ) + 1,
             },
@@ -107,6 +114,49 @@ initDashboard().then((res) => {
                     },
                 },
                 max: Math.max(...yourComments.yAxis) + 1,
+            },
+            tooltip: {
+                x: {
+                    format: "dd/MM/yy",
+                },
+            },
+        };
+        const optionsYourLikes = {
+            annotations: {
+                position: "back",
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            chart: {
+                type: "bar",
+                height: 300,
+                zoom: {
+                    enabled: false,
+                },
+            },
+            fill: {
+                opacity: 1,
+            },
+            plotOptions: {},
+            series: [
+                {
+                    name: "Suka",
+                    data: yourLikes.yAxis,
+                },
+            ],
+            colors: "#435ebe",
+            xaxis: {
+                categories: yourLikes.xAxis,
+                type: "datetime",
+            },
+            yaxis: {
+                labels: {
+                    formatter: function (value) {
+                        return Math.round(value);
+                    },
+                },
+                max: Math.max(...yourLikes.yAxis) + 1,
             },
             tooltip: {
                 x: {
@@ -220,6 +270,26 @@ initDashboard().then((res) => {
                 },
             },
         };
+        const optionsAllLikesGender = {
+            series: [allLikes.genders.male, allLikes.genders.female],
+            labels: ["Male", "Female"],
+            colors: ["#435ebe", "#55c6e8"],
+            chart: {
+                type: "donut",
+                width: "100%",
+                height: "350px",
+            },
+            legend: {
+                position: "bottom",
+            },
+            plotOptions: {
+                pie: {
+                    donut: {
+                        size: "30%",
+                    },
+                },
+            },
+        };
         const optionsAllHistoryLoginsGender = {
             series: [
                 allHistoryLogins.genders.male,
@@ -245,16 +315,20 @@ initDashboard().then((res) => {
         };
 
         // Instance chart
-        const chartConfessionResponseCommentLogin = new ApexCharts(
-            document.getElementById("chart-confession-response-comment-log-in"),
-            optionsConfessionResponseCommentLogIn
+        const chartStatistics = new ApexCharts(
+            document.getElementById("chart-statistics"),
+            optionsStatistics
         );
         const chartYourComments = new ApexCharts(
-            document.querySelector("#chart-your-comments"),
+            document.getElementById("chart-your-comments"),
             optionsYourComments
         );
+        const chartYourLikes = new ApexCharts(
+            document.getElementById("chart-your-likes"),
+            optionsYourLikes
+        );
         const chartYourHistoryLogins = new ApexCharts(
-            document.querySelector("#chart-your-log-in"),
+            document.getElementById("chart-your-log-in"),
             optionsYourHistoryLogins
         );
         const chartAllConfessionsGender = new ApexCharts(
@@ -269,18 +343,24 @@ initDashboard().then((res) => {
             document.getElementById("chart-comment-genders"),
             optionsAllCommentsGender
         );
+        const chartAllLikesGender = new ApexCharts(
+            document.getElementById("chart-like-genders"),
+            optionsAllLikesGender
+        );
         const chartAllHistoryLoginsGender = new ApexCharts(
             document.getElementById("chart-log-in-genders"),
             optionsAllHistoryLoginsGender
         );
 
         // Render
-        chartConfessionResponseCommentLogin.render();
+        chartStatistics.render();
         chartYourComments.render();
+        chartYourLikes.render();
         chartYourHistoryLogins.render();
         chartAllConfessionsGender.render();
         chartAllResponsesGender.render();
         chartAllCommentsGender.render();
+        chartAllLikesGender.render();
         chartAllHistoryLoginsGender.render();
     }
 });
