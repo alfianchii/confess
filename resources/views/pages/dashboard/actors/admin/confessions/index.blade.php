@@ -101,8 +101,7 @@
                                 <th>Kategori</th>
                                 <th>Tanggapan</th>
                                 <th>Komentar</th>
-                                <th>Sunting</th>
-                                <th>Foto</th>
+                                <th>Suka</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -116,20 +115,7 @@
                                     <td>{{ $confession->category->category_name }}</td>
                                     <td>{{ $confession->responses->count() }}</td>
                                     <td>{{ $confession->comments->count() }}</td>
-                                    <td>
-                                        @if ($confession->updated_by)
-                                            <span class="badge bg-light-warning">Ya</span>
-                                        @else
-                                            <span class="badge bg-light-dark">Tidak</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($confession->image)
-                                            <span class="badge bg-light-warning">Ya</span>
-                                        @else
-                                            <span class="badge bg-light-dark">Tidak</span>
-                                        @endif
-                                    </td>
+                                    <td>{{ $confession->likes->count() }}</td>
                                     <td>
                                         @if ($confession->status == 'unprocess')
                                             <span class="badge bg-light-danger">
@@ -164,7 +150,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">
+                                    <td colspan="9">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>
@@ -237,8 +223,7 @@
                                 <th>Kategori</th>
                                 <th>Tanggapan</th>
                                 <th>Komentar</th>
-                                <th>Sunting</th>
-                                <th>Foto</th>
+                                <th>Suka</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -252,20 +237,7 @@
                                     <td>{{ $confession->category->category_name }}</td>
                                     <td>{{ $confession->responses->count() }}</td>
                                     <td>{{ $confession->comments->count() }}</td>
-                                    <td>
-                                        @if ($confession->updated_by)
-                                            <span class="badge bg-light-warning">Ya</span>
-                                        @else
-                                            <span class="badge bg-light-dark">Tidak</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($confession->image)
-                                            <span class="badge bg-light-warning">Ya</span>
-                                        @else
-                                            <span class="badge bg-light-dark">Tidak</span>
-                                        @endif
-                                    </td>
+                                    <td>{{ $confession->likes->count() }}</td>
                                     <td>
                                         @if ($confession->status == 'unprocess')
                                             <span class="badge bg-light-danger">
@@ -300,7 +272,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="10">
+                                    <td colspan="9">
                                         <p class="text-center mt-3">Tidak ada pengakuan :(</p>
                                     </td>
                                 </tr>

@@ -5,7 +5,7 @@ namespace App\Services\Dashboard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Services\Service;
-use App\Models\{User, RecConfession, HistoryConfessionResponse, HistoryLogin, MasterRole, RecConfessionComment};
+use App\Models\{HistoryConfessionLike, User, RecConfession, HistoryConfessionResponse, HistoryLogin, MasterRole, RecConfessionComment};
 
 class ChartService extends Service
 {
@@ -78,6 +78,7 @@ class ChartService extends Service
 
     // ---------------------------------
     // UTILITIES
+    // ADMIN
     private function adminChart(User $user, array $results)
     {
         $confessionAxises = RecConfession::confessionAxises();
@@ -87,6 +88,9 @@ class ChartService extends Service
         $yourCommentAxises = RecConfessionComment::yourCommentAxises($user);
         $commentAxises = RecConfessionComment::commentAxises();
 
+        $yourConfessionLikeAxises = HistoryConfessionLike::yourConfessionLikeAxises($user);
+        $confessionLikeAxises = HistoryConfessionLike::confessionLikeAxises();
+
         $yourHistoryLoginAxises = HistoryLogin::yourHistoryLoginAxises($user);
         $historyLoginAxises = HistoryLogin::historyLoginAxises();
 
@@ -94,12 +98,16 @@ class ChartService extends Service
         $results['chart']["data"]["allResponses"] = $responseAxises;
         $results['chart']["data"]["allComments"] = $commentAxises;
         $results['chart']["data"]["yourComments"] = $yourCommentAxises;
+        $results['chart']["data"]["allLikes"] = $confessionLikeAxises;
+        $results['chart']["data"]["yourLikes"] = $yourConfessionLikeAxises;
         $results['chart']["data"]["allHistoryLogins"] = $historyLoginAxises;
         $results['chart']["data"]["yourHistoryLogins"] = $yourHistoryLoginAxises;
 
         return response()->json($results);
     }
 
+
+    // OFFICER
     private function officerChart(User $user, array $results)
     {
         $confessionGenderAxises = RecConfession::confessionAxises()["genders"];
@@ -108,16 +116,21 @@ class ChartService extends Service
 
         $yourCommentAxises = RecConfessionComment::yourCommentAxises($user);
 
+        $yourConfessionLikeAxises = HistoryConfessionLike::yourConfessionLikeAxises($user);
+
         $yourHistoryLoginAxises = HistoryLogin::yourHistoryLoginAxises($user);
 
         $results['chart']["data"]["confessionGenders"] = $confessionGenderAxises;
         $results['chart']["data"]["yourResponses"] = $yourResponseAxises;
         $results['chart']["data"]["yourComments"] = $yourCommentAxises;
+        $results['chart']["data"]["yourLikes"] = $yourConfessionLikeAxises;
         $results['chart']["data"]["yourHistoryLogins"] = $yourHistoryLoginAxises;
 
         return response()->json($results);
     }
 
+
+    // STUDENT
     private function studentChart(User $user, array $results)
     {
         $yourConfessionAxises = RecConfession::yourConfessionAxises($user);
@@ -126,11 +139,14 @@ class ChartService extends Service
 
         $yourCommentAxises = RecConfessionComment::yourCommentAxises($user);
 
+        $yourConfessionLikeAxises = HistoryConfessionLike::yourConfessionLikeAxises($user);
+
         $yourHistoryLoginAxises = HistoryLogin::yourHistoryLoginAxises($user);
 
         $results['chart']["data"]["yourConfessions"] = $yourConfessionAxises;
         $results['chart']["data"]["yourResponses"] = $yourResponseAxises;
         $results['chart']["data"]["yourComments"] = $yourCommentAxises;
+        $results['chart']["data"]["yourLikes"] = $yourConfessionLikeAxises;
         $results['chart']["data"]["yourHistoryLogins"] = $yourHistoryLoginAxises;
 
         return response()->json($results);

@@ -9,10 +9,11 @@ initDashboard().then((res) => {
         const confessionGenders = body.chart.data.confessionGenders;
         const yourResponses = body.chart.data.yourResponses;
         const yourComments = body.chart.data.yourComments;
+        const yourLikes = body.chart.data.yourLikes;
         const yourHistoryLogins = body.chart.data.yourHistoryLogins;
 
         // Set options
-        const optionsYourResponseCommentLogIn = {
+        const optionsYourStatistics = {
             series: [
                 {
                     name: "Tanggapan",
@@ -21,6 +22,10 @@ initDashboard().then((res) => {
                 {
                     name: "Komentar",
                     data: yourComments.yAxis,
+                },
+                {
+                    name: "Suka",
+                    data: yourLikes.yAxis,
                 },
                 {
                     name: "Log-in",
@@ -55,6 +60,7 @@ initDashboard().then((res) => {
                     Math.max(
                         ...yourResponses.yAxis,
                         ...yourComments.yAxis,
+                        ...yourLikes.yAxis,
                         ...yourHistoryLogins.yAxis
                     ) + 1,
             },
@@ -86,9 +92,9 @@ initDashboard().then((res) => {
         };
 
         // Instance chart
-        const chartYourResponseCommentLogIn = new ApexCharts(
-            document.getElementById("chart-your-response-comment-log-in"),
-            optionsYourResponseCommentLogIn
+        const chartYourStatistics = new ApexCharts(
+            document.getElementById("chart-your-statistics"),
+            optionsYourStatistics
         );
         const chartConfessionGenders = new ApexCharts(
             document.getElementById("chart-confession-genders"),
@@ -96,7 +102,7 @@ initDashboard().then((res) => {
         );
 
         // Render
-        chartYourResponseCommentLogIn.render();
+        chartYourStatistics.render();
         chartConfessionGenders.render();
     }
 });

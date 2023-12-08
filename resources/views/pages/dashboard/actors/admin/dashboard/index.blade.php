@@ -280,10 +280,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>Statistik Pengakuan, Tanggapan, Komentar, dan Log-in</h3>
+                                    <h3>Semua Statistik</h3>
                                 </div>
                                 <div class="card-body">
-                                    <div id="chart-confession-response-comment-log-in">
+                                    <div id="chart-statistics">
                                         <div class="d-flex justify-content-center skeleton-loading">
                                             <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
                                                 <span class="visually-hidden">Loading...</span>
@@ -302,6 +302,24 @@
                                 </div>
                                 <div class="card-body">
                                     <div id="chart-your-comments">
+                                        <div class="d-flex justify-content-center skeleton-loading">
+                                            <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>Statistik Suka Kamu</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart-your-likes">
                                         <div class="d-flex justify-content-center skeleton-loading">
                                             <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
                                                 <span class="visually-hidden">Loading...</span>
@@ -410,6 +428,20 @@
                         </div>
                         <div class="card-body">
                             <div id="chart-comment-genders">
+                                <div class="d-flex justify-content-center skeleton-loading">
+                                    <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Suka</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="chart-like-genders">
                                 <div class="d-flex justify-content-center skeleton-loading">
                                     <div class="spinner-border" style="width: 3rem; height: 3rem" role="status">
                                         <span class="visually-hidden">Loading...</span>
