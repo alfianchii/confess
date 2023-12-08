@@ -109,8 +109,12 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $like->created_at->format('j F Y, \a\t H.i') }}</td>
                                     <td>
-                                        <a
-                                            href="/dashboard/users/details/{{ $like->user->username }}">{{ htmlspecialchars('@' . $like->user->username) }}</a>
+                                        @if ($like->id_user === $userData->id_user)
+                                            {{ htmlspecialchars('@' . $like->user->username) }}
+                                        @else
+                                            <a
+                                                href="/dashboard/users/details/{{ $like->user->username }}">{{ htmlspecialchars('@' . $like->user->username) }}</a>
+                                        @endif
                                     </td>
                                     <td>{{ $like->confession->title }}</td>
                                     <td>
