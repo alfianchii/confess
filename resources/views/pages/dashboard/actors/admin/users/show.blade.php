@@ -151,7 +151,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="font-bold">
                                     <p>Status: <span
-                                            class="badge bg-primary">{{ ucwords($theUser->userRole->role->role_name) }}</span>
+                                            class="badge bg-nav">{{ ucwords($theUser->userRole->role->role_name) }}</span>
                                     </p>
                                 </div>
                             </div>
