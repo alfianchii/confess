@@ -34,7 +34,7 @@ class CredentialController extends Controller
     {
         $credentials = $request->validate($this->rules);
         $baseFields = $this->loginFields($request);
-        $historyLogin = $this->authAttempt($request, $credentials, $baseFields, self::HOME_URL);
+        $historyLogin = $this->authAttempt($request, $credentials, $baseFields, self::DASHBOARD_URL);
         HistoryLogin::create($historyLogin["fields"]);
         return redirect($historyLogin["redirect"])->with($historyLogin["status"], $historyLogin["message"]);
     }

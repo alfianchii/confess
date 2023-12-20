@@ -29,15 +29,6 @@
                 </div>
             </div>
             <div class="col-12">
-                @if (session()->has('success'))
-                    <div class="w-100 mx-auto px-5">
-                        <div class="alert bg alert-dismissible show fade mt-4">
-                            {{ session('success') }}
-                            <button type="button" class="btn-close text-white" data-bs-dismiss="alert"
-                                aria-label="Close"></button>
-                        </div>
-                    </div>
-                @endif
                 <div class="container">
                     <div class="garis"></div>
                     <div class="row alur-lapor mt-5 d-flex text-center align-content-start">

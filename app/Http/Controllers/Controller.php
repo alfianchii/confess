@@ -21,6 +21,7 @@ class Controller extends BaseController
     // ---------------------------------
     // PROPERTIES
     const HOME_URL = RouteServiceProvider::HOME;
+    const DASHBOARD_URL = RouteServiceProvider::DASHBOARD;
     protected User $userData;
     protected MasterRole $userRole;
     protected $userUnique;
