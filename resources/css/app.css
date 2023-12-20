@@ -383,7 +383,6 @@ html[data-bs-theme="dark"] .navbar .navbar-collapse .nav .nav-item .nav-link {
     border-bottom: 2px solid #1e97af;
     padding-bottom: 0.5rem;
     transition: 0.5s ease-in-out;
-    border-radius: 0.5rem;
 }
 
 .subnav:hover {
