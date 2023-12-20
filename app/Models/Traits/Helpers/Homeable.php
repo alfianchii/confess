@@ -17,12 +17,11 @@ trait Homeable
   public function getFilteredConfessions(array $data, User $user)
   {
     $confessions = RecConfession::with(["category", "student.user", "comments", "likes"])
-      ->latest()
       ->filter($data)
       ->isLiked($user);
     $confessions = $this->filterdConfessions($confessions);
 
-    return $confessions;
+    return $confessions->latest();
   }
 
   public function filterdConfessions($confessions)
