@@ -71,6 +71,7 @@ html[data-bs-theme="dark"] * .poligon {
     height: 600px;
 }
 html[data-bs-theme="dark"] * .navbar {
+    backdrop-filter: blur(10px);
     position: fixed;
 }
 .height {
