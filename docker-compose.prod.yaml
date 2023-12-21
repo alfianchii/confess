@@ -39,6 +39,7 @@ services:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
         - USER=${USER:-confess}
+    restart: always
     container_name: php
     ports:
       - "9000:9000"
