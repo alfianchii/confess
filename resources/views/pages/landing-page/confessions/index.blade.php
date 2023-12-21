@@ -85,24 +85,24 @@
                             {{-- Heading --}}
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="d-flex flex-row px-4 pt-4">
+                                    <div class="d-flex flex-row align-items-center px-4 pt-4">
                                         {{-- Image --}}
                                         <div style="margin-right: 12px;">
                                             @if ($confession->privacy === 'anonymous')
-                                                <img class="rounded-circle" width="48" height="48"
+                                                <img class="rounded-circle" width="32"
                                                     src="{{ asset('images/user-images/default-avatar.png') }}"
                                                     alt="User Avatar" />
                                             @else
                                                 <a href="/users/{{ $confession->student->user->username }}">
                                                     @if ($isUserImageExist($confession->student->user->profile_picture))
                                                         @if (File::exists(public_path('images/' . $confession->student->user->profile_picture)))
-                                                            <img class="rounded-circle" width="48" height="48"
+                                                            <img class="rounded-circle" width="32"
                                                                 style="cursor: pointer;"
                                                                 onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
                                                                 src="{{ asset('images/' . $confession->student->user->profile_picture) }}"
                                                                 alt="User Avatar" />
                                                         @else
-                                                            <img class="rounded-circle" width="48" height="48"
+                                                            <img class="rounded-circle" width="32"
                                                                 style="cursor: pointer;"
                                                                 onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
                                                                 src="{{ asset('storage/' . $confession->student->user->profile_picture) }}"
@@ -110,13 +110,13 @@
                                                         @endif
                                                     @else
                                                         @if ($confession->student->user->gender === 'L')
-                                                            <img class="rounded-circle" width="48" height="48"
+                                                            <img class="rounded-circle" width="32"
                                                                 style="cursor: pointer;"
                                                                 onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
                                                                 src="{{ asset('assets/static/images/faces/2.jpg') }}"
                                                                 alt="User Avatar" />
                                                         @else
-                                                            <img class="rounded-circle" width="48" height="48"
+                                                            <img class="rounded-circle" width="32"
                                                                 style="cursor: pointer;"
                                                                 onclick="window.location.href='/users/{{ $confession->student->user->username }}'"
                                                                 src="{{ asset('assets/static/images/faces/5.jpg') }}"
@@ -129,7 +129,7 @@
 
                                         {{-- Text --}}
                                         <div class="d-flex justify-content-start flex-column">
-                                            <span class="fw-semibold">
+                                            <span class="fw-semibold" style="font-size: 0.875rem">
                                                 @if ($confession->privacy == 'anonymous')
                                                     <i>Rahasia</i> 🤫
                                                 @else
@@ -140,7 +140,7 @@
                                             </span>
 
                                             <span class="fw-normal text-muted">
-                                                <p class="mb-0" style="font-size: 0.875rem">
+                                                <p class="mb-0" style="font-size: 0.75rem">
                                                     {{ $confession->created_at->diffForHumans() }}</p>
                                             </span>
                                         </div>
@@ -149,7 +149,7 @@
                             </div>
 
                             {{-- Content --}}
-                            <div class="row ms-md-5">
+                            <div class="row ms-md-4">
                                 {{-- Main --}}
                                 <div class="col-12">
                                     <div class="card-body pt-3">
