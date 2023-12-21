@@ -6,11 +6,11 @@
                     <a href="/">
                         {{-- Default --}}
                         @if (File::exists(public_path('images/' . config('web_config')['IMAGE_WEB_LOGO'])))
-                            <img style="width: 85px;"
+                            <img class="px-2" style="width: 100%;"
                                 src="{{ asset('images/' . config('web_config')['IMAGE_WEB_LOGO']) }}"
                                 alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
                         @else
-                            <img style="width: 85px;"
+                            <img class="px-2" style="width: 100%;"
                                 src="{{ asset('storage/' . config('web_config')['IMAGE_WEB_LOGO']) }}"
                                 alt="Logo {{ config('web_config')['TEXT_WEB_TITLE'] }}">
                         @endif
