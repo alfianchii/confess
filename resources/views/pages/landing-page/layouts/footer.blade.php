@@ -44,13 +44,8 @@
     <div class="row">
         <div class="col-12">
             <hr>
-            <div class="pt-4">
+            <div class="py-4">
                 <p>&copy; 2023 {{ config('web_config')['TEXT_WEB_TITLE'] }}. All rights reserved.</p>
-            </div>
-            <div class="pb-4">
-                <small class="text-subtitle">Created w/ <a class="text-white" href="https://github.com/zuramai/mazer"
-                        target="_blank"><u>Mazer</u></a> <span class="text-danger"><i
-                            class="bi bi-heart-fill icon-mid"></i></span></small>
             </div>
         </div>
     </div>
