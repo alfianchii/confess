@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top bg-nav"
     id="{{ Request::is('confessions*') || Request::is('categories') ? '' : 'navbar' }}"
-    style="backdrop-filter: blur(10px);">
+    style="backdrop-filter: blur(5px);">
     <div class="container" id="navCont">
         <a class=" text-muted logo" href="/">
             {{-- Default --}}
