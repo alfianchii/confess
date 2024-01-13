@@ -1,6 +1,18 @@
 version: "3.8"
 
 services:
+  # Jenkins
+  # jenkins:
+  #   image: jenkins/jenkins:lts
+  #   container_name: jenkins
+  #   ports:
+  #     - "8080:8080"
+  #     - "50000:50000"
+  #   volumes:
+  #     - jenkins-data:/var/jenkins_home
+  #   networks:
+  #     - confess-network
+
   # Nginx
   nginx:
     build:
@@ -190,3 +202,5 @@ networks:
 volumes:
   confess-dbdata:
     driver: local
+  # jenkins-data:
+  #   driver: local
