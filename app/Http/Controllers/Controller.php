@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\{DTOfficer, DTStudent, User, MasterRole};
+use App\Models\Traits\{Sidebarable, Breadcrumbable, Timeable};
 use Illuminate\Support\Facades\{Auth, View};
 use App\Providers\RouteServiceProvider;
 use Illuminate\Routing\Controller as BaseController;
@@ -15,7 +16,7 @@ class Controller extends BaseController
 {
     // ---------------------------------
     // TRAITS
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, Sidebarable, Breadcrumbable, Timeable;
 
 
     // ---------------------------------
@@ -39,8 +40,13 @@ class Controller extends BaseController
                 View::share('userData', $this->userData);
                 View::share('userRole', $this->userRole);
                 View::share('userUnique', $this->userUnique);
+                View::share('parentGuides', $this->getGuides());
 
                 View::share('isUserImageExist', [$this, 'isUserImageExist']);
+                View::share('guideSidebarHTML', [$this, 'guideSidebarHTML']);
+                View::share('guideBreadcrumbsHTML', [$this, 'guideBreadcrumbsHTML']);
+                View::share('getGuideURL', [$this, 'getGuideURL']);
+                View::share('secondToMinute', [$this, 'secondToMinute']);
             }
 
             return $next($request);

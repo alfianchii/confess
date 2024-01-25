@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HistoryConfessionLikeSeeder::class);
         $this->call(HistoryLoginSeeder::class);
         $this->call(SettingWebsiteSeeder::class);
+        $this->call(MasterGuideSeeder::class);
     }
 }

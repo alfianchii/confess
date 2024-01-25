@@ -14,6 +14,7 @@ use App\Http\Controllers\Home\{
 };
 use App\Http\Controllers\Dashboard\{
     DashboardController as Dashboard,
+    MasterGuideController as DashboardGuide,
     MasterUserController as DashboardUser,
     RecConfessionController as DashboardConfession,
     MasterConfessionCategoryController as DashboardConfessionCategory,
@@ -72,6 +73,12 @@ Route::group(["middleware" => "auth"], function () {
         Route::get("/", [Dashboard::class, "index"]);
 
         Route::post('/chart-data', [Dashboard::class, "chartData"]);
+
+        // ---------------------------------
+        // Guide Routes
+        Route::get("/guides/{guide:url}", [DashboardGuide::class, "show"])->where("guide", ".*");
+        Route::post("/setting/guides/check-slug", [DashboardGuide::class, "checkSlug"]);
+        Route::resource("/setting/guides", DashboardGuide::class)->except(["show"]);
 
         // ---------------------------------
         // Account Routes

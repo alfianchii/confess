@@ -60,6 +60,16 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item has-sub {{ Request::is('dashboard/guides/*') ? 'active' : '' }}">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-book"></i>
+                        <span>Panduan Aplikasi</span>
+                    </a>
+                    <ul class="submenu {{ Request::is('dashboard/guides/*') ? 'submenu-open' : 'submenu-closed' }}">
+                        {!! $guideSidebarHTML($parentGuides) !!}
+                    </ul>
+                </li>
+
                 <li class="sidebar-title">Menu</li>
                 <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : '' }}">
                     <a href="/dashboard" class="sidebar-link">
@@ -153,6 +163,12 @@
                 </li>
 
                 @can('admin')
+                    <li class="sidebar-item {{ Request::is('dashboard/setting/guides*') ? 'active' : '' }}">
+                        <a href="/dashboard/setting/guides" class="sidebar-link">
+                            <i class="bi bi-book-half"></i>
+                            <span>Panduan</span>
+                        </a>
+                    </li>
                     <li class="sidebar-item {{ Request::is('dashboard/website*') ? 'active' : '' }}">
                         <a href="/dashboard/website" class="sidebar-link">
                             <i class="bi bi-gear"></i>
