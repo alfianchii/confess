@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
     container_name: nginx
     ports:
-      - 80:80
+      - 8000:80
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
@@ -63,7 +63,7 @@ services:
     restart: unless-stopped
     tty: true
     ports:
-      - 3306:3306
+      - 3307:3306
     environment:
       MARIADB_DATABASE: ${DB_DATABASE}
       MARIADB_USER: ${DB_USERNAME}
