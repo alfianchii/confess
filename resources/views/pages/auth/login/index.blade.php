@@ -83,7 +83,7 @@
                                         <input type="text"
                                             class="form-control @error('username'){{ 'is-invalid' }}@enderror"
                                             id="username" name="username" value="{{ old('username') }}"
-                                            placeholder="e.g. alfianchii" />
+                                            placeholder="e.g. alfianchii" autofocus />
 
                                         @error('username')
                                             <div class="invalid-feedback">
