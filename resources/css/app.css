@@ -389,6 +389,10 @@ html[data-bs-theme="dark"] .navbar .navbar-collapse .nav .nav-item .nav-link {
     color: #1e97af;
 }
 
+input::placeholder {
+    opacity: 0.6 !important;
+}
+
 .attachment-file {
     -webkit-box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
     box-shadow: 0 0 30px 0 rgba(82, 63, 105, 0.05);
