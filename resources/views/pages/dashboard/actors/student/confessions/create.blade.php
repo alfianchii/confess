@@ -114,7 +114,7 @@
                                                 <label for="date" class="form-label">Tanggal Kejadian</label>
                                                 <div class="position-relative">
                                                     <input type="date" class="form-control py-2"
-                                                        placeholder="Tanggal kejadian" id="date" name="date"
+                                                        placeholder="e.g. Tanggal kejadian" id="date" name="date"
                                                         value="{{ old('date') ?? date('Y-m-d') }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-calendar-day py-2"></i>
@@ -195,7 +195,7 @@
                                                 class="form-group mandatory @error('privacy'){{ 'is-invalid' }}@enderror">
                                                 <fieldset>
                                                     <label class="form-label">
-                                                        Kerahasian Pengakuan
+                                                        Kerahasiaan Pengakuan
                                                     </label>
                                                     <div class="d-flex">
                                                         <div class="form-check me-3">

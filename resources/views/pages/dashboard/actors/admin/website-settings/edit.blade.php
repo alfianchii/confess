@@ -66,8 +66,8 @@
                                                 class="form-group has-icon-left mandatory @error('TEXT_WEB_TITLE'){{ 'is-invalid' }}@enderror">
                                                 <label for="TEXT_WEB_TITLE" class="form-label">Judul Website</label>
                                                 <div class="position-relative">
-                                                    <input type="text" class="form-control py-2" placeholder="Confess"
-                                                        id="TEXT_WEB_TITLE" name="TEXT_WEB_TITLE"
+                                                    <input type="text" class="form-control py-2"
+                                                        placeholder="e.g. Confess" id="TEXT_WEB_TITLE" name="TEXT_WEB_TITLE"
                                                         value="{{ old('TEXT_WEB_TITLE', config('web_config')['TEXT_WEB_TITLE']) }}"
                                                         maxlength="30" />
                                                     <div class="form-control-icon">
@@ -87,7 +87,7 @@
                                                 <label for="TEXT_HERO_HEADER" class="form-label">Hero Text Title</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
-                                                        placeholder="Sistem Pengakuan Online SMKN 4 Kota Tangerang"
+                                                        placeholder="e.g. Sistem Pengakuan Online SMKN 4 Kota Tangerang"
                                                         id="TEXT_HERO_HEADER" name="TEXT_HERO_HEADER"
                                                         value="{{ old('TEXT_HERO_HEADER', config('web_config')['TEXT_HERO_HEADER']) }}"
                                                         maxlength="125" />
@@ -109,7 +109,7 @@
                                                     Description</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
-                                                        placeholder="Sampaikan pengakuan kamu di website ini~"
+                                                        placeholder="e.g. Sampaikan pengakuan kamu di website ini~"
                                                         id="TEXT_HERO_DESCRIPTION" name="TEXT_HERO_DESCRIPTION"
                                                         value="{{ old('TEXT_HERO_DESCRIPTION', config('web_config')['TEXT_HERO_DESCRIPTION']) }}"
                                                         maxlength="255" />
@@ -328,7 +328,7 @@
                                                     Instagram</label>
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control py-2"
-                                                        placeholder="https://instagram.com/smkn4kotatangerang"
+                                                        placeholder="e.g. https://instagram.com/smkn4kotatangerang"
                                                         id="LINK_SOCMED_INSTAGRAM" name="LINK_SOCMED_INSTAGRAM"
                                                         value="{{ old('LINK_SOCMED_INSTAGRAM', config('web_config')['LINK_SOCMED_INSTAGRAM']) }}"
                                                         maxlength="255" />

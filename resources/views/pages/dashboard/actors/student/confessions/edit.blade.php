@@ -83,7 +83,7 @@
                                                 <label for="title" class="form-label">Judul</label>
                                                 <div class="position-relative">
                                                     <input autofocus type="text" class="form-control py-2"
-                                                        placeholder="Saya dipalak ..." id="title" name="title"
+                                                        placeholder="e.g. Saya dipalak ..." id="title" name="title"
                                                         value="{{ old('title') ?? $confession->title }}" />
                                                     <div class="form-control-icon">
                                                         <i class="bi bi-card-heading py-2"></i>
@@ -202,7 +202,7 @@
                                                 class="form-group mandatory @error('privacy'){{ 'is-invalid' }}@enderror">
                                                 <fieldset>
                                                     <label class="form-label">
-                                                        Kerahasian Pengakuan
+                                                        Kerahasiaan Pengakuan
                                                     </label>
                                                     <div class="d-flex">
                                                         <div class="form-check me-3">

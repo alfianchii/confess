@@ -107,7 +107,7 @@
                                     class="form-group has-icon-left mandatory @error('username'){{ 'is-invalid' }}@enderror">
                                     <label for="username" class="form-label">Username</label>
                                     <div class="position-relative">
-                                        <input type="text" class="form-control py-2" placeholder="alfianchii"
+                                        <input type="text" class="form-control py-2" placeholder="e.g. alfianchii"
                                             id="username" name="username"
                                             value="{{ old('username') ?? $userData->username }}" maxlength="255" />
                                         <div class="form-control-icon">
