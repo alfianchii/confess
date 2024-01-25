@@ -4,6 +4,7 @@ namespace App\Models\Traits\Helpers;
 
 use Illuminate\Support\Facades\{Validator};
 use App\Models\{User, MasterGuide};
+use stdClass;
 
 trait Guideable
 {
@@ -81,10 +82,10 @@ trait Guideable
   public function createGuide(array $credentials)
   {
     $status = $credentials["status"];
+    $this->validateIfParentHasChild($credentials);
 
     if ($status === "single")
       return MasterGuide::create($credentials);
-
 
     if ($status === "parent") {
       $childCredentials = $credentials;
@@ -96,6 +97,34 @@ trait Guideable
 
       return $child;
     }
+  }
+
+  private function validateIfParentHasChild(array $credentials)
+  {
+    $idGuideParent = $credentials["id_guide_parent"];
+    $isParentGuide = $idGuideParent == 0 ? true : false;
+
+    if (!$isParentGuide)
+      $this->reassignParentGuide($idGuideParent);
+  }
+
+  private function reassignParentGuide($idGuideParent)
+  {
+    $parentGuide = MasterGuide::firstWhere("id_guide", $idGuideParent);
+    $reassignCreds = $parentGuide->toArray();
+    $reassignCreds["id_guide_parent"] = $idGuideParent;
+    $this->reassignParentFields($parentGuide);
+
+    $reassignGuide = $this->setChildFields($reassignCreds, $reassignCreds);
+    MasterGuide::create($reassignGuide);
+  }
+
+  private function reassignParentFields(MasterGuide $parentGuide)
+  {
+    $parentGuide->body = "";
+    $parentGuide->title = "";
+    $parentGuide->reading_time = 0;
+    $parentGuide->save();
   }
 
   private function setParentFields(array $credentials)
