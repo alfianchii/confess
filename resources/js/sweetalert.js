@@ -5,7 +5,7 @@ export function handleClick({ data, event, uri, redirect = uri }) {
         icon: "question",
         showDenyButton: true,
         showCancelButton: false,
-        confirmButtonText: "Iya, gapapa kok~",
+        confirmButtonText: "Iya~",
         denyButtonText: `Jangan ...`,
     };
 
