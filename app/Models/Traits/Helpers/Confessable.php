@@ -31,7 +31,7 @@ trait Confessable
     return $confessionCategory;
   }
 
-  public function deleteConfessionResponses(HistoryConfessionResponse $responses)
+  public function deleteConfessionResponses($responses)
   {
     foreach ($responses as $response) {
       if ($response->attachment_file) Storage::delete($response->attachment_file);
@@ -39,7 +39,7 @@ trait Confessable
     };
   }
 
-  public function deleteConfessionComments(RecConfessionComment $comments)
+  public function deleteConfessionComments($comments)
   {
     foreach ($comments as $comment) {
       if ($comment->attachment_file) Storage::delete($comment->attachment_file);
@@ -47,7 +47,7 @@ trait Confessable
     };
   }
 
-  public function deleteConfessionLikes(HistoryConfessionLike $likes)
+  public function deleteConfessionLikes($likes)
   {
     foreach ($likes as $like) {
       if (!HistoryConfessionLike::destroy($like->id_confession_like)) throw new \Exception('Error unsend confession.');
