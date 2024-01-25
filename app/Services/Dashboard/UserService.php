@@ -31,7 +31,7 @@ class UserService extends Service
     "nip" => ["required", "digits:18", "string", "unique:dt_officers,nip"],
     "nisn" => ["required", "digits:10", "string", "unique:dt_students,nisn"],
     "email" => ["nullable", "unique:mst_users,email", "email:rfc,dns"],
-    "gender" => ['required'],
+    "gender" => ['required', 'in:L,P'],
     'password' => ['required', 'confirmed', 'min:6'],
     'password_confirmation' => ['required', 'min:6', "required_with:password", "same:password"],
   ];
@@ -74,6 +74,7 @@ class UserService extends Service
     "email.unique" => "Email sudah digunakan.",
     "email.email" => "Email harus valid.",
     "gender.required" => "Jenis kelamin tidak boleh kosong.",
+    "gender.in" => "Jenis kelamin tidak valid.",
     "password.required" => "Password tidak boleh kosong.",
     "password.confirmed" => "Password tidak cocok.",
     "password.min" => "Password tidak boleh kurang dari :min karakter.",

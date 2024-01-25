@@ -29,7 +29,7 @@ class ConfessionService extends Service
     "date" => ["required", "date", "date_format:Y-m-d"],
     "id_confession_category" => ["required"],
     "place" => ["required"],
-    "privacy" => ["required"],
+    "privacy" => ["required", "in:public,anonymous"],
     "image" => ["image", "file", "max:10240"],
     "body" => ["required"],
   ];
@@ -45,6 +45,7 @@ class ConfessionService extends Service
     "id_confession_category.required" => "Kategori pengakuan harus diisi.",
     "place.required" => "Tempat pengakuan harus diisi.",
     "privacy.required" => "Privasi pengakuan harus diisi.",
+    "privacy.in" => "Privasi pengakuan tidak valid.",
     "image.image" => "Gambar pengakuan harus berupa :image.",
     "image.file" => "Gambar pengakuan harus berupa :file.",
     "image.max" => "Gambar pengakuan maksimal :max KiB.",
