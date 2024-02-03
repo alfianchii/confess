@@ -81,7 +81,7 @@ To view further details, please visit [demo page](https://alfianxi.my.id).
 
 <h2 id="installation">💻 Installation</h2>
 
-<h3 id="building-yourself">🏃‍♂️ Building yourself</h3>
+<h3 id="develop-yourself">🏃‍♂️ Develop by yourself</h3>
 1. Clone repository
 
 ```bash
@@ -117,7 +117,7 @@ npm run dev
 php artisan serve
 ```
 
-<h3 id="building-yourself">🐳 Building w/ Docker</h3>
+<h3 id="develop-docker">🐳 Develop w/ Docker</h3>
 
 -   Clone the repository:
 
@@ -130,7 +130,6 @@ cd confess
 
 ```conf
 APP_DEBUG=true
-DB_HOST=mariadb
 DB_HOST=mariadb
 DB_DATABASE=confess
 DB_USERNAME=your-username
