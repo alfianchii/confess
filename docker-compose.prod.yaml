@@ -16,7 +16,7 @@ services:
   nginx:
     build:
       context: ./docker
-      dockerfile: nginx.prod.dockerfile
+      dockerfile: nginx.dockerfile
       args:
         - UID=${UID:-1000}
         - GID=${GID:-1000}
@@ -24,11 +24,7 @@ services:
     restart: unless-stopped
     container_name: nginx
     ports:
-      - 80:80
-      - 443:443
-    environment:
-      DOMAIN: ${DOMAIN}
-      EMAIL: ${EMAIL}
+      - 8000:8000
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
@@ -38,8 +34,6 @@ services:
       - phpmyadmin
     networks:
       - confess-network
-    # Remove --staging option to get real certificates
-    command: /bin/sh -c "certbot certonly -d ${DOMAIN} -m ${EMAIL} --staging --renew-with-new-domains --keep-until-expiring --rsa-key-size 4096 --standalone --agree-tos --no-eff-email && nginx -g 'daemon off;'"
 
   # PHP
   php:

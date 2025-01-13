@@ -189,5 +189,3 @@ networks:
 volumes:
   confess-dbdata:
     driver: local
-  jenkins-data:
-    driver: local
