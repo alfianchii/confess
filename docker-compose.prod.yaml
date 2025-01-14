@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   # Jenkins
   jenkins:
@@ -24,7 +26,7 @@ services:
     restart: unless-stopped
     container_name: nginx
     ports:
-      - 8000:8000
+    - ${APP_PORT}:8000
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
