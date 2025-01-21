@@ -169,18 +169,18 @@ docker compose run --rm --service-ports npm run dev
 <h4 id="docker-commands">🔐 Commands</h4>
 
 -   Composer
--   -   `docker-compose run --rm composer install`
--   -   `docker-compose run --rm composer require laravel/breeze --dev`
+-   -   `docker compose run --rm composer install`
+-   -   `docker compose run --rm composer require laravel/breeze --dev`
 -   -   Etc
 
 -   NPM
--   -   `docker-compose run --rm npm install`
--   -   `docker-compose run --rm --service-ports npm run dev`
+-   -   `docker compose run --rm npm install`
+-   -   `docker compose run --rm --service-ports npm run dev`
 -   -   Etc
 
 -   Artisan
--   -   `docker-compose run --rm artisan serve`
--   -   `docker-compose run --rm artisan route:list`
+-   -   `docker compose run --rm artisan serve`
+-   -   `docker compose run --rm artisan route:list`
 -   -   Etc
 
 <h2 id="production">🌐 Production</h2>
@@ -192,36 +192,58 @@ docker compose run --rm --service-ports npm run dev
 -   Copy `.env.example` file to `.env` and do configs.
 
 ```conf
-# Replace its values to your actual domain and your active email
-DOMAIN=your-domain.com
-EMAIL=your-email@gmail.com
 # App
 APP_ENV=production
 APP_DEBUG=false
-APP_URL=${DOMAIN}
+APP_URL=127.0.0.1
+APP_PORT=8002
+
 # DB
 DB_HOST=mariadb
 DB_DATABASE=confess
 DB_USERNAME=your-vps-username
 DB_PASSWORD=your-vps-password
 ```
-
--   Open `./docker-compose.prod.yaml`, remove `--staging` option on `nginx` service.
-
--   On `./docker/nginx/default.prod.conf`, set your own domain.
-
 -   Let's build with `docker compose -f ./docker-compose.prod.yaml up -d --build` command.
 
 -   Install its dependencies.
 
 ```bash
-docker compose run --rm composer install --optimize-autoloader --no-dev
-docker compose run --rm npm install
+docker compose run -f ./docker-compose.prod.yaml --rm composer install --optimize-autoloader --no-dev
+docker compose run -f ./docker-compose.prod.yaml --rm npm install
 ```
 
--   Build the assets with dockerized Vite.js command: `docker compose run --rm npm run build`.
+-   Build the assets with dockerized Vite.js command: `docker compose -f ./docker-compose.prod.yaml run --rm npm run build`.
 
--   Do Laravel setups with existing Docker's custom command: `docker compose run --rm laravel-setup`.
+-   Do Laravel setups with existing Docker's custom command: `docker compose -f ./docker-compose.prod.yaml run --rm laravel-setup`.
+
+- Setup your domain and SSL certificate with Nginx configuration:
+
+```nginx
+server {
+  server_name your-domain.com www.your-domain.com;
+
+  location / {
+    proxy_pass http://127.0.0.1:8002;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
+  error_log /var/log/nginx/my-domain_error.log;
+  access_log /var/log/nginx/my-domain_access.log;
+}
+```
+
+- Setup SSL certificate with Certbot:
+
+```bash
+sudo apt install certbot python3-certbot-nginx
+sudo certbot --nginx -d my-domain.com -d www.my-domain.com
+sudo ln -s /etc/nginx/sites-available/my-domain.com /etc/nginx/sites-enabled/
+sudo systemctl reload nginx
+```
 
 -   Congrats! Your app is ready to be served. You can access it on your domain and with HTTPS protocol~
 
