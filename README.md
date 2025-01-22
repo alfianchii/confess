@@ -209,8 +209,8 @@ DB_PASSWORD=your-vps-password
 -   Install its dependencies.
 
 ```bash
-docker compose run -f ./docker-compose.prod.yaml --rm composer install --optimize-autoloader --no-dev
-docker compose run -f ./docker-compose.prod.yaml --rm npm install
+docker compose -f ./docker-compose.prod.yaml run --rm composer install --optimize-autoloader --no-dev
+docker compose -f ./docker-compose.prod.yaml run --rm npm install
 ```
 
 -   Build the assets with dockerized Vite.js command: `docker compose -f ./docker-compose.prod.yaml run --rm npm run build`.
