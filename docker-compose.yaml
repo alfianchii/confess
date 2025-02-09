@@ -34,8 +34,6 @@ services:
         - USER=${USER:-confess}
     restart: always
     container_name: php
-    ports:
-      - "9000:9000"
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
