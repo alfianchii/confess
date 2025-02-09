@@ -5,8 +5,8 @@ services:
     container_name: jenkins
     restart: always
     ports:
-      - "8080:8080"
-      - "50000:50000"
+      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:50000:50000"
     volumes:
       - jenkins-data:/var/jenkins_home
     networks:
@@ -46,8 +46,6 @@ services:
         - USER=${USER:-confess}
     restart: always
     container_name: php
-    # ports:
-    #   - "9000:9000"
     volumes:
       - ./:/var/www/html
       - .env:/var/www/html/.env
@@ -84,7 +82,7 @@ services:
     depends_on:
       - mariadb
     ports:
-      - 8888:80
+      - 127.0.0.1:8888:80
     networks:
       - confess-network
 
@@ -118,8 +116,8 @@ services:
       - ./:/var/www/html
       - .env:/var/www/html/.env
     ports:
-      - 3000:3000
-      - 3001:3001
+      - 127.0.0.1:3000:3000
+      - 127.0.0.1:3001:3001
     working_dir: /var/www/html
     profiles: ["npm"]
     entrypoint: ["npm"]
